@@ -1,0 +1,94 @@
+# Guia de estilo de código
+#### Sertão Code
+
+Regras fundamentadas para promover a acessibilidade, 
+reutilização e eficiência do código.
+
+### 1. Nomeação:
+
+#### 1.1 No back-end:
+
+Sempre nomear atributos, variáveis, constantes, métodos e classes de maneira clara. Os nomes dos atributos, variáveis e constantes devem descrever os dados que armazenam, os nomes dos métodos devem descrever as ações que executam e os nomes das classes devem descrever o objeto que modelam.
+
+Variáveis e atributos devem ser em snake case com letras minúsculas.
+**ex:** _horario_saida_, _cidade_origem_
+
+Classes devem ter a primeira letra maiúscula.
+**ex:** _Cliente_, _Funcionario_, _Passagem_
+
+Métodos e funções devem ser em camel case.
+**ex:** _alterarDados()_, _consultarLinhas()_
+
+Constantes devem ser em letras maiúsculas.
+**ex:** _VALOR1_, _NUMERO_VAGAS_
+
+#### 1.2 No front-end:
+
+Utilize sempre letras minúsculas para representar tags e atributos
+**ex:** _<a href="/">Home</a>_
+
+Use os elementos(“tags”) para designar a função que você tem preferência: p, que serve para parágrafos, a, para links, e etc.
+**ex:** _<div class="btn-group">
+       <button>Algo</button>
+   </div>_
+
+Use aspas duplas para os atributos html.
+ex: _<input type="text" name="user[name]" id="user_name">_
+
+#### 1.3 No Banco de Dados:
+
+Palavras-chave devem ser em letras maiúsculas.
+**ex:** _SELECT COUNT(1) FROM tablename WHERE 1;_
+
+Nomes sempre minúsculos, entretanto, para nomes compostos, a segunda palavra deve começar com letra maiúscula.
+**ex:** _CREATE TABLE IF NOT EXISTS `logistica`.`registrationNumber` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(255) NOT NULL_
+
+Para DataBases usar nomes sempre com letras minúsculas.
+**ex:** _CREATE SCHEMA IF NOT EXISTS `guiaestilo` DEFAULT CHARACTER SET utf8;_
+
+Sempre que for apelidar colunas utilizar da palavra chave AS para este fim. Isso garante que, se uma vírgula seja posta num local indevido, não haja erros de relacionamento.
+**ex:** _SELECT ebe_ebs_sox_flag_set_for_all_crs AS sox_ok
+    FROM tablename;_
+
+
+### 2. Comentários:
+
+Os comentários ao longo do código devem descrever o “porquê” tal trecho de código foi implementado e não “como”.
+
+Toda classe deve ter um trecho de comentários antes dela que tenha presente as seguinte coisas na ordem em que está descrito:
+1. o nome dela;
+2. qual a funcionalidade/objetivo dela;
+3. o nome do(s) autor(es).
+
+Todo método deve ter um trecho de comentários antes dele que tenha presente as seguinte coisas na ordem em que está descrito:
+1. o nome dele;
+2. qual a funcionalidade/objetivo dele;
+3. o nome do(s) autor(es).
+
+Todo atributo, variável e constante deve possuir um comentário ao lado da declaração do mesmo que forneça uma breve explicação do que ele armazena.
+
+Para comentários em HTML, utilize a seguinte marcação <!-- -->
+**ex:** _<!--Comentários não são exibidos no navegador-->_
+
+
+### 3. Regras gerais
+
+Utilizar sempre que possível e necessário padrões de projetos (Observer, Adapter, DAO) minimizando a dependência entre as partes.
+
+Utilizar outras regras de estilo próprias de cada linguagem utilizada no projeto, de forma que não confrontem com as regras aqui estabelecidas.
+
+
+### 4. Utilização de ferramentas de versionamento
+
+Quando quiser indicar uma melhoria ou alteração em um código de autoria de outra pessoa, preferir abrir “issues” ao invés de fazer “pull request” diretos no código.
+
+Utilizar outros branches (diferentes do principal) para fazer implementações não definitivas no projeto.
+
+
+### 5. Referências
+
+Guia de Estilo EcompJr UEFS: <https://github.com/EcompJr/Guia-de-estilo-EcompJr>
+
+Guias de estilo para projetos JavaScript - Airbnb, Google e GitHub: <https://medium.com/code-prestige/guias-de-estilo-para-projetos-javascript-airbnb-google-e-github-eec4f4ee7dc0>
