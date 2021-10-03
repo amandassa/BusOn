@@ -262,10 +262,13 @@ body, html {height: 100%}
 {
     height: auto;
     width: auto;
-    padding: 10px;
-    border-radius: 3px;
-    font-weight: 600;
+    padding: 6px;
     border: none;
+    border-radius: 3px;
+    color: black;
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .pagina .barraCentral .divisaoPrimaria .divisaoBase .divisaoControle .entradaBotaoPrimario {background-color: #F9C536}
