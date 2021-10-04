@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <title>Acessar Conta</title>
+    <title>Recuperar Acesso</title>
 </head>
 <body>
-<div class="paginaAcessoCliente pagina">
+<div class="paginaRecuperarAcesso pagina">
         <div class="barraSuperior"> <!--BARRA SUPERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
@@ -30,26 +30,18 @@
         </div>
         <div class="barraCentral"> <!--BARRA CENTRAL-->
             <div class="divisaoPrimaria">
-                <h1 class="titulo">Acessar Conta</h1>
+                <h1 class="titulo">Recuperar Acesso</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="email">E-mail:</label>
+                        <label class="legenda" for="email">Seu e-mail:</label>
                         <input class="entradaTexto" type="email" name="email" id="email">
                     </div>
-                    <div class="divisaoEntrada">
-                        <label class="legenda" for="senha">Senha:</label>
-                        <input class="entradaTexto" type="password" name="senha" id="senha">
-                    </div>
                     <div class="divisaoControle">
-                        <button class="entradaBotao entradaBotaoPrimario" name="acessarConta" value="acessarConta" id="acessarConta">Acessar conta</button>
+                        <button class="entradaBotao entradaBotaoPrimario" name="acessarConta" value="acessarConta" id="acessarConta">Enviar senha provisória</button>
                     </div>
                     <div class="divisaoAcesso">
-                        <label>Não tem cadastro?</label>
-                        <a class="link" href="./cadastro_cliente.php">Cadastre sua conta</a>
-                    </div>
-                    <div class="divisaoAcesso">
-                        <label>Esqueceu sua senha?</label>
-                        <a class="link" href="./recuperar_acesso.php">Recupere sua senha</a>
+                        <label>Recordou sua senha?</label>
+                        <a class="link" href="./acesso_cliente.php">Tente acessar sua conta</a>
                     </div>
                 </div>
             </div>

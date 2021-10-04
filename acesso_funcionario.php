@@ -13,7 +13,7 @@
     <title>Acessar Conta</title>
 </head>
 <body>
-<div class="paginaAcessoCliente pagina">
+<div class="paginaAcessoFuncionario pagina">
         <div class="barraSuperior"> <!--BARRA SUPERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
@@ -42,10 +42,6 @@
                     </div>
                     <div class="divisaoControle">
                         <button class="entradaBotao entradaBotaoPrimario" name="acessarConta" value="acessarConta" id="acessarConta">Acessar conta</button>
-                    </div>
-                    <div class="divisaoAcesso">
-                        <label>Não tem cadastro?</label>
-                        <a class="link" href="./cadastro_cliente.php">Cadastre sua conta</a>
                     </div>
                     <div class="divisaoAcesso">
                         <label>Esqueceu sua senha?</label>

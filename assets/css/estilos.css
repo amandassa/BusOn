@@ -61,13 +61,19 @@ body, html {height: 100%}
     font-family: 'Poppins', sans-serif;
 }
 
-.paginaCadastroCliente .barraCentral {min-height: 464px}
+.paginaCadastroCliente .barraCentral {min-height: 460px}
+
+.paginaCadastroFuncionario .barraCentral {min-height: 440px}
 
 .paginaAcessoCliente .barraCentral {min-height: 312px}
 
+.paginaAcessoFuncionario .barraCentral {min-height: 288px}
+
 .paginaDadosCliente .barraCentral {min-height: 440px}
 
-.paginaDadosFuncionario .barraCentral {min-height: 500px}
+.paginaDadosFuncionario .barraCentral {min-height: 498px}
+
+.paginaRecuperarAcesso .barraCentral {min-height: 234px}
 
 /* -- TÍTULO DE DIVISÃO PRIMÁRIA DE DIVISÃO DE BARRA CENTRAL -- */
 
@@ -241,9 +247,12 @@ body, html {height: 100%}
 /* -- ENTRADAS DE TEXTO EM DIVISÕES DE BASE EM DIVISÕES PRIMÁRIAS EM DIVISÕES DE BARRAS -- */
 
 .paginaCadastroCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaCadastroFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
 .paginaAcessoCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaAcessoFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
 .paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
-.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaRecuperarAcesso .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto
 {
     width: 400px;
     border: 1px solid #ccc;
@@ -294,9 +303,12 @@ body, html {height: 100%}
 /* -- LEGENDAS EM DIVISÕES DE BASE EM DIVISÕES PRIMÁRIAS EM DIVISÕES DE BARRAS -- */
 
 .paginaCadastroCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaCadastroFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
 .paginaAcessoCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaAcessoFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
 .paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
-.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaRecuperarAcesso .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda
 {
     width: 100%;
     margin-bottom: 2px;

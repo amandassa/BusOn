@@ -34,27 +34,27 @@
                 <h1 class="titulo">Meus Dados</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="nomeCompleto">Seu nome:</label>
+                        <label class="legenda" for="nomeCompleto">Nome:</label>
                         <input class="entradaTexto" type="text" name="nomeCompleto" id="nomeCompleto">
                     </div>
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="email">Seu e-mail:</label>
+                        <label class="legenda" for="email">E-mail:</label>
                         <input class="entradaTexto" type="email" name="email" id="email">
                     </div>
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="cpf">Seu CPF:</label>
+                        <label class="legenda" for="cpf">CPF:</label>
                         <input class="entradaTexto" type="text" name="cpf" id="cpf">
                     </div>
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="matricula">Sua matricula:</label>
+                        <label class="legenda" for="matricula">Matricula:</label>
                         <input class="entradaTexto" type="text" name="matricula" id="matricula">
                     </div>
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="senha">Sua senha:</label>
+                        <label class="legenda" for="senha">Senha:</label>
                         <input class="entradaTexto" type="password" name="senha" id="senha">
                     </div>
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="confirmacaoSenha">Confirmação de sua senha:</label>
+                        <label class="legenda" for="confirmacaoSenha">Confirmação de senha:</label>
                         <input class="entradaTexto" type="password" name="confirmacaoSenha" id="confirmacaoSenha">
                     </div>
                     <div class="divisaoControle">
