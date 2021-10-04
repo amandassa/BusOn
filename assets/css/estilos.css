@@ -61,6 +61,16 @@ body, html {height: 100%}
     font-family: 'Poppins', sans-serif;
 }
 
+.paginaCadastroCliente,
+.paginaCadastroFuncionario,
+.paginaAcessoCliente,
+.paginaAcessoFuncionario,
+.paginaDadosCliente,
+.paginaDadosFuncionario,
+.paginaRecuperarAcesso {
+    min-width: 1080px;
+}
+
 .paginaCadastroCliente .barraCentral {min-height: 460px}
 
 .paginaCadastroFuncionario .barraCentral {min-height: 440px}
