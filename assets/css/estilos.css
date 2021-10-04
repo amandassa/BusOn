@@ -67,6 +67,8 @@ body, html {height: 100%}
 
 .paginaDadosCliente .barraCentral {min-height: 440px}
 
+.paginaDadosFuncionario .barraCentral {min-height: 500px}
+
 /* -- TÍTULO DE DIVISÃO PRIMÁRIA DE DIVISÃO DE BARRA CENTRAL -- */
 
 .pagina .barraCentral .divisaoPrimaria .titulo
@@ -240,7 +242,8 @@ body, html {height: 100%}
 
 .paginaCadastroCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
 .paginaAcessoCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
-.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto
+.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto
 {
     width: 400px;
     border: 1px solid #ccc;
@@ -250,7 +253,9 @@ body, html {height: 100%}
     text-indent: 4px;
 }
 
-.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #cpf
+.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #cpf,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #matricula,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #cpf
 {
     pointer-events:none;
     background-color: #e0e0e0;
@@ -290,7 +295,8 @@ body, html {height: 100%}
 
 .paginaCadastroCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
 .paginaAcessoCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
-.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda
+.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda
 {
     width: 100%;
     margin-bottom: 2px;

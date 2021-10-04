@@ -33,11 +33,11 @@
                 <h1 class="titulo">Acessar Conta</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="email">Email</label>
+                        <label class="legenda" for="email">Seu e-mail:</label>
                         <input class="entradaTexto" type="email" name="email" id="email">
                     </div>
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="senha">Senha</label>
+                        <label class="legenda" for="senha">Sua senha:</label>
                         <input class="entradaTexto" type="password" name="senha" id="senha">
                     </div>
                     <div class="divisaoControle">

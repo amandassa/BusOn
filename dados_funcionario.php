@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <title>Cadastrar Conta</title>
+    <title>Meus Dados</title>
 </head>
 <body>
-    <div class="paginaCadastroCliente pagina">
+<div class="paginaDadosFuncionario pagina">
         <div class="barraSuperior"> <!--BARRA SUPERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
@@ -26,11 +26,12 @@
             <div class="divisaoCentral">
             </div>
             <div class="divisaoDireita">
+                <button class="entradaBotao entradaBotaoSecundario" name="sairConta" value="sairConta" id="sairConta">Sair</button>
             </div>
         </div>
         <div class="barraCentral"> <!--BARRA CENTRAL-->
             <div class="divisaoPrimaria">
-                <h1 class="titulo">Cadastrar Conta</h1>
+                <h1 class="titulo">Meus Dados</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
                         <label class="legenda" for="nomeCompleto">Seu nome:</label>
@@ -45,6 +46,10 @@
                         <input class="entradaTexto" type="text" name="cpf" id="cpf">
                     </div>
                     <div class="divisaoEntrada">
+                        <label class="legenda" for="matricula">Sua matricula:</label>
+                        <input class="entradaTexto" type="text" name="matricula" id="matricula">
+                    </div>
+                    <div class="divisaoEntrada">
                         <label class="legenda" for="senha">Sua senha:</label>
                         <input class="entradaTexto" type="password" name="senha" id="senha">
                     </div>
@@ -53,11 +58,7 @@
                         <input class="entradaTexto" type="password" name="confirmacaoSenha" id="confirmacaoSenha">
                     </div>
                     <div class="divisaoControle">
-                        <button class="entradaBotao entradaBotaoPrimario" name="cadastrarConta" value="cadastrarConta" id="cadastrarConta">Cadastrar conta</button>
-                    </div>
-                    <div class="divisaoAcesso">
-                        <label>Já tem cadastro?</label>
-                        <a class="link" href="./acesso_cliente.php">Acesse sua conta</a>
+                        <button class="entradaBotao entradaBotaoPrimario" name="salvarDados" value="salvarDados" id="salvarDados">Salvar dados</button>
                     </div>
                 </div>
             </div>
