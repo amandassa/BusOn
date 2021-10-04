@@ -33,7 +33,7 @@
                 <h1 class="titulo">Recuperar Acesso</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="email">Seu e-mail:</label>
+                        <label class="legenda" for="email">E-mail cadastrado:</label>
                         <input class="entradaTexto" type="email" name="email" id="email">
                     </div>
                     <div class="divisaoControle">
