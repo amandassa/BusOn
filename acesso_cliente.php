@@ -49,7 +49,7 @@
                     </div>
                     <div class="divisaoAcesso">
                         <label>Esqueceu sua senha?</label>
-                        <a class="link" href="./recuperar_acesso.php">Recupere sua senha</a>
+                        <a class="link" href="./recuperar_acesso.php">Recupere seu acesso</a>
                     </div>
                 </div>
             </div>
