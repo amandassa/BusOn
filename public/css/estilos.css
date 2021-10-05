@@ -1,0 +1,364 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {height: 100%}
+
+.pagina
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagina .link
+{
+    text-decoration: none;
+    color: #103A52;
+}
+
+/* -- BARRAS DE PÁGINAS -- */
+
+.pagina .barraSuperior
+{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #F9C536;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+}
+
+.pagina .barraCentral
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F5F5;
+    color: black;
+    font-family: 'Darker Grotesque', sans-serif;
+}
+
+.pagina .barraInferior
+{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.paginaCadastroCliente,
+.paginaCadastroFuncionario,
+.paginaAcessoCliente,
+.paginaAcessoFuncionario,
+.paginaDadosCliente,
+.paginaDadosFuncionario,
+.paginaRecuperarAcesso {
+    min-width: 1080px;
+}
+
+.paginaCadastroCliente .barraCentral {min-height: 460px}
+
+.paginaCadastroFuncionario .barraCentral {min-height: 440px}
+
+.paginaAcessoCliente .barraCentral {min-height: 312px}
+
+.paginaAcessoFuncionario .barraCentral {min-height: 288px}
+
+.paginaDadosCliente .barraCentral {min-height: 440px}
+
+.paginaDadosFuncionario .barraCentral {min-height: 498px}
+
+.paginaRecuperarAcesso .barraCentral {min-height: 234px}
+
+/* -- TÍTULO DE DIVISÃO PRIMÁRIA DE DIVISÃO DE BARRA CENTRAL -- */
+
+.pagina .barraCentral .divisaoPrimaria .titulo
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4px;
+    margin-left: 5px;
+    width: 100%;
+    text-align: left;
+    font-size: 16pt;
+}
+
+/* -- DIVISÕES DE BARRAS -- */
+
+.pagina .barraSuperior .divisaoEsquerda
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina .barraCentral .divisaoPrimaria
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina .barraCentral .divisaoPrimaria .divisaoBase
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 6px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    background-color: white;
+}
+
+.pagina .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.pagina .barraCentral .divisaoPrimaria .divisaoBase .divisaoControle
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.pagina .barraCentral .divisaoPrimaria .divisaoBase .divisaoAcesso
+{
+    font-weight: 600;
+    text-align: center;
+}
+
+.pagina .barraInferior .divisaoEsquerda
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina .barraSuperior .divisaoCentral
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina .barraInferior .divisaoCentral
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.pagina .barraSuperior .divisaoDireita
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina .barraInferior .divisaoDireita
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* -- DIVISÕES DE ÍCONE EM DIVISÕES DE BARRAS -- */
+
+.pagina .barraSuperior .divisaoEsquerda .divisaoIcone
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pagina .barraInferior .divisaoEsquerda .divisaoIcone
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* -- ÍCONES EM DIVISÕES DE ÍCONE EM DIVISÕES DE BARRAS -- */
+
+.pagina .barraSuperior .divisaoEsquerda .divisaoIcone .icone
+{
+    height: 66px;
+}
+
+.pagina .barraInferior .divisaoEsquerda .divisaoIcone .icone
+{
+    height: 66px;
+}
+
+/* -- ENTRADAS DE TEXTO EM DIVISÕES DE BASE EM DIVISÕES PRIMÁRIAS EM DIVISÕES DE BARRAS -- */
+
+.paginaCadastroCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaCadastroFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaAcessoCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaAcessoFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto,
+.paginaRecuperarAcesso .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .entradaTexto
+{
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    height: 24px;
+    text-align: left;
+    text-indent: 4px;
+}
+
+.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #cpf,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #matricula,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada #cpf
+{
+    pointer-events:none;
+    background-color: #e0e0e0;
+}
+
+/* -- ENTRADAS DE BOTÃO EM DIVISÕES DE BASE EM DIVISÕES PRIMÁRIAS EM DIVISÕES DE BARRAS -- */
+
+.pagina .barraSuperior .divisaoDireita .entradaBotao,
+.pagina .barraCentral .divisaoPrimaria .divisaoBase .divisaoControle .entradaBotao
+{
+    height: auto;
+    min-height: 36px;
+    width: auto;
+    min-width: 90px;
+    padding: 6px;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pagina .barraSuperior .divisaoDireita .entradaBotao
+{
+    background-color: #1B5576;
+    color: white;
+}
+
+.pagina .barraCentral .divisaoPrimaria .divisaoBase .divisaoControle .entradaBotaoPrimario
+{
+    background-color: #F9C536;
+    color: black;
+}
+
+/* -- LEGENDAS EM DIVISÕES DE BASE EM DIVISÕES PRIMÁRIAS EM DIVISÕES DE BARRAS -- */
+
+.paginaCadastroCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaCadastroFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaAcessoCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaAcessoFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaDadosCliente .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaDadosFuncionario .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda,
+.paginaRecuperarAcesso .barraCentral .divisaoPrimaria .divisaoBase .divisaoEntrada .legenda
+{
+    width: 100%;
+    margin-bottom: 2px;
+    font-size: 20px;
+}
+
+/* -- DIVISÕES DE NOME EM DIVISÕES DE BARRAS -- */
+
+.pagina .barraSuperior .divisaoEsquerda .divisaoNome
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 10px;
+    font-size: 48px;
+}
+
+.pagina .barraInferior .divisaoEsquerda .divisaoNome
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 10px;
+    font-size: 26px;
+}
+
+/* -- NOMES EM DIVISÕES DE NOME EM DIVISÕES DE BARRAS -- */
+
+.pagina .barraSuperior .divisaoEsquerda .divisaoNome .nomeCentral {font-weight: 200}
+
+.pagina .barraInferior .divisaoEsquerda .divisaoNome .nomeSuperior {font-weight: 600}
+
+.pagina .barraInferior .divisaoEsquerda .divisaoNome .nomeInferior {font-weight: 200}
+
+/* -- CASO PARTICULAR -> ÍCONES DE CARTÃO EM DIVISÃO DE BARRA --*/
+
+.pagina .barraInferior .divisaoDireita .iconeCartao {margin-left: 20px}
