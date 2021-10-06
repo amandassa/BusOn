@@ -27,7 +27,7 @@
         @yield('content')
     </div>
         
-    <div id="bottomBar" class="bottomBar">
+    <div id="bottomBar" class="footer navbar-fixed-bottom bottomBar">
         <div class="logoSertao"></div>
         <div class="rodape">
             <label><b>BusOn</b> - Sistema de Compra e Venda de Passagens Online.</label>
@@ -36,6 +36,4 @@
         </div>
         <div class="formasPagamento"></div>                
     </div>
-    
-    
 </body>

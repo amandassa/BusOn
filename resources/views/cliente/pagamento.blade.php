@@ -3,6 +3,11 @@
 @section('title', 'Pagamento - ')
 
 @section('content')
+    
+@php
+$i = 1;
+@endphp
+
     <div style="text-align:center;">
         <button>Opção 1</button>
         <button>Opção 2</button>
@@ -10,7 +15,7 @@
             <br>
     </div>
                 
-    <div class="container">
+    <div class="container" style="padding-bottom: 50px;">
         <div class="row">
             <div class="col-sm">
                 <h3>Forma de Pagamento</h3>
@@ -19,17 +24,23 @@
                         <div class="card card-default">                
                             <div class="card-body">               
                                 <label>Selecione a Forma de Pagamento: </label> <br>                                    
-                                <button class="botaoSelecionado">
-                                  <i class="fa-solid fa-credit-card" onClick="{{route('pagamento_cartao')}}"></i>
+                                <button class="botaoSelecionado" onClick="{{ $i = 1}}">
+                                  <i class="fa-solid fa-credit-card"></i>
                                     Cartão de Crédito</button>
-                                <button class="botao">
+                                <button class="botao" onClick="{{ $i = 2}}">
                                   <i class="fa-solid fa-credit-card"></i>
                                     Boleto</button>
-                                <button class="botao">
+                                <button class="botao" onClick="{{ $i = 3}}">
                                   <i class="fa-solid fa-credit-card"></i>
                                     Pix</button>
                                 <div>
-                                    @yield('formulario')
+                                    @include('cliente._partials.cartao')
+                                    @switch($i)
+                                        @case(1)
+                                            @include('cliente._partials.cartao')
+                                            @break
+                                        @default                                            
+                                    @endswitch
                                 </div>
                             </div>
                         </div>
