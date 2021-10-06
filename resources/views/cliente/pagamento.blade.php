@@ -20,7 +20,7 @@ $i = 1;
                 <h3>Forma de Pagamento</h3>
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="card card-default">                
+                        <div class="card card-default">                        
                             <div class="card-body">               
                                 <label>Selecione a Forma de Pagamento: </label> <br>                                    
                                 <button class="botaoSelecionado" onClick="{{ $i = 1}}">
