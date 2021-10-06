@@ -1,6 +1,6 @@
 <?php
 
-use dao\ClienteDAO;
+use ClienteDAO;
 
 /*
 Nome: Cliente (classe)
