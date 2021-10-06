@@ -17,6 +17,10 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/pagamento', function(){
+    return view('cliente._partials.cartao');
+    })->name('pagamento_cartao');
+
 Route::get('/base', function(){
     return view('app');
     });

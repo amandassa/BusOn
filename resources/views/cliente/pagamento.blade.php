@@ -18,11 +18,19 @@
                     <div class="container-fluid">
                         <div class="card card-default">                
                             <div class="card-body">               
-                                <label>Selecione a Forma de Pagamento: </label>
-                                    <i class="fa-solid fa-credit-card"></i>
+                                <label>Selecione a Forma de Pagamento: </label> <br>                                    
                                 <button class="botaoSelecionado">
-                                  <i class="fa-solid fa-credit-card"></i>
+                                  <i class="fa-solid fa-credit-card" onClick="{{route('pagamento_cartao')}}"></i>
                                     Cartão de Crédito</button>
+                                <button class="botao">
+                                  <i class="fa-solid fa-credit-card"></i>
+                                    Boleto</button>
+                                <button class="botao">
+                                  <i class="fa-solid fa-credit-card"></i>
+                                    Pix</button>
+                                <div>
+                                    @yield('formulario')
+                                </div>
                             </div>
                         </div>
                     </div>

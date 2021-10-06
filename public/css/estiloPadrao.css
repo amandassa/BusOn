@@ -35,7 +35,9 @@ html, body {height:100%;}
     background-color: #000000;
     display: flex; 
     flex-direction: row;
-    align-items: center;    
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .operacoesUsuario{
@@ -45,8 +47,7 @@ html, body {height:100%;}
 .logoSertao
 {
     width:13%;
-    height: 65%;
-    margin-left: 12em;
+    height: 65%;    
     background-image: url('/imagens/SertaoCode.png');
     background-repeat: no-repeat;
     background-size: 100%;
@@ -54,8 +55,9 @@ html, body {height:100%;}
 }
 
 .rodape{
-    width: 34%;    
+    width: 25%;    
     family-font:"Arial";
+    font-size: 10px;
     margin-left:1em;
     color:white;
     align-self: center;
@@ -64,11 +66,11 @@ html, body {height:100%;}
 .formasPagamento
 {
     width:20%;
-    height: 80%;
-    margin-left: 1em;
+    height: 60%;    
+    align-self:center;    
     background-image: url('/imagens/pagamentos.png');
     background-repeat: no-repeat;
-    background-size: 70%;    
+    background-size: 80%;    
 }
 
 .botaoSelecionado
@@ -89,4 +91,7 @@ html, body {height:100%;}
     font-style: bold;
     background-color:white;
     height:50px;
+    li.active a {
+    background: #F9C536;
+    }
 }
