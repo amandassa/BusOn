@@ -36,7 +36,7 @@
                         <input type="number" class="form-control" id="ccv_cartao" placeholder="_ _ _ _">
                     </div>
                 </div>
-                    
+                <br>
                 <div class="row"> <!-- TerceiraLinha -->
                     <div class="col-sm">
                         <label>Nome do titular:</label>

@@ -23,7 +23,7 @@
         </div>
     </div>
         
-    <div style="padding:2em;margin:2em;">
+    <div style="margin:2em;">
         @yield('content')
     </div>
         

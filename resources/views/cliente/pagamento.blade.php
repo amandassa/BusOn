@@ -9,12 +9,11 @@ $i = 1;
 @endphp
 
     <div style="text-align:center;">
-        <button>Opção 1</button>
-        <button>Opção 2</button>
-        <button>Opção 3</button>
-            <br>
-    </div>
-                
+        <button type="button" class="btn btn-warning">Opção 1</button>
+        <button type="button" class="btn btn-warning">Opção 2</button>
+        <button type="button" class="btn btn-warning">Opção 3</button>            
+    </div>            
+                <br><br>
     <div class="container" style="padding-bottom: 50px;">
         <div class="row">
             <div class="col-sm">
@@ -33,6 +32,7 @@ $i = 1;
                                 <button class="botao" onClick="{{ $i = 3}}">
                                   <i class="fa-solid fa-credit-card"></i>
                                     Pix</button>
+                                <hr/>        
                                 <div>
                                     @include('cliente._partials.cartao')
                                     @switch($i)
@@ -48,7 +48,7 @@ $i = 1;
                 </section>        
             </div>
             <div class="col-sm">
-                <h3> tem ota coisa aqui</h3>    
+                <h3> Resumo da Compra</h3>    
             </div>
         </div>
     </div>    
