@@ -10,11 +10,10 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
 </head>
     
-    
 <body>
     <div class="navBar">
         <div class="divLogo" >
-            <img class="logo" src="{{URL::asset('/imagens/iconeProduto.png')}}" />            
+            <img class="logo" src="{{URL::asset('/imagens/BusOn.png')}}" />            
         </div>
         
         <div style="width:70%;"></div>
@@ -24,9 +23,19 @@
         </div>
     </div>
         
-    <div style="padding:10em;">
+    <div style="padding:2em;margin:2em;">
         @yield('content')
-    </div>    
+    </div>
+        
+    <div id="bottomBar" class="bottomBar">
+        <div class="logoSertao"></div>
+        <div class="rodape">
+            <label><b>BusOn</b> - Sistema de Compra e Venda de Passagens Online.</label>
+            <label>Avenida Transnordestina, S/N, Novo Horizonte. Feira de Santana-BA.</label>
+            <label><b>Desenvolvido por Sertão Code, 2021.</b></label>
+        </div>
+        <div class="formasPagamento"></div>                
+    </div>
     
     
 </body>
