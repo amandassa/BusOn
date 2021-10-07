@@ -1,0 +1,31 @@
+.tituloAzul{
+    font-size: 20px;
+    color: #1C5576;
+    font-style: bold;
+    text-align: center;    
+}
+
+.textoAmarelo{
+    font-size: 16px;
+    color: #F9C536;    
+    font-weight: 900;
+    text-align: center;    
+}
+
+.textoPreto{
+    font-size: 16px;
+    color: black;    
+    font-weight: bolder;
+    text-align: center;    
+}
+
+.label2{
+    color: black;
+    text-align: center;
+    font-weight: 100;
+}
+
+.textoConfirmacao{
+    color: green;
+    text-align:center;    
+}

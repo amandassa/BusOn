@@ -23,4 +23,8 @@ Route::get('/pagamento', function(){
 
 Route::get('/base', function(){
     return view('app');
-    });
+    })->name('base');
+
+Route::get('/confirmacao', function(){
+    return view('cliente.confirmacao');
+    })->name('confirmacao');
