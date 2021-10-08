@@ -28,3 +28,8 @@ Route::get('/base', function(){
 Route::get('/confirmacao', function(){
     return view('cliente.confirmacao');
     })->name('confirmacao');
+
+ Route::get('/cadastroclientes', function(){
+    return view('cliente.cadastroclientes');
+        })->name('cadastroclientes');
+    
