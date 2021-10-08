@@ -35,9 +35,9 @@
                         <a class="link itemMenu" href="#">Minhas Passagens</a>
                     </div>
                 </i>
-                <i class="fa fa-mail-reply botao" style="font-size:32px;color:black"></i>
-                <i class="fa fa-home botao" style="font-size:38px;color:black"></i>
-                <button class="botao botaoSecundario" name="sairConta" value="sairConta" id="sairConta">Sair</button>
+                <i class="fa fa-mail-reply botao" style="font-size:32px;color:black"></i> <!--BOTÃO DE GOBACK-->
+                <i class="fa fa-home botao" style="font-size:38px;color:black"></i> <!--BOTÃO DE HOME-->
+                <button class="botao botaoSecundario" name="sairConta" value="sairConta" id="sairConta">Sair</button> <!--BOTÃO DE SAIR-->
             </div>
         </div>
         <div class="barraCentral barra"> <!--BARRA CENTRAL-->
