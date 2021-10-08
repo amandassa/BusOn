@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/padrao.css">
-    <link rel="stylesheet" href="./assets/css/cadastro_funcionario.css">
+    <link rel="stylesheet" href="./assets/css/dados_administrador.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <title>Cadastrar Conta</title>
+    <title>Meus Dados</title>
 </head>
 <body>
-    <div class="pagina">
+<div class="pagina">
         <div class="barraSuperior barra"> <!--BARRA SUPERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
@@ -31,10 +31,10 @@
                 <i class="fa fa-user botao menu" style="font-size:18px;color:black"> <!--MENU DE OPÇÕES-->
                     <label for="nomeUsuario" class="legenda">Olá, Cláudio</label>
                     <div class="itensMenu">
-                        <a class="link itemMenu" href="./dados_administrador.php">Editar Perfil</a>
                         <a class="link itemMenu" href="#">Vender Passagens</a>
                         <a class="link itemMenu" href="#">Consultar Linhas</a>
                         <a class="link itemMenu" href="#">Gerar Relatórios</a>
+                        <a class="link itemMenu" href="./cadastro_funcionario.php">Cadastrar Funcionário</a>
                         <a class="link itemMenu" href="#">Gerenciar Usuários</a>
                         <a class="link itemMenu" href="#">Verificar Log de Registros</a>
                     </div>
@@ -46,7 +46,7 @@
         </div>
         <div class="barraCentral barra"> <!--BARRA CENTRAL-->
             <div class="divisaoPrimaria">
-                <h1 class="titulo">Cadastrar Conta</h1>
+                <h1 class="titulo">Meus Dados</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
                         <label class="legenda" for="nomeCompleto">Nome:</label>
@@ -58,7 +58,11 @@
                     </div>
                     <div class="divisaoEntrada">
                         <label class="legenda" for="cpf">CPF:</label>
-                        <input class="entradaTexto" type="text" name="cpf" id="cpf">
+                        <input class="entradaTexto entradaTextoDesativado" type="text" name="cpf">
+                    </div>
+                    <div class="divisaoEntrada">
+                        <label class="legenda" for="matricula">Matricula:</label>
+                        <input class="entradaTexto entradaTextoDesativado" type="text" name="matricula">
                     </div>
                     <div class="divisaoEntrada">
                         <label class="legenda" for="senha">Senha:</label>
@@ -69,7 +73,7 @@
                         <input class="entradaTexto" type="password" name="confirmacaoSenha" id="confirmacaoSenha">
                     </div>
                     <div class="divisaoControle">
-                        <button class="botao botaoPrimario" name="cadastrarConta" value="cadastrarConta" id="cadastrarConta">Cadastrar conta</button>
+                        <button class="botao botaoPrimario" name="salvarDados" value="salvarDados" id="salvarDados">Salvar dados</button>
                     </div>
                 </div>
             </div>

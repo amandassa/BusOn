@@ -28,8 +28,12 @@
             <div class="divisaoCentral">
             </div>
             <div class="divisaoDireita">
-                <i class="fa fa-user botao" style="font-size:18px;color:black">
-                    <label for="nomeUsuario" class="legenda" style="cursor:pointer">Olá, Cláudio</label>
+                <i class="fa fa-user botao menu" style="font-size:18px;color:black"> <!--MENU DE OPÇÕES-->
+                    <label for="nomeUsuario" class="legenda">Olá, Cláudio</label>
+                    <div class="itensMenu">
+                        <a class="link itemMenu" href="./dados_cliente.php">Editar Perfil</a>
+                        <a class="link itemMenu" href="#">Minhas Passagens</a>
+                    </div>
                 </i>
                 <i class="fa fa-mail-reply botao" style="font-size:32px;color:black"></i>
                 <i class="fa fa-home botao" style="font-size:38px;color:black"></i>

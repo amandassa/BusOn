@@ -16,6 +16,37 @@ body, html, .pagina {height: 100%}
     min-width: 1080px;
 }
 
+.menu /*REFERE-SE AO MENU DE OPÇÕES*/
+{
+    position: relative;
+    display: inline-block;
+    width: max-content;
+}
+
+.itensMenu /*REFERE-SE A LISTA DE ITENS DE UM MENU DE OPÇÕES*/
+{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: max-content;
+}
+
+.itensMenu .itemMenu /*REFERE-SE AOS ITENS DE UM MENU DE OPÇÕES*/
+{
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.itensMenu .itemMenu:hover {background-color: #ddd} /*REFERE-SE AO QUE OCORRE QUANDO O MOUSE ESTÁ SOBRE OS ITENS DO MENU*/
+
+.menu:hover .itensMenu {display: block} /*REFERE-SE AO QUE OCORRE QUANDO O MOUSE ESTÁ SOBRE O MENU*/
+
 .legenda /*REFERE-SE AOS TEXTOS QUE FICAM ACIMA DAS ENTRADAS DE TEXTO*/
 {
     width: 100%;
@@ -27,6 +58,7 @@ body, html, .pagina {height: 100%}
 
 .iconeCartao {margin-left: 20px} /*REFERE-SE AOS ÍCONE DE CARTÃO*/
 
+.itensMenu .itemMenu,
 .link /*REFERE-SE A TODOS OS LINKS DE ACESSO A ALGUMA PÁGINA DE RECURSOS*/
 {
     text-decoration: none;
@@ -66,16 +98,20 @@ body, html, .pagina {height: 100%}
 
 .botaoPrimario, .botaoSecundario {min-width: 90px}
 
+.botaoPrimario:hover {background-color:#F9C536d0}
+
 
 .botaoPrimario /*REFERE-SE AOS BOTÕES PRIMÁRIOS CUJA COR É AMARELA E AS LETRAS SÃO PRETAS*/
 {
-    background-color: #F9C536;
+    background-color:#F9C536;
     color: black;
 }
 
+.botaoSecundario:hover {background-color:#1b5576d0}
+
 .botaoSecundario /*REFERE-SE AOS BOTÕES SECUNDÁRIOS CUJA COR É AZUL E AS LETRAS SÃO BRANCAS*/
 {
-    background-color: #1B5576;
+    background-color:#1B5576;
     color: white;
 }
 
@@ -230,6 +266,7 @@ body, html, .pagina {height: 100%}
     font-weight: 400;
 }
 
+.itensMenu .itemMenu,
 .barraSuperior .divisaoDireita .legenda /*REFERE-SE AO NOME DE USUÁRIO*/
 {
     font-family: 'Darker Grotesque', sans-serif;
