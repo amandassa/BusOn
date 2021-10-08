@@ -13,7 +13,7 @@
 <body>
     <div class="navBar">
         <div class="divLogo" >
-            <img class="logo" src="{{URL::asset('/imagens/BusOn.png')}}" />            
+            <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
         </div>
         
         <div style="width:70%;"></div>

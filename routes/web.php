@@ -28,3 +28,7 @@ Route::get('/base', function(){
 Route::get('/confirmacao', function(){
     return view('cliente.confirmacao');
     })->name('confirmacao');
+
+Route::get('/inicial_func', function(){
+    return view('funcionario.inicial_func');
+    })->name('inicial_func');    
