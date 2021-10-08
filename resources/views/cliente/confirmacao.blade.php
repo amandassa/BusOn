@@ -4,49 +4,61 @@
     
 @section('content')
     <link href="/css/estiloPaginas.css" rel="stylesheet">
-    <div class="container" style="margin-top:2em;">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Selecionar Passagem</a></li>
+        <li class="breadcrumb-item"><a href="pagamento">Pagamento</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Confirmação</li>
+      </ol>
+    </nav>
+
+    <div class="container">
         <div class="row"> <!-- Linha 1 -->
           <div class="col-sm-6"> <!-- Coluna 1 -->
-            <h4>Status da Compra</h4> 
+            <h5>Informaçãos do Pedido</h5> 
               <div class="card">
                 <div class="card-body">
-                    <p class="tituloAzul">Aguardando Pagamento!!</p>                
-                  <hr/>                  
-                  <p class="textoAmarelo"><label class="label2">Código Pedido:</label> 398273287</p>
+                  <div class="row"> <!-- Linha 1 -->
+                    <p class="col-sm infoPedidoTexto">Pedido BusOn</p> <!-- Coluna 1 -->
+                    <p class="col-sm infoPedidoDados"> 8TK762XBR</p> <!-- Coluna 2 -->
+                  </div>       
+                  <hr/>   
+                  <div class="row"> <!-- Linha 2 -->
+                    <p class="col-sm infoPedidoTexto">Status do Pedido</p> <!-- Coluna 1 -->
+                    <p class="col-sm infoPedidoDados" id="statusPagamento">Pagamento Processado</p>  <!-- Coluna 2 -->
+                  </div>   
+                  
               </div>
             </div>
-            <div class="card" style="margin-top:1em;">
+            <div class="card">
                 <div class="card-body">
-                  <h3 class="textoConfirmacao">Compra efetuada com sucesso!</h3>
+                  <p class="textoConfirmacao">Pedido efetuado com sucesso!</p> <br>
                   <p>
-                    Uma mensagem contendo detalhes de sua passagem foi enviada para o seu email: email@email.com
+                    Uma mensagem contendo detalhes de sua passagem foi enviada para o seu email: <b>email@email.com</b>
                   </p>
-                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    Caso não encontre o email, verifique sua caixa de spam!                    
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert" id="msgAlerta">
+                    O email pode ter sido enviado para caixa de spam!                    
                   </div>
-                    <center>
-                  <button type="button" class="btn btn-primary" style="background-color:#1C5576;" onClick="{{ route('base') }} ">Minhas Passagens</button>
-                    </center>
+                  <div class="btnMP">
+                    <button type="button" class="btn btn-info" id="btnMinhasPassagens">  Minhas passagens</button>
+                  </div>
               </div>
             </div>
           </div>        
           <div class="col-sm-4"> <!-- coluna 2 -->
-                <h4>Resumo da Viagem</h4>
+                <h5>Resumo da Viagem</h5>
                 <div class="card">                    
-                    <div class="card-body" style="text-align:left;">
-                        <p class="textoAmarelo" style="text-align:left;">Trecho:</p>
-                        <p class="textoPreto">Feira de Santana >>> Jaguaquara</p>
-                        <p class="textoAmarelo" style="text-align:left;">Tipo de Linha:</p>
-                        <select disabled class="form-control">
-                            <option>Rota Convencional</option>
-                            <option>Rota Direta</option>
-                        </select>
-                        <p class="textoAmarelo" style="text-align:left;">Data | Horário da Partida: </p>
-                        <p class="textoPreto">25/08/2021 18:00</p>
-                        <p class="textoAmarelo" style="text-align:left;">Nome passageiro: </p>
-                        <p class="textoPreto">Nome Cliente Feliz</p>
-                            <p class="textoAmarelo" style="text-align:left;">Número Documento: </p>
-                        <p class="textoPreto">88.422390-23</p>
+                    <div class="card-body">
+                        <p class="textoPreto">Trecho:</p>
+                        <p class="textoAmarelo">Feira de Santana >>> Jaguaquara</p>
+                        <p class="textoPreto">Tipo de Linha:</p>
+                        <p class="textoAmarelo">Rota Direta</p>
+                        <p class="textoPreto">Data | Horário da Partida: </p>
+                        <p class="textoAmarelo">25/08/2021 18:00</p>
+                        <p class="textoPreto" >Nome passageiro: </p>
+                        <p class="textoAmarelo">Nome Cliente Feliz</p>
+                            <p class="textoPreto">Número Documento: </p>
+                        <p class="textoAmarelo">859.859.859-23</p>
                     </div>
                 </div>
           </div>

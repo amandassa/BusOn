@@ -1,0 +1,38 @@
+
+
+.texto
+{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 27.7%;
+}
+
+
+.card
+{
+    width: 495px;
+    height: 578px;
+    margin: 0 auto; 
+    float: none; 
+    margin-bottom: 10px; 
+}
+
+.camposMenores
+{
+    width: 250px;
+}
+
+.btnCC
+{
+    text-align: center;
+    padding-bottom: 10%;
+}
+
+#btnCriarConta
+{
+    width: 234px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f9c536;
+}

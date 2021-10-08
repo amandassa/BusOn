@@ -31,4 +31,9 @@ Route::get('/confirmacao', function(){
 
 Route::get('/inicial_func', function(){
     return view('funcionario.inicial_func');
-    })->name('inicial_func');    
+    })->name('inicial_func');  
+      
+ Route::get('/cadastroclientes', function(){
+    return view('cliente.cadastroclientes');
+        })->name('cadastroclientes');
+    
