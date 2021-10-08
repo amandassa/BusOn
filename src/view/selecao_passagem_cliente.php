@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/padrao.css">
-    <link rel="stylesheet" href="./assets/css/home_cliente.css">
+    <link rel="stylesheet" href="./assets/css/selecao_passagem_cliente.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,22 +38,9 @@
         </div>
         <div class="barraCentral barra"> <!--BARRA CENTRAL-->
             <div class="divisaoPrimaria">
-                <h1 class="titulo">Página Inicial</h1>
+                <h1 class="titulo">Passagens Disponíveis</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="cidadePartida">Qual é sua cidade de partida?</label>
-                        <input class="entradaTexto" type="text" name="cidadePartida" id="cidadePartida">
-                    </div>
-                    <div class="divisaoEntrada">
-                        <label class="legenda" for="cidadeDestino">Qual é sua cidade de destino?</label>
-                        <input class="entradaTexto" type="text" name="cidadeDestino" id="cidadeDestino">
-                    </div>
-                    <div class="divisaoEntrada">
-                        <label class="legenda" for="cidadeDestino">Quando pretende realizar sua viagem?</label>
-                        <input class="entradaTexto" type="date" name=dataPartida id=dataPartida>
-                    </div>        
-                    <div class="divisaoControle">
-                        <button class="botao botaoPrimario" name="buscarLinhas" value="buscarLinhas" id="buscarLinhas">Buscar</button>
                     </div>
                 </div>
             </div>
