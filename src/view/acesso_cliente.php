@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/estilos.css">
+    <link rel="stylesheet" href="./assets/css/padrao.css">
+    <link rel="stylesheet" href="./assets/css/acesso_cliente.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <title>Recuperar Acesso</title>
+    <title>Acessar Conta</title>
 </head>
 <body>
-<div class="paginaRecuperarAcesso pagina">
-        <div class="barraSuperior"> <!--BARRA SUPERIOR-->
+<div class="pagina">
+        <div class="barraSuperior barra"> <!--BARRA SUPERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
-                    <img class="icone" src="./assets/img/iconeProduto.png">
+                    <img class="iconeLogoTipo" src="./assets/img/iconeProduto.png">
                 </div>
                 <div class="divisaoNome">
                     <label class="nomeCentral nome" for="name">BusOn</label>
@@ -28,28 +29,36 @@
             <div class="divisaoDireita">
             </div>
         </div>
-        <div class="barraCentral"> <!--BARRA CENTRAL-->
+        <div class="barraCentral barra"> <!--BARRA CENTRAL-->
             <div class="divisaoPrimaria">
-                <h1 class="titulo">Recuperar Acesso</h1>
+                <h1 class="titulo">Acessar Conta</h1>
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">
-                        <label class="legenda" for="email">E-mail cadastrado:</label>
+                        <label class="legenda" for="email">E-mail:</label>
                         <input class="entradaTexto" type="email" name="email" id="email">
                     </div>
+                    <div class="divisaoEntrada">
+                        <label class="legenda" for="senha">Senha:</label>
+                        <input class="entradaTexto" type="password" name="senha" id="senha">
+                    </div>
                     <div class="divisaoControle">
-                        <button class="entradaBotao entradaBotaoPrimario" name="acessarConta" value="acessarConta" id="acessarConta">Enviar senha provisória</button>
+                        <button class="botao botaoPrimario" name="acessarConta" value="acessarConta" id="acessarConta">Acessar conta</button>
                     </div>
                     <div class="divisaoAcesso">
-                        <label>Recordou sua senha?</label>
-                        <a class="link" href="./acesso_cliente.php">Tente acessar sua conta</a>
+                        <label>Não tem cadastro?</label>
+                        <a class="link" href="./cadastro_cliente.php">Cadastre sua conta</a>
+                    </div>
+                    <div class="divisaoAcesso">
+                        <label>Esqueceu sua senha?</label>
+                        <a class="link" href="./recuperar_acesso.php">Recupere seu acesso</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="barraInferior"> <!--BARRA INFERIOR-->
+        <div class="barraInferior barra"> <!--BARRA INFERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
-                    <img class="icone" src="./assets/img/iconeEmpresa.png">
+                    <img class="iconeLogoTipo" src="./assets/img/iconeEmpresa.png">
                 </div>
                 <div class="divisaoNome">
                     <label class="nomeSuperior nome" for="name">SERTÃO</label>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/estilos.css">
+    <link rel="stylesheet" href="./assets/css/padrao.css">
+    <link rel="stylesheet" href="./assets/css/cadastro_funcionario.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,11 +14,11 @@
     <title>Cadastrar Conta</title>
 </head>
 <body>
-    <div class="paginaCadastroFuncionario pagina">
-        <div class="barraSuperior"> <!--BARRA SUPERIOR-->
+    <div class="pagina">
+        <div class="barraSuperior barra"> <!--BARRA SUPERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
-                    <img class="icone" src="./assets/img/iconeProduto.png">
+                    <img class="iconeLogoTipo" src="./assets/img/iconeProduto.png">
                 </div>
                 <div class="divisaoNome">
                     <label class="nomeCentral nome" for="name">BusOn</label>
@@ -26,10 +27,10 @@
             <div class="divisaoCentral">
             </div>
             <div class="divisaoDireita">
-                <button class="entradaBotao entradaBotaoSecundario" name="sairConta" value="sairConta" id="sairConta">Sair</button>
+                <button class="botao botaoSecundario" name="sairConta" value="sairConta" id="sairConta">Sair</button>
             </div>
         </div>
-        <div class="barraCentral"> <!--BARRA CENTRAL-->
+        <div class="barraCentral barra"> <!--BARRA CENTRAL-->
             <div class="divisaoPrimaria">
                 <h1 class="titulo">Cadastrar Conta</h1>
                 <div class="divisaoBase">
@@ -54,15 +55,15 @@
                         <input class="entradaTexto" type="password" name="confirmacaoSenha" id="confirmacaoSenha">
                     </div>
                     <div class="divisaoControle">
-                        <button class="entradaBotao entradaBotaoPrimario" name="cadastrarConta" value="cadastrarConta" id="cadastrarConta">Cadastrar conta</button>
+                        <button class="botao botaoPrimario" name="cadastrarConta" value="cadastrarConta" id="cadastrarConta">Cadastrar conta</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="barraInferior"> <!--BARRA INFERIOR-->
+        <div class="barraInferior barra"> <!--BARRA INFERIOR-->
             <div class="divisaoEsquerda">
                 <div class="divisaoIcone">
-                    <img class="icone" src="./assets/img/iconeEmpresa.png">
+                    <img class="iconeLogoTipo" src="./assets/img/iconeEmpresa.png">
                 </div>
                 <div class="divisaoNome">
                     <label class="nomeSuperior nome" for="name">SERTÃO</label>
