@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/padrao.css">
     <link rel="stylesheet" href="./assets/css/dados_cliente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,6 +28,11 @@
             <div class="divisaoCentral">
             </div>
             <div class="divisaoDireita">
+                <i class="fa fa-user botao" style="font-size:18px;color:black">
+                    <label for="nomeUsuario" class="legenda" style="cursor:pointer">Olá, Cláudio</label>
+                </i>
+                <i class="fa fa-mail-reply botao" style="font-size:32px;color:black"></i>
+                <i class="fa fa-home botao" style="font-size:38px;color:black"></i>
                 <button class="botao botaoSecundario" name="sairConta" value="sairConta" id="sairConta">Sair</button>
             </div>
         </div>

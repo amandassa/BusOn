@@ -16,6 +16,13 @@ body, html, .pagina {height: 100%}
     min-width: 1080px;
 }
 
+.legenda /*REFERE-SE AOS TEXTOS QUE FICAM ACIMA DAS ENTRADAS DE TEXTO*/
+{
+    width: 100%;
+    margin-bottom: 2px;
+    font-size: 20px;
+}
+
 .iconeLogoTipo {height: 66px} /*REFERE-SE AOS ÍCONES DE LOGOTIPO*/
 
 .iconeCartao {margin-left: 20px} /*REFERE-SE AOS ÍCONE DE CARTÃO*/
@@ -24,13 +31,6 @@ body, html, .pagina {height: 100%}
 {
     text-decoration: none;
     color: #103A52;
-}
-
-.legenda /*REFERE-SE AOS TEXTOS QUE FICAM ACIMA DAS ENTRADAS DE TEXTO*/
-{
-    width: 100%;
-    margin-bottom: 2px;
-    font-size: 20px;
 }
 
 .titulo /*REFERE-SE AOS TÍTULOS QUE FICAM NO TOPO DAS DIV*/
@@ -53,7 +53,6 @@ body, html, .pagina {height: 100%}
     height: auto;
     min-height: 36px;
     width: auto;
-    min-width: 90px;
     padding: 6px;
     border: none;
     border-radius: 3px;
@@ -61,7 +60,12 @@ body, html, .pagina {height: 100%}
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+    margin-left: 4px;
+    margin-right: 4px;
 }
+
+.botaoPrimario, .botaoSecundario {min-width: 90px}
+
 
 .botaoPrimario /*REFERE-SE AOS BOTÕES PRIMÁRIOS CUJA COR É AMARELA E AS LETRAS SÃO PRETAS*/
 {
@@ -224,4 +228,10 @@ body, html, .pagina {height: 100%}
     align-items: flex-start;
     font-size: 12px;
     font-weight: 400;
+}
+
+.barraSuperior .divisaoDireita .legenda /*REFERE-SE AO NOME DE USUÁRIO*/
+{
+    font-family: 'Darker Grotesque', sans-serif;
+    font-weight: 600;
 }
