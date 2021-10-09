@@ -21,7 +21,7 @@ html, body {height:100%;}
 
 .logo
 {        
-    width: 36%;
+    width: 110%;
     height: 100%;
     padding-bottom: 0.5em;
 }
@@ -90,5 +90,9 @@ html, body {height:100%;}
     font-style: bold;
     background-color:white;
     height:50px;    
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> baba9679c9e47debae09d91e2d98e3b0cd26f9d4
