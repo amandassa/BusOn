@@ -10,36 +10,35 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
 </head>
     
-<body>
-    <div class="navBar">                
-        <nav-bar class="navBar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
+<body>                
+        <div class="navbar mx-auto barraSuperior">
+            <div class="container mx-auto" style="margin: 0px;">
+                <div class="row flex-nowrap nomargin">
+                    <div class="col-md-4">
                             <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
                     </div>
-                    <div class="col-md-8">
-                        
+                    <div class="col-md-12">                        
                     </div>
-                    <div class="col-md d-flex flex-column justify-content-center align-items-center">
+                    <div class="col-md-2 mr-sm-2 d-flex flex-column justify-content-center align-items-center">
                         @Auth
                         <div class="operacoesUsuario">            
-                            <button type="button" class="btn btn-info">Sair</button>
+                            <button type="button" class="botao">Sair</button>
                         </div>
                         @endAuth
                     </div>
                 </div>
             </div>
-        </nav-bar>        
+        </navbar>        
     </div>
         
     <div style="margin:2em;">
         @yield('content')
     </div>
         
-    <footer class="bottomBar">
-        <div class="container max-width" style="align-items: center;">
-            <div class="row centralizador">        
+    <footer>
+    <div class="bottomBar navbar justify-content-center navbar-inverse navbar-fixed-bottom">    
+        <div class="container" style="margin:0px; padding:0px;">
+            <div class="row justify-content-center">        
                     <div class="col-md-2 logo d-flex flex-column justify-content-center align-items-center">
                         <img style="width:100%; height:100%;" src="{{URL::asset('/imagens/SertaoCode.png')}}" />
                     </div>
@@ -54,7 +53,8 @@
                             <img style="width:100%; height:100%;" src="{{URL::asset('/imagens/pagamentos.png')}}" />
                     </div>
             </div>
-        </div>                
-        
+        </div>
+    
+    </div>
     </footer>
 </body>

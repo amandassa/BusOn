@@ -95,5 +95,25 @@
     background-color: transparent;
 }
 
+.botaoSelecionado
+{
+    font-size:12px;
+    border: solid 1px;
+    border-radius:5px;
+    background-color:#F9C536;
+    font-weight: bold;    
+    height:50px;
+}
+
+.botao
+{
+    font-size:12px;
+    border: solid 1px;
+    border-radius:5px;
+    font-style: bold;
+    background-color: white;    
+    height:50px;    
+}
+
 
 

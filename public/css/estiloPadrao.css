@@ -4,10 +4,8 @@
 
 html, body {height:100%;}
 
-.navBar
-{    
-    width: 100%;
-    padding-top:0.5em;
+.barraSuperior
+{        
     padding-bottom:0.5em;
     background-color: #F9C536;    
 }
@@ -25,13 +23,10 @@ html, body {height:100%;}
 }
 
 .bottomBar{
-    height: auto;
-    width: 100%;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    background-color: #000000;    
-    position: absolute;    
-    bottom:0px;    
+    padding-top:1em;
+    padding-bottom:1em;
+    width: 100%;    
+    background-color: #000000;        
 }
 
 .operacoesUsuario{
@@ -86,7 +81,10 @@ html, body {height:100%;}
     font-size:12px;
     border: solid 1px;
     border-radius:5px;
-    font-style: bold;
-    background-color:white;
-    height:50px;    
+    font-weight: bolder;
+    border-color: #1C5576;
+    background-color: #1C5576;
+    color: white;
+    height:40px;
+    width: 75px;
 }
