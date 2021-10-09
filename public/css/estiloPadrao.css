@@ -21,55 +21,57 @@ html, body {height:100%;}
 
 .logo
 {        
-    width: 110%;
+    width: 40%;
     height: 100%;
     padding-bottom: 0.5em;
+    vertical-align: middle;
 }
 
 .bottomBar{
-    height: 140px;
+    height: auto;
     width: 100%;
     padding-top: 1em;
-    background-color: #000000;
-    display: flex; 
-    flex-direction: row;    
-    bottom:0;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
+    padding-bottom: 1em;
+    background-color: #000000;    
+    position: absolute;    
+    bottom:0px;    
 }
 
 .operacoesUsuario{
     margin-right: 2em;
 }
 
+
+.centralizador{    
+    align-items: center;    
+    justify-content: center;
+}
+
 .logoSertao
 {
-    width:13%;
-    height: 65%;    
-    background-image: url('/imagens/SertaoCode.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    align-self: center;    
+    width:100%;
+    height: 100%;
+    margin:0;
+    
+    align-items: center;    
 }
 
 .rodape{
-    width: 25%;    
+    width: 80%;
+    margin:0;
     family-font:"Arial";
     font-size: 10px;
     margin-left:1em;
     color:white;
     align-self: center;
+    vertical-align: middle;
 }
 
 .formasPagamento
 {
-    width:20%;
-    height: 60%;    
+    width:100%;
+    height: 100%;    
     align-self:center;    
-    background-image: url('/imagens/pagamentos.png');
-    background-repeat: no-repeat;
-    background-size: 80%;    
 }
 
 .botaoSelecionado
@@ -90,9 +92,4 @@ html, body {height:100%;}
     font-style: bold;
     background-color:white;
     height:50px;    
-<<<<<<< HEAD
-
 }
-=======
-}
->>>>>>> baba9679c9e47debae09d91e2d98e3b0cd26f9d4

@@ -27,13 +27,24 @@
         @yield('content')
     </div>
         
-    <div id="bottomBar" class="footer navbar-fixed-bottom bottomBar">
-        <div class="logoSertao"></div>
-        <div class="rodape">
-            <label><b>BusOn</b> - Sistema de Compra e Venda de Passagens Online.</label>
-            <label>Avenida Transnordestina, S/N, Novo Horizonte. Feira de Santana-BA.</label>
-            <label><b>Desenvolvido por Sertão Code, 2021.</b></label>
-        </div>
-        <div class="formasPagamento"></div>                
-    </div>
+    <footer class="bottomBar">
+        <div class="container max-width" style="align-items: center;">
+            <div class="row centralizador">        
+                    <div class="col-md-2 logo d-flex flex-column justify-content-center align-items-center">
+                        <img style="width:100%; height:100%;" src="{{URL::asset('/imagens/SertaoCode.png')}}" />
+                    </div>
+                    <div class="col-md-5 d-flex flex-column justify-content-center align-items-center">
+                        <div class="rodape">
+                            <label><b>BusOn</b> - Sistema de Compra e Venda de Passagens Online.</label>
+                            <label>Avenida Transnordestina, S/N, Novo Horizonte. Feira de Santana-BA.</label>
+                            <label><b>Desenvolvido por Sertão Code, 2021.</b></label>
+                        </div>  
+                    </div>
+                    <div class="col-md-2 formasPagamento d-flex flex-column justify-content-center align-items-center">                        
+                            <img style="width:100%; height:100%;" src="{{URL::asset('/imagens/pagamentos.png')}}" />
+                    </div>
+            </div>
+        </div>                
+        
+    </footer>
 </body>
