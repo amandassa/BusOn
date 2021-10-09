@@ -5,13 +5,11 @@
 html, body {height:100%;}
 
 .navBar
-{
-    height: 65px;
+{    
     width: 100%;
-    padding-top: 1em;    
-    background-color: #F9C536;
-    display: flex; 
-    flex-direction: row;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    background-color: #F9C536;    
 }
 
 .divLogo
@@ -21,9 +19,8 @@ html, body {height:100%;}
 
 .logo
 {        
-    width: 40%;
-    height: 100%;
-    padding-bottom: 0.5em;
+    width: 80%;
+    height: 100%;    
     vertical-align: middle;
 }
 

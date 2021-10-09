@@ -11,16 +11,26 @@
 </head>
     
 <body>
-    <div class="navBar">
-        <div class="divLogo" >
-            <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
-        </div>
-        
-        <div style="width:70%;"></div>
-            
-        <div class="operacoesUsuario">            
-            <button type="button" class="btn btn-info">Sair</button>
-        </div>
+    <div class="navBar">                
+        <nav-bar class="navBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                            <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
+                    </div>
+                    <div class="col-md-8">
+                        
+                    </div>
+                    <div class="col-md d-flex flex-column justify-content-center align-items-center">
+                        @Auth
+                        <div class="operacoesUsuario">            
+                            <button type="button" class="btn btn-info">Sair</button>
+                        </div>
+                        @endAuth
+                    </div>
+                </div>
+            </div>
+        </nav-bar>        
     </div>
         
     <div style="margin:2em;">
