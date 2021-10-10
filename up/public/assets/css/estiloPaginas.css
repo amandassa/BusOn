@@ -1,0 +1,280 @@
+* /*REFERE-SE A TODOS OS ELEMENTOS DISPOSTOS NAS PÁGINAS*/
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html, .pagina {height: 100%}
+
+.pagina /*REFERE-SE A TODAS AS PÁGINAS*/
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 1080px;
+}
+
+.menu /*REFERE-SE AO MENU DE OPÇÕES*/
+{
+    position: relative;
+    display: inline-block;
+    width: max-content;
+}
+
+.itensMenu /*REFERE-SE A LISTA DE ITENS DE UM MENU DE OPÇÕES*/
+{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: max-content;
+}
+
+.itensMenu .itemMenu /*REFERE-SE AOS ITENS DE UM MENU DE OPÇÕES*/
+{
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.itensMenu .itemMenu:hover {background-color: #ddd} /*REFERE-SE AO QUE OCORRE QUANDO O MOUSE ESTÁ SOBRE OS ITENS DO MENU*/
+
+.menu:hover .itensMenu {display: block} /*REFERE-SE AO QUE OCORRE QUANDO O MOUSE ESTÁ SOBRE O MENU*/
+
+.legenda /*REFERE-SE AOS TEXTOS QUE FICAM ACIMA DAS ENTRADAS DE TEXTO*/
+{
+    width: 100%;
+    margin-bottom: 2px;
+    font-size: 20px;
+}
+
+.iconeLogoTipo {height: 66px} /*REFERE-SE AOS ÍCONES DE LOGOTIPO*/
+
+.iconeCartao {margin-left: 20px} /*REFERE-SE AOS ÍCONE DE CARTÃO*/
+
+.itensMenu .itemMenu,
+.link /*REFERE-SE A TODOS OS LINKS DE ACESSO A ALGUMA PÁGINA DE RECURSOS*/
+{
+    text-decoration: none;
+    color: #103A52;
+}
+
+.titulo /*REFERE-SE AOS TÍTULOS QUE FICAM NO TOPO DAS DIV*/
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4px;
+    margin-left: 5px;
+    width: 100%;
+    text-align: left;
+    font-size: 16pt;
+}
+
+.botao /*REFERE-SE A TODOS OS BOTÕES*/
+{
+    height: auto;
+    min-height: 36px;
+    width: auto;
+    padding: 6px;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.botaoPrimario, .botaoSecundario {min-width: 90px}
+
+.botaoPrimario:hover {background-color:#F9C536d0}
+
+
+.botaoPrimario /*REFERE-SE AOS BOTÕES PRIMÁRIOS CUJA COR É AMARELA E AS LETRAS SÃO PRETAS*/
+{
+    background-color:#F9C536;
+    color: black;
+}
+
+.botaoSecundario:hover {background-color:#1b5576d0}
+
+.botaoSecundario /*REFERE-SE AOS BOTÕES SECUNDÁRIOS CUJA COR É AZUL E AS LETRAS SÃO BRANCAS*/
+{
+    background-color:#1B5576;
+    color: white;
+}
+
+.barra /*REFERE-SE A TODAS AS BARRAS, SEJAM ELAS CENTRAIS, SUPERIORES E INFERIORES*/
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.barraSuperior /*A BARRA SUPERIOR É AQUELA AMARELA COM ÍCONE DA EMPRESA, NOME DE USUÁRIO, BOTÃO DE SAIR, HOME E VOLTAR*/
+{
+    height: 80px;
+    background-color: #F9C536;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+}
+
+.barraCentral /*A BARRA CENTRAL É AQUELA CINZA CLARO COM ENTRADAS DE TEXTO E BOTÕES*/
+{
+    height: 100%;
+    justify-content: center;
+    background-color: #F5F5F5;
+    color: black;
+    font-family: 'Darker Grotesque', sans-serif;
+}
+
+.barraInferior /*A BARRA INFERIOR É AQUELA PRETA COM ÍCONES DE CARTÃO, NOME E DESCRIÇÕES DA EMPRESA*/
+{
+    height: 80px;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cardBranco, /*DIV BRANCA ARREDONDADA E SOMBREADA QUE GUARDA ENTRADAS DE TEXTO E BOTÕES*/
+.cardAmarelo,
+.divisaoEntrada, /*DIV QUE GUARDA AS ENTRADAS TEXTUAIS E SUAS LEGENDAS*/
+.divisaoPrimaria, /*DIV QUE GUARDA TÍTULOS E A DIV QUADRICULADA SOMBREADA COM ENTRADAS DE TEXTOS E BOTÕES*/
+.divisaoControle /*DIV QUE GUARDA AS ENTRADAS DE BOTÕES*/
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardBranco, /*DIV BRANCA ARREDONDADA E SOMBREADA QUE GUARDA ENTRADAS DE TEXTO E BOTÕES*/
+.cardAmarelo /*DIV BRANCA ARREDONDADA E SOMBREADA QUE GUARDA ENTRADAS DE TEXTO E BOTÕES*/
+{
+    border-radius: 6px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.cardBranco {background-color: white} /*DIV BRANCA ARREDONDADA E SOMBREADA QUE GUARDA ENTRADAS DE TEXTO E BOTÕES*/
+
+.cardAmarelo {background-color: #F9C536} /*DIV BRANCA ARREDONDADA E SOMBREADA QUE GUARDA ENTRADAS DE TEXTO E BOTÕES*/
+
+
+.divisaoEntrada /*DIV QUE GUARDA AS ENTRADAS TEXTUAIS E SUAS LEGENDAS*/
+{
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.entradaTexto /*INPUT DE TEXTO*/
+{
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    height: 24px;
+    text-align: left;
+    text-indent: 4px;
+}
+
+.entradaTextoDesativado /*INPUT DE TEXTO NÃO EDITÁVEL*/
+{
+    pointer-events:none;
+    background-color: #e0e0e0;
+}
+
+.divisaoControle /*DIV QUE GUARDA AS ENTRADAS DE BOTÕES*/
+{
+    align-items: flex-start;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.divisaoAcesso /*DIV QUE GUARDA OS LINKS*/
+{
+    font-weight: 600;
+    text-align: center;
+}
+
+.divisaoIcone, /*DIV QUE GUARDA OS ÍCONES*/
+.divisaoNome /*DIV QUE GUARDA OS NOMES DA EMPRESA E DO PRODUTO*/
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.divisaoIcone /*DIV QUE GUARDA OS ÍCONES*/
+{
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.divisaoNome /*DIV QUE GUARDA OS NOMES DA EMPRESA E DO PRODUTO*/
+{
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.barraInferior .divisaoEsquerda, /*LADO ESQUERDO DA BARRA INFERIOR*/
+.barraSuperior .divisaoEsquerda, /*LADO ESQUERDO DA BARRA SUPERIOR*/
+.barraInferior .divisaoDireita, /*LADO DIREITO DA BARRA INFERIOR*/
+.barraSuperior .divisaoDireita, /*LADO DIREITO DA BARRA SUPERIOR*/
+.barraSuperior .divisaoCentral, /*LADO CENTRAL DA BARRA SUPERIOR*/
+.barraInferior .divisaoCentral /*LADO CENTRAL DA BARRA INFERIOR*/
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.barraSuperior .divisaoEsquerda .divisaoNome {font-size: 48px} /*DIV DO NOME DO PRODUTO NA BARRA SUPERIOR AO LADO ESQUERDO*/
+
+.barraSuperior .divisaoEsquerda .divisaoNome .nomeCentral {font-weight: 200} /*NOME DO PRODUTO NA DIV DO NOME DO PRODUTO NA BARRA SUPERIOR AO LADO ESQUERDO*/
+
+.barraInferior .divisaoEsquerda .divisaoNome .nomeSuperior {font-weight: 600} /*1º NOME DA EMPRESA NA DIV DO NOME DO PRODUTO NA BARRA SUPERIOR AO LADO ESQUERDO*/
+
+.barraInferior .divisaoEsquerda .divisaoNome {font-size: 26px} /*DIV DO NOME DA EMPRESA NA BARRA INFERIOR AO LADO ESQUERDO*/
+
+.barraInferior .divisaoEsquerda .divisaoNome .nomeInferior {font-weight: 200} /*2º NOME DA EMPRESA NA DIV DO NOME DO PRODUTO NA BARRA SUPERIOR AO LADO ESQUERDO*/
+
+.barraInferior .divisaoCentral, /*DIV CENTRAL NA BARRA INFERIOR*/
+.barraSuperior .divisaoCentral /*DIV CENTRAL NA BARRA SUPERIOR*/
+{
+    flex-direction: column;
+}
+
+.barraInferior .divisaoCentral /*DIV CENTRAL NA BARRA INFERIOR*/
+{
+    align-items: flex-start;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+
+.itensMenu .itemMenu,
+.barraSuperior .divisaoDireita .legenda /*REFERE-SE AO NOME DE USUÁRIO*/
+{
+    font-family: 'Darker Grotesque', sans-serif;
+    font-weight: 600;
+}
