@@ -4,60 +4,8 @@ p{
     font-size: 12px;
     margin: 0px;
 }
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container .row{
-    margin-top: 35px;
-    background-color: white;
-    width: 700px;
-    border-radius: 6px;
-    border: 2px solid rgba(0, 0, 0, 0.062);
-    justify-content: center;
-}
 
 
-
-.container .col-md .cards {
-    border: 2px solid rgba(0, 0, 0, 0.062);
-    border-radius: 6px;
-    position: relative;
-   
-}
-
-.container .col-md .cards .textoCentralBaixo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    font-size: 13px;
-}
-
-.cards .card-body button{
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
-    border: #F9C536;
-    background-color: #F9C536;
-    border-radius: 5px;
-    top: 30px;
-    right: 15px;
-}
-
-
-.cards .card-body button img{
-    width: 25px;
-}
-
-.cards .card-body button:hover{
-    background: #b38f2c;
-}
 
 
 .container .col-md .cards .textoCentralCima{

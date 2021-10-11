@@ -30,12 +30,12 @@
             </div>        
     </div>
         
-    <div class="align-self-center" style="margin-bottom: 50px;">
+    <div class="align-self-center flex-align" style="padding-bottom: 200px;">
         @yield('content')
     </div>
         
     <footer class="footer"> <!-- Footer/Rodape -->
-    <div class="justify-content-center bottomBar"> 
+    <div class="justify-content-center navbar fixed-bottom bottomBar"> 
         <div class="container" style="margin:0px; padding:0px;">
             <div class="row justify-content-center">  <!-- Linha -->
                     <div class="col-md-2 logo d-flex flex-column justify-content-center align-items-center"> <!-- Coluna da logo -->
