@@ -10,46 +10,45 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
 </head>
     
-<body>                
-        <div class="navbar mx-auto barraSuperior">
+<body "cz-shortcut-listen="true">
+        <div class="navbar mx-auto barraSuperior"> <!-- Header/NavBar-->
             <div class="container mx-auto" style="margin: 0px;">
-                <div class="row flex-nowrap nomargin">
-                    <div class="col-md-4">
+                <div class="row flex-nowrap nomargin"> <!-- Linha -->
+                    <div class="col-md-4"> <!-- Coluna da logo -->
                             <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
                     </div>
-                    <div class="col-md-12">                        
+                    <div class="col-md-12"> <!-- Coluna de espaço -->                       
                     </div>
-                    <div class="col-md-2 mr-sm-2 d-flex flex-column justify-content-center align-items-center">
+                    <div class="col-md-2 mr-sm-2 d-flex flex-column justify-content-center align-items-center"> <!-- Coluna das opções-->
                         @Auth
                         <div class="operacoesUsuario">            
-                            <button type="button" class="botao">Sair</button>
+                            <button type="button" class="botaoAzul">Sair</button>
                         </div>
                         @endAuth
                     </div>
                 </div>
-            </div>
-        </navbar>        
+            </div>        
     </div>
         
-    <div style="margin:2em;">
+    <div class="align-self-center" style="margin-bottom: 50px;">
         @yield('content')
     </div>
         
-    <footer>
-    <div class="bottomBar navbar justify-content-center navbar-inverse navbar-fixed-bottom">    
+    <footer class="footer"> <!-- Footer/Rodape -->
+    <div class="justify-content-center bottomBar"> 
         <div class="container" style="margin:0px; padding:0px;">
-            <div class="row justify-content-center">        
-                    <div class="col-md-2 logo d-flex flex-column justify-content-center align-items-center">
+            <div class="row justify-content-center">  <!-- Linha -->
+                    <div class="col-md-2 logo d-flex flex-column justify-content-center align-items-center"> <!-- Coluna da logo -->
                         <img style="width:100%; height:100%;" src="{{URL::asset('/imagens/SertaoCode.png')}}" />
                     </div>
-                    <div class="col-md-5 d-flex flex-column justify-content-center align-items-center">
+                    <div class="col-md-5 d-flex flex-column justify-content-center align-items-center"> <!-- Coluna das informacoes do roape -->
                         <div class="rodape">
                             <label><b>BusOn</b> - Sistema de Compra e Venda de Passagens Online.</label>
                             <label>Avenida Transnordestina, S/N, Novo Horizonte. Feira de Santana-BA.</label>
                             <label><b>Desenvolvido por Sertão Code, 2021.</b></label>
                         </div>  
                     </div>
-                    <div class="col-md-2 formasPagamento d-flex flex-column justify-content-center align-items-center">                        
+                    <div class="col-md-2 formasPagamento d-flex flex-column justify-content-center align-items-center"> <!-- Coluna das formas de pagamento -->
                             <img style="width:100%; height:100%;" src="{{URL::asset('/imagens/pagamentos.png')}}" />
                     </div>
             </div>
