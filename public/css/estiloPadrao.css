@@ -51,7 +51,7 @@ html, body {height:100%;}
 .rodape{
     width: 80%;
     margin:0;
-    family-font:"Arial";
+    font-family:"Arial";
     font-size: 10px;
     margin-left:1em;
     color:white;
