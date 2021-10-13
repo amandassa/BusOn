@@ -18,13 +18,8 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
-<<<<<<< HEAD
     return view('cliente.pagamento')->with('valor', 1);
     })->name('pagamento');
-=======
-    return view('cliente.pagamento');
-})->name('pagamento');
->>>>>>> b21d6e34b6b2818b1fdd21d477682a5dc0b3b503
     
 Route::get('/base', function(){
     return view('app');
