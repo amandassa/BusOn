@@ -30,7 +30,7 @@ __1. Cliente__
 - [X] Seleção do método de pagamento;
 - [X] Confirmação;
 - [ ] Consulta de passagens compradas;
-- [ ] Dados do Cliente;
+- [X] Editar Perfil;
 
 __2. Funcionarios__
 - [ ] Tela inicial de funcionário (Com dados dos relatórios);
@@ -38,7 +38,7 @@ __2. Funcionarios__
 - [ ] Tela de Venda;
 - [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
 - [ ] Tela de alteração de valor/mudança de agenda;
-- [ ] Dados do Funcionario;
+- [ ] Editar Perfil;
 
 __3. Administrador__
 - [ ] Tela inicial do administrador;
@@ -51,7 +51,7 @@ __3. Administrador__
 - [ ] Tela do relatório;
 - [ ] Tela de listagem dos usuários;
 - [ ] Tela de listagem de acessos;
-- [ ] Dados o Administrador;
+- [ ] Editar Perfil;
 
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
