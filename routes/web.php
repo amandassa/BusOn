@@ -40,3 +40,5 @@ Route::get('/inicial_func', function(){
  Route::get('/cadastroclientes', function(){
     return view('cliente.cadastroclientes');
         })->name('cadastroclientes');
+    
+
