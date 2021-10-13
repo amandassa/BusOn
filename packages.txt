@@ -1,0 +1,25 @@
+ii  libapache2-mod-php7.4                         7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        server-side, HTML-embedded scripting language (Apache 2 module)
+ii  php-cli                                       2:7.3+69                                     all          command-line interpreter for the PHP scripting language (default)
+ii  php-common                                    2:69                                         all          Common files for PHP packages
+ii  php7.3-cli                                    7.3.29-1~deb10u1                             amd64        command-line interpreter for the PHP scripting language
+ii  php7.3-common                                 7.3.29-1~deb10u1                             amd64        documentation, examples and common module for PHP
+ii  php7.3-json                                   7.3.29-1~deb10u1                             amd64        JSON module for PHP
+ii  php7.3-mysql                                  7.3.29-1~deb10u1                             amd64        MySQL module for PHP
+ii  php7.3-opcache                                7.3.29-1~deb10u1                             amd64        Zend OpCache module for PHP
+ii  php7.3-readline                               7.3.29-1~deb10u1                             amd64        readline module for PHP
+ii  php7.4                                        7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  all          server-side, HTML-embedded scripting language (metapackage)
+ii  php7.4-bcmath                                 7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        Bcmath module for PHP
+ii  php7.4-cli                                    7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        command-line interpreter for the PHP scripting language
+ii  php7.4-common                                 7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        documentation, examples and common module for PHP
+ii  php7.4-curl                                   7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        CURL module for PHP
+ii  php7.4-fpm                                    7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        server-side, HTML-embedded scripting language (FPM-CGI binary)
+ii  php7.4-gd                                     7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        GD module for PHP
+ii  php7.4-json                                   7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        JSON module for PHP
+ii  php7.4-mbstring                               7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        MBSTRING module for PHP
+ii  php7.4-mysql                                  7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        MySQL module for PHP
+ii  php7.4-opcache                                7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        Zend OpCache module for PHP
+ii  php7.4-readline                               7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        readline module for PHP
+ii  php7.4-soap                                   7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        SOAP module for PHP
+ii  php7.4-xml                                    7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        DOM, SimpleXML, XML, and XSL module for PHP
+ii  php7.4-xsl                                    7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  all          XSL module for PHP (dummy)
+ii  php7.4-zip                                    7.4.22-1+0~20210730.49+debian10~1.gbpc4d40d  amd64        Zip module for PHP

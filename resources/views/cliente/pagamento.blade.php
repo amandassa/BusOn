@@ -3,18 +3,18 @@
 @section('title', 'Pagamento - ')
 
 @section('content')
-    
-@php
-$i = 1;
-@endphp
 
-    <div style="text-align:center;">
-        <button type="button" class="btn btn-warning">Opção 1</button>
-        <button type="button" class="btn btn-warning">Opção 2</button>
-        <button type="button" class="btn btn-warning">Opção 3</button>            
-    </div>            
-                <br><br>
-    <div class="container" style="padding-bottom: 50px;">
+    @section('usaMigalha', TRUE)
+    @section('nomeMigalha1', 'Seleção de Passagem')
+    @section('rotaMigalha1') {{route('selecao')}} @endsection
+    @section('nomeMigalha2', 'Pagamento')
+    @section('rotaMigalha3') {{ route('confirmacao') }} @endsection
+    @section('nomeMigalha3', 'Confirmação')    
+    @section('linkM2', 'ativado')
+    @section('estiloMigalha2', 'migalhaRetanguloAtiva')
+    @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')    
+                
+    <div class="container">
         <div class="row">
             <div class="col-sm">
                 <h3>Forma de Pagamento</h3>
@@ -33,14 +33,8 @@ $i = 1;
                                   <i class="fa-solid fa-credit-card"></i>
                                     Pix</button>
                                 <hr/>        
-                                <div>
-                                    @include('cliente._partials.cartao')
-                                    @switch($i)
-                                        @case(1)
-                                            @include('cliente._partials.cartao')
-                                            @break
-                                        @default                                            
-                                    @endswitch
+                                <div>                                    
+                                    @include('cliente._partials.cartao')                                    
                                 </div>
                             </div>
                         </div>
@@ -48,7 +42,21 @@ $i = 1;
                 </section>        
             </div>
             <div class="col-sm">
-                <h3> Resumo da Compra</h3>    
+                <h3> Resumo da Compra</h3>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="card card-default">                        
+                            <div class="card-body">
+                            
+                                <p class="textoAmarelo" style="text-align:left; font-size:18px;">Feira de Santana >>> Jaguaquara</p>
+                                <p class="textoPreto" style="text-align:left; font-size:10px;">25/08/2021 às 18:00hrs</label>
+                                <hr/>    
+                                <p>Subtotal:</p>
+                                <h4 class="textoAmarelo" style="text-align:left; font-size:16px;">R$65,00</h4>
+                            </div>
+                        </div>
+                    </div> 
+                </section> 
             </div>
         </div>
     </div>    

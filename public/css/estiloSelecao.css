@@ -5,10 +5,9 @@
     justify-content: center;
     align-items: center;
 }
+
 .container .breadcrumb{
-    padding: 5px;
-    margin: 0px;
-    
+    padding: 5px
 }
 
 .breadcrumb-item a{
@@ -22,7 +21,6 @@
 
 .container .row{
     margin-top: 20px;
-    background-color: white;
     width: 700px;
     border-radius: 6px;
     border: 2px solid rgba(0, 0, 0, 0.062);

@@ -6,7 +6,7 @@
 
 .card
 {
-    margin-top:1em;
+    margin-top:1em;    
 }
 
 
@@ -94,6 +94,18 @@
     justify-content: center;
     background-color: transparent;
 }
+
+.botaoSelecionado
+{
+    font-size:12px;
+    border: solid 1px;
+    border-radius:5px;
+    background-color:#F9C536;
+    font-weight: bold;    
+    height:50px;
+}
+
+
 
 
 

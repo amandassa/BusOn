@@ -3,13 +3,23 @@
 @section('title', 'Selecionar Passagem - ')
 
 @section('content')
+
     <link href="/css/estiloSelecao.css" rel="stylesheet">
+
+    @section('usaMigalha', TRUE)
+    @section('nomeMigalha1', 'Seleção de Passagem')
+    @section('rotaMigalha1') {{ route('selecao') }} @endsection
+    @section('nomeMigalha2', 'Pagamento')
+    @section('rotaMigalha2') {{ route('pagamento') }} @endsection
+    @section('nomeMigalha3', 'Confirmação')
+    @section('linkM1', 'ativado')
+    @section('estiloMigalha1', 'migalhaRetanguloAtiva')
+    @section('estiloMigalhaT1', 'migalhaTrianguloAtiva')
+  
+
+
     <div class="container">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#"> Selecionar Passagem</a></li>
-              <li class="breadcrumb-item"><a href="#">Pagamento</a></li>
-              <li class="breadcrumb-item active" aria-current="page"> <a href="#">Confirmação</a></li>
-            </ol>
+        <h3>Seleção de Passagem!</h3>
         <div class="row justify-content-center">
             <div class="col-md">
                 <div class="cards" >
