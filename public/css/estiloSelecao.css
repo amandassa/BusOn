@@ -4,9 +4,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-left: 0px;
 }
 
-
+h5{
+    justify-content: space-between;
+}
 
 .container#cont #coluna{
     width: 700px;
@@ -102,6 +105,8 @@
 
 
 #cards #cb .ticket{
+    margin-top: 10px;
+    display: flex;
     width: 50px;
     justify-content: center;
     align-items: center;
