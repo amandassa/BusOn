@@ -9,7 +9,7 @@
     @section('nomeMigalha1', 'Seleção de Passagem')
     @section('rotaMigalha1') {{ route('selecao') }} @endsection
     @section('nomeMigalha2', 'Pagamento')
-    @section('rotaMigalha1') {{ route('pagamento') }} @endsection
+    @section('rotaMigalha2') {{ route('pagamento') }} @endsection
     @section('nomeMigalha3', 'Confirmação')
     @section('linkM3', 'ativado')
     @section('estiloMigalha3', 'migalhaRetanguloAtiva')
