@@ -24,13 +24,13 @@
                             <div class="card-body">               
                                 <label>Selecione a Forma de Pagamento: </label> <br>                                    
                                 <button class="botaoSelecionado" onClick="{{ $i = 1}}">
-                                  <i class="fa-solid fa-credit-card"></i>
+                                  <i class="fas fa-credit-card"></i>
                                     Cartão de Crédito</button>
-                                <button class="botao" onClick="{{ $i = 2}}">
-                                  <i class="fa-solid fa-credit-card"></i>
+                                <button class="botao botaoNormal" onClick="{{ $i = 2}}">
+                                  <i class="fas fa-barcode"></i>
                                     Boleto</button>
-                                <button class="botao" onClick="{{ $i = 3}}">
-                                  <i class="fa-solid fa-credit-card"></i>
+                                <button class="botao botaoNormal" onClick="{{ $i = 3}}">
+                                  <i class="fas fa-mobile-alt"></i>
                                     Pix</button>
                                 <hr/>        
                                 <div>                                    
