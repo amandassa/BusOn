@@ -1,13 +1,23 @@
-.body{
-    background-color: #f8fafc;    
+body{
+    background-color: #F5F5F5;    
 }
 
-html, body {height:100%;}
+html, body {
+    width: 100%;
+    height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding:0;
+  padding-bottom:100px;
+    }
 
-.barraSuperior
-{        
+nav{
+    width: 100%;
+    height: 4em;  
+    -ms-flex-item-align: start;
+    align-self: flex-start;
     padding-bottom:0.5em;
-    background-color: #F9C536;    
+    background-color: #F9C536;
 }
 
 .divLogo
@@ -15,20 +25,68 @@ html, body {height:100%;}
     margin-left: 10em;
 }
 
+
 .logo
 {        
-    width: 80%;
-    height: 100%;    
-    vertical-align: middle;
+    width: 75%;
+    height: 85%;    
+    vertical-align: middle;    
 }
 
 .bottomBar{
-    padding-top:1em;
-    padding-bottom:1em;
-    width: 100%;    
-    background-color: #000000;        
+    padding-top:1em;    
+    width: 100%;        
+    background-color: #000000;    
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #white;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+footer {  
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  color: white;    
+}
+
+.divCentral{
+    margin-top:2em;
+    margin-bottom: 2em;
+}
+.conteudo{
+   position: relative;
+   top: -50%;
+}
+
+.container{
+    margin-top:2em;   
+    
+}
 .operacoesUsuario{
     margin-right: 2em;
 }
@@ -66,25 +124,12 @@ html, body {height:100%;}
     align-self:center;    
 }
 
-.botaoSelecionado
-{
-    font-size:12px;
-    border: solid 1px;
-    border-radius:5px;
-    background-color:#F9C536;
-    font-weight: bold;    
-    height:50px;
-}
-
-.botao
-{
-    font-size:12px;
-    border: solid 1px;
-    border-radius:5px;
-    font-weight: bolder;
-    border-color: #1C5576;
-    background-color: #1C5576;
-    color: white;
-    height:40px;
-    width: 75px;
+.divMigalha{
+    height: 100%;
+    justify-content: center;    
+    color: black;
+    font-family: 'Darker Grotesque', sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }

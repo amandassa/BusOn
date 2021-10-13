@@ -1,0 +1,64 @@
+.pagina .barraCentral{flex-direction: column}
+
+.divisaoSuperior, /*ONDE SE ENCONTRA DISPOSTA AO CENTRO A MIGALHA DE PÃO*/
+.divisaoInferior /*ONDE SE ENCONTRA DISPOSTA AO CENTRO OS CARDS*/
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.divisaoSuperior /*ONDE SE ENCONTRA DISPOSTA AO CENTRO A MIGALHA DE PÃO*/
+{
+    height: 90px;
+    align-items: center;
+    justify-content: center;
+}
+
+.divisaoInferior /*ONDE SE ENCONTRA DISPOSTA AO CENTRO OS CARDS*/
+{
+    height: 100%;
+    align-items: flex-start;
+}
+
+.migalha /*REFERE-SE AS MIGALHAS DE PÃO*/
+{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.migalhaRetangulo {background-color: #e0e0e0} /*REFERE-SE AS MIGALHAS RETANGULARES*/
+
+.migalhaRetanguloAtiva {background-color:#F9C536} /*REFERE-SE AS MIGALHAS RETANGULARES QUANDO ATIVAS*/
+
+.migalhaTriangulo /*REFERE-SE AS MIGALHAS TRIANGULARES*/
+{
+    border-color: transparent transparent transparent #e0e0e0;
+    border-width: 15px 15px 15px 10px;
+    border-style: solid;
+}
+
+.migalhaTrianguloAtiva {border-color: transparent transparent transparent #F9C536} /*REFERE-SE AS MIGALHAS TRIANGULARES QUANDO ATIVAS*/
+
+.migalha .link
+{
+    height: auto;
+    width: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+    font-weight: 600;
+    font-size: 20px;
+    font-weight: bolder;     
+    color: #616161;
+    font-weight: bolder;
+}
+
+.migalha .ativado
+{
+    color: black;
+}

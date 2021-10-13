@@ -1,23 +1,33 @@
-p{
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    margin: 0px;
-}
+
 .container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.container .breadcrumb{
+    padding: 5px
+}
+
+.breadcrumb-item a{
+    font-family: 'Poppins', sans-serif;
+    color: #3490dc;
+    font-style: bold;
+}
+
+
+
+
 .container .row{
-    margin-top: 35px;
-    background-color: white;
+    margin-top: 20px;
     width: 700px;
     border-radius: 6px;
     border: 2px solid rgba(0, 0, 0, 0.062);
     justify-content: center;
+    
 }
+
 
 
 
@@ -25,17 +35,58 @@ p{
     border: 2px solid rgba(0, 0, 0, 0.062);
     border-radius: 6px;
     position: relative;
+    margin-top: 16px; 
    
 }
 
-.container .col-md .cards .textoCentralBaixo{
+.cards .card-body .passagens  .partida, .destino{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 0px;
+    margin: 0px; 
+}
+
+.cards .card-body .passagens{
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px;
+}
+
+.cards .card-body .esquerda{
+    position: absolute;
+    display: flex;
+	justify-content: center;
+	flex-direction: column;
+    margin-left: 30px;
+    
+}
+.cards .card-body .vagas{
+    display: flex;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0px;
+    margin-top: 5px;
+   
+    
+}
+
+.container .col-md .cards .textoCentralCima{
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 13px;
+    margin: 0px;
+    margin-bottom: 5px;
+    margin-left: 100px;
+
 }
+
 
 .cards .card-body button{
     position: absolute;
@@ -46,11 +97,15 @@ p{
     border: #F9C536;
     background-color: #F9C536;
     border-radius: 5px;
-    top: 30px;
+    top: 20px;
     right: 15px;
 }
 
-
+.cards .card-body .central{
+    position: relative;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
 .cards .card-body button img{
     width: 25px;
 }
@@ -60,14 +115,13 @@ p{
 }
 
 
-.container .col-md .cards .textoCentralCima{
-    display: flex;
-    align-items: center;
+.cards .card-body .ticket{
+    width: 50px;
     justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    font-size: 14px;
+    align-items: center;
 }
+
+
 
 .cards .card-body{
    padding: 0px;
@@ -75,14 +129,24 @@ p{
 
 .cards .card-body hr{
     margin: 0px;
+    margin-left: 100px;
+    margin-right: 15px;
  }
 
-.container .col-12 .btn{
-    
-   display: flex;
+.container .col-md .btn{
+    display: flex;
    justify-content: center;
    align-items: center;
    margin-top: 10px;
+ 
+  
+
+}
+
+.btn-group .btn-secondary{
+    background-color: #e9ecef;
+    border-color:#d0d2d4 ;
+    color: #3490dc;
 }
 
 

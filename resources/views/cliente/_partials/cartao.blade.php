@@ -1,7 +1,7 @@
 <br>
     <form>
         <div class="form-group">
-            <div class="container">
+            <div class="container" style="padding-left:0px;">
                 <div class="row">
                     <div class="col-sm-8">
                         <label>Número do Cartão:</label>
