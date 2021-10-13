@@ -21,6 +21,10 @@ Route::get('/pagamento', function(){
     return view('cliente.partials.cartao');
     })->name('pagamento.cartao');
 
+Route::get('/pagamento', function(){
+    return view('cliente.pagamento');
+    })->name('pagamento');
+    
 Route::get('/base', function(){
     return view('app');
     })->name('base');

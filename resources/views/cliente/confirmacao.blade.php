@@ -4,13 +4,18 @@
     
 @section('content')
     <link href="/css/estiloPaginas.css" rel="stylesheet">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Selecionar Passagem</a></li>
-        <li class="breadcrumb-item"><a href="pagamento">Pagamento</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Confirmação</li>
-      </ol>
-    </nav>
+    
+    @section('usaMigalha', TRUE)
+    @section('nomeMigalha1', 'Seleção de Passagem')
+    @section('rotaMigalha1', "{{ route('selecao') }}")
+    @section('nomeMigalha2', 'Pagamento')
+    @section('rotaMigalha1', "{{ route('pagamento') }}")
+    @section('nomeMigalha3', 'Confirmação')
+    @section('linkM3', 'ativado')
+    @section('estiloMigalha3', 'migalhaRetanguloAtiva')
+    @section('estiloMigalhaT3', 'migalhaTrianguloAtiva')
+    @section('estiloMigalhaUltimo', 'migalhaTrianguloAtiva')    
+
 
     <div class="container">
         <div class="row"> <!-- Linha 1 -->
@@ -40,7 +45,7 @@
                     O email pode ter sido enviado para caixa de spam!                    
                   </div>
                   <div class="btnMP">
-                    <button type="button" class="btn btn-info" id="btnMinhasPassagens">  Minhas passagens</button>
+                    <button type="button" class="botao botaoAzul" id="btnMinhasPassagens">  Minhas passagens</button>
                   </div>
               </div>
             </div>

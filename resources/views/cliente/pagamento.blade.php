@@ -3,15 +3,18 @@
 @section('title', 'Pagamento - ')
 
 @section('content')
-<link href="/css/estiloPaginas.css" rel="stylesheet">    
 
-    <div style="text-align:center;">
-        <button type="button" class="btn btn-warning">Opção 1</button>
-        <button type="button" class="btn btn-warning">Opção 2</button>
-        <button type="button" class="btn btn-warning">Opção 3</button>            
-    </div>            
-                <br><br>
-    <div class="container" style="padding-bottom: 50px;">
+    @section('usaMigalha', TRUE)
+    @section('nomeMigalha1', 'Seleção de Passagem')
+    @section('rotaMigalha1') {{route('selecao')}} @endsection
+    @section('nomeMigalha2', 'Pagamento')
+    @section('rotaMigalha1') {{ route('pagamento') }} @endsection
+    @section('nomeMigalha3', 'Confirmação')    
+    @section('linkM2', 'ativado')
+    @section('estiloMigalha2', 'migalhaRetanguloAtiva')
+    @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')    
+                
+    <div class="container">
         <div class="row">
             <div class="col-sm">
                 <h3>Forma de Pagamento</h3>

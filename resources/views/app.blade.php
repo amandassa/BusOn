@@ -8,10 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
+    <link rel="stylesheet" href="/css/estiloMigalha.css">
+    <script src="{{ asset('js/app.js') }}" defer></script>      
+  <script defer src="/your-path-to-fontawesome/js/brands.js"></script>
+  <script defer src="/your-path-to-fontawesome/js/solid.js"></script>
+  <script defer src="/your-path-to-fontawesome/js/fontawesome.js"></script>
 </head>
     
 <body "cz-shortcut-listen="true">
-        <div class="navbar mx-auto barraSuperior"> <!-- Header/NavBar-->
+        <nav class="navbar mx-auto"> <!-- Header/NavBar-->
             <div class="container mx-auto" style="margin: 0px;">
                 <div class="row flex-nowrap nomargin"> <!-- Linha -->
                     <div class="col-md-4"> <!-- Coluna da logo -->
@@ -19,23 +24,59 @@
                     </div>
                     <div class="col-md-12"> <!-- Coluna de espaço -->                       
                     </div>
-                    <div class="col-md-2 mr-sm-2 d-flex flex-column justify-content-center align-items-center"> <!-- Coluna das opções-->
-                        @Auth
-                        <div class="operacoesUsuario">            
-                            <button type="button" class="botaoAzul">Sair</button>
-                        </div>
+                    <div class="col-md-4 mr-sm-6 "> <!-- Coluna das opções-->
+                        @Auth                                                                                     
+                            <div class="dropdown">
+                            <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->name }}!                               
+                            <div class="dropdown-content">
+                              <a href="#">Minhas Passagens</a>
+                              <a href="#">Meus Dados</a>
+                              <a href="#">Sair</a>
+                            </div>
+                          </div>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                     <button type="button" class="botao botaoAzul">Sair</button></a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>                                                                                                                                
                         @endAuth
                     </div>
                 </div>
             </div>        
+    </nav>
+        
+    <div class="align-self-center conteudo">
+        <div class="divCentral">
+            @hasSection('usaMigalha')
+            <div class="divMigalha">
+                <lu class="migalha migalhaRetangulo @yield('estiloMigalha1')">
+                    <lu class="migalha migalhaTriangulo @yield('estiloMigalhaT1')" style="border-color: transparent transparent transparent #F5F5F5;"> </lu>
+                    <a class="link @yield('linkM1')" href="@yield('rotaMigalha1')" > @yield('nomeMigalha1') </a>
+                </lu>
+                <lu class="migalha migalhaRetangulo @yield('estiloMigalha2')">
+                    <lu class="migalha migalhaTriangulo @yield('estiloMigalhaT2')"></lu>
+                    <a class="link @yield('linkM2')" href="@yield('rotaMigalha2')"> @yield('nomeMigalha2') </a>
+                </lu>
+                <lu class="migalha migalhaRetangulo @yield('estiloMigalha3')">
+                    <lu class="migalha migalhaTriangulo @yield('estiloMigalhaT3')"></lu>
+                    <a class="link @yield('linkM3')" href="@yield('rotaMigalha3')"> @yield('nomeMigalha3') </a>
+                </lu>
+                @hasSection('usaQuarta')
+                <lu class="migalha migalhaRetangulo @yield('migalhaRetanguloConfirmacao')">
+                    <lu class="migalha migalhaTriangulo @yield('migalhaTrianguloPagamento')"></lu>
+                    <a class="link @yield('linkM4')" href="@yield('rotaMigalha4')"> @yield('nomeMigalha4') </a>
+                </lu>
+                @endif              
+                <lu class="migalha migalhaTriangulo @yield('estiloMigalhaUltimo')"></lu>            
+            </div>
+            @endif
+            @yield('content')
+            </div>
     </div>
         
-    <div class="align-self-center flex-align" style="padding-bottom: 200px;">
-        @yield('content')
-    </div>
-        
-    <footer class="footer"> <!-- Footer/Rodape -->
-    <div class="justify-content-center navbar fixed-bottom bottomBar"> 
+    <footer class="fixar-rodape"> <!-- Footer/Rodape -->
+    <div class="justify-content-center navbar bottomBar"> 
         <div class="container" style="margin:0px; padding:0px;">
             <div class="row justify-content-center">  <!-- Linha -->
                     <div class="col-md-2 logo d-flex flex-column justify-content-center align-items-center"> <!-- Coluna da logo -->
