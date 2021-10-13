@@ -1,7 +1,5 @@
 @extends('cliente.confirmacaoPadrao')
 
-  
-    
     @section('Status Pagamento', 'Pagamento Processado')
     @section('Texto confirmacao', 'Pedido efetuado com sucesso!')
     @section('Mensagem confimacao', 'Uma mensagem contendo detalhes de sua passagem foi enviada para o seu email: email@email.com')
