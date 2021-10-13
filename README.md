@@ -19,6 +19,9 @@
 
 <h3>Listagem das Telas</h3>
 
+__1. Usuários em Geral__
+- [ ] Recuperação de Acesso;
+
 __1. Cliente__
 - [ ] Tela inicial de cliente;
 - [X] Login de usuários no sistema;
@@ -27,6 +30,7 @@ __1. Cliente__
 - [X] Seleção do método de pagamento;
 - [X] Confirmação;
 - [ ] Consulta de passagens compradas;
+- [ ] Dados do Cliente;
 
 __2. Funcionarios__
 - [ ] Tela inicial de funcionário (Com dados dos relatórios);
@@ -34,6 +38,7 @@ __2. Funcionarios__
 - [ ] Tela de Venda;
 - [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
 - [ ] Tela de alteração de valor/mudança de agenda;
+- [ ] Dados do Funcionario;
 
 __3. Administrador__
 - [ ] Tela inicial do administrador;
@@ -46,6 +51,7 @@ __3. Administrador__
 - [ ] Tela do relatório;
 - [ ] Tela de listagem dos usuários;
 - [ ] Tela de listagem de acessos;
+- [ ] Dados o Administrador;
 
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
