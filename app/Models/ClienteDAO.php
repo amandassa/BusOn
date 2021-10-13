@@ -1,13 +1,13 @@
 <?php
 
-use database;
+use Illuminate\Support\Facades\DB;
 /*
 Nome: ClienteDAO (classe)
 Funcionalidade: Data Access Object da classe Cliente
 Autor(es): Israel Braitt, Guilherme Nobre e Amanda 
 */
-class ClienteDAO extends database {
-
+class ClienteDAO /*extends */ {
+    
     private static $initialized = false;
     private static $link;
 
@@ -18,7 +18,7 @@ class ClienteDAO extends database {
     Autor(es): Israel Braitt
     */
     private static function initializate() {
-        if (self::$initializated)
+        if (self::$initialized)
             return;
         
         self::$initialized = true;
@@ -61,7 +61,7 @@ class ClienteDAO extends database {
     public function loginCliente($cpf, $email, $senha) {
         self::initializate();
 
-        $senha_coincide = self::senhaCoincide($cpf, $email, $senha);
+        $senha_coincide = (new ClienteDAO)->senhaCoincide($cpf, $email, $senha);
         
         if ($senha_coincide == true) {
             $link = mysql_connect('mysql_host', 'mysql_user', 'mysql_password')
@@ -94,7 +94,31 @@ class ClienteDAO extends database {
         return $result;
     }
 
+    public function alterarNome($cpf, $nome){
+        self::initializate();
+        $resultado = DB::update("UPDATE cliente set nome = $nome where cpf = $cpf");
 
+        return $resultado;
+    }
 
+    public function alterarEmail($cpf, $email){
+        self::initializate();
+        $resultado = DB::update("UPDATE cliente SET email = $email WHERE cpf = $cpf");
+
+        return $resultado;
+    }
+
+    public function alterarSenha($cpf, $senha){
+        self::initializate();
+        $resultado = DB::update("UPDATE cliente SET senha = $senha WHERE cpf = $cpf");
+
+        return $resultado;
+    }
+    public function consultarLinhas($cpf){
+        self::initializate();
+        $resultado = DB::select("SELECT * from passagem WHERE cpf_cliente = $cpf");
+
+        return $resultado;
+    }
 }
 ?>
