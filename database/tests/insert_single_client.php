@@ -18,12 +18,12 @@ function print_query_array($querry_arr, $spacing){
 
 $host = 'localhost';
 $username = 'root';
-$password = 'power_to_the_earth123';
+$password = '';
 
-$database = 'buson_db_v2';
+$database = 'buson_laravel';
 
 $con = mysqli_connect($host, $username, $password);
-mysqli_select_db($con, "buson_db_v2");
+mysqli_select_db($con, "buson_laravel");
 
 
 $values = "INSERT INTO cliente (CPF, nome, email, senha)
