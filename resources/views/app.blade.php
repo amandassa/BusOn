@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-8"> <!-- Coluna de espaço -->                       
                     </div>
-                    <div class="col-md-4 mr-sm-6 "> <!-- Coluna das opções-->
+                    <div class="col-md-4 "> <!-- Coluna das opções-->
                         @Auth                                                                                     
                             <div class="dropdown">
                             <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->name }}!                               

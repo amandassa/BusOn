@@ -18,7 +18,7 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
-    return view('cliente.pagamento');
+    return view('cliente.pagamento')->with('valor', 1);
     })->name('pagamento');
     
 Route::get('/base', function(){
