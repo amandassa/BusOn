@@ -108,7 +108,7 @@ class Cliente {
     Funcionalidade: Alterar os dados (que podem ser alterados) do cliente
     Autor(es): Israel Braitt
     */
-    public function alterarDados(varchar $cpf, string $novo_nome, string $novo_email, string $nova_senha) {
+    public function alterarDados(string $cpf, string $novo_nome, string $novo_email, string $nova_senha) {
         
     }
 
