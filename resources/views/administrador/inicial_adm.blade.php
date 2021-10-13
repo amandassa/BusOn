@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <div class="container">
-        <div class="row" id="linhazinha2">
+        <div class="row" id="linhazinha3">
             <p class="textoPreto">Dashboard</p> 
         </div>
         <div class="row" id="linhazinha"> <!--Botoes de seleção para tela inical do funcionario-->
@@ -24,6 +24,16 @@
             <button type="button" class="btn botaoSelecaoInicial">
                 <span class="material-icons">library_books</span>
                 Gerar Relatorio
+            </button>
+
+            <button type="button" class="btn botaoSelecaoInicial">
+                <span class="material-icons">people_alt</span>
+                Gerenciar Usuários
+            </button>
+
+            <button type="button" class="btn botaoSelecaoInicial">
+                <span class="material-icons">description</span>
+                Verificar Logs
             </button>
 
             <button type="button" class="btn botaoSelecaoInicial">

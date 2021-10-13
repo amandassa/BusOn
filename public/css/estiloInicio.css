@@ -1,0 +1,85 @@
+
+.card
+{
+    margin-left: 10px; 
+    margin-right: 10px; 
+    width: 320px;
+    height: 180px;
+    margin-bottom: 10px;
+    margin-top: 10px; 
+    border-radius: 5%;
+    box-shadow: 1px 1px 1px rgba(136, 134, 134, 0.589)
+}
+
+
+.botaoSelecaoInicial
+{
+    margin-left: 10px; 
+    margin-right: 10px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 85px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 10%;
+    font-weight: bold;
+    background-color: #f9c536;
+    box-shadow: 1px 2px 1px rgba(136, 134, 134, 0.589)
+}
+
+.textoNumeroAzul
+{
+    font-family: "darker grotesque";
+    font-size: 52px;
+    color: #1c5d76;
+    text-align: center;  
+    font-weight: bold;  
+}
+
+.textoCidade
+{
+    font-family: "darker grotesque";
+    font-size: 32px;
+    color: #1c5d76;
+    text-align: center;  
+    font-weight: bold; 
+}
+
+
+.textoNumeroAmarelo
+{
+    font-family: "darker grotesque";
+    font-size: 52px;
+    color: #f6b913;
+    text-align: center;  
+    font-weight: bold;  
+}
+
+#linhazinha
+{
+    display: flex;
+    justify-content: center;
+}
+
+#linhazinha2
+{
+    padding-left: 260px;
+    display: flex;
+    justify-content: left;
+}
+
+#linhazinha3
+{
+    padding-left: 80px;
+    display: flex;
+    justify-content: left;
+}
+
+.textoPreto
+{
+    font-family: "darker grotesque";
+    font-size: 2em;
+    color: black;
+    font-weight: bold;
+    
+}
