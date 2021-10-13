@@ -124,8 +124,14 @@ h5{
     margin-right: 15px;
  }
 
+
+#centralizado{
+    margin-left: 10px;
+}
+
+
 #centralizado .btn{
-    display: flex;
+   display: flex;
    justify-content: center;
    align-items: center;
    margin-top: 10px;

@@ -57,8 +57,8 @@
                             <p class="textoCentralCima" >Valor R$26,20</p>
                         </div>
                     </div>
-                  </div>
-                  <div class="card" id="cards" >
+                </div>
+                <div class="card" id="cards" >
                     <div class="card-body" id="cb">
                         <div class="esquerda">
                             <img class="ticket" src="/imagens/ticket.png" alt="">
@@ -75,7 +75,7 @@
                             <p class="textoCentralCima" >Valor R$34,70</p>
                         </div>    
                     </div>
-                  </div>
+                </div>
 
                 <div class="btn" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
