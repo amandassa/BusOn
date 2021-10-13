@@ -5,14 +5,12 @@
 <h3>Listagem das Telas</h3>
 
 __1. Cliente__
-- [X] Tela inicial de cliente;
-- [ ] Login de usuários no sistema;
-- [ ] Cadastro de clientes no sistema;
-- [ ] Cadastro de Informações pessoais;
-- [ ] Cadastro de métodos de pagamento;
+- [ ] Tela inicial de cliente;
+- [X] Login de usuários no sistema;
+- [X] Cadastro de clientes no sistema;
 - [ ] Visualização da agenda das passagens;
-- [ ] Seleção do método de pagamento;
-- [ ] Confirmação;
+- [X] Seleção do método de pagamento;
+- [X] Confirmação;
 - [ ] Consulta de passagens compradas;
 
 __2. Funcionarios__
