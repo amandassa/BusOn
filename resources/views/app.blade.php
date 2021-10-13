@@ -10,9 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
     <link rel="stylesheet" href="/css/estiloMigalha.css">
     <script src="{{ asset('js/app.js') }}" defer></script>      
-  <script defer src="/your-path-to-fontawesome/js/brands.js"></script>
-  <script defer src="/your-path-to-fontawesome/js/solid.js"></script>
-  <script defer src="/your-path-to-fontawesome/js/fontawesome.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/redimensionar.js"></script>    
 </head>
     
 <body "cz-shortcut-listen="true">
@@ -22,7 +21,7 @@
                     <div class="col-md-4"> <!-- Coluna da logo -->
                             <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
                     </div>
-                    <div class="col-md-12"> <!-- Coluna de espaço -->                       
+                    <div class="col-md-8"> <!-- Coluna de espaço -->                       
                     </div>
                     <div class="col-md-4 mr-sm-6 "> <!-- Coluna das opções-->
                         @Auth                                                                                     
@@ -45,7 +44,8 @@
                 </div>
             </div>        
     </nav>
-        
+    
+    <section>
     <div class="align-self-center conteudo">
         <div class="divCentral">
             @hasSection('usaMigalha')
@@ -74,6 +74,7 @@
             @yield('content')
             </div>
     </div>
+     </section>    
         
     <footer class="fixar-rodape"> <!-- Footer/Rodape -->
     <div class="justify-content-center navbar bottomBar"> 
