@@ -18,10 +18,6 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
-    return view('cliente.partials.cartao');
-    })->name('pagamento.cartao');
-
-Route::get('/pagamento', function(){
     return view('cliente.pagamento');
     })->name('pagamento');
     
@@ -32,7 +28,6 @@ Route::get('/base', function(){
 Route::get('/confirmacao', function(){
     return view('cliente.confirmacao');
     })->name('confirmacao');
-
 
 Route::get('/selecao', function(){
     return view('cliente.selecao');
