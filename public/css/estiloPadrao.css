@@ -28,7 +28,7 @@ nav{
 
 .logo
 {        
-    width: 60%;
+    width: 100%;
     height: 100%;    
     vertical-align: middle;    
 }
@@ -122,51 +122,6 @@ footer {
     width:100%;
     height: 100%;    
     align-self:center;    
-}
-
-.botaoSelecionado
-{
-    font-size:12px;
-    border: solid 1px;
-    border-radius:5px;
-    background-color:#F9C536;
-    font-weight: bold;    
-    height:50px;
-}
-
-.botao /*REFERE-SE A TODOS OS BOTÕES*/
-{
-    height: auto;
-    min-height: 36px;
-    width: auto;
-    padding: 6px;
-    border: none;
-    border-radius: 5px;
-    font-family: 'Arimo', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-left: 4px;
-    margin-right: 4px;
-}
-
-.botaoAmarelo, .botaoAzul {min-width: 90px}
-
-.botaoAmarelo:hover {background-color:#F9C536d0}
-
-
-.botaoAmarelo /*REFERE-SE AOS BOTÕES PRIMÁRIOS CUJA COR É AMARELA E AS LETRAS SÃO PRETAS*/
-{
-    background-color:#F9C536;
-    color: black;
-}
-
-.botaoAzul:hover {background-color:#1b5576d0}
-
-.botaoAzul /*REFERE-SE AOS BOTÕES SECUNDÁRIOS CUJA COR É AZUL E AS LETRAS SÃO BRANCAS*/
-{
-    background-color:#1B5576;
-    color: white;
 }
 
 .divMigalha{

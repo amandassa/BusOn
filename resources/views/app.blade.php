@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
     <link rel="stylesheet" href="/css/estiloMigalha.css">
+    <link rel="stylesheet" href="/css/estiloComponentes.css">
     <script src="{{ asset('js/app.js') }}" defer></script>      
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/js/redimensionar.js"></script>    
