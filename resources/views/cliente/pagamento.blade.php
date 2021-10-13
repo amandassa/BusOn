@@ -73,13 +73,20 @@
                             <div class="card-body">                            
                                 <p class="textoAmarelo" style="text-align:left; font-size:18px;">Feira de Santana >>> Jaguaquara</p>
                                 <p class="textoPreto" style="text-align:left; font-size:10px;">25/08/2021 às 18:00hrs</label>
+                                <ol>
+                                    <li>Assento linha comum R$58,00</li>
+                                    <li>Seguro de viagem (Obrigatório) R$5,60</li>    
+                                </ol>                                
                                 <hr/>    
-                                <p>Subtotal:</p>
-                                <h4 class="textoAmarelo" style="text-align:left; font-size:16px;">R$65,00</h4>
+                                <p><b>Subtotal:</b></p>
+                                <h4 class="textoAmarelo" style="text-align:left; font-size:32px; font-weight: bolder;">R$65,00</h4>
                             </div>
                         </div>
-                    </div> 
-                </section> 
+                            <br>
+                            <button class="botao botaoAmarelo" style="width: 100%;height:60px;" ><i class="fas fa-check-circle"></i> Comprar Passagem</button>
+                    </div>
+                        
+                </section>                
             </div>
         </div>
     </div>    
