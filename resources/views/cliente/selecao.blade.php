@@ -19,7 +19,7 @@
 
 
     <div class="container">
-        <h3>Seleção de Passagem!</h3>
+        <h1>Seleção de Passagem!</h1>
         <div class="row justify-content-center">
             <div class="col-md">
                 <div class="cards" >
@@ -90,11 +90,7 @@
                       <button type="button" class="btn btn-secondary">>></button>
                 </div>
             </div>
-        </div>
-            
-                
-          
-      </div>
+        </div>             
     </div>
                 
                  

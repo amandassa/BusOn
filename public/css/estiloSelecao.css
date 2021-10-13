@@ -6,17 +6,6 @@
     align-items: center;
 }
 
-.container .breadcrumb{
-    padding: 5px
-}
-
-.breadcrumb-item a{
-    font-family: 'Poppins', sans-serif;
-    color: #3490dc;
-    font-style: bold;
-}
-
-
 
 
 .container .row{
