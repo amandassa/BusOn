@@ -1,4 +1,6 @@
 <?php
+
+use database;
 /*
 Nome: ClienteDAO (classe)
 Funcionalidade: Data Access Object da classe Cliente
@@ -28,9 +30,9 @@ class ClienteDAO extends database {
     Autor(es): Israel Braitt e Guilherme Nobre
     */
     public function criarConta($nome, $cpf, $email, $senha) {
-        self::initialize();
+        self::initializate();
 
-        $query = "insert into cliente(nome, cpf, email, senha) values ($nome_var, $cpf, $email, $senha)";
+        $query = "insert into cliente(nome, cpf, email, senha) values ($nome, $cpf, $email, $senha)";
         $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
 
         return $result;
@@ -43,9 +45,9 @@ class ClienteDAO extends database {
     Autor(es): Israel Braitt e Guilherme Nobre
     */
     public function verificarContaExistente($email, $cpf) {
-        self::initialize();
+        self::initializate();
 
-        $query = "select * from cliente where email = ‘$email’ or cpf = ‘$cpf’";
+        $query = "select * from cliente where email = $email or cpf = $cpf";
         $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
 
         return $result;
@@ -57,7 +59,7 @@ class ClienteDAO extends database {
     Autor(es): Israel Braitt
     */
     public function loginCliente($cpf, $email, $senha) {
-        self::initialize();
+        self::initializate();
 
         $senha_coincide = self::senhaCoincide($cpf, $email, $senha);
         
@@ -79,12 +81,12 @@ class ClienteDAO extends database {
     Autor(es): Israel Braitt
     */
     public function senhaCoincide($cpf, $email, $senha) {
-        self::initialize();
+        self::initializate();
 
         if ($cpf == null) {
-            $query = "select * from cliente where cpf = ‘$cpf’ and senha = ‘$senha";
+            $query = "select * from cliente where cpf = $cpf and senha = $senha";
         } else {
-            $query = "select * from cliente where email = ‘$email’ and senha = ‘$senha";
+            $query = "select * from cliente where email = $email and senha = $senha";
         }
 
         $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
