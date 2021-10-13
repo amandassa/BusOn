@@ -79,15 +79,8 @@ footer {
     margin-bottom: 2em;
 }
 .conteudo{
-  height: 100%;
-  min-height: 100%;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  flex-grow: 3;    
+   position: relative;
+   top: -50%;
 }
 
 .container{

@@ -3,7 +3,7 @@
 @section('content')    
 <div class="container" style="flex-grow: 3;">
     <div class="row justify-content-center">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
         <h5>Login</h5>
             <div class="card" style="d-flex p-2">                
 
