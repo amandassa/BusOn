@@ -43,7 +43,7 @@
                         @endAuth
                     </div>
                 </div>
-            </div>        
+            </div>            
     </nav>
     
     <section>
