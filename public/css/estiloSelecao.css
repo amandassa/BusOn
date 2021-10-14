@@ -86,7 +86,7 @@ h5{
     font-size: 12px;
     border: #F9C536;
     background-color: #F9C536;
-    border-radius: 5px;
+    border-radius: 6px;
     top: 20px;
     right: 15px;
 }
@@ -101,7 +101,7 @@ h5{
 }
 
 #cards #cb button:hover{
-    background: #b38f2c;
+    background: #F9C536d0;
 }
 
 
