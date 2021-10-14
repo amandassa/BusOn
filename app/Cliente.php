@@ -1,27 +1,51 @@
 <?php
+namespace App;
 
-use ClienteDAO;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 /*
 Nome: Cliente (classe)
 Funcionalidade: Representa a entidade cliente e as ações executadas pela mesma
 Autor(es): Israel Braitt 
 */
-class Cliente {
+class Cliente extends Authenticatable{
 
+    use notifiable;
     // atributos
     private string $nome;
     private string $email;
     private string $cpf;
     private string $senha;
     
+    public function getAuthPassword(){
+        return $this->senha;
+    }
+    
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['senha'] = bcrypt($value);
+    }
+    
+    protected $table = 'cliente';
+
+    public $timestamps = false;
+        
+        
+    
+    protected $fillable = [
+        'CPF',
+        'nome',
+        'email',
+        'senha',
+    ];
+    
     // construtor da classe
-    public function __construct(string $nome, string $email, string $cpf, string $senha) {
+    /*public function __construct(string $nome, string $email, string $cpf, string $senha) {
         $this->nome = $nome;
         $this->email = $email;
         $this->cpf = $cpf;
         $this->senha = $senha;
-    }
+    }*/
 
     // método de acesso ao atributo nome
     public function getNome() {

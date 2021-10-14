@@ -68,13 +68,13 @@ return [
     'providers' => [
         'cliente' => [
             'driver' => 'eloquent',
-            'model' => App\Models\ClienteDAO::class,
+            'model' => App\Models\Cliente::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'cliente' => [
+             'driver' => 'database',
+             'table' => 'cliente',
+         ],
     ],
 
     /*

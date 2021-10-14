@@ -4,7 +4,7 @@ CREATE TABLE cliente (
     CPF varchar(20) PRIMARY KEY,
     nome varchar(60),
     email varchar(60),
-    senha varchar(20)
+    senha BINARY(60)
 );
 
 CREATE TABLE funcionario (
