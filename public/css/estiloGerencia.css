@@ -2,6 +2,8 @@
     padding: 0px;
 }
 
+
+
 #navGu{
     padding: 0px;
     margin: 0px;
@@ -29,9 +31,8 @@
     background: none;
 }
 
-#cardGu{
-    width: auto;
-
+.card{
+   
 }
 
 #btn {
