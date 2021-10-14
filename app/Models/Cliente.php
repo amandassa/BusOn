@@ -1,5 +1,6 @@
 <?php
-namespace App;
+
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,6 +17,9 @@ class Cliente extends Authenticatable{
     private string $email;
     private string $cpf;
     private string $senha;
+
+    protected $table = 'cliente';
+    public $timestamps = false;
     
     public function getAuthPassword(){
         return $this->senha;
@@ -25,12 +29,6 @@ class Cliente extends Authenticatable{
     {
         $this->attributes['senha'] = bcrypt($value);
     }
-    
-    protected $table = 'cliente';
-
-    public $timestamps = false;
-        
-        
     
     protected $fillable = [
         'CPF',
