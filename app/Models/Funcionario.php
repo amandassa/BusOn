@@ -1,18 +1,43 @@
 <?php
 
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 /*
 Nome: Funcionario (classe)
 Funcionalidade: Representa a entidade funcionário e as ações executadas pela mesma
 Autor(es): Israel Braitt
 */
-class Funcionario {
+class Funcionario extends Authenticatable {
 
+    use notifiable;
     // atributos
     private string $nome;
     private string $email;
     private string $cpf;
     private string $senha;
     private int $matricula;
+
+    protected $table = 'funcionario';
+    public $timestamps = false;
+    
+    public function getAuthPassword(){
+        return $this->senha;
+    }
+    
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['senha'] = bcrypt($value);
+    }
+    
+    protected $fillable = [
+        'CPF',
+        'nome',
+        'email',
+        'senha',
+        'matricula',
+    ];
 
     // construtor da classe
     public function __construct(string $nome, string $email, string $cpf, string $senha, int $matricula) {
