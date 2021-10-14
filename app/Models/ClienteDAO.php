@@ -24,6 +24,13 @@ class ClienteDAO /*extends */ {
         self::$initialized = true;
     }
     
+    protected $fillable = [
+        'cpf',
+        'name',
+        'email',
+        'password',
+    ];
+
     /*
     Nome: criaConta (método)
     Funcionalidade: Inserir informações do usuário no banco de dados
