@@ -48,9 +48,15 @@ Route::get('/perfilCliente', function(){
 
 Route::get('/inicial_adm', function(){
             return view('administrador.inicial_adm');
+<<<<<<< HEAD
             })->name('inicial_adm');  
 
 Route::get('/gerenciaUsuario_adm', function(){
     return view('cliente.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
+=======
+            })->name('inicial_adm');
+
+Route::post('/login', 'HomeController@login');
+>>>>>>> 3399259c59dc37d2b45dc2b42679d47b06f50eaf

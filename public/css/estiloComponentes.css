@@ -150,7 +150,7 @@
     border-radius:5px;
     background-color:#F9C536;
     font-weight: bold;    
-    height:50px;
+    height:50px;    
 }
 
 .botaoNormal{
@@ -160,4 +160,5 @@
     background-color:white;
     font-weight: bold;    
     height:50px;
+    width:100px;
 }

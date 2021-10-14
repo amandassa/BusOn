@@ -35,14 +35,14 @@
                   
               </div>
             </div>
-            <div class="card">
+            <div class="card" style="text-align: center">
                 <div class="card-body">
                   <p class="textoConfirmacao">@yield("Texto confirmacao")</p> <br>
                   <p>
                     @yield("Mensagem confimacao")
                   </p>
                   @hasSection ('Alerta')
-                  <div class="alert alert-warning alert-dismissible fade show" role="alert" id="msgAlerta">
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert" id="msgAlerta" style="text-align: center">
                     @yield("Mensagem alerta")                    
                   </div>
                   @endif

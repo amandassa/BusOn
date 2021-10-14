@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Cliente;
+use Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +51,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'cpf' => ['required', 'string'],
+            'nome' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:cliente'],
+            'senha' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -64,10 +66,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $cpf = $data['cpf'];
+        $nome = $data['nome'];
+        $email = $data['email'];
+        $senha = Hash::make($data['senha']);        
+        DB::statement('insert into cliente(nome, CPF, email, senha, updated_at, created_at) values (?, ?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, Carbon\Carbon::now(), Carbon\Carbon::now()]);
+        $cliente = new Cliente;
+        $cliente->fill($data);
+        return $cliente;
     }
 }

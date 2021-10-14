@@ -16,6 +16,21 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    /*public function login(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'senha' => 'required|password'
+            ]);
+        
+        $credentials = ['email' => $request->email, 'senha' => $request->senha];
+        
+        if(Auth::attempt($credentials)){
+            return redirect()->route('pagamento');
+        } else {
+            return redirect()->back()->with('msg', 'Acceso negado com essas credenciais');            
+        }
+    }*/
+    
     /**
      * Show the application dashboard.
      *
@@ -23,6 +38,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        return view('cliente.pagamento');
+        return view('cliente.pagamento')->with('valor', 1);
     }
 }
