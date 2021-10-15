@@ -10,6 +10,13 @@ class ClienteDAO /*extends */ {
     
     private static $initialized = false;
     private static $link;
+    
+    private $connection;
+
+    private $host = request()->getHttpHost(); 
+    private $host_username = 'root_buson';
+    private $db_name = 'buson_db';
+    private $db_password = 'rootroot';
 
     /*
     Nome: initializate (método)
@@ -21,6 +28,8 @@ class ClienteDAO /*extends */ {
         if (self::$initialized)
             return;
         
+        $this->connection = mysqli_connect($this->host, $this->host_username, $this->db_password);
+        mysqli_select_db($con, $this->db_name);
         self::$initialized = true;
     }
     
@@ -40,7 +49,7 @@ class ClienteDAO /*extends */ {
         self::initializate();
 
         $query = "insert into cliente(nome, cpf, email, senha) values ($nome, $cpf, $email, $senha)";
-        $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
+        $result = mysqli_query($this->connection, $query) or $result = ('Falha na consulta:' . mysqli_error($this->connection));
 
         return $result;
     }
@@ -55,7 +64,7 @@ class ClienteDAO /*extends */ {
         self::initializate();
 
         $query = "select * from cliente where email = $email or cpf = $cpf";
-        $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
+        $result = mysqli_query($this->connection, $query) or $result = ('Falha na consulta:' . mysqli_error($this->connection));
 
         return $result;
     }
@@ -63,8 +72,10 @@ class ClienteDAO /*extends */ {
     /*
     Nome: login (método)
     Funcionalidade: Conecta o cliente ao servidor e ao banco de dados
+    !!!!!MUDANÇA!!!!! EU COLOQUEI PRA CONECTAR AO SERVIDOR DENTRO DO METODO DE INICIALIZAÇÃO
     Autor(es): Israel Braitt
     */
+    /*
     public function loginCliente($cpf, $email, $senha) {
         self::initializate();
 
@@ -96,7 +107,7 @@ class ClienteDAO /*extends */ {
             $query = "select * from cliente where email = $email and senha = $senha";
         }
 
-        $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
+        $result = mysqli_query($this->connection, $query) or $result = ('Falha na consulta:' . mysqli_error($this->connection));
 
         return $result;
     }
