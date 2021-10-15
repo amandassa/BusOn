@@ -53,7 +53,7 @@
                     </div>
                 </form>
                 <div class="btnCC">
-                    <button type="button" class="btn btn-info" id="btnCriarConta">Salvar</button>
+                    <button type="button" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
                 </div>
             </div>
         </div>
