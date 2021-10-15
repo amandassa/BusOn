@@ -60,9 +60,9 @@ nav{
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #white;}
+.dropdown-content a:hover {background-color: white}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {display: block}
 
 
 footer {  
