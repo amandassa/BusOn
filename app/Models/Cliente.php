@@ -1,5 +1,6 @@
 <?php
-namespace App;
+
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,16 +16,26 @@ class Cliente extends Authenticatable{
     private string $nome;
     protected string $email;
     private string $cpf;
+<<<<<<< HEAD:app/Cliente.php
     protected string $senha;
+=======
+    private string $senha;
+
+    protected $table = 'cliente';
+    public $timestamps = false;
+>>>>>>> 5d2bbc2feb49808f6506133ce90136627f91dab8:app/Models/Cliente.php
     
     public function getAuthPassword(){
         return $this->senha;
     }    
     
+<<<<<<< HEAD:app/Cliente.php
     protected $table = 'cliente';
 
     public $timestamps = false;
                 
+=======
+>>>>>>> 5d2bbc2feb49808f6506133ce90136627f91dab8:app/Models/Cliente.php
     protected $fillable = [
         'CPF',
         'nome',

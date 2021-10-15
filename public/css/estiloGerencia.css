@@ -1,0 +1,41 @@
+#containerGu {
+    padding: 0px;
+}
+
+
+
+#navGu{
+    padding: 0px;
+    margin: 0px;
+    background: transparent;
+    width: auto;
+    align-items: center;
+    
+}
+
+#navGu ul{
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    font-family: 'Poppins';
+    font-weight: 600;
+    padding: 0px;
+    margin: 0px;
+    
+
+}
+
+#navGu ul #lisGu {
+    padding: 0px;
+    margin: 0px;
+    background: none;
+}
+
+.card{
+   
+}
+
+#btn {
+    border: 1px solid #F9C536;
+    border-radius: 6px;
+}

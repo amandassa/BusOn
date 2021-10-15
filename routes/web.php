@@ -18,7 +18,6 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
-
     return view('cliente.pagamento')->with('valor', 1);
     })->name('pagamento');
     
@@ -49,5 +48,9 @@ Route::get('/perfilCliente', function(){
 
 Route::get('/inicial_adm', function(){
             return view('administrador.inicial_adm');
-            })->name('inicial_adm');
+            })->name('inicial_adm');  
+
+Route::get('/gerenciaUsuario_adm', function(){
+    return view('cliente.gerenciaUsuarios');
+})->name('gerenciaUsuarios');
 
