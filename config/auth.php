@@ -69,12 +69,13 @@ return [
         'cliente' => [
             'driver' => 'eloquent',
             'model' => App\Models\Cliente::class,
+            'table' => 'cliente'
         ],
 
-         'cliente' => [
+         /*'cliente' => [
              'driver' => 'database',
              'table' => 'cliente',
-         ],
+         ],*/
     ],
 
     /*

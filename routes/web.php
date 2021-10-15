@@ -51,4 +51,3 @@ Route::get('/inicial_adm', function(){
             return view('administrador.inicial_adm');
             })->name('inicial_adm');
 
-Route::post('/login', 'HomeController@login');

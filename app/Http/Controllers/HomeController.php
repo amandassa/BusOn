@@ -40,4 +40,6 @@ class HomeController extends Controller
     {
         return view('cliente.pagamento')->with('valor', 1);
     }
+    
+    
 }

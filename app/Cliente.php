@@ -13,31 +13,26 @@ class Cliente extends Authenticatable{
     use notifiable;
     // atributos
     private string $nome;
-    private string $email;
+    protected string $email;
     private string $cpf;
-    private string $senha;
+    protected string $senha;
     
     public function getAuthPassword(){
         return $this->senha;
-    }
-    
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['senha'] = bcrypt($value);
-    }
+    }    
     
     protected $table = 'cliente';
 
     public $timestamps = false;
-        
-        
-    
+                
     protected $fillable = [
         'CPF',
         'nome',
         'email',
         'senha',
     ];
+    
+    protected $hidden = ['senha',  'remember_token'];
     
     // construtor da classe
     /*public function __construct(string $nome, string $email, string $cpf, string $senha) {
