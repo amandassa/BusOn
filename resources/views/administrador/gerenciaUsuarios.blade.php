@@ -16,36 +16,44 @@
             <div class="col" id="esquerda">
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
             </div>
             <div class="col" id="direita">
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               <div class="card" id="cardsGu">
                 <div class="card-body" id="cardBodyGu">
+                  <button class="botaoAzul" id="botaoEditar"> Editar </button>
                 </div>
               </div>
               

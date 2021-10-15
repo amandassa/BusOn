@@ -18,6 +18,12 @@
     border-radius: 6px;
 }
 
+#botaoEditar{
+    border: #1B5576;
+    border-radius: 6px;
+    width: 50px;
+}
+
 #meio .baixoGu{
     padding: 10px;
     display: flex;

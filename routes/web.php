@@ -51,6 +51,6 @@ Route::get('/inicial_adm', function(){
             })->name('inicial_adm');  
 
 Route::get('/gerenciaUsuario_adm', function(){
-    return view('cliente.gerenciaUsuarios');
+    return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
