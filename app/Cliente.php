@@ -11,7 +11,7 @@ Autor(es): Israel Braitt
 */
 class Cliente extends Authenticatable{
 
-    use notifiable;
+    use Notifiable;
     // atributos
     private string $nome;
     protected string $email;
@@ -26,7 +26,6 @@ class Cliente extends Authenticatable{
         return $this->senha;
     }        
 
-    public $timestamps = false;
                 
     protected $fillable = [
         'CPF',
