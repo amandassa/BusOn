@@ -25,8 +25,6 @@ class Cliente extends Authenticatable{
     public function getAuthPassword(){
         return $this->senha;
     }        
-
-    public $timestamps = false;
                 
     protected $fillable = [
         'CPF',

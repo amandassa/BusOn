@@ -54,3 +54,6 @@ Route::get('/gerenciaUsuario_adm', function(){
     return view('cliente.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
+Route::get('/consultar_linhas', function(){
+    return view('funcionario.consultar_linhas');
+});
