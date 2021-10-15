@@ -32,6 +32,7 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
@@ -45,6 +46,7 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
@@ -58,6 +60,7 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
@@ -71,10 +74,12 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
               </div>
+
             </div>
             <div class="col" id="colDireita">
               <div class="card" id="cardsGu">
@@ -86,6 +91,7 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
@@ -99,6 +105,7 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
@@ -112,6 +119,7 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
@@ -125,19 +133,30 @@
                       <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
                       <label for="staticCpf">Cpf: </label>
                       <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
+                      <hr>
                       <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
                     </div>      
                 </div>
               </div>
             </div>
-            
+            <div class="baixoGu">
+              <button class="botaoAmarelo" id="botaoGu"> Baixar Arquivo Completo </button>
+            </div>
           </div>
           <hr>
-          <div class="baixoGu">
-            <button class="botaoAmarelo" id="botaoGu"> Baixar Arquivo Completo </button>
+          <div class="btn" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button type="button" class="btn btn-secondary"><<</button>
+              <button type="button" class="btn btn-secondary">1</button>
+              <button type="button" class="btn btn-secondary">2</button>
+              <button type="button" class="btn btn-secondary">3</button>
+              <button type="button" class="btn btn-secondary">4</button>
+              <button type="button" class="btn btn-secondary">>></button>
+            </div>
           </div>
           
         </div>
+        
       </div>
       
 @endsection

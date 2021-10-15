@@ -108,6 +108,13 @@
     position: relative;
     font-family: 'Poppins';
 }
+
+#centroGu hr{
+    margin-top: 0px;
+    margin-bottom: 25px;
+
+}
+
 #centroGu input{
     margin: 5px;
     margin-right: 20px;
@@ -128,8 +135,25 @@
     font-size: 10px;
     padding: 5px;
     right: 5px;
-    bottom: -5px;
+    bottom: -30px;
 }
 
+#botaoGu{
+    margin: 15px;
+}
+
+#contPrincipal .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+ }
+ 
+ .btn-group .btn-secondary{
+     background-color: #e9ecef;
+     border-color:#d0d2d4 ;
+     color: #3490dc;
+ }
+ 
 
 
