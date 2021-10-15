@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\Cliente;
 
 class LoginController extends Controller
 {
@@ -37,4 +41,22 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+       
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'senha');
+    }
+    
+    public function getAuthPassword()
+    {
+        return $this->senha;
+    }
+   
+  
 }
