@@ -61,3 +61,6 @@ Route::get('/gerenciaUsuario_adm', function(){
     return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
+Route::get('/adicionarLinha', function(){
+    return view('administrador.adicionarLinha');
+})->name('adicionaLinha');
