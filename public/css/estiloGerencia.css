@@ -11,6 +11,7 @@
     border: 2px solid rgba(0, 0, 0, 0.062);
     background-color: white;
     justify-content: center;    
+    position: relative;
 }
 
 #botaoGu, #botaoBusca {
@@ -18,22 +19,141 @@
     border-radius: 6px;
 }
 
-#meio .baixoGu{
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-   
+#botaoBusca {
+    margin-left: 15px;
 }
+
+
+
+
 
 #meio .cimaGu{
+    display: flex;
     padding: 10px;
     justify-content: center;
+    margin-top: 10px;
 }
 
-#meio .cimaGu #buscaGu{
+.buscGu{
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+#buscaGu{
     width: 550px;
     margin-left: 15px;
     border: 2px solid rgba(0, 0, 0, 0.062);
     background-color: #f5f5f5;
     border-radius: 6px;
+    padding: 5px;
+    padding-left: 46px;
 }
+
+#lupa{
+    display: flex;
+    width: 25px;
+    position: absolute;
+    left: 25px;
+}
+
+.buscGu:hover img {
+    transform: scale(0);
+}
+
+#buscaOpcoes{
+    display: flex;
+    border: none;
+    position: absolute;
+    background-color: #f5f5f5;
+    padding: 5px;
+    right: 15px;
+}
+    
+
+#meio .baixoGu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+#rowCentral{
+    margin: 0px;
+    justify-content: center;
+}
+
+#colEsquerda, #colDireita{
+    padding: 0px;
+    flex-grow: 0;
+    margin: 5px;
+}
+
+
+
+#cardsGu{
+    width: 320px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 10px;
+    box-shadow:1px 1px 2px 1px rgba(0, 0, 0, 0.712) ;
+}
+
+#cardBodyGu{
+    padding: 10px;
+    justify-content: center;
+}
+
+#centroGu{
+    position: relative;
+    font-family: 'Poppins';
+}
+
+#centroGu hr{
+    margin-top: 0px;
+    margin-bottom: 25px;
+
+}
+
+#centroGu input{
+    margin: 5px;
+    margin-right: 20px;
+    margin-top: 0px;
+    padding: 2px;
+    width: 220px;
+    border: transparent;
+}
+
+
+
+
+#botaoEditar{
+    position: absolute;
+    border: #1B5576;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 10px;
+    padding: 5px;
+    right: 5px;
+    bottom: -30px;
+}
+
+#botaoGu{
+    margin: 15px;
+}
+
+#contPrincipal .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+ }
+ 
+ .btn-group .btn-secondary{
+     background-color: #e9ecef;
+     border-color:#d0d2d4 ;
+     color: #3490dc;
+ }
+ 
+
+

@@ -58,5 +58,17 @@ class LoginController extends Controller
         return $this->senha;
     }
    
-  
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $email = $credentials['email'];
+    	$plain = $credentials['password'];
+        $senha_check = DB::select("select senha from cliente where email = :email", ['email' => $email])->first();    	
+    	if($this->hasher->check($plain, $senha_check)){            
+			return dd("chegou");
+            if (Auth::attempt(['email' => $email])) {		    
+                return redirect()->route('pagamento');
+            }
+        }
+    }
 }
