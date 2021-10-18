@@ -7,7 +7,12 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
       <div class="container" id="contPrincipal">
+        <ol class="breadcrumb" id="superior">
+          <li class="breadcrumb-item"><a href="#">Lista de Clientes</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Lista de Funcionarios</li>
+        </ol>
         <div id="meio">
+         
           <div class="cimaGu">
             <div class="buscGu">
               <input type="text" class="busca" id="buscaGu" placeholder="Digite o que busca.">
