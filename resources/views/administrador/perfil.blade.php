@@ -40,6 +40,10 @@
                         <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" disabled>
                     </div>
                     <div class="form-group">
+                        <label for="entradaMatricula">Matricula</label>
+                        <input type="cpf" class="form-control" id="disabledInput entradaCPF" disabled>
+                    </div>
+                    <div class="form-group">
                         <label for="entradaSenha">Senha</label>
                         <input type="password" class="form-control" id="entradaSenha">
                     </div>
@@ -48,10 +52,10 @@
                         <input type="password" class="form-control" id="entradaConfirmarSenha">
                     </div>
                 </form>
+                <div class="btnCC">
+                    <button type="button" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
+                </div>
             </div>
-            <div class="btnCC">
-                <button type="button" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
-              </div>
         </div>
         
 

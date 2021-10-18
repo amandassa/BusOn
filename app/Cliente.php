@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +11,7 @@ Autor(es): Israel Braitt
 */
 class Cliente extends Authenticatable{
 
-    use notifiable;
+    use Notifiable;
     // atributos
     private string $nome;
     protected string $email;
@@ -25,8 +25,6 @@ class Cliente extends Authenticatable{
     public function getAuthPassword(){
         return $this->senha;
     }        
-
-    public $timestamps = false;
                 
     protected $fillable = [
         'CPF',
@@ -45,6 +43,7 @@ class Cliente extends Authenticatable{
         $this->senha = $senha;
     }*/
 
+    
     // método de acesso ao atributo nome
     public function getNome() {
         return $this->nome;
@@ -78,16 +77,7 @@ class Cliente extends Authenticatable{
     // método de alteração do atributo senha
     public function setSenha(string $nova_senha) {
         $this->senha = $nova_senha;
-    }
-    
-    /*
-    Nome: cadastrar (método)
-    Funcionalidade: Cadastrar um novo cliente no sistema
-    Autor(es): Israel Braitt
-    */
-    public function cadastrar(string $nome, string $email, string $cpf, string $senha) {
-        ClienteDAO::create();
-    }
+    }    
 
     /*
     Nome: login (método)

@@ -44,13 +44,27 @@ Route::get('/cadastroclientes', function(){
 Route::get('/perfilCliente', function(){
     return view('cliente.perfil');
 })->name('perfilCliente');
-            
 
+Route::get('/perfilFuncionario', function(){
+    return view('funcionario.perfil');
+})->name('perfilFuncionario');
+
+Route::get('/perfilAdministrador', function(){
+    return view('administrador.perfil');
+})->name('perfilAdministrador');
+            
 Route::get('/inicial_adm', function(){
-            return view('administrador.inicial_adm');
-            })->name('inicial_adm');  
+    return view('administrador.inicial_adm');
+})->name('inicial_adm');  
 
 Route::get('/gerenciaUsuario_adm', function(){
     return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
+Route::get('/consultar_linhas', function(){
+    return view('funcionario.consultar_linhas');
+});
+
+Route::get('/adicionarLinha', function(){
+    return view('administrador.adicionarLinha');
+})->name('adicionaLinha');
