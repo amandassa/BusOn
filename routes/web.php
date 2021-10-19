@@ -68,3 +68,15 @@ Route::get('/consultar_linhas', function(){
 Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
 })->name('adicionaLinha');
+
+Route::any('/logar', 'HomeController@logar')->name('logar');
+
+Route::get('/pagamento/cartao', function(){
+    return view('cliente._partials.cartao');
+})->name('cartao');
+
+Route::get('/pagamento/boleto', function(){
+    return view('cliente._partials.boleto');
+})->name('boleto');
+
+?>
