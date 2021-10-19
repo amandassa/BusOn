@@ -9,15 +9,6 @@ Autor(es): Israel Braitt, Guilherme Nobre e Amanda
 class ClienteDAO /*extends */ {
     
     private static $initialized = false;
-    private static $link;
-    
-    private $connection;
-
-    private $host = request()->getHttpHost(); 
-    private $host_username = 'root_buson';
-    private $db_name = 'buson_db';
-    private $db_password = 'rootroot';
-
     /*
     Nome: initializate (método)
     Funcionalidade: Possibilitar que outros métodos sejam chamados de maneira estática
@@ -28,11 +19,11 @@ class ClienteDAO /*extends */ {
         if (self::$initialized)
             return;
         
-        $this->connection = mysqli_connect($this->host, $this->host_username, $this->db_password);
-        mysqli_select_db($con, $this->db_name);
         self::$initialized = true;
     }
-    
+    /**
+     * o array fillable serve para preenchimento de formulário
+     */
     protected $fillable = [
         'cpf',
         'name',
@@ -49,9 +40,6 @@ class ClienteDAO /*extends */ {
         self::initializate();
 
         $result = DB::insert("INSERT INTO cliente(nome, cpf, email, senha) VALUES ('$nome', '$cpf', '$email', '$senha')");
-
-        //$query = "insert into cliente(nome, cpf, email, senha) values ($nome, $cpf, $email, $senha)";
-        //$result = mysqli_query($this->connection, $query) or $result = ('Falha na consulta:' . mysqli_error($this->connection));
 
         return $result;
     }
@@ -71,30 +59,6 @@ class ClienteDAO /*extends */ {
         //$result = mysqli_query($this->connection, $query) or $result = ('Falha na consulta:' . mysqli_error($this->connection));
 
         return $result;
-    }
-
-    /*
-    Nome: login (método)
-    Funcionalidade: Conecta o cliente ao servidor e ao banco de dados
-    !!!!!MUDANÇA!!!!! EU COLOQUEI PRA CONECTAR AO SERVIDOR DENTRO DO METODO DE INICIALIZAÇÃO
-    Autor(es): Israel Braitt
-    */
-    /*
-    public function loginCliente($cpf, $email, $senha) {
-        self::initializate();
-
-        $senha_coincide = (new ClienteDAO)->senhaCoincide($cpf, $email, $senha);
-        
-        if ($senha_coincide == true) {
-            $link = mysql_connect('mysql_host', 'mysql_user', 'mysql_password')
-                or $message = ('Não foi possível conectar: ' . mysql_error());
-            $message = 'Conectado com sucesso';
-            mysql_select_db('my_database') or $message ('Não foi possível conectar database');
-        } else {
-            $message = "Senha não coincide";
-        }
-
-        return $message;
     }
 
     /*
@@ -136,7 +100,7 @@ class ClienteDAO /*extends */ {
 
         return $resultado;
     }
-    public function consultarLinhas($cpf){
+    public function consultarPassagens($cpf){
         self::initializate();
         $resultado = DB::select("SELECT * from passagem WHERE cpf_cliente = $cpf");
 

@@ -58,7 +58,8 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         $email = $credentials['email'];
     	$plain = $credentials['password'];
-        $senha_check = DB::select("select senha from cliente where email = :email", ['email' => $email])->first();    	
+        $senha_check = DB::select("select senha from cliente where email = :email",
+         ['email' => $email])->first();    	
     	if(Hash::check($plain, $senha_check) != true){
             return route('pagamento');
             /*if (Auth::attempt(['email' => $email])) {		    
