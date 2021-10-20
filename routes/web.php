@@ -31,11 +31,7 @@ Route::get('/confirmacao', function(){
 
 Route::get('/selecao', function(){
     return view('cliente.selecao');
-})->name('selecao');
-
-Route::get('/inicial_func', function(){
-    return view('funcionario.inicial_func');
-})->name('inicial_func');  
+})->name('selecao'); 
       
 Route::get('/cadastroclientes', function(){
     return view('cliente.cadastroclientes');
@@ -45,6 +41,18 @@ Route::any('/perfilCliente', 'ClienteController@index')->name('perfilCliente');
 
 Route::post('/editarPerfilCliente', 'ClienteController@editarPerfil')->name('editarPerfilCliente');
 
+Route::get('/inicialAdm', function(){
+    return view('administrador.inicial_adm');
+    })->name('inicial_adm');  
+
+Route::get('/inicialFuncionario', function(){
+    return view('funcionario.inicial_func');
+    })->name('inicial_func'); 
+
+Route::get('/verificarLogs', function(){
+    return view('funcionario.verificarLogs');
+    })->name('verificarLogs'); 
+    
 Route::get('/perfilFuncionario', function(){
     return view('funcionario.perfil');
 })->name('perfilFuncionario');
