@@ -91,11 +91,7 @@
                             <td> {{ $linha['partida']}} </td>
                             <td> {{ $linha['destino']}} </td>
                             <td> {{ $linha['preco']}} </td>
-                            @if({{ $linha['tipo']}} == 1)
-                            <td> Linha Direta </td>
-                            @else
-                            <td> Linha Comum </td>
-                            @endif                        
+                            <td>({{ $linha['tipo']}} </td>
                       </tbody>
                     </table>
                 </div>
