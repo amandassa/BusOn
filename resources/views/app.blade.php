@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title') BusOn</title>
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">    
     <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="/css/estiloMigalha.css">
     <link rel="stylesheet" href="/css/estiloComponentes.css">
     <script src="{{ asset('js/app.js') }}" defer></script>      
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/jquery.mask.js"></script>
-    <script src="/js/redimensionar.js"></script>    
+    <script src="/js/jquery.mask.js"></script>
+    <script src="/js/redimensionar.js"></script>      
+    
 </head>
     
 <body "cz-shortcut-listen="true">

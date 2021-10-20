@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
 
                             <div class="col-md-6">
                                 <input id="senha" type="password" class="form-control @error('senha') is-invalid @enderror" name="senha" required autocomplete="new-password">
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="senha-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="senha-confirm" class="col-md-4 col-form-label text-md-right">Confirmar Senha</label>
 
                             <div class="col-md-6">
                                 <input id="senha-confirm" type="password" class="form-control" name="senha_confirmation" required autocomplete="new-password">

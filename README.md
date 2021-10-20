@@ -15,43 +15,43 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/amandassa/BusOn?style=for-the-badge)
 ![](https://img.shields.io/github/directory-file-count/amandassa/BusOn?style=for-the-badge)
 
-<h2>Frontend</h2>
+<h2>Front-end & Back-end</h2>
 
 <h3>Listagem das Telas</h3>
 
 __1. Usuários em Geral__
-- [ ] Recuperação de Acesso;
+- front[ ] back[ ] Recuperação de Acesso;
 
 __1. Cliente__
-- [x] Tela inicial de cliente;
-- [X] Login de usuários no sistema;
-- [X] Cadastro de clientes no sistema;
-- [ ] Visualização da agenda das passagens;
-- [X] Seleção do método de pagamento;
-- [X] Confirmação;
-- [ ] Consulta de passagens compradas;
-- [X] Editar Perfil;
+- front[x] back[ ] Tela inicial de cliente;
+- front[X] back[ ] Login de usuários no sistema;
+- front[X] back[ ] Cadastro de clientes no sistema;
+- front[ ] back[ ] Visualização da agenda das passagens;
+- front[X] back[ ] Seleção do método de pagamento;
+- front[X] back[ ] Confirmação;
+- front[ ] back[ ] Consulta de passagens compradas;
+- front[X] back[ ] Editar Perfil;
 
 __2. Funcionarios__
-- [ ] Tela inicial de funcionário (Com dados dos relatórios);
-- [ ] Consulta de Linhas (tabela contendo todas as linhas/trechos);
-- [ ] Tela de Venda;
-- [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
-- [ ] Tela de alteração de valor/mudança de agenda;
-- [X] Editar Perfil;
+- front[X] back[ ] Tela inicial de funcionário (Com dados dos relatórios);
+- front[ ] back[ ] Consulta de Linhas (tabela contendo todas as linhas/trechos);
+- front[X] back[ ] Tela de Venda;
+- front[X] back[ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
+- front[ ] back[ ] Tela de alteração de valor/mudança de agenda;
+- front[X] back[ ] Editar Perfil;
 
 __3. Administrador__
-- [ ] Tela inicial do administrador;
-- [ ] Tela de cadastro de linha;
-- [ ] Tela de consulta das linhas;
-- [ ] Tela de edição das linhas;
-- [ ] Tela de cadastro de funcionários no sistema;
-- [ ] Tela de alteração de dados dos funcionários no sistema;
-- [ ] Tela de geração de relatórios (logs);
-- [ ] Tela do relatório;
-- [ ] Tela de listagem dos usuários;
-- [ ] Tela de listagem de acessos;
-- [X] Editar Perfil;
+- front[X] back[ ] Tela inicial do administrador;
+- front[ ] back[ ] Tela de cadastro de linha;
+- front[ ] back[ ] Tela de consulta das linhas;
+- front[ ] back[ ] Tela de edição das linhas;
+- front[ ] back[ ] Tela de cadastro de funcionários no sistema;
+- front[ ] back[ ] Tela de alteração de dados dos funcionários no sistema;
+- front[ ] back[ ] Tela de geração de relatórios (logs);
+- front[ ] back[ ] Tela do relatório;
+- front[ ] back[ ] Tela de listagem dos usuários;
+- front[ ] back[ ] Tela de listagem de acessos;
+- front[X] back[ ] Editar Perfil;
 
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

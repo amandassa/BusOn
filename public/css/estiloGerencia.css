@@ -65,9 +65,11 @@
     left: 25px;
 }
 
+/*
 .buscGu:hover img {
     transform: scale(0);
 }
+*/
 
 #buscaOpcoes{
     display: flex;
@@ -155,13 +157,30 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
- }
+}
  
- .btn-group .btn-secondary{
+.btn-group .btn-secondary{
      background-color: #e9ecef;
      border-color:#d0d2d4 ;
      color: #3490dc;
- }
- 
+}
 
+/* botões do topo da página que alternam entre a listagem do cliente e a listagem do funcionário */
+.button_listagem_adm {
+    cursor: pointer;
+    background: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 16px;
+    padding: 5px 25px;
+    min-width: 270px;
+    font-size: 18px;
+    margin: 5px;
+}
 
+a { color: inherit; }
+
+#button_listagem_cliente:checked ~ .subpagina_cliente,
+#button_listagem_funcionario:checked ~ .subpagina_funcionario {display: block;}
