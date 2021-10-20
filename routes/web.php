@@ -79,4 +79,7 @@ Route::get('/pagamento/boleto', function(){
     return view('cliente._partials.boleto');
 })->name('boleto');
 
+Route::get('/inicio', function(){
+    return view('cliente.inicio');
+})->name('inicio');
 ?>
