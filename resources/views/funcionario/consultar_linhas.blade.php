@@ -37,7 +37,8 @@
                                 </select>
                         </div>                            
                         </div>
-                            
+                        <form method="POST" action="{{ route('consulta') }}" enctype="multipart/form-data" class="form">
+                        @csrf 
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                
                                     <span>Cidade de Partida: </span>
@@ -67,10 +68,11 @@
                             <div class="col-sm-4">                                
                             </div>
                             <div class="col-sm-4" style="text-align:right;">
-                                <button class="botao botaoAzul" type="button">Buscar</button>
+                                <button class="botao botaoAzul" type="submit">Buscar</button>
                             </div>
                         </div>
-                    </div>                
+                    </div>            
+    </form>    
             </div>
                 
             <!-- Tabela de resultados de consulta -->

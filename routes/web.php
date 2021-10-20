@@ -61,9 +61,10 @@ Route::get('/gerenciaUsuario_adm', function(){
     return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
-Route::get('/consultar_linhas', function(){
-    return view('funcionario.consultar_linhas');
-});
+Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+
+
+Route::any('/linhas/consulta', 'LinhaController@consulta')->name('consulta');
 
 Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
