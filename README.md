@@ -34,9 +34,9 @@ __1. Cliente__
 
 __2. Funcionarios__
 - [X] Tela inicial de funcionário (Com dados dos relatórios);
-- [X] Consulta de Linhas (tabela contendo todas as linhas/trechos);
+- [ ] Consulta de Linhas (tabela contendo todas as linhas/trechos);
 - [X] Tela de Venda;
-- [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
+- [X] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
 - [ ] Tela de alteração de valor/mudança de agenda;
 - [X] Editar Perfil;
 
