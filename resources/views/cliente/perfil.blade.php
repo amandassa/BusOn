@@ -26,32 +26,33 @@
         <h5 class="texto">Editar Perfil</h5>
         <div class="card">
             <div class="card-body">
-                <form>
+                <form method="POST" action="{{ route('editarPerfilCliente') }}" enctype="multipart/form-data" class="form">
                     <div class="form-group">
                         <label for="entradaNome">Nome Completo</label>
-                        <input type="name" class="form-control" id="entradaNome">
+                        <input type="name" class="form-control" id="entradaNome" value="{{$cliente['entradaNome']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaEmail">Email</label>
-                        <input type="email" class="form-control" id="entradaEmail">
+                        <input type="email" class="form-control" id="entradaEmail" value="{{$cliente['entradaEmail']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" disabled>
+                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" 
+                        id="disabledInput entradaCPF" name="cpf" type="text" value="{{$cliente['cpf']}}" disabled/>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
-                        <input type="password" class="form-control" id="entradaSenha">
+                        <input type="password" class="form-control" id="entradaSenha" value="{{$cliente['entradaEmail']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaConfirmarSenha">Confirmação de senha</label>
                         <input type="password" class="form-control" id="entradaConfirmarSenha">
+                    </div>            
+                    <div class="btnCC">
+                        <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
                     </div>
                 </form>
             </div>
-            <div class="btnCC">
-                <button type="button" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
-              </div>
         </div>
         
 

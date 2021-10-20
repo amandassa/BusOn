@@ -41,9 +41,9 @@ Route::get('/cadastroclientes', function(){
     return view('cliente.cadastroclientes');
 })->name('cadastroclientes');
 
-Route::get('/perfilCliente', function(){
-    return view('cliente.perfil');
-})->name('perfilCliente');
+Route::any('/perfilCliente', 'ClienteController@index')->name('perfilCliente');
+
+Route::post('/editarPerfilCliente', 'ClienteController@editarPerfil')->name('editarPerfilCliente');
 
 Route::get('/perfilFuncionario', function(){
     return view('funcionario.perfil');
