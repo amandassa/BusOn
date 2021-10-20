@@ -15,7 +15,7 @@
     @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')
     
     <style>
-        .row{
+        .espaco{
             margin-top:2em;
             margin-left:1em;
         }
@@ -28,7 +28,7 @@
         <div class="row-xl">
             <div class="card card-default">
                 <div class="card-body">                    
-                        <div class="row">
+                        <div class="row espaco">
                         <div class="col-sm-4">
                             <span>Definir tipo de busca: </span>
                                 <select class="form-control">
@@ -38,7 +38,7 @@
                         </div>                            
                         </div>
                             
-                        <div class="row">                            
+                        <div class="row espaco">                            
                                 <div class="col-sm-4">                                
                                     <span>Cidade de Partida: </span>
                                     <input id="cidade_partida" class="form-control"/>
@@ -53,16 +53,16 @@
                                 </div>
                         </div>
                         
-                        <div class="row">
+                        <div class="row espaco">
                             <div class="col-sm-4">                                
                                 
-                                    <input class="form-check form-check-inline" type="radio" name="tipoLinha" value="" id="opcao1">
-                                    <label class="form-check-label">Comum</label>
-                                    <input class="form-check form-check-inline" type="radio" name="tipoLinha" value="" id="opcao2">
-                                    <label class="form-check-label"">Direta</label>
-                                        <input class="form-check form-check-inline" type="radio" name="tipoLinha" value="" id="opcao3">
-                                    <label class="form-check-label">Todas</label>                                  
-                                
+                                    <input class="form-check form-check-inline" type="checkbox" name="tipoLinha" value="" id="opcao1">
+                                    <label class="form-check-label" style="margin-right:1em;">Linha Comum</label>
+                                        
+                                        
+                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha" value="" id="opcao2">
+                                    <label class="form-check-label"">Linha Direta</label>
+                                    
                             </div>
                             <div class="col-sm-4">                                
                             </div>
@@ -71,6 +71,26 @@
                             </div>
                         </div>
                     </div>                
+            </div>
+                
+            <!-- Tabela de resultados de consulta -->
+            <div class="card card-default">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                          <th scope="col">Código</th>
+                          <th scope="col">Cidade de Origem</th>
+                          <th scope="col">Cidade de Destino</th>
+                          <th scope="col">Preço</th>
+                          <th scope="col">Tipo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                         
+                      </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
