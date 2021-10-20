@@ -33,15 +33,15 @@ __1. Cliente__
 - [X] Editar Perfil;
 
 __2. Funcionarios__
-- [ ] Tela inicial de funcionário (Com dados dos relatórios);
+- [X] Tela inicial de funcionário (Com dados dos relatórios);
 - [ ] Consulta de Linhas (tabela contendo todas as linhas/trechos);
-- [ ] Tela de Venda;
+- [X] Tela de Venda;
 - [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
 - [ ] Tela de alteração de valor/mudança de agenda;
 - [X] Editar Perfil;
 
 __3. Administrador__
-- [ ] Tela inicial do administrador;
+- [X] Tela inicial do administrador;
 - [ ] Tela de cadastro de linha;
 - [ ] Tela de consulta das linhas;
 - [ ] Tela de edição das linhas;
