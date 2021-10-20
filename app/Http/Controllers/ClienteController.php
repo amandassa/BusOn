@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+    /**
+     * Método padrão para preencher o formulário (valores provisórios em 20/10)
+     */
     public function index()
     {
         $cliente = [
@@ -16,6 +19,10 @@ class ClienteController extends Controller
         ];
         return view("cliente.perfil", ['cliente'=>$cliente]);
     }
+
+    /**
+     * Editar perfil cliente
+     */
     public function editarPerfil (Request $request) {
         $nome = $request['entradaNome'];
         $email = $request['entradaEmail'];
