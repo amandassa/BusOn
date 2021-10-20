@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class LinhaController extends Controller
 {
@@ -101,12 +102,12 @@ class LinhaController extends Controller
         $cidade_partida = $request['cidade_partida'];
         $cidade_destino = $request['cidade_destino'];
         $codigo_trecho = DB::select("SELECT codigo from trecho WHERE cidade_partida = ? AND cidade_destino = ?", [$cidade_partida, $cidade_destino]);
-        return dd(DB::select("SELECT codigo_linha from trechos_linha WHERE codigo_trecho = ?", [$codigo_trecho]));
-        $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo_linha]);
-        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$codigo_trecho]);
-        $cidade_destino = DB::select("SELECT cidade_destino FROM trecho WHERE codigo = ?", [$codigo_trecho]);
+        $codigo_linha = DB::select("SELECT codigo_linha from trechos_linha WHERE codigo_trecho = ?", [implode("", $codigo_trecho)]);
+        $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [implode("", $codigo_linha)]);
+        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [implode("", $codigo_trecho)]);
+        $cidade_destino = DB::select("SELECT cidade_destino FROM trecho WHERE codigo = ?", [implode("", $codigo_trecho)]);
         $preco = DB::select("SELECT sum(preco) from trecho where codigo IN 
-        (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
+        (select codigo_trecho from trechos_linha where codigo_linha = ?)", [implode("", $codigo_linha)]);
         // infos enviadas para o front:
         $linha = [
             "codigo"=>$codigo_linha, 
@@ -115,7 +116,7 @@ class LinhaController extends Controller
             "tipo"=>$tipo,
             "preco"=>$preco
         ];
-        return dd($linha);
-        //return view('funcionario.consultar_linhas', ['linha'=>$linha]);
+        //return $linha;
+        return view('funcionario.consultar_linhas')->with('linha', $linha);
     }
 }

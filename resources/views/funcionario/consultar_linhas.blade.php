@@ -87,7 +87,7 @@
                           <th scope="col">Preço</th>
                           <th scope="col">Tipo</th>
                         </tr>
-                      </thead>
+                        </thead>
                       <tbody>
                          <th scope="row">{{ $linha['codigo']}}</th>
                             <td> {{ $linha['partida']}} </td>
