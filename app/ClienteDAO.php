@@ -142,5 +142,6 @@ class ClienteDAO /*extends */ {
 
         return $resultado;
     }
+
 }
 ?>
