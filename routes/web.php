@@ -82,4 +82,9 @@ Route::get('/pagamento/boleto', function(){
 Route::get('/inicio', function(){
     return view('cliente.inicio');
 })->name('inicio');
+
+Route::get('/geraRelat', function(){
+    return view('funcionario.geraRelat');
+});
+
 ?>
