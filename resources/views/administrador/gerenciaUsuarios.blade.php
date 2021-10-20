@@ -9,13 +9,17 @@
       <div class="container" id="contPrincipal">
 
         <ol class="breadcrumb" id="superior">
-          <li> <button type="button" class="button_listagem_adm" id="button_listagem_cliente"> 
-                <a href="#" style="text-decoration: none"> Lista de clientes </a> 
-               </button> 
+          <li> <a href="#" style="text-decoration: none"> 
+                <button type="button" class="button_listagem_adm" id="button_listagem_cliente"> 
+                  Lista de clientes
+                </button>
+              </a>
           </li>
-          <li> <button type="button" class="button_listagem_adm" id="button_listagem_funcionario"> 
-                <a href="#" style="text-decoration: none"> Lista de funcionários </a>
-               </button>
+          <li> <a href="#" style="text-decoration: none">
+                <button type="button" class="button_listagem_adm" id="button_listagem_funcionario"> 
+                  Lista de funcionários
+                </button>
+               </a>
           </li>
         </ol>
 
