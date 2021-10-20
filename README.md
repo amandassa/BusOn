@@ -23,7 +23,7 @@ __1. Usuários em Geral__
 - [ ] Recuperação de Acesso;
 
 __1. Cliente__
-- [ ] Tela inicial de cliente;
+- [x] Tela inicial de cliente;
 - [X] Login de usuários no sistema;
 - [X] Cadastro de clientes no sistema;
 - [ ] Visualização da agenda das passagens;
@@ -38,7 +38,7 @@ __2. Funcionarios__
 - [ ] Tela de Venda;
 - [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
 - [ ] Tela de alteração de valor/mudança de agenda;
-- [ ] Editar Perfil;
+- [X] Editar Perfil;
 
 __3. Administrador__
 - [ ] Tela inicial do administrador;
@@ -51,7 +51,7 @@ __3. Administrador__
 - [ ] Tela do relatório;
 - [ ] Tela de listagem dos usuários;
 - [ ] Tela de listagem de acessos;
-- [ ] Editar Perfil;
+- [X] Editar Perfil;
 
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

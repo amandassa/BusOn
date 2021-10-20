@@ -28,8 +28,8 @@ nav{
 
 .logo
 {        
-    width: 75%;
-    height: 85%;    
+    width: 90%;
+    height: 100%;    
     vertical-align: middle;    
 }
 
@@ -60,9 +60,9 @@ nav{
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #white;}
+.dropdown-content a:hover {background-color: white}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {display: block}
 
 
 footer {  

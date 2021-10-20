@@ -1,7 +1,11 @@
 <?php
 
+namespace app\Models;
+
 use Funcionario;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 /*
 Nome: Funcionario (classe)
 Funcionalidade: Representa a entidade funcionário e as ações executadas pela mesma

@@ -4,8 +4,6 @@
 
 @section('content')
 
-    <link href="/css/estiloSelecao.css" rel="stylesheet">
-
     @section('usaMigalha', TRUE)
     @section('nomeMigalha1', 'Seleção de Passagem')
     @section('rotaMigalha1') {{ route('selecao') }} @endsection
@@ -15,15 +13,16 @@
     @section('linkM1', 'ativado')
     @section('estiloMigalha1', 'migalhaRetanguloAtiva')
     @section('estiloMigalhaT1', 'migalhaTrianguloAtiva')
-  
+    <link href="/css/estiloSelecao.css" rel="stylesheet">
 
 
-    <div class="container">
-        <h3>Seleção de Passagem!</h3>
-        <div class="row justify-content-center">
-            <div class="col-md">
-                <div class="cards" >
-                    <div class="card-body">
+
+    <div class="container" id="cont">
+        <h5>Seleção de Passagem!</h5>
+        <div class="row justify-content-center" id="coluna">
+            <div class="col-md" id="centralizado">
+                <div class="card" id="cards">
+                    <div class="card-body" id="cb">
                         <div class="esquerda">
                             <img class="ticket" src="/imagens/ticket.png" alt="">
                             <p class="vagas">20 vagas</p>
@@ -38,11 +37,11 @@
                             <hr>
                             <p class="textoCentralCima">Valor R$18,00</p>  
                         </div>                        
-                        
                     </div>
+                  </div>
                 </div>
-                <div class="cards">
-                    <div class="card-body">
+                <div class="card" id="cards">
+                    <div class="card-body" id="cb">
                         <div class="esquerda">
                             <img class="ticket" src="/imagens/ticket.png" alt="">
                             <p class="vagas">10 vagas</p>
@@ -57,11 +56,10 @@
                             <hr>
                             <p class="textoCentralCima" >Valor R$26,20</p>
                         </div>
-                        
                     </div>
                 </div>
-                <div class="cards">
-                    <div class="card-body">
+                <div class="card" id="cards" >
+                    <div class="card-body" id="cb">
                         <div class="esquerda">
                             <img class="ticket" src="/imagens/ticket.png" alt="">
                             <p class="vagas">2 vagas</p>
@@ -76,10 +74,9 @@
                             <hr>
                             <p class="textoCentralCima" >Valor R$34,70</p>
                         </div>    
-                        
-                        
                     </div>
                 </div>
+
                 <div class="btn" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                       <button type="button" class="btn btn-secondary"><<</button>
@@ -90,11 +87,7 @@
                       <button type="button" class="btn btn-secondary">>></button>
                 </div>
             </div>
-        </div>
-            
-                
-          
-      </div>
+        </div>             
     </div>
                 
                  

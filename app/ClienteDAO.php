@@ -9,8 +9,6 @@ Autor(es): Israel Braitt, Guilherme Nobre e Amanda
 class ClienteDAO /*extends */ {
     
     private static $initialized = false;
-    private static $link;
-
     /*
     Nome: initializate (método)
     Funcionalidade: Possibilitar que outros métodos sejam chamados de maneira estática
@@ -23,7 +21,16 @@ class ClienteDAO /*extends */ {
         
         self::$initialized = true;
     }
-    
+    /**
+     * o array fillable serve para preenchimento de formulário
+     */
+    protected $fillable = [
+        'cpf',
+        'name',
+        'email',
+        'password',
+    ];
+
     /*
     Nome: criaConta (método)
     Funcionalidade: Inserir informações do usuário no banco de dados
@@ -32,8 +39,7 @@ class ClienteDAO /*extends */ {
     public function criarConta($nome, $cpf, $email, $senha) {
         self::initializate();
 
-        $query = "insert into cliente(nome, cpf, email, senha) values ($nome, $cpf, $email, $senha)";
-        $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
+        $result = DB::insert("INSERT INTO cliente(nome, cpf, email, senha) VALUES ('$nome', '$cpf', '$email', '$senha')");
 
         return $result;
     }
@@ -47,32 +53,12 @@ class ClienteDAO /*extends */ {
     public function verificarContaExistente($email, $cpf) {
         self::initializate();
 
-        $query = "select * from cliente where email = $email or cpf = $cpf";
-        $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
+        
+        $result = DB::select("SELECT * FROM cliente WHERE email = '$email' OR cpf = '$cpf'");
+        //$query = "select * from cliente where email = $email or cpf = $cpf";
+        //$result = mysqli_query($this->connection, $query) or $result = ('Falha na consulta:' . mysqli_error($this->connection));
 
         return $result;
-    }
-
-    /*
-    Nome: login (método)
-    Funcionalidade: Conecta o cliente ao servidor e ao banco de dados
-    Autor(es): Israel Braitt
-    */
-    public function loginCliente($cpf, $email, $senha) {
-        self::initializate();
-
-        $senha_coincide = (new ClienteDAO)->senhaCoincide($cpf, $email, $senha);
-        
-        if ($senha_coincide == true) {
-            $link = mysql_connect('mysql_host', 'mysql_user', 'mysql_password')
-                or $message = ('Não foi possível conectar: ' . mysql_error());
-            $message = 'Conectado com sucesso';
-            mysql_select_db('my_database') or $message ('Não foi possível conectar database');
-        } else {
-            $message = "Senha não coincide";
-        }
-
-        return $message;
     }
 
     /*
@@ -84,12 +70,12 @@ class ClienteDAO /*extends */ {
         self::initializate();
 
         if ($cpf == null) {
-            $query = "select * from cliente where cpf = $cpf and senha = $senha";
+            $query = "SELECT * FROM cliente WHERE cpf = '$cpf' AND senha = '$senha'";
         } else {
-            $query = "select * from cliente where email = $email and senha = $senha";
+            $query = "SELECT * FROM cliente WHERE cpf = '$email' AND senha = '$senha'";
         }
 
-        $result = mysql_query($query) or $result = ('Falha na consulta:' . mysql_error());
+        $result = DB::select($query);
 
         return $result;
     }
@@ -114,7 +100,7 @@ class ClienteDAO /*extends */ {
 
         return $resultado;
     }
-    public function consultarLinhas($cpf){
+    public function consultarPassagens($cpf){
         self::initializate();
         $resultado = DB::select("SELECT * from passagem WHERE cpf_cliente = $cpf");
 

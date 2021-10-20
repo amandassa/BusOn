@@ -12,22 +12,22 @@
     @section('nomeMigalha3', 'Confirmação')    
     @section('linkM2', 'ativado')
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
-    @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')    
+    @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')                
         
-    @push('js')                
     <script>
-        function alterarOpcao(valor){
-            alert('teste');
-            reload()->with('valor');
-        }
-        $(document).ready(function(){
-            $('bt_1').onClick("alterarOpcao(1);");
-            $('bt_2').onClick("alterarOpcao(2);");
-            $('bt_3').onClick("alterarOpcao(3);");
-        }
-            
-    </script>
-    @endpush
+        function alterarOpcao(opcao) {
+            alert("alo");
+            switch (opcao) {
+                case 1:
+                    return {{ route('cartao') }};
+                break;
+                case 2:                
+                    alert('try');
+                    return {{ route('boleto') }};
+                break;
+            }
+        }        
+    </script>    
         
     <div class="container">
         <div class="row">
@@ -37,29 +37,20 @@
                     <div class="container-fluid">
                         <div class="card card-default">                        
                             <div class="card-body">               
-                                <label>Selecione a Forma de Pagamento: </label> <br>                                    
-                                <button id="bt_1" class="botaoSelecionado" onClick="alterarOpcao(1);">
+                                <label>Selecione a Forma de Pagamento: </label> <br>                                
+                                <button id="bt_1" class="@yield('bt1')" onClick="window.location.href='{{ route('cartao') }}'">
                                   <i class="fas fa-credit-card"></i>
-                                    Cartão de Crédito</button>
-                                <button id="bt_2" type="button" class="botao botaoNormal" onClick="alterarOpcao(2);">
+                                    Cartão de Crédito</button>                                
+                                <button id="bt_2" class="@yield('bt2')" onClick="window.location.href='{{ route('boleto') }}'">
                                   <i class="fas fa-barcode"></i>
-                                    Boleto</button>
-                                <button  id="bt_3" class="botao botaoNormal" onClick="alterarOpcao(3);">
+                                    Boleto</button>                                
+                                <button  id="bt_3" class="@yield('bt3')" onClick="alterarOpcao(3);">
                                   <i class="fas fa-mobile-alt"></i>
                                     Pix</button>
-                                <hr/>        
-                                <div>
-                                    @switch($valor)
-                                        @case(1):
-                                            @include('cliente._partials.cartao')
-                                        @break
-                                        @case(2):
-                                            @include('cliente._partials.boleto')
-                                        @break
-                                        @default:
-                                            @include('cliente._partials.boleto')
-                                    @endswitch
-                                </div>
+                                <hr/>                                
+                                                                    
+                                    @yield('formaPagamento')                                
+                                    
                             </div>
                         </div>
                     </div>

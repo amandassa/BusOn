@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -36,5 +40,31 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+       
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'senha');
+    }
+           
+    public function logar(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $email = $credentials['email'];
+    	$plain = $credentials['password'];
+        $senha_check = DB::select("select senha from cliente where email = :email",
+         ['email' => $email])->first();    	
+    	if(Hash::check($plain, $senha_check) != true){
+            return route('pagamento');
+            /*if (Auth::attempt(['email' => $email])) {		    
+                return redirect()->view('cliente.pagamento');
+            }*/
+        }
     }
 }

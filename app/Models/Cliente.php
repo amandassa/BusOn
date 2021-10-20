@@ -1,28 +1,49 @@
 <?php
 
-use ClienteDAO;
+namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 /*
 Nome: Cliente (classe)
 Funcionalidade: Representa a entidade cliente e as ações executadas pela mesma
 Autor(es): Israel Braitt 
 */
-class Cliente {
+class Cliente extends Authenticatable{
 
+    use Notifiable;
     // atributos
     private string $nome;
-    private string $email;
+    protected string $email;
     private string $cpf;
-    private string $senha;
+    protected string $senha;
+
+
+    protected $table = 'cliente';
+    public $timestamps = false;
+
+    public function getAuthPassword(){
+        return $this->senha;
+    }
+
+    protected $fillable = [
+        'CPF',
+        'nome',
+        'email',
+        'senha',
+    ];
+    
+    protected $hidden = ['senha',  'remember_token'];
     
     // construtor da classe
-    public function __construct(string $nome, string $email, string $cpf, string $senha) {
+    /*public function __construct(string $nome, string $email, string $cpf, string $senha) {
         $this->nome = $nome;
         $this->email = $email;
         $this->cpf = $cpf;
         $this->senha = $senha;
-    }
+    }*/
 
+    
     // método de acesso ao atributo nome
     public function getNome() {
         return $this->nome;
@@ -56,16 +77,7 @@ class Cliente {
     // método de alteração do atributo senha
     public function setSenha(string $nova_senha) {
         $this->senha = $nova_senha;
-    }
-    
-    /*
-    Nome: cadastrar (método)
-    Funcionalidade: Cadastrar um novo cliente no sistema
-    Autor(es): Israel Braitt
-    */
-    public function cadastrar(string $nome, string $email, string $cpf, string $senha) {
-        ClienteDAO::create();
-    }
+    }    
 
     /*
     Nome: login (método)

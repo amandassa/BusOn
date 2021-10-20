@@ -18,7 +18,6 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
-
     return view('cliente.pagamento')->with('valor', 1);
     })->name('pagamento');
     
@@ -53,3 +52,43 @@ Route::get('/inicialFuncionario', function(){
 Route::get('/verificarLogs', function(){
     return view('funcionario.verificarLogs');
     })->name('verificarLogs'); 
+    
+Route::get('/perfilFuncionario', function(){
+    return view('funcionario.perfil');
+})->name('perfilFuncionario');
+
+Route::get('/perfilAdministrador', function(){
+    return view('administrador.perfil');
+})->name('perfilAdministrador');
+            
+Route::get('/inicial_adm', function(){
+    return view('administrador.inicial_adm');
+})->name('inicial_adm');  
+
+Route::get('/gerenciaUsuario_adm', function(){
+    return view('administrador.gerenciaUsuarios');
+})->name('gerenciaUsuarios');
+
+Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+
+
+Route::any('/linhas/consulta', 'LinhaController@consulta')->name('consulta');
+
+Route::get('/adicionarLinha', function(){
+    return view('administrador.adicionarLinha');
+})->name('adicionaLinha');
+
+Route::any('/logar', 'HomeController@logar')->name('logar');
+
+Route::get('/pagamento/cartao', function(){
+    return view('cliente._partials.cartao');
+})->name('cartao');
+
+Route::get('/pagamento/boleto', function(){
+    return view('cliente._partials.boleto');
+})->name('boleto');
+
+Route::get('/inicio', function(){
+    return view('cliente.inicio');
+})->name('inicio');
+?>
