@@ -31,11 +31,7 @@ Route::get('/confirmacao', function(){
 
 Route::get('/selecao', function(){
     return view('cliente.selecao');
-})->name('selecao');
-
-Route::get('/inicial_func', function(){
-    return view('funcionario.inicial_func');
-})->name('inicial_func');  
+})->name('selecao'); 
       
 Route::get('/cadastroclientes', function(){
     return view('cliente.cadastroclientes');
@@ -43,8 +39,20 @@ Route::get('/cadastroclientes', function(){
 
 Route::get('/perfilCliente', function(){
     return view('cliente.perfil');
-})->name('perfilCliente');
+})->name('perfilCliente');           
 
+Route::get('/inicialAdm', function(){
+    return view('administrador.inicial_adm');
+    })->name('inicial_adm');  
+
+Route::get('/inicialFuncionario', function(){
+    return view('funcionario.inicial_func');
+    })->name('inicial_func'); 
+
+Route::get('/verificarLogs', function(){
+    return view('funcionario.verificarLogs');
+    })->name('verificarLogs'); 
+    
 Route::get('/perfilFuncionario', function(){
     return view('funcionario.perfil');
 })->name('perfilFuncionario');
@@ -61,10 +69,26 @@ Route::get('/gerenciaUsuario_adm', function(){
     return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
-Route::get('/consultar_linhas', function(){
-    return view('funcionario.consultar_linhas');
-});
+Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+
+
+Route::any('/linhas/consulta', 'LinhaController@consulta')->name('consulta');
 
 Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
 })->name('adicionaLinha');
+
+Route::any('/logar', 'HomeController@logar')->name('logar');
+
+Route::get('/pagamento/cartao', function(){
+    return view('cliente._partials.cartao');
+})->name('cartao');
+
+Route::get('/pagamento/boleto', function(){
+    return view('cliente._partials.boleto');
+})->name('boleto');
+
+Route::get('/inicio', function(){
+    return view('cliente.inicio');
+})->name('inicio');
+?>

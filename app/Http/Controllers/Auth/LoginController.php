@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Cliente;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -52,23 +52,19 @@ class LoginController extends Controller
     {
         return $request->only($this->username(), 'senha');
     }
-    
-    public function getAuthPassword()
-    {
-        return $this->senha;
-    }
-   
-    public function authenticate(Request $request)
+           
+    public function logar(Request $request)
     {
         $credentials = $request->only('email', 'password');
         $email = $credentials['email'];
     	$plain = $credentials['password'];
-        $senha_check = DB::select("select senha from cliente where email = :email", ['email' => $email])->first();    	
-    	if($this->hasher->check($plain, $senha_check)){            
-			return dd("chegou");
-            if (Auth::attempt(['email' => $email])) {		    
-                return redirect()->route('pagamento');
-            }
+        $senha_check = DB::select("select senha from cliente where email = :email",
+         ['email' => $email])->first();    	
+    	if(Hash::check($plain, $senha_check) != true){
+            return route('pagamento');
+            /*if (Auth::attempt(['email' => $email])) {		    
+                return redirect()->view('cliente.pagamento');
+            }*/
         }
     }
 }

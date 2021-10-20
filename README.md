@@ -23,7 +23,7 @@ __1. Usuários em Geral__
 - [ ] Recuperação de Acesso;
 
 __1. Cliente__
-- [ ] Tela inicial de cliente;
+- [x] Tela inicial de cliente;
 - [X] Login de usuários no sistema;
 - [X] Cadastro de clientes no sistema;
 - [ ] Visualização da agenda das passagens;
