@@ -35,7 +35,7 @@
             @yield('campoBotoes')
         </div>
         <div class="row">
-            <p class="textoPreto">Estatisticas</p>
+            <p class="textoPreto">Estatísticas</p>
         </div> 
         <div class="row text-center" id="linhazinha"> <!-- Linha 1 -->
             <div class="quadro"> <!--Passagens vendidas no dia-->
@@ -84,7 +84,7 @@
 
             <div class="quadro"> <!--Linha menos vendida-->
                 <div class="card-body">
-                    <p class="textoCidade"><b>Salvador <br> Jacobiana</b></p>
+                    <p class="textoCidade"><b>Salvador <br> Jacobina</b></p>
                     <p><b>É a linha menos vendida</b></p>
                 </div>
             </div>
