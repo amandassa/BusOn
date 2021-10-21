@@ -93,7 +93,7 @@
                             <td> {{ $linha['partida']}} </td>
                             <td> {{ $linha['destino']}} </td>
                             <td> {{ $linha['preco']}} </td>
-                            <td>({{ $linha['tipo']}} </td>
+                            <td> {{ $linha['tipo']}} </td>
                       </tbody>
                     </table>
                 </div>

@@ -16,10 +16,10 @@ class LinhaController extends Controller
     {
         $linha = [
             "codigo"=>6, 
-            "partida"=>0, 
-            "destino"=>7,
+            "partida"=>'Feira de Santana', 
+            "destino"=>'Salvador',
             "tipo"=>0,
-            "preco"=>0
+            "preco"=>60
         ];
         return view('funcionario.consultar_linhas', ['linha'=>$linha]);
     }
