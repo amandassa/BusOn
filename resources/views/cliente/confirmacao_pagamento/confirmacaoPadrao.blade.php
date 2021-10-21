@@ -2,9 +2,7 @@
 
 @section('title', 'Confirmação - ')
     
-@section('content')
-    <link href="/css/estiloPaginas.css" rel="stylesheet">
-    
+@section('content')    
     @section('usaMigalha', TRUE)
     @section('nomeMigalha1', 'Seleção de Passagem')
     @section('rotaMigalha1') {{ route('selecao') }} @endsection

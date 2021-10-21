@@ -1,0 +1,73 @@
+.tituloVP
+{
+    text-align: center;
+    font-family: "darker grotesque";
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.titulos
+{
+    font-size: 23px;
+    font-family: "darker grotesque";
+}
+
+
+.cardCL, .cardDPP /* Card Consultar Linhas, Card dados do passageiro e pagamento */
+{
+    padding-top: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    
+}
+
+.cardPassagens {justify-content: center;}
+
+
+.rowBotoes{padding-top: 5%;}
+
+.colBtnAzul{padding-bottom: 3%; text-align: right;}
+
+.rowPagamento {padding-top: 3%;} 
+
+.colTotalEsquerda, .colTotalDireita {padding-top: 2%;}
+
+
+.colTotalEsquerda{padding-left: 5%}
+
+.colTotalDireita 
+{
+    text-align: right;
+    padding-right: 5%;
+}
+
+
+.colBtnAmarelo
+{
+    text-align: right;
+    padding-bottom: 2%;
+}
+
+.colBtnVermelho {text-align: left}
+
+.btn-info
+{
+    padding: 1px;
+    background-color:#1B5576;
+    font-family: 'Arimo', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    height: 22px; 
+    width: 80px;
+}
+
+.btn-info:hover{background-color:#1b5576d0}
+        
+
+.botaoVermelho{background-color:#f44336}
+
+.botaoVermelho:hover {background-color: #f44336d0;}
+

@@ -1,39 +1,22 @@
-
-
-.texto
-{
-    font-size: 20px;
-    font-weight: bold;
-    padding-left: 27.7%;
-}
-
+.texto {font-size: 20px;padding-left: 26%;}
 
 .card
 {
-    width: 495px;
-    height: 578px;
+    max-width: 30rem;
     margin: 0 auto; 
     float: none; 
     margin-bottom: 10px; 
 }
 
-.camposMenores
-{
-    width: 250px;
-}
+.camposMenores {max-width: 15rem;}
 
-.btnCC
+.btnCC {text-align: center;}
+
+#botaoCC {width: 12rem; height: 3rem;}
+
+.linkAC
 {
+    padding-top: 2%;
     text-align: center;
-    padding-bottom: 10%;
-    margin-bottom: 10px;
-}
-
-#btnCriarConta
-{
-    width: 234px;
-    height: 50px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #f9c536;
+    font-weight: bold
 }
