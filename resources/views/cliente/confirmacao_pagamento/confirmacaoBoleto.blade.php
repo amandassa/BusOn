@@ -1,4 +1,4 @@
-@extends('cliente.confirmacaoPadrao')
+@extends('cliente.confirmacao_pagamento.confirmacaoPadrao')
 
     @section('Status Pagamento', 'Aguardando Pagamento')
     @section('Texto confirmacao', 'Boleto gerado com sucesso!')
