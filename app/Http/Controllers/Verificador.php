@@ -8,14 +8,16 @@ class Verificador {
 
     /*
     Nome: isNumerical (método)
-    Funcionalidade: Verificar se uma string numérica (composta totalmente por números)
+    Funcionalidade: Verificar se uma string é numérica (composta totalmente por números decimais)
     Autor(es): Israel Braitt
     */
     public function isNumerical(string $entrada) {
         $array_string = str_split($entrada);
 
         for ($i = 0; $i <= strlen(entrada); $i++) {
-            if (is_numeric($array_string[$i]) == true) {
+            $pstr = $array_string[$i];
+            if ($pstr == "0" or $pstr == "1" or $pstr == "2" or $pstr == "3" or $pstr == "4" or 
+                $pstr == "5" or $pstr == "6" or $pstr == "7" or $pstr == "8" or $pstr == "9") {
                 continue;
             } else {
                 return false;
