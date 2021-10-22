@@ -133,7 +133,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.9. Tela de listagem dos usuários:**
-- [X] Front
+- [X] Front (Responsáveis: Lucas e Israel)
 - [ ] Back
 
 **3.10. Tela de listagem de acessos:**
