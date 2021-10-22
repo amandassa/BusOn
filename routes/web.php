@@ -128,6 +128,10 @@ Route::get('/cadastroFuncionarios', function(){
     return view('administrador.cadastroFuncionarios');
 })->name('cadastroFuncionarios');
 
+Route::get('/editarPerfilFuncionario', function(){
+    return view('administrador.editarPerfilFuncionario');
+})->name('editarPerfilFuncionario');
+
 Route::get('/recuperarAcessoAdministrador', function(){
     return view('administrador.recuperarAcesso');
 })->name('recuperarAcessoAdministrador');
