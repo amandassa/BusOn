@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Editar Perfil - ')
+@section('title', 'Editar Perfil Funcionário - ')
 
 
 @section('content')
@@ -23,7 +23,7 @@
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
-        <h5 class="texto">Editar Perfil</h5>
+        <h5 class="texto">Editar Perfil de Funcionário</h5>
         <div class="card">
             <div class="card-body">
                 <form>
@@ -52,7 +52,7 @@
                         <input type="password" class="form-control" id="entradaConfirmarSenha">
                     </div>
                     <div class="btnCC">
-                        <button type="sublit" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
+                        <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
                     </div>
                 </form>
             </div>
