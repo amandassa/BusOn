@@ -88,7 +88,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **2.5. Tela de alteração de valor/mudança de agenda:**
-- [ ] Front
+- [x] Front (Editando)
 - [ ] Back
 
 **2.6.Editar Perfil:**
