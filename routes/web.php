@@ -124,6 +124,10 @@ Route::get('/editarAgenda', function(){
     return view('funcionario.editarAgenda');
 });
 
+Route::get('/cadastroFuncionarios', function(){
+    return view('administrador.cadastroFuncionarios');
+})->name('cadastroFuncionarios');
+
 Route::get('/recuperarAcessoAdministrador', function(){
     return view('administrador.recuperarAcesso');
 })->name('recuperarAcessoAdministrador');
