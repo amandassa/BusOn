@@ -34,7 +34,7 @@ class Verificador {
     */
     public function isCPF(string $entrada) {
         if (is_string($entrada) == true and isNumerical($entrada) == true and 
-            strlen($entrada) == 11 and validacaoCPF == true) {
+            strlen($entrada) == 11 and validacaoCPF($entrada) == true) {
             return true;
         } else {
             return false;
