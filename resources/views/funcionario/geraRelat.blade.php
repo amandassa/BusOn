@@ -21,7 +21,7 @@
             </div>
             <div class="col col-lg-1">               
             </div>       
-    
+  <div class="row justify-content-md-center">
     <div class="card">
         <table class="table table-hover">
             <thead>
@@ -86,26 +86,24 @@
               </tr>
             </tbody>
           </table> 
-    </div>  
+    </div>
+  </div>  
+    <div class="row justify-content-md-center">
     <div class="container">
-        <div class="row">
-          <div class="col">
-            
-          </div>
-          <div class="col">
-            
-            <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary"><<</button>
-                <button type="button" class="btn btn-outline-secondary">1</button>
-                <button type="button" class="btn btn-outline-secondary">2</button>
-                <button type="button" class="btn btn-outline-secondary">3</button>
-                <button type="button" class="btn btn-outline-secondary">4</button>
-                <button type="button" class="btn btn-outline-secondary">5</button>
-                <button type="button" class="btn btn-outline-secondary">>></button>
-              </div>
-              <div class="col"><button class="btn btn-primary" type="button">Imprimir</button></div>
-                 
-      
+      <div class="btn-group me-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-outline-secondary"><<</button>
+        <button type="button" class="btn btn-outline-secondary">1</button>
+        <button type="button" class="btn btn-outline-secondary">2</button>
+        <button type="button" class="btn btn-outline-secondary">3</button>
+        <button type="button" class="btn btn-outline-secondary">4</button>
+        <button type="button" class="btn btn-outline-secondary">5</button>
+        <button type="button" class="btn btn-outline-secondary">>></button>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="button">Imprimir</button></div></div>
+    </div>
+     
+    
 </div>
 
 @endsection      
