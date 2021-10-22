@@ -15,6 +15,14 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/amandassa/BusOn?style=for-the-badge)
 ![](https://img.shields.io/github/directory-file-count/amandassa/BusOn?style=for-the-badge)
 
+# Mínimo Produto Viável (MVP) 05/11:
+- [X] Se conectar com um SGBD;
+- [X] Executar frases SQL com o SGBD;
+- [ ] O módulo de controle e cadastro de usuário pelo administrador deve ser funcional: 
+<i>Foi iniciada apenas o módulo de controle</i>
+- [ ] Todas as telas precisam estar codificadas/elaboradas (14/25):
+Pelo menos 50% das telas estão codificadas como exemplificado abaixo
+
 # Front-end & Back-end
 
 ## Listagem das Telas
