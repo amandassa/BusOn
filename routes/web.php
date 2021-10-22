@@ -120,7 +120,9 @@ Route::get('/inicial_adm', function(){
     return view('administrador.inicial_adm');
          })->name('inicial_adm');  
         
-        
+Route::get('/editarAgenda', function(){
+    return view('funcionario.editarAgenda');
+});        
 
 ?>
 
