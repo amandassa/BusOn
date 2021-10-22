@@ -89,6 +89,10 @@ Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
 })->name('adicionaLinha');
 
+Route::get('/adicionarTrecho', function(){
+    return view('administrador.adicionarTrecho');
+})->name('adicionaTrecho');
+
 Route::any('/logar', 'HomeController@logar')->name('logar');
 
 Route::get('/pagamento/cartao', function(){

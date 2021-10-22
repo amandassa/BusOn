@@ -23,7 +23,24 @@ table {
     text-align: center;
 }
 
-#botoes_linha {
+.botoes_add {
+    text-align: center;
+}
+
+#nova_agenda {
+    margin-bottom: 40px;
+}
+
+
+.addtrechobutton {
+    display: inline-block;
+    background-color: #103A52;
+    color: white;
+    border: 1px solid black;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     text-align: center;
 }
 
