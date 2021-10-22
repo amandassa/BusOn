@@ -84,7 +84,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **2.4. Tela de relatórios (relatórios de passageiros em uma viagem/linha):**
-- [ ] Front
+- [x] Front (Responsável Andreza)
 - [ ] Back
 
 **2.5. Tela de alteração de valor/mudança de agenda:**
