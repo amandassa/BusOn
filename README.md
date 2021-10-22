@@ -57,7 +57,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **1.7. Consulta de passagens compradas:**
-- [ ] Front (Responsável: Atribuir)
+- [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
 **1.8. Editar Perfil:**
@@ -88,7 +88,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **2.5. Tela de alteração de valor/mudança de agenda:**
-- [x] Front (Editando)
+- [ ] Front
 - [ ] Back
 
 **2.6.Editar Perfil:**
@@ -101,7 +101,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.1. Tela inicial do administrador:**
-- [ ] Front
+- [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
 **3.2. Tela de cadastro de linha:**
