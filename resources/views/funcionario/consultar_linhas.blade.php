@@ -88,12 +88,20 @@
                           <th scope="col">Tipo</th>
                         </tr>
                         </thead>
-                      <tbody>
-                         <th scope="row">{{ $linha['codigo']}}</th>
-                            <td> {{ $linha['partida']}} </td>
-                            <td> {{ $linha['destino']}} </td>
-                            <td> {{ $linha['preco']}} </td>
-                            <td> {{ $linha['tipo']}} </td>
+                      <tbody>                        
+                            @foreach ($linhas as $linha)
+                            <tr>
+                             <th scope="row">{{ $linha['codigo']}}</th>
+                                <td> {{ $linha['partida']}} </td>
+                                <td> {{ $linha['destino']}} </td>
+                                <td> {{ $linha['preco']}} </td>
+                                @if ($linha['tipo'] == 1 )
+                                    <td> Direta </td>
+                                @else
+                                    <td> Comum </td>
+                                @endif
+                            </tr>
+                            @endforeach                        
                       </tbody>
                     </table>
                 </div>

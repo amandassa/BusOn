@@ -83,7 +83,7 @@ Route::get('/gerenciaUsuario_adm', function(){
 
 Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
 
-Route::any('/consultar', 'LinhaController@consulta')->name('consulta');
+Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
 
 Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
