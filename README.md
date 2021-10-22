@@ -15,118 +15,119 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/amandassa/BusOn?style=for-the-badge)
 ![](https://img.shields.io/github/directory-file-count/amandassa/BusOn?style=for-the-badge)
 
-<h2>Front-end & Back-end</h2>
+# Front-end & Back-end
 
-<h3>Listagem das Telas</h3>
+## Listagem das Telas
 
-__1. Cliente__
-**Tela inicial de cliente:**
+### 1. Cliente (0/8):
+**1.1. Tela inicial de cliente:**
 - [X] Tela (Responsável: Andreza)
 - [ ] Back
 
-**Login de usuários no sistema:**
+**1.2. Login de usuários no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
 - [ ] Back
 
-**Cadastro de clientes no sistema:**
+**1.3. Cadastro de clientes no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
 - [ ] Back
 
-**Visualização da agenda das passagens:**
+**1.4. Visualização da agenda das passagens:**
 - [X] Front (Responsáveis: Lucas/Israel)
 - [ ] Back
 
-**Seleção do método de pagamento:**
+**1.5. Seleção do método de pagamento:**
 - [X] Front (Responsável: Antony
 - [ ] Back
 
-**Confirmação:**
+**1.6. Confirmação:**
 - [X] Front (Responsável: Anderson)
 - [ ] Back
 
-**Consulta de passagens compradas:**
+**1.7. Consulta de passagens compradas:**
 - [ ] Front (Responsável: Atribuir)
 - [ ] Back
 
-**Editar Perfil:**
+**1.8. Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-__2. Funcionarios__
-- Tela inicial de funcionário:
+### 2. Funcionarios (0/6):
+**2.1. Tela inicial de funcionário:**
 <i>Com dados dos relatórios</i>
-- [ ] Front (Responsável: Ozenilson)
+- [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
-- Consulta de Linhas:
+**2.2. Consulta de Linhas:**
 <i>Ttabela contendo todas as linhas/trechos</i>
 - [X] Front (Responsável: Antony)
-- [X] Back (Responsável: Antony) -> ampliar busca
+- [X] Back (Responsável: Antony e Amanda) -> ampliar busca
 
-- Tela de Venda:
+**2.3. Tela de Venda:**
+- [X] Front
+- [ ] Back
+
+**2.4. Tela de relatórios (relatórios de passageiros em uma viagem/linha):**
 - [ ] Front
 - [ ] Back
 
-- Tela de relatórios (relatórios de passageiros em uma viagem/linha):
+**2.5. Tela de alteração de valor/mudança de agenda:**
 - [ ] Front
 - [ ] Back
 
-- Tela de alteração de valor/mudança de agenda:
+**2.6.Editar Perfil:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
+### 3. Administrador (0/11):
+**3.1. Tela inicial do administrador:**
 - [ ] Front
 - [ ] Back
 
-- Editar Perfil:
+**3.2. Tela de cadastro de linha:**
 - [ ] Front
 - [ ] Back
 
-__3. Administrador__
-- Tela inicial do administrador:
+**3.3. Tela de consulta das linhas:**
+- [X] Front (Responsável: Antony)
+- [X] Back (Responsável: Antony e Amanda)
+
+**3.4. Tela de edição das linhas:**
 - [ ] Front
 - [ ] Back
 
-- Tela de cadastro de linha:
+**3.5. Tela de cadastro de funcionários no sistema:**
 - [ ] Front
 - [ ] Back
 
-- Tela de consulta das linhas:
+**3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [ ] Front
 - [ ] Back
 
-- Tela de edição das linhas:
+**3.7. Tela de geração de relatórios (logs):**
+- [X] Front (Responsável: Ozenilson)
+- [ ] Back
+
+**3.8. Tela do relatório:**
 - [ ] Front
 - [ ] Back
 
-- Tela de cadastro de funcionários no sistema:
+**3.9. Tela de listagem dos usuários:**
 - [ ] Front
 - [ ] Back
 
-- Tela de alteração de dados dos funcionários no sistema:
+**3.10. Tela de listagem de acessos:**
 - [ ] Front
 - [ ] Back
 
-- Tela de geração de relatórios (logs):
-- [ ] Front
+**3.11 Editar Perfil:**
+- [X] Front (Responsável: Everton)
 - [ ] Back
 
-- Tela do relatório:
-- [ ] Front
-- [ ] Back
+## Banco de Dados</h2>
 
-- Tela de listagem dos usuários:
-- [ ] Front
-- [ ] Back
+### MySQL
 
-- Tela de listagem de acessos:
-- [ ] Front
-- [ ] Back
-
-- Editar Perfil:
-- [ ] Front
-- [ ] Back
-
-<h2>Banco de Dados</h2>
-
-<h3>MySQL</h3>
 - [X] Construção das Tabelas;
 - [ ] Povoamento do Banco de Dados;
 - [ ] Criação das requisições relacionadas a Cliente;
