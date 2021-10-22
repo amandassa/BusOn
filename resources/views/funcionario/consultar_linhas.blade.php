@@ -37,16 +37,16 @@
                                 </select>
                         </div>                            
                         </div>
-                        <form method="POST" action="{{ route('consulta') }}" enctype="multipart/form-data" class="form">
+                        <form method="POST" action="{{ route('consulta') }}" class="form">
                         @csrf 
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                
                                     <span>Cidade de Partida: </span>
-                                    <input id="cidade_partida" class="form-control"/>
+                                    <input id="cidade_partida" name="cidade_partida" class="form-control"/>
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Cidade de Destino: </span>
-                                    <input id="cidade_destino" class="form-control">
+                                    <input id="cidade_destino" name="cidade_destino" class="form-control">
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Data de Partida: </span>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>            
-    </form>    
+                </form>    
             </div>
                 
             <!-- Tabela de resultados de consulta -->
