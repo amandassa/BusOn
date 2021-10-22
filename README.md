@@ -117,7 +117,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.5. Tela de cadastro de funcionários no sistema:**
-- [X] Front
+- [X] Front (Responsável: Everton)
 - [ ] Back
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
