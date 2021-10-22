@@ -19,40 +19,119 @@
 
 <h3>Listagem das Telas</h3>
 
-__1. Usuários em Geral__
-- front[ ] back[ ] Recuperação de Acesso;
-
 __1. Cliente__
-- front[x] back[ ] Tela inicial de cliente;
-- front[X] back[ ] Login de usuários no sistema;
-- front[X] back[ ] Cadastro de clientes no sistema;
-- front[ ] back[ ] Visualização da agenda das passagens;
-- front[X] back[ ] Seleção do método de pagamento;
-- front[X] back[ ] Confirmação;
-- front[ ] back[ ] Consulta de passagens compradas;
-- front[X] back[ ] Editar Perfil;
+**Tela inicial de cliente:**
+- [X] Tela (Responsável: Andreza)
+- [ ] Back
+
+**Login de usuários no sistema:**
+- [X] Front (Responsáveis: Everton/Laravel)
+- [ ] Back
+
+**Cadastro de clientes no sistema:**
+- [X] Front (Responsáveis: Everton/Laravel)
+- [ ] Back
+
+**Visualização da agenda das passagens:**
+- [X] Front (Responsáveis: Lucas/Israel)
+- [ ] Back
+
+**Seleção do método de pagamento:**
+- [X] Front (Responsável: Antony
+- [ ] Back
+
+**Confirmação:**
+- [X] Front (Responsável: Anderson)
+- [ ] Back
+
+**Consulta de passagens compradas:**
+- [ ] Front (Responsável: Atribuir)
+- [ ] Back
+
+**Editar Perfil:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
 
 __2. Funcionarios__
-- front[X] back[ ] Tela inicial de funcionário (Com dados dos relatórios);
-- front[ ] back[ ] Consulta de Linhas (tabela contendo todas as linhas/trechos);
-- front[X] back[ ] Tela de Venda;
-- front[X] back[ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
-- front[ ] back[ ] Tela de alteração de valor/mudança de agenda;
-- front[X] back[ ] Editar Perfil;
+- Tela inicial de funcionário:
+<i>Com dados dos relatórios</i>
+- [ ] Front (Responsável: Ozenilson)
+- [ ] Back
+
+- Consulta de Linhas:
+<i>Ttabela contendo todas as linhas/trechos</i>
+- [X] Front (Responsável: Antony)
+- [X] Back (Responsável: Antony) -> ampliar busca
+
+- Tela de Venda:
+- [ ] Front
+- [ ] Back
+
+- Tela de relatórios (relatórios de passageiros em uma viagem/linha):
+- [ ] Front
+- [ ] Back
+
+- Tela de alteração de valor/mudança de agenda:
+- [ ] Front
+- [ ] Back
+
+- Editar Perfil:
+- [ ] Front
+- [ ] Back
 
 __3. Administrador__
-- front[X] back[ ] Tela inicial do administrador;
-- front[ ] back[ ] Tela de cadastro de linha;
-- front[ ] back[ ] Tela de consulta das linhas;
-- front[ ] back[ ] Tela de edição das linhas;
-- front[ ] back[ ] Tela de cadastro de funcionários no sistema;
-- front[ ] back[ ] Tela de alteração de dados dos funcionários no sistema;
-- front[ ] back[ ] Tela de geração de relatórios (logs);
-- front[ ] back[ ] Tela do relatório;
-- front[ ] back[ ] Tela de listagem dos usuários;
-- front[ ] back[ ] Tela de listagem de acessos;
-- front[X] back[ ] Editar Perfil;
+- Tela inicial do administrador:
+- [ ] Front
+- [ ] Back
 
+- Tela de cadastro de linha:
+- [ ] Front
+- [ ] Back
+
+- Tela de consulta das linhas:
+- [ ] Front
+- [ ] Back
+
+- Tela de edição das linhas:
+- [ ] Front
+- [ ] Back
+
+- Tela de cadastro de funcionários no sistema:
+- [ ] Front
+- [ ] Back
+
+- Tela de alteração de dados dos funcionários no sistema:
+- [ ] Front
+- [ ] Back
+
+- Tela de geração de relatórios (logs):
+- [ ] Front
+- [ ] Back
+
+- Tela do relatório:
+- [ ] Front
+- [ ] Back
+
+- Tela de listagem dos usuários:
+- [ ] Front
+- [ ] Back
+
+- Tela de listagem de acessos:
+- [ ] Front
+- [ ] Back
+
+- Editar Perfil:
+- [ ] Front
+- [ ] Back
+
+<h2>Banco de Dados</h2>
+
+<h3>MySQL</h3>
+- [X] Construção das Tabelas;
+- [ ] Povoamento do Banco de Dados;
+- [ ] Criação das requisições relacionadas a Cliente;
+- [ ] Criação das requisições relacionadas a Funcionário;
+- [ ] Criação das requisições relacionadas a Administrador;
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
