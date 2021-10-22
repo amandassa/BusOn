@@ -27,9 +27,13 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 ## Listagem das Telas
 
-### 1. Cliente (0/8):
+### 1. Cliente (0/9):
+**1.0. Recuperação de acesso de cliente:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
 **1.1. Tela inicial de cliente:**
-- [X] Tela (Responsável: Andreza)
+- [X] Front (Responsável: Andreza)
 - [ ] Back
 
 **1.2. Login de usuários no sistema:**
@@ -60,7 +64,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 2. Funcionarios (0/6):
+### 2. Funcionarios (0/7):
+**1.0. Recuperação de acesso de funcionário:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
 **2.1. Tela inicial de funcionário:**
 <i>Com dados dos relatórios</i>
 - [X] Front (Responsável: Ozenilson)
@@ -87,7 +95,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 3. Administrador (0/11):
+### 3. Administrador (0/12):
+**3.0. Recuperação de acesso de administrador:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
 **3.1. Tela inicial do administrador:**
 - [ ] Front
 - [ ] Back
