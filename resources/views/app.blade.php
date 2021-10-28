@@ -27,7 +27,7 @@
                     <div class="col-md-6 "> <!-- Coluna das opções-->
                         @Auth                                                                                     
                             <div class="dropdown">
-                            <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->name }}!                               
+                            <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->nome }}!                               
                             <div class="dropdown-content">
                               <a href="#">Minhas Passagens</a>
                               <a href="#">Meus Dados</a>

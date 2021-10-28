@@ -70,7 +70,7 @@ class RegisterController extends Controller
         $nome = $data['nome'];
         $email = $data['email'];
         $senha = Hash::make($data['senha']);        
-        DB::statement('insert into cliente(nome, CPF, email, senha, updated_at, created_at) values (?, ?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, Carbon\Carbon::now(), Carbon\Carbon::now()]);
+        DB::statement('insert into cliente(nome, CPF, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
         $cliente = new Cliente;
         $cliente->fill($data);        
         return $cliente;
