@@ -40,31 +40,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:cliente')->except('logout');
+        //$this->middleware('guest:funcionario')->except('logout');
     }
        
-    /**
-     * Get the needed authorization credentials from the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    protected function credentials(Request $request)
+    public function showClienteLoginForm()
     {
-        return $request->only($this->username(), 'senha');
+        return view('auth.login', ['url' => 'cliente']);
     }
            
-    public function logar(Request $request)
+    public function clienteLogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        $email = $credentials['email'];
-    	$plain = $credentials['password'];
-        $senha_check = DB::select("select senha from cliente where email = :email",
-         ['email' => $email])->first();    	
-    	if(Hash::check($plain, $senha_check) != true){
-            return route('pagamento');
-            /*if (Auth::attempt(['email' => $email])) {		    
-                return redirect()->view('cliente.pagamento');
-            }*/
-        }
+        $this->validate($request, [
+            'email'  => 'required|email',
+            'senha' => 'required|min:6'
+        ]);
+                                        
+        if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {                    
+                return redirect()->intended('/home');
+        }            
+        
+        return back()->withInput($request->only('email', 'remember'));
     }
 }

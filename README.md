@@ -38,11 +38,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **1.2. Login de usuários no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
-- [ ] Back
+- [X] Back (Responsável: Antony)
 
 **1.3. Cadastro de clientes no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
-- [ ] Back
+- [X] Back (Responsável: Antony) Ajustar somente o redirecionamento
 
 **1.4. Visualização da agenda das passagens:**
 - [X] Front (Responsáveis: Lucas/Israel)

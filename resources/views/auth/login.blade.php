@@ -8,7 +8,7 @@
             <div class="card" style="d-flex p-2">                
 
                 <div class="card-body" style="justify-content:center;">
-                    <form method="POST" action="{{ route('logar') }}" enctype="multipart/form-data" class="form">
+                    <form method="POST" action="{{ route('clienteLogin') }}" enctype="multipart/form-data" class="form">
                         @csrf
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email:') }}</label>
@@ -39,7 +39,7 @@
                             <i class="fas fa-key"></i>                                  
                             </span>
                               </div>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="senha" type="password" class="form-control @error('password') is-invalid @enderror" name="senha" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

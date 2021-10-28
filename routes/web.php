@@ -144,4 +144,14 @@ Route::get('/recuperarAcessoCliente', function(){
     return view('cliente.recuperarAcesso');
 })->name('recuperarAcessoCliente');
 
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+//Route::post('login', [RegisterController::class, 'login']);
+     
+    
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
+
+Route::middleware('auth:cliente')->group(function () {    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
 ?>

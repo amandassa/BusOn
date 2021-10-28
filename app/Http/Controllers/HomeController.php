@@ -38,8 +38,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('cliente.pagamento')->with('valor', 1);
+        return view('cliente.inicio');
     }
-    
     
 }
