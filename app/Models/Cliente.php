@@ -28,9 +28,20 @@ class Cliente extends Authenticatable
         'remember_token',
     ];
     
+<<<<<<< HEAD
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+=======
+    // construtor da classe
+    public function __construct(string $nome, string $email, string $cpf, string $senha) {
+        $this->nome = $nome;
+        $this->email = $email;
+        $this->cpf = $cpf;
+        $this->senha = $senha;
+    }
+
+>>>>>>> 6e651ac82ec04664fafa69f09ccd04f9dd5bf7c1
     
     public function getAuthIdentifierName()
 
