@@ -14,6 +14,19 @@
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
     @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')
     
+    <script>
+        var opcao = $('#opcaoBusca').value;
+        if (opcao == 'Codigo') {
+            $('#cidade_partida').attr('disabled','disabled');
+            $('#cidade_destino').attr('disabled','disabled');
+            $('#codigo_linha').attr('disabled','true');
+        } else {
+            $('#cidade_partida').attr('disabled','true');
+            $('#cidade_destino').attr('disabled','true');
+            $('#codigo_linha').attr('disabled','disabled');
+        }
+    </script>
+    
     <style>
         .espaco{
             margin-top:2em;
@@ -31,13 +44,17 @@
                         <div class="row espaco">
                         <div class="col-sm-4">
                             <span>Definir tipo de busca: </span>
-                                <select class="form-control">
+                                <select name="opcaoBusca" class="form-control">
                                     <option>Nome</option>
                                     <option>Código</option>
                                 </select>
-                        </div>                            
-                        </div>
+                        </div>                                                    
                         <form method="POST" action="{{ route('consulta') }}" class="form">
+                        <div class="col-sm-8">
+                            <span>Código da Linha: </span>
+                            <input id="codigo_linha" name="codigo_linha" class="form-control"/>
+                        </div>
+                        </div>
                         @csrf 
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                

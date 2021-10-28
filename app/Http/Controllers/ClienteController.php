@@ -20,6 +20,39 @@ class ClienteController extends Controller
         return view("cliente.perfil", ['cliente'=>$cliente]);
     }
 
+    function login(Request $request)
+    {
+        $requisicao = DB::select("select * from cliente where email = ?", [$request->email])[0];        
+        if($requisicao){
+            $cliente = new Cliente;
+            $cliente->CPF = $requisicao->CPF;
+            $cliente->nome = $requisicao->nome;
+            $cliente->email = $requisicao->email;
+            $cliente->senha = $requisicao->senha;            
+           //return $cliente;
+        }
+    
+        // print_r($data);
+        
+            if (!$cliente || !Hash::check($request->senha, $cliente->senha)) {
+                return response([
+                    'message' => ['These credentials do not match our records.']
+                ], 404);
+            }
+        
+            
+            $token = $cliente->createToken('my-app-token')->plainTextToken;
+        
+            $response = [
+                'cliente' => $cliente,
+                'token' => $token
+            ];
+            
+             //return response($response, 201);
+             return redirect()->route('home')->with($response);
+             
+    }
+    
     /**
      * Editar perfil cliente
      */
