@@ -36,12 +36,12 @@ class Cliente extends Authenticatable{
     protected $hidden = ['senha',  'remember_token'];
     
     // construtor da classe
-    /*public function __construct(string $nome, string $email, string $cpf, string $senha) {
+    public function __construct(string $nome, string $email, string $cpf, string $senha) {
         $this->nome = $nome;
         $this->email = $email;
         $this->cpf = $cpf;
         $this->senha = $senha;
-    }*/
+    }
 
     
     // método de acesso ao atributo nome
