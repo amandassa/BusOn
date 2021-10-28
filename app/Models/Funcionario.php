@@ -32,9 +32,9 @@ class Funcionario extends Authenticatable {
     }
     
     protected $fillable = [
-        'CPF',
         'nome',
         'email',
+        'CPF',
         'senha',
         'matricula',
     ];
