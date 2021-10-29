@@ -129,7 +129,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.8. Tela do relatório:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **3.9. Tela de listagem dos usuários:**
@@ -137,7 +137,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.10. Tela de listagem de acessos:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **3.11 Editar Perfil:**
