@@ -1,4 +1,4 @@
-/* logico_pbl: */
+CREATE DATABASE buson;
 
 CREATE TABLE cliente (
     CPF varchar(11),
@@ -9,10 +9,10 @@ CREATE TABLE cliente (
 );
 
 CREATE TABLE funcionario (
-    matricula int,
-    CPF varchar(11),
+    matricula int AUTO_INCREMENT,
+    CPF varchar(11) UNIQUE,
     nome varchar(60),
-    email varchar(60),
+    email varchar(60) UNIQUE,
     senha BINARY(60),
     is_admin BOOLEAN,
     CONSTRAINT pk_matricula_funcionario PRIMARY KEY (matricula)
@@ -24,6 +24,7 @@ CREATE TABLE trecho (
     cidade_chegada varchar(30),
     duracao DATETIME,
     preco FLOAT,
+    ordem int,
     CONSTRAINT pk_codigo_trecho PRIMARY KEY (codigo)
 );
 
@@ -38,7 +39,6 @@ CREATE TABLE trechos_linha (
     codigo int,
     codigo_linha int,
     codigo_trecho int,
-    ordem int,
     partida DATETIME,
     dia_semana VARCHAR(14),
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
@@ -119,7 +119,7 @@ CREATE TABLE pagamento_cartao (
     CONSTRAINT fk_codigopagamento_cartao FOREIGN KEY (codigo_pagamento)
         REFERENCES pagamento(codigo)
         ON DELETE CASCADE
-        ON UPDATE CASCADE    
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE pagamento_boleto (
@@ -132,7 +132,7 @@ CREATE TABLE pagamento_boleto (
     CONSTRAINT fk_codigopagamento_boleto FOREIGN KEY (codigo_pagamento)
         REFERENCES pagamento(codigo)
         ON DELETE CASCADE
-        ON UPDATE CASCADE      
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE pagamento_pix (
@@ -143,5 +143,5 @@ CREATE TABLE pagamento_pix (
     CONSTRAINT fk_codigopagamento_pix FOREIGN KEY (codigo_pagamento)
         REFERENCES pagamento(codigo)
         ON DELETE CASCADE
-        ON UPDATE CASCADE 
+        ON UPDATE CASCADE
 );
