@@ -125,9 +125,9 @@ Route::get('/editarAgenda', function(){
     return view('funcionario.editarAgenda');
 });
 
-Route::get('/cadastroFuncionarios', function(){
-    return view('administrador.cadastroFuncionarios');
-})->name('cadastroFuncionarios');
+Route::get('/cadastroFuncionario', function(){
+    return view('administrador.cadastroFuncionario');
+})->name('cadastroFuncionario');
 
 Route::get('/editarPerfilFuncionario', function(){
     return view('administrador.editarPerfilFuncionario');
@@ -147,12 +147,14 @@ Route::get('/recuperarAcessoCliente', function(){
 
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 //Route::post('login', [RegisterController::class, 'login']);
-     
-    
+
+
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
 
-Route::middleware('auth:cliente')->group(function () {    
+Route::middleware('auth:cliente')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
+Route::post('criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
 
 ?>

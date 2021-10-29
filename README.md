@@ -95,7 +95,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 3. Administrador (0/12):
+### 3. Administrador (1/12):
 **3.0. Recuperação de acesso de administrador:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
@@ -118,7 +118,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **3.5. Tela de cadastro de funcionários no sistema:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [X] Back
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [X] Front Front (Responsável: Everton)
