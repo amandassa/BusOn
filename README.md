@@ -149,7 +149,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 ### MySQL
 
 - [X] Construção das Tabelas;
-- [ ] Povoamento do Banco de Dados;
+- [X] Povoamento do Banco de Dados;
 - [ ] Criação das requisições relacionadas a Cliente;
 - [ ] Criação das requisições relacionadas a Funcionário;
 - [ ] Criação das requisições relacionadas a Administrador;
