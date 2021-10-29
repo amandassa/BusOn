@@ -105,7 +105,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.2. Tela de cadastro de linha:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **3.3. Tela de consulta das linhas:**
