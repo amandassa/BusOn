@@ -113,13 +113,12 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Back (Responsável: Antony e Amanda)
 
 **3.4. Tela de edição das linhas:**
-- [ ] Front
+- [x] Front
 - [ ] Back
 
 **3.5. Tela de cadastro de funcionários no sistema:**
-<i>Modificar: adição de checkbox</i>
 - [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Everton)
+- [X] Back
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [X] Front Front (Responsável: Everton)
@@ -129,19 +128,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
-**3.8. Tela do relatório:**
-- [X] Front
-- [ ] Back
-
-**3.9. Tela de listagem dos usuários:**
+**3.8. Tela de listagem dos usuários:**
 - [X] Front (Responsáveis: Lucas e Israel)
 - [ ] Back
 
-**3.10. Tela de listagem de acessos:**
-- [X] Front
-- [ ] Back
-
-**3.11 Editar Perfil:**
+**3.9. Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
