@@ -16,35 +16,35 @@ class Funcionario extends Authenticatable {
     private string $nome;
     private string $email;
     private string $cpf;
-    private string $senha;
+    private string $password;
     private int $matricula;
 
     protected $table = 'funcionario';
     public $timestamps = false;
     
     public function getAuthPassword(){
-        return $this->senha;
+        return $this->password;
     }
     
     public function setPasswordAttribute($value)
     {
-        $this->attributes['senha'] = bcrypt($value);
+        $this->attributes['password'] = bcrypt($value);
     }
     
     protected $fillable = [
         'nome',
         'email',
         'CPF',
-        'senha',
+        'password',
         'matricula',
     ];
 
     // construtor da classe
-    public function __construct(string $nome, string $email, string $cpf, string $senha, int $matricula) {
+    public function __construct(string $nome, string $email, string $cpf, string $password, int $matricula) {
         $this->nome = $nome;
         $this->email = $email;
         $this->cpf = $cpf;
-        $this->senha = $senha;
+        $this->password = $password;
         $this->matricula = $matricula;
     }
 
@@ -75,7 +75,7 @@ class Funcionario extends Authenticatable {
 
     // método de alteração do atributo senha
     public function setSenha(string $nova_senha) {
-        $this->senha = $nova_senha;
+        $this->password = $nova_senha;
     }
 
     // método de acesso ao atributo matricula
