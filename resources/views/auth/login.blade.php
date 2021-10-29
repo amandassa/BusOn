@@ -10,8 +10,8 @@
                     <form method="POST" action="{{ route('clienteLogin') }}"
                     enctype="multipart/form-data" class="form">
                         @csrf <div class="form-group row justify-content-center align-items-center">
-                            <label for="email" class="col-md-2 col-form-label
-                            text-md-right">{{ __('Email:') }}</label>
+                            <label for="email" class="col-md-8 col-form-label
+                            text-md-left">{{ __('Email:') }}</label><br>
 
                             <div class="col-md-8 input-group"> <div
                             class="input-group-prepend"> <span
@@ -33,8 +33,8 @@
                         </div>
 
                         <div class="form-group row justify-content-center align-items-center">
-                            <label for="password" class="col-md-2 col-form-label
-                            text-md-right">{{ __('Senha: ') }}</label>
+                            <label for="password" class="col-md-8 col-form-label
+                            text-md-left">{{ __('Senha: ') }}</label>
     
                             <div class="col-md-8 input-group"> <div
                             class="input-group-prepend"> <span
@@ -53,26 +53,31 @@
                                 @enderror
                             </div>
                         </div>
-                    <div class="form-group row justify-content-center align-items-center">                        
+                    <div class="form-group row justify-content-center align-items-center" style="margin-left:0.5em; margin-bottom:0;">
+                        <div class="col-md-8 input-group">
                         <input class="form-check-input" type="checkbox"
                                 name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label" for="remember"> {{ __('Lembrar') }}</label>
                         </div>
+                        </div>
                             
-                    <div class="form-group row justify-content-center align-items-center">                                
+                    <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">                                
+                        <div class="col-md-8 input-group">
                             <a href="{{ route('password.request')}}" style="color:#1C5576;">
                                                 {{ __('Esqueceu a sua senha?') }}</a>
-                    </div>
-                        
+                    </div></div>
+                    
+                    <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">
+                        <div class="col-md-8 input-group">
                             </a>
                             <a href="{{ route('register') }}"style="margin-top: 2px; color:#1C5576;">
                                                 {{ __(' Cadastrar-se') }}
                             </a>
-                        </div>
+                    </div></div>
                     </div>
-                        <div class="form-group row mb-0">
+                        <div class="form-group row">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn botaoAmarelo" style="min-width:10px; min-height:40px;">
+                                <button type="submit" class="btn botaoAmarelo" style="margin-top:1em; min-width:200px; min-height:40px; margin-botom:2em;">
                                     {{ __('Entrar') }}
                                 </button>
 
