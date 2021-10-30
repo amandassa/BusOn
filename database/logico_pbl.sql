@@ -40,7 +40,7 @@ CREATE TABLE trechos_linha (
     codigo_linha int,
     codigo_trecho int,
     partida DATETIME,
-    dia_semana VARCHAR(14),
+    dia_semana VARCHAR(60),
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
