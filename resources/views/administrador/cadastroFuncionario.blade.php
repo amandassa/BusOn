@@ -32,7 +32,6 @@
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
-
         <div class="row">
             <div class="col">
                 <h5 class="texto">Cadastrar Funcionário</h5>
@@ -60,6 +59,12 @@
                                 <label for="entradaConfirmarSenha">Confirmação de senha</label>
                                 <input type="password" class="form-control" name="confirmacaoSenha">
                             </div>
+                            <div class="form-check" style="margin-bottom: 20px">
+                                <input class="form-check-input" name="is_admin" type="checkbox" value="true" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Cadastrar como administrador
+                                </label>
+                            </div>
                             <div class="btnCC">
                                 <div class="btnCC">
                                     <button class="botao botaoAmarelo" id="btnCriarConta">Cadastrar</button>
@@ -67,17 +72,10 @@
                             </div>
                         </form>
                     </div>
-                    </div>
-
                 </div>
             </div>
-
+        </div>
     </div>
-
-
-
-
-    </div>
-
+</div>
 
 @endsection

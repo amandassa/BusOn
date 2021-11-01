@@ -20,67 +20,33 @@ class Funcionario extends Authenticatable {
     private int $matricula;
 
     protected $table = 'funcionario';
-    public $timestamps = false;
-    
-    public function getAuthPassword(){
-        return $this->password;
-    }
-    
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-    
+    protected $primaryKey = 'matricula';
+    protected $guard = 'funcionario';
+
     protected $fillable = [
         'nome',
         'email',
         'CPF',
         'password',
         'matricula',
+        'is_admin',
     ];
 
-    // construtor da classe
-    public function __construct(string $nome, string $email, string $cpf, string $password, int $matricula) {
-        $this->nome = $nome;
-        $this->email = $email;
-        $this->cpf = $cpf;
-        $this->password = $password;
-        $this->matricula = $matricula;
-    }
+    public $timestamps = false;
 
-    // método de alteração do atributo nome
-    public function setNome(string $novo_nome) {
-        $this->nome = $novo_nome;
-    }
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    // método de acesso ao atributo email
-    public function getEmail() {
-        return $this->email;
+    /*public function getAuthPassword(){
+        return $this->password;
     }
+    */
 
-    // método de alteração do atributo email
-    public function setEmail(string $novo_email) {
-        $this->email = $novo_email;
-    }
-
-    // método de acesso ao atributo cpf
-    public function getCPF() {
-        return $this->cpf;
-    }
-
-    // método de alteração do atributo cpf
-    public function setCPF(string $novo_cpf) {
-        $this->cpf = $novo_cpf;
-    }
-
-    // método de alteração do atributo senha
-    public function setSenha(string $nova_senha) {
-        $this->password = $nova_senha;
-    }
-
-    // método de acesso ao atributo matricula
-    public function getMatricula() {
-        return $this->matricula;
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
     /*

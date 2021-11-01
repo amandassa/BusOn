@@ -145,11 +145,28 @@ Route::get('/recuperarAcessoCliente', function(){
     return view('cliente.recuperarAcesso');
 })->name('recuperarAcessoCliente');
 
+Route::get('/gerenciaUsuarios', function(){
+    return view('administrador.gerenciaUsuarios');
+})->name('gerenciaUsuarios');
+
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 //Route::post('login', [RegisterController::class, 'login']);
 
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
+
+Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
+
+Route::middleware('auth:funcionario')->group(function () {
+    Route::get('/home', function(){
+        return view('funcionario.inicial_func');
+    })->name('dashboard_funcionario');
+
+    Route::get('/home', function(){
+        return view('administrador.inicial_adm');
+    })->name('dashboard_adm');
+});
+
 
 Route::middleware('auth:cliente')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

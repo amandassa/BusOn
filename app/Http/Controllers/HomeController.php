@@ -21,16 +21,16 @@ class HomeController extends Controller
             'email' => 'required|email',
             'senha' => 'required|password'
             ]);
-        
+
         $credentials = ['email' => $request->email, 'senha' => $request->senha];
-        
+
         if(Auth::attempt($credentials)){
             return redirect()->route('pagamento');
         } else {
-            return redirect()->back()->with('msg', 'Acceso negado com essas credenciais');            
+            return redirect()->back()->with('msg', 'Aceso negado com essas credenciais');
         }
     }*/
-    
+
     /**
      * Show the application dashboard.
      *
@@ -40,5 +40,5 @@ class HomeController extends Controller
     {
         return view('cliente.inicio');
     }
-    
+
 }

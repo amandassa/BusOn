@@ -41,25 +41,45 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:cliente')->except('logout');
-        //$this->middleware('guest:funcionario')->except('logout');
+        $this->middleware('guest:funcionario')->except('logout');
     }
-       
+
     public function showClienteLoginForm()
     {
         return view('auth.login', ['url' => 'cliente']);
     }
-           
+
+    public function showFuncionarioLoginForm()
+    {
+        return view('auth.login', ['url' => 'funcionario']);
+    }
+
     public function clienteLogin(Request $request)
     {
         $this->validate($request, [
             'email'  => 'required|email',
             'senha' => 'required|min:6'
         ]);
-                                        
-        if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {                    
+
+        if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
                 return redirect()->intended('/home');
-        }            
-        
+        }
+
         return back()->withInput($request->only('email', 'remember'));
     }
+
+    public function funcionarioLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'  => 'required|email',
+            'senha' => 'required'
+        ]);
+
+        if (Auth::guard('funcionario')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
+                return redirect()->intended('/home');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
 }
