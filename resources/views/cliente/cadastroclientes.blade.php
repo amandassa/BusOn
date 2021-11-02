@@ -19,40 +19,52 @@
            if (v.length == 11) i.value += "-";
         }
     
-     }</script>
+     }</script> 
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
-        <h5 class="texto">Cadastre-se</h5>
-        <div class="card">
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="entradaNome">Nome Completo</label>
-                        <input type="name" class="form-control" id="entradaNome">
+        
+        <div class="row">
+            <div class="col"> 
+                <h5 class="texto">Cadastre-se</h5>
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="entradaNome">Nome Completo</label>
+                                <input type="name" class="form-control" id="entradaNome">
+                            </div>
+                            <div class="form-group">
+                                <label for="entradaEmail">Email</label>
+                                <input type="email" class="form-control" id="entradaEmail">
+                            </div>
+                            <div class="form-group camposMenores">
+                                <label for="entradaCPF">CPF</label>
+                                <input oninput="mascara(this, 'cpf')" id="entradaCPF" type="text" class="form-control" autocomplete="on" name="customer['cpf']">
+                            </div>
+                            <div class="form-group camposMenores">
+                                <label for="entradaSenha">Senha</label>
+                                <input type="password" class="form-control" id="entradaSenha">
+                            </div>
+                            <div class="form-group camposMenores">
+                                <label for="entradaConfirmarSenha">Confirmação de senha</label>
+                                <input type="password" class="form-control" id="entradaConfirmarSenha">
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="entradaEmail">Email</label>
-                        <input type="email" class="form-control" id="entradaEmail">
+                        <div class="btnCC">
+                            <button type="button" class="botao botaoAmarelo" id="botaoCC"> <span><i class="fas fa-check-circle"></i></span>   Criar Conta</button>
+                        </div>
+                        <div class="linkAC">
+                            <p>Já tem cadastro? <a href={{route('home')}}>Acesse sua conta</a></p> 
+                        </div>
                     </div>
-                    <div class="form-group camposMenores">
-                        <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" id="entradaCPF" type="text" class="form-control" autocomplete="on" name="customer['cpf']">
-                    </div>
-                    <div class="form-group camposMenores">
-                        <label for="entradaSenha">Senha</label>
-                        <input type="password" class="form-control" id="entradaSenha">
-                    </div>
-                    <div class="form-group camposMenores">
-                        <label for="entradaConfirmarSenha">Confirmação de senha</label>
-                        <input type="password" class="form-control" id="entradaConfirmarSenha">
-                    </div>
-                </form>
+                    
+                </div>
             </div>
-            <div class="btnCC">
-                <button type="button" class="btn btn-info" id="btnCriarConta">  Criar Conta</button>
-              </div>
-        </div>
+           
+    </div>
+        
         
 
         

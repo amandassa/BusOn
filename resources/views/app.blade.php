@@ -10,10 +10,9 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloPadrao.css')}}">
     <link rel="stylesheet" href="/css/estiloMigalha.css">
     <link rel="stylesheet" href="/css/estiloComponentes.css">
-    <script src="{{ asset('js/app.js') }}" defer></script>      
-    <script src="/js/jquery.mask.js"></script>
-    <script src="/js/redimensionar.js"></script>      
-    
+    <script src="/js/app.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/redimensionar.js"></script>    
 </head>
     
 <body "cz-shortcut-listen="true">
@@ -28,7 +27,7 @@
                     <div class="col-md-6 "> <!-- Coluna das opções-->
                         @Auth                                                                                     
                             <div class="dropdown">
-                            <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->name }}!                               
+                            <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->nome }}!                               
                             <div class="dropdown-content">
                               <a href="#">Minhas Passagens</a>
                               <a href="#">Meus Dados</a>

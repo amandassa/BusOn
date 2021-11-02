@@ -15,44 +15,136 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/amandassa/BusOn?style=for-the-badge)
 ![](https://img.shields.io/github/directory-file-count/amandassa/BusOn?style=for-the-badge)
 
-<h2>Frontend</h2>
+# Mínimo Produto Viável (MVP) 05/11:
+- [X] Se conectar com um SGBD;
+- [X] Executar frases SQL com o SGBD;
+- [ ] O módulo de controle e cadastro de usuário pelo administrador deve ser funcional: 
+<i>Foi iniciada apenas o módulo de controle</i>
+- [ ] Todas as telas precisam estar codificadas/elaboradas (14/25):
+Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
-<h3>Listagem das Telas</h3>
+# Front-end & Back-end
 
-__1. Usuários em Geral__
-- [ ] Recuperação de Acesso;
+## Listagem das Telas
 
-__1. Cliente__
-- [x] Tela inicial de cliente;
-- [X] Login de usuários no sistema;
-- [X] Cadastro de clientes no sistema;
-- [ ] Visualização da agenda das passagens;
-- [X] Seleção do método de pagamento;
-- [X] Confirmação;
-- [ ] Consulta de passagens compradas;
-- [X] Editar Perfil;
+### 1. Cliente (2/9):
+**1.0. Recuperação de acesso de cliente:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
 
-__2. Funcionarios__
-- [ ] Tela inicial de funcionário (Com dados dos relatórios);
-- [ ] Consulta de Linhas (tabela contendo todas as linhas/trechos);
-- [ ] Tela de Venda;
-- [ ] Tela de relatórios (relatórios de passageiros em uma viagem/linha);
-- [ ] Tela de alteração de valor/mudança de agenda;
-- [X] Editar Perfil;
+**1.1. Tela inicial de cliente:**
+- [X] Front (Responsável: Andreza)
+- [ ] Back
 
-__3. Administrador__
-- [ ] Tela inicial do administrador;
-- [ ] Tela de cadastro de linha;
-- [ ] Tela de consulta das linhas;
-- [ ] Tela de edição das linhas;
-- [ ] Tela de cadastro de funcionários no sistema;
-- [ ] Tela de alteração de dados dos funcionários no sistema;
-- [ ] Tela de geração de relatórios (logs);
-- [ ] Tela do relatório;
-- [ ] Tela de listagem dos usuários;
-- [ ] Tela de listagem de acessos;
-- [X] Editar Perfil;
+**1.2. Login de usuários no sistema:**
+- [X] Front (Responsáveis: Everton/Laravel)
+- [X] Back (Responsável: Antony)
 
+**1.3. Cadastro de clientes no sistema:**
+- [X] Front (Responsáveis: Everton/Laravel)
+- [X] Back (Responsável: Antony) Ajustar somente o redirecionamento
+
+**1.4. Visualização da agenda das passagens:**
+- [X] Front (Responsáveis: Lucas/Israel)
+- [ ] Back
+
+**1.5. Seleção do método de pagamento:**
+- [X] Front (Responsável: Antony
+- [ ] Back
+
+**1.6. Confirmação:**
+- [X] Front (Responsável: Anderson)
+- [ ] Back
+
+**1.7. Consulta de passagens compradas:**
+- [X] Front (Responsável: Ozenilson)
+- [ ] Back
+
+**1.8. Editar Perfil:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
+### 2. Funcionarios (1/7):
+**1.0. Recuperação de acesso de funcionário:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
+**2.1. Tela inicial de funcionário:**
+<i>Com dados dos relatórios</i>
+- [X] Front (Responsável: Ozenilson)
+- [ ] Back
+
+**2.2. Consulta de Linhas:**
+<i>Ttabela contendo todas as linhas/trechos</i>
+- [X] Front (Responsável: Antony)
+- [X] Back (Responsável: Antony e Amanda) -> ampliar busca
+
+**2.3. Tela de Venda:**
+- [X] Front
+- [ ] Back
+
+**2.4. Tela de relatórios (relatórios de passageiros em uma viagem/linha):**
+- [x] Front (Responsável Andreza)
+- [ ] Back
+
+**2.5. Tela de alteração de valor/mudança de agenda:**
+- [X] Front
+- [ ] Back
+
+**2.6.Editar Perfil:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
+### 3. Administrador (2/12):
+**3.0. Recuperação de acesso de administrador:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
+**3.1. Tela inicial do administrador:**
+- [X] Front (Responsável: Ozenilson)
+- [ ] Back
+
+**3.2. Tela de cadastro de linha:**
+- [X] Front
+- [ ] Back
+
+**3.3. Tela de consulta das linhas:**
+- [X] Front (Responsável: Antony)
+- [X] Back (Responsável: Antony e Amanda)
+
+**3.4. Tela de edição das linhas:**
+- [x] Front
+- [ ] Back
+
+**3.5. Tela de cadastro de funcionários no sistema:**
+- [X] Front (Responsável: Everton)
+- [X] Back
+
+**3.6. Tela de alteração de dados dos funcionários no sistema:**
+- [X] Front Front (Responsável: Everton)
+- [ ] Back
+
+**3.7. Tela de geração de relatórios (logs):**
+- [X] Front (Responsável: Ozenilson)
+- [ ] Back
+
+**3.8. Tela de listagem dos usuários:**
+- [X] Front (Responsáveis: Lucas e Israel)
+- [ ] Back
+
+**3.9. Editar Perfil:**
+- [X] Front (Responsável: Everton)
+- [ ] Back
+
+## Banco de Dados</h2>
+
+### MySQL
+
+- [X] Construção das Tabelas;
+- [X] Povoamento do Banco de Dados;
+- [ ] Criação das requisições relacionadas a Cliente;
+- [ ] Criação das requisições relacionadas a Funcionário;
+- [ ] Criação das requisições relacionadas a Administrador;
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge

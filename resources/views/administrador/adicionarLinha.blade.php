@@ -129,7 +129,7 @@
             <button class="botao_trecho" type="button">Cadastrar</button>
         </div>
 
-        <div id="botoes_linha">
+        <div class="botoes_add">
             <button class="bottom_button" id="cancelbutton" type="button">Cancelar</button>
             <button class="bottom_button" id="salvarbutton" type="submit">Salvar</button>
         </div>
