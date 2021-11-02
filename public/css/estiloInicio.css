@@ -55,12 +55,6 @@
     font-weight: bold;  
 }
 
-#linhazinha
-{
-    display: flex;
-    justify-content: center;
-}
-
 .textoPreto
 {
     font-family: "darker grotesque";

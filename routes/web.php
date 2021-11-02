@@ -41,10 +41,6 @@ Route::get('/selecao', function(){
     return view('cliente.selecao');
     })->name('selecao');
 
-Route::get('/inicial_func', function(){
-    return view('funcionario.inicial_func');
-    })->name('inicial_func');
-
 Route::get('/cadastroclientes', function(){
     return view('cliente.cadastroclientes');
         })->name('cadastroclientes');
@@ -72,10 +68,6 @@ Route::get('/perfilFuncionario', function(){
 Route::get('/perfilAdministrador', function(){
     return view('administrador.perfil');
 })->name('perfilAdministrador');
-
-Route::get('/inicial_adm', function(){
-    return view('administrador.inicial_adm');
-})->name('inicial_adm');
 
 Route::get('/gerenciaUsuario_adm', function(){
     return view('administrador.gerenciaUsuarios');
@@ -116,10 +108,6 @@ Route::get('/venderPassagens', function(){
     return view('administrador.vender_passagens');
 })->name('venderPassagens');
 
-Route::get('/inicial_adm', function(){
-    return view('administrador.inicial_adm');
-})->name('inicial_adm');
-
 Route::get('/editarAgenda', function(){
     return view('funcionario.editarAgenda');
 });
@@ -144,4 +132,3 @@ Route::get('/recuperarAcessoCliente', function(){
     return view('cliente.recuperarAcesso');
 })->name('recuperarAcessoCliente');
 
-?>
