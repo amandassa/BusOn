@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
         }
 
         if($guard == 'funcionario' && Auth::guard($guard)->check()) {
-            $admin = DB
+            $admin = DB;
         }
 
         return $next($request);
