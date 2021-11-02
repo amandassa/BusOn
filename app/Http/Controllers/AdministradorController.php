@@ -9,9 +9,6 @@ class AdministradorController extends Controller
 {
     public function criarFuncionario(Request $request)
     {
-        // esse método não foi finalizado
-        storeCadastroFuncionario();
-
         Adm::criarFuncionario($request->all());
         
         return redirect()->route('cadastroFuncionario')
