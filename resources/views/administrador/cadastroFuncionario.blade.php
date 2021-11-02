@@ -30,6 +30,20 @@
         </div>
     @endif
 
+    <!-- 
+        apresentação de mensagem de erros caso os campos do formulário estejam
+        incompletos ou possuem informações que não passaram na validação
+    -->
+    @if ($errors->any())
+        <div class="alert alert0-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
         <div class="row">
@@ -57,7 +71,7 @@
                             </div>
                             <div class="form-group camposMenores">
                                 <label for="entradaConfirmarSenha">Confirmação de senha</label>
-                                <input type="password" class="form-control" name="confirmacaoSenha">
+                                <input type="password" class="form-control" name="senha">
                             </div>
                             <div class="form-check" style="margin-bottom: 20px">
                                 <input class="form-check-input" name="is_admin" type="checkbox" value="true" id="flexCheckDefault">
