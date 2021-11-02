@@ -27,8 +27,7 @@ class Funcionario extends Authenticatable {
         'nome',
         'email',
         'CPF',
-        'password',
-        'matricula',
+        'password',        
         'is_admin',
     ];
 

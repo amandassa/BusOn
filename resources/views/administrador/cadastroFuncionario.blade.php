@@ -37,7 +37,7 @@
                 <h5 class="texto">Cadastrar Funcionário</h5>
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('criarFuncionario')}}" method="POST">
+                        <form  method="POST" action="{{ route('criarFuncionario') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="entradaNome">Nome Completo</label>
@@ -53,11 +53,11 @@
                             </div>
                             <div class="form-group camposMenores">
                                 <label for="entradaSenha">Senha</label>
-                                <input type="password" class="form-control" name="senha">
+                                <input type="password" class="form-control" id="senha" name="senha">
                             </div>
                             <div class="form-group camposMenores">
                                 <label for="entradaConfirmarSenha">Confirmação de senha</label>
-                                <input type="password" class="form-control" name="confirmacaoSenha">
+                                <input type="password" class="form-control" id="confirmacaoSenha" name="confirmacaoSenha">
                             </div>
                             <div class="form-check" style="margin-bottom: 20px">
                                 <input class="form-check-input" name="is_admin" type="checkbox" value="true" id="flexCheckDefault">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="btnCC">
                                 <div class="btnCC">
-                                    <button class="botao botaoAmarelo" id="btnCriarConta">Cadastrar</button>
+                                    <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Cadastrar</button>
                                 </div>
                             </div>
                         </form>

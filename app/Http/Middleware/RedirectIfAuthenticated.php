@@ -18,15 +18,15 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        return dd($request);
-        if($guard == 'cliente' && Auth::guard($guard)->check()) {
-            return redirect()->guest(route('home'));
+        
+    if (Auth::guard($guard)->check() && Auth::guard('funcionario')->user()->is_admin == 1) {                                              
+            return redirect(route('inicial_adm'));
+        //{{ Auth(auth()->guard()->getName)->user()->nome }}
         }
 
-        if($guard == 'funcionario' && Auth::guard($guard)->check()) {
-            $admin = DB
+        if (Auth::guard($guard)->check() && Auth::guard('funcionario')->user()->is_admin == 0) {            
+            return redirect(route('inicial_func'));
         }
-
         return $next($request);
     }
 }

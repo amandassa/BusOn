@@ -60,7 +60,7 @@ class LoginController extends Controller
             'email'  => 'required|email',
             'senha' => 'required|min:6'
         ]);
-
+        
         if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
                 return redirect()->intended('/home');
         }
@@ -69,17 +69,25 @@ class LoginController extends Controller
     }
 
     public function funcionarioLogin(Request $request)
-    {
+    {        
         $this->validate($request, [
             'email'  => 'required|email',
             'senha' => 'required'
         ]);
-
+        
         if (Auth::guard('funcionario')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
                 return redirect()->intended('/home');
+                //$this->controlador($request);
         }
 
         return back()->withInput($request->only('email', 'remember'));
+    }
+    
+    public function controlador(Request $request){
+        if (Auth::guard($guard)->check()) {            
+            return redirect()->intended(route('funcionario.inicial_func'));
+        }
+        
     }
 
 }

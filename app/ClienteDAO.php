@@ -100,6 +100,7 @@ class ClienteDAO /*extends */ {
 
         return $resultado;
     }
+    
     public function consultarPassagens($cpf){
         self::initializate();
         $resultado = DB::select("SELECT * from passagem WHERE cpf_cliente = $cpf");

@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Cliente;
+use App\Models\Funcionario;
 use Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -40,6 +43,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:cliente')->except('logout');
+        $this->middleware('guest:funcionario')->except('logout');
     }
 
     /**
@@ -73,7 +78,36 @@ class RegisterController extends Controller
         DB::statement('insert into cliente(nome, CPF, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
         $cliente = new Cliente;
         $cliente->fill($data);        
-        return $cliente;
-        
+        return $cliente;    
     }
+    
+    protected function createFuncionario(Request $data)
+    {        
+        $cpf = str_replace(".", "", $data->cpf);
+        $cpf = str_replace("-", "", $cpf);
+        $nome = $data->nome;
+        $email = $data->email;
+        $is_admin = null;
+        if (isset($_POST['is_admin'])) {
+            $is_admin = '1';
+        } else {
+            $is_admin = '0';
+        }
+        $senha = Hash::make($data->senha);        
+        DB::statement('insert into funcionario(nome, CPF, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
+        $funcionario = new Funcionario;
+        $data = [
+                 'nome' => $nome,
+                 'email' => $email,
+                 'CPF'  => $cpf,
+                 'password' => $senha,
+                 'is_admin' => $is_admin
+                 ];
+        $funcionario->fill($data);
+        
+        return redirect()->route('cadastroFuncionario')
+            ->with('status', 'Funcionário Cadastrado com Sucesso!');
+//        return $funcionario;
+    }
+         
 }
