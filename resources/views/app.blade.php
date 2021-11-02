@@ -25,9 +25,9 @@
                     <div class="col-md-8"> <!-- Coluna de espaço -->                       
                     </div>
                     <div class="col-md-6 "> <!-- Coluna das opções-->
-                        @Auth                                                                                     
+                        @if(auth()->guard())
                             <div class="dropdown">
-                            <i class="fas fa-user dropbtn"></i> Olá, {{ Auth::user()->nome }}!                               
+                            <i class="fas fa-user dropbtn"></i> Olá, !                               
                             <div class="dropdown-content">
                               <a href="#">Minhas Passagens</a>
                               <a href="#">Meus Dados</a>
@@ -40,7 +40,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>                                                                                                                                
-                        @endAuth
+                        @endif
                     </div>
                 </div>
             </div>            

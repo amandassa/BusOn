@@ -4,7 +4,7 @@ CREATE TABLE cliente (
     CPF varchar(11),
     nome varchar(60),
     email varchar(60),
-    senha BINARY(60),
+    password BINARY(60),
     CONSTRAINT pk_CPF_cliente PRIMARY KEY (CPF)
 );
 
@@ -13,7 +13,7 @@ CREATE TABLE funcionario (
     CPF varchar(11) UNIQUE,
     nome varchar(60),
     email varchar(60) UNIQUE,
-    senha BINARY(60),
+    password BINARY(60),
     is_admin BOOLEAN,
     CONSTRAINT pk_matricula_funcionario PRIMARY KEY (matricula)
 );

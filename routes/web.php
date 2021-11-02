@@ -139,7 +139,6 @@ Route::get('/gerenciaUsuarios', function(){
     return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 //Route::post('login', [RegisterController::class, 'login']);
 
 
@@ -147,7 +146,7 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'client
 
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
 
-Route::middleware('auth:funcionario')->group(function () {
+/*Route::middleware('auth:funcionario')->group(function () {
     Route::get('/home', function(){
         return view('funcionario.inicial_func');
     })->name('dashboard_funcionario');
@@ -155,14 +154,19 @@ Route::middleware('auth:funcionario')->group(function () {
     Route::get('/home', function(){
         return view('administrador.inicial_adm');
     })->name('dashboard_adm');
-});
+});*/
 
+
+Route::get('/home', function(){
+        return view('funcionario.inicial_func');
+    })->name('dashboard_funcionario');
 
 Route::middleware('auth:cliente')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
-Route::post('criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
 Route::post('editarPerfilAdm', 'AdministradorController@editarPerfilAdm')->name('editarPerfilAdm');
 ?>

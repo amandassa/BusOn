@@ -2,6 +2,7 @@
 
 use App\Models\Funcionario;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class FuncionarioSeeder extends Seeder
 {
