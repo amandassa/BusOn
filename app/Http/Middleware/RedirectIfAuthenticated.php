@@ -24,9 +24,7 @@ class RedirectIfAuthenticated
         //{{ Auth(auth()->guard()->getName)->user()->nome }}
         }
 
-        if (Auth::guard($guard)->check() && Auth::guard('funcionario')->user()->is_admin == 0) {            
-            return redirect(route('inicial_func'));
-        }
+        
         return $next($request);
     }
 }
