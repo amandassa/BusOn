@@ -27,7 +27,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 ## Listagem das Telas
 
-### 1. Cliente (0/9):
+### 1. Cliente (2/9):
 **1.0. Recuperação de acesso de cliente:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
@@ -38,11 +38,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **1.2. Login de usuários no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
-- [ ] Back
+- [X] Back (Responsável: Antony)
 
 **1.3. Cadastro de clientes no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
-- [ ] Back
+- [X] Back (Responsável: Antony) Ajustar somente o redirecionamento
 
 **1.4. Visualização da agenda das passagens:**
 - [X] Front (Responsáveis: Lucas/Israel)
@@ -57,14 +57,14 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **1.7. Consulta de passagens compradas:**
-- [ ] Front (Responsável: Atribuir)
+- [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
 **1.8. Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 2. Funcionarios (0/7):
+### 2. Funcionarios (1/7):
 **1.0. Recuperação de acesso de funcionário:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
@@ -84,28 +84,28 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **2.4. Tela de relatórios (relatórios de passageiros em uma viagem/linha):**
-- [ ] Front
+- [x] Front (Responsável Andreza)
 - [ ] Back
 
 **2.5. Tela de alteração de valor/mudança de agenda:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **2.6.Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 3. Administrador (0/12):
+### 3. Administrador (2/12):
 **3.0. Recuperação de acesso de administrador:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
 **3.1. Tela inicial do administrador:**
-- [ ] Front
+- [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
 **3.2. Tela de cadastro de linha:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **3.3. Tela de consulta das linhas:**
@@ -113,12 +113,12 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Back (Responsável: Antony e Amanda)
 
 **3.4. Tela de edição das linhas:**
-- [ ] Front
+- [x] Front
 - [ ] Back
 
 **3.5. Tela de cadastro de funcionários no sistema:**
-- [X] Front
-- [ ] Back
+- [X] Front (Responsável: Everton)
+- [X] Back
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [X] Front Front (Responsável: Everton)
@@ -128,19 +128,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
-**3.8. Tela do relatório:**
-- [ ] Front
+**3.8. Tela de listagem dos usuários:**
+- [X] Front (Responsáveis: Lucas e Israel)
 - [ ] Back
 
-**3.9. Tela de listagem dos usuários:**
-- [ ] Front
-- [ ] Back
-
-**3.10. Tela de listagem de acessos:**
-- [ ] Front
-- [ ] Back
-
-**3.11 Editar Perfil:**
+**3.9. Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
@@ -149,7 +141,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 ### MySQL
 
 - [X] Construção das Tabelas;
-- [ ] Povoamento do Banco de Dados;
+- [X] Povoamento do Banco de Dados;
 - [ ] Criação das requisições relacionadas a Cliente;
 - [ ] Criação das requisições relacionadas a Funcionário;
 - [ ] Criação das requisições relacionadas a Administrador;

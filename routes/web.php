@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,7 +76,7 @@ Route::get('/gerenciaUsuario_adm', function(){
 
 Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
 
-Route::any('/consultar', 'LinhaController@consulta')->name('consulta');
+Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
 
 Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
@@ -112,9 +113,9 @@ Route::get('/editarAgenda', function(){
     return view('funcionario.editarAgenda');
 });
 
-Route::get('/cadastroFuncionarios', function(){
-    return view('administrador.cadastroFuncionarios');
-})->name('cadastroFuncionarios');
+Route::get('/cadastroFuncionario', function(){
+    return view('administrador.cadastroFuncionario');
+})->name('cadastroFuncionario');
 
 Route::get('/editarPerfilFuncionario', function(){
     return view('administrador.editarPerfilFuncionario');
@@ -132,3 +133,33 @@ Route::get('/recuperarAcessoCliente', function(){
     return view('cliente.recuperarAcesso');
 })->name('recuperarAcessoCliente');
 
+Route::get('/gerenciaUsuarios', function(){
+    return view('administrador.gerenciaUsuarios');
+})->name('gerenciaUsuarios');
+
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+//Route::post('login', [RegisterController::class, 'login']);
+
+
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
+
+Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
+
+Route::middleware('auth:funcionario')->group(function () {
+    Route::get('/home', function(){
+        return view('funcionario.inicial_func');
+    })->name('dashboard_funcionario');
+
+    Route::get('/home', function(){
+        return view('administrador.inicial_adm');
+    })->name('dashboard_adm');
+});
+
+
+Route::middleware('auth:cliente')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+Route::post('criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
+
+?>

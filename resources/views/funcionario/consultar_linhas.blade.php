@@ -14,6 +14,19 @@
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
     @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')
     
+    <script>
+        var opcao = $('#opcaoBusca').value;
+        if (opcao == 'Codigo') {
+            $('#cidade_partida').attr('disabled','disabled');
+            $('#cidade_destino').attr('disabled','disabled');
+            $('#codigo_linha').attr('disabled','true');
+        } else {
+            $('#cidade_partida').attr('disabled','true');
+            $('#cidade_destino').attr('disabled','true');
+            $('#codigo_linha').attr('disabled','disabled');
+        }
+    </script>
+    
     <style>
         .espaco{
             margin-top:2em;
@@ -31,13 +44,17 @@
                         <div class="row espaco">
                         <div class="col-sm-4">
                             <span>Definir tipo de busca: </span>
-                                <select class="form-control">
+                                <select name="opcaoBusca" class="form-control">
                                     <option>Nome</option>
                                     <option>Código</option>
                                 </select>
-                        </div>                            
-                        </div>
+                        </div>                                                    
                         <form method="POST" action="{{ route('consulta') }}" class="form">
+                        <div class="col-sm-8">
+                            <span>Código da Linha: </span>
+                            <input id="codigo_linha" name="codigo_linha" class="form-control"/>
+                        </div>
+                        </div>
                         @csrf 
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                
@@ -88,12 +105,20 @@
                           <th scope="col">Tipo</th>
                         </tr>
                         </thead>
-                      <tbody>
-                         <th scope="row">{{ $linha['codigo']}}</th>
-                            <td> {{ $linha['partida']}} </td>
-                            <td> {{ $linha['destino']}} </td>
-                            <td> {{ $linha['preco']}} </td>
-                            <td> {{ $linha['tipo']}} </td>
+                      <tbody>                        
+                            @foreach ($linhas as $linha)
+                            <tr>
+                             <th scope="row">{{ $linha['codigo']}}</th>
+                                <td> {{ $linha['partida']}} </td>
+                                <td> {{ $linha['destino']}} </td>
+                                <td> {{ $linha['preco']}} </td>
+                                @if ($linha['tipo'] == 1 )
+                                    <td> Direta </td>
+                                @else
+                                    <td> Comum </td>
+                                @endif
+                            </tr>
+                            @endforeach                        
                       </tbody>
                     </table>
                 </div>
