@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use App\Http\Model\AdministradorModel as Adm;
+use Dotenv\Regex\Result;
+use Illuminate\Http\Request;
 
 class AdministradorController extends Controller
 {
@@ -19,5 +21,15 @@ class AdministradorController extends Controller
     public function storeCadastroFuncionario(StoreCadastroFuncionarioRequest $request)
     {
         dd($request->all());
+    }
+
+    public function editarPerfilAdm(Request $request){
+
+        Adm::editarPerfilAdm($request);
+        return redirect()->route('editarPerfilAdm')
+            ->with('status', 'Informações alteradas com sucesso');
+       
+
+
     }
 }
