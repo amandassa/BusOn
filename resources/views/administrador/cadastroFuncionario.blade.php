@@ -32,7 +32,7 @@
 
     <!-- 
         apresentação de mensagem de erros caso os campos do formulário estejam
-        incompletos ou possuem informações que não passaram na validação
+        incompletos ou possuam informações que não passaram na validação
     -->
     @if ($errors->any())
         <div class="alert alert0-danger">

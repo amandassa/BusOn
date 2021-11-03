@@ -29,23 +29,23 @@
                 <form>
                     <div class="form-group">
                         <label for="entradaNome">Nome Completo</label>
-                        <input type="name" class="form-control" id="entradaNome">
+                        <input type="name" class="form-control" id="entradaNome"  value="{{$administrador['entradaNome']}}"> 
                     </div>
                     <div class="form-group">
                         <label for="entradaEmail">Email</label>
-                        <input type="email" class="form-control" id="entradaEmail">
+                        <input type="email" class="form-control" id="entradaEmail" value="{{$administrador['entradaEmail']}}">
                     </div>
                     <div class="form-group">
                         <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" disabled>
+                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$administrador['cpf']}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>
-                        <input type="cpf" class="form-control" id="disabledInput entradaCPF" disabled>
+                        <input type="number" class="form-control" id="disabledInput entradaMatricula" value="{{$administrador['entradaMatricula']}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
-                        <input type="password" class="form-control" id="entradaSenha">
+                        <input type="password" class="form-control" id="entradaSenha" value="{{$administrador['entradaSenha']}}">
                     </div>
                     <div class="form-group">
                         <label for="entradaConfirmarSenha">Confirmação de senha</label>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Model;
 
+use App\Models\Funcionario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
@@ -11,11 +13,13 @@ use Illuminate\Database\QueryException;
 
 class AdministradorModel extends Model
 {
+
+    
     // table, fillable =>
     /**
      * Criar novo funcionário.
      */
-
+    
     public static function criarFuncionario($request){
         $nome = $request['nome'];
         $email = $request['email'];
@@ -35,18 +39,27 @@ class AdministradorModel extends Model
         }
     }
 
-    public static function editarPerfilAdm(Request $request){
+    public function index(){ 
+           
+        $usuario = Auth::funcionario();
+        dd($usuario);
+       
+        /**return view("administrador.perfil", ['administrador'=>$func]);
+        *$func = [
+        *    'cpf'=>'469708',
+        *    'entradaNome'=>'Thalia',
+        *    'entradaEmail'=>'jacobson.cleta@yahoo.com',
+        *    'entradaMatricula' => '15',
+        *    'entradaSenha'=>'vembrilhar'
+        * ]; */
         
-        $nome = $request['entradaNome'];
-        $email = $request['entradaEmail'];
-        $cpf = $request['cpf'];
-        $senha = $request['entradaSenha'];
-        $confirmarSenha = $request['entradaConfirmarSenha'];
-        if($senha== $confirmarSenha){
-            return DB::update('UPDATE funcionario nome set ?, email set ?, senha set ? where cpf = ?', 
-            [$nome, $email, Hash::make($senha), $cpf]);
-        }
         
     }
+
+    
+
+
+
+   
 
 }

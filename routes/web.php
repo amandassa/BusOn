@@ -12,8 +12,6 @@
 |
 */
 
-use Illuminate\Routing\Route;
-
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
@@ -108,7 +106,7 @@ Route::get('/geraRelat', function(){
 });
 
 Route::get('/venderPassagens', function(){
-    return view('administrador.vender_passagens');
+    return view('funcionario.vender_passagens');
 })->name('venderPassagens');
 
 <<<<<<< HEAD
@@ -153,6 +151,7 @@ Route::get('/gerenciaUsuarios', function(){
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
 
+Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'showFuncionarioLoginForm'])->name('funcionarioLoginfront');
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
 
 /*Route::middleware('auth:funcionario')->group(function () {
@@ -183,6 +182,13 @@ Route::get('/agendaEditar', function(){
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
+<<<<<<< HEAD
 Route::post('editarPerfilAdm', 'AdministradorController@editarPerfilAdm')->name('editarPerfilAdm');
 >>>>>>> 0486a29a506722adb27f997ac2e22454e7e0ee7a
+=======
+
+
+
+
+>>>>>>> 0d9200181f0a348cb856be7c30f09112d0144da1
 ?>
