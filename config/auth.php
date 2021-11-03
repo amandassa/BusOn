@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'cliente',
         ],
+        'funcionario' => [
+            'driver' => 'session',
+            'provider' => 'funcionario',
+        ],
     ],
 
     /*
@@ -68,11 +72,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-         'cliente' => [
+        'cliente' => [
              'driver' => 'eloquent',
              'model' => App\Models\Cliente::class,
          ],
+         'funcionario' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Funcionario::class,
+        ],
     ],
 
     /*

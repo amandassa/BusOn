@@ -6,6 +6,8 @@ use Funcionario;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request;
+
 /*
 Nome: Funcionario (classe)
 Funcionalidade: Representa a entidade funcionário e as ações executadas pela mesma
@@ -106,6 +108,8 @@ class Administrador extends Funcionario {
     public function alterarLinha() {
 
     }
+
+    
 }
 
 ?>

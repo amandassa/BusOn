@@ -27,7 +27,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 ## Listagem das Telas
 
-### 1. Cliente (0/9):
+### 1. Cliente (2/9):
 **1.0. Recuperação de acesso de cliente:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
@@ -64,7 +64,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 2. Funcionarios (0/7):
+### 2. Funcionarios (1/7):
 **1.0. Recuperação de acesso de funcionário:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
@@ -88,14 +88,14 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **2.5. Tela de alteração de valor/mudança de agenda:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **2.6.Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
-### 3. Administrador (0/12):
+### 3. Administrador (2/12):
 **3.0. Recuperação de acesso de administrador:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
@@ -105,7 +105,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [ ] Back
 
 **3.2. Tela de cadastro de linha:**
-- [ ] Front
+- [X] Front
 - [ ] Back
 
 **3.3. Tela de consulta das linhas:**
@@ -113,12 +113,12 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Back (Responsável: Antony e Amanda)
 
 **3.4. Tela de edição das linhas:**
-- [ ] Front
+- [x] Front
 - [ ] Back
 
 **3.5. Tela de cadastro de funcionários no sistema:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [X] Back
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [X] Front Front (Responsável: Everton)
@@ -128,19 +128,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 - [X] Front (Responsável: Ozenilson)
 - [ ] Back
 
-**3.8. Tela do relatório:**
-- [ ] Front
-- [ ] Back
-
-**3.9. Tela de listagem dos usuários:**
+**3.8. Tela de listagem dos usuários:**
 - [X] Front (Responsáveis: Lucas e Israel)
 - [ ] Back
 
-**3.10. Tela de listagem de acessos:**
-- [ ] Front
-- [ ] Back
-
-**3.11 Editar Perfil:**
+**3.9. Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [ ] Back
 
@@ -149,7 +141,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 ### MySQL
 
 - [X] Construção das Tabelas;
-- [ ] Povoamento do Banco de Dados;
+- [X] Povoamento do Banco de Dados;
 - [ ] Criação das requisições relacionadas a Cliente;
 - [ ] Criação das requisições relacionadas a Funcionário;
 - [ ] Criação das requisições relacionadas a Administrador;

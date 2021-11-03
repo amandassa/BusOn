@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Funcionario;
+use App\Models\Cliente;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class FuncionarioSeeder extends Seeder
+class ClienteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +16,10 @@ class FuncionarioSeeder extends Seeder
         try {
             DB::beginTransaction();
 
-            $funcionarios = factory(Funcionario::class, 10)->make()->toArray();
+            $clientes = factory(Cliente::class, 10)->make()->toArray();
 
-            foreach($funcionarios as $funcionario) {
-                Funcionario::create($funcionario);
+            foreach($clientes as $cliente) {
+                Cliente::create($cliente);
             }
 
             DB::commit();

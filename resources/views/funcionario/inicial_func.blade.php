@@ -4,13 +4,11 @@
     
 @section('content')
     <link href="/css/estiloInicio.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <div class="container">
         @yield('conteudoPadrao')
-        <div class="row">
-            <p class="textoPreto">Dashboard</p> 
-        </div>
+        <p class="textoPreto">Dashboard</p> 
+
         <div class="row" id="linhazinha"> <!--Botoes de seleção para tela inical do funcionario-->
             <a class="btn btn-secondary botaoSelecaoInicial" href="#" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">shopping_cart</span>
@@ -34,33 +32,35 @@
 
             @yield('campoBotoes')
         </div>
-        <div class="row">
-            <p class="textoPreto">Estatísticas</p>
-        </div> 
-        <div class="row text-center" id="linhazinha"> <!-- Linha 1 -->
+
+        <p class="textoPreto">Estatísticas</p>
+
+        @yield('campoRelatorios')
+        
+        <div class="row text-center"> <!-- Linha 1 -->
             <div class="quadro"> <!--Passagens vendidas no dia-->
                 <div class="card-body">
                     <p class="textoNumeroAmarelo">51</p>
-                    <p><b>Passagens vendidas hoje</b></p>
+                    <p><b>Passagens vendidas por você hoje</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Passagens vendidas na semana-->
                 <div class="card-body">
                     <p class="textoNumeroAzul"><b>126</b></p>
-                    <p><b>Passagens vendidas essa semana</b></p>
+                    <p><b>Passagens vendidas por você esta semana</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Passagens vendidas no mes-->
                 <div class="card-body">
                     <p class="textoNumeroAmarelo">324</p>
-                    <p><b>Passagens vendidas este mês</b></p>
+                    <p><b>Passagens vendidas por você este mês</b></p>
                 </div>
             </div>
         </div>
 
-        <div class="row text-center" id="linhazinha"> <!-- Linha 2 -->
+        <div class="row text-center"> <!-- Linha 2 -->
             <div class="quadro"> <!--Linha mais vendida-->
                 <div class="card-body">
                 <p class="textoCidade"><b>Feira de Santa <br> Jaguaquara</b></p>
@@ -78,7 +78,7 @@
                         </a>
                     </div>
                     <p class="textoNumeroAmarelo"><b>70</b></p>
-                    <p><b>Passagens vendidas para Jaguaquara</b></p>
+                    <p><b>Passagens vendidas para Jaguaquara X Feira de Santana</b></p>
                 </div>
             </div>
 

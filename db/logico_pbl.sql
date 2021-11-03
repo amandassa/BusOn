@@ -22,7 +22,9 @@ CREATE TABLE trecho (
     codigo int,
     cidade_partida varchar(30),
     cidade_chegada varchar(30),
+    duracao DATETIME,
     preco FLOAT,
+    ordem int,
     CONSTRAINT pk_codigo_trecho PRIMARY KEY (codigo)
 );
 
@@ -37,8 +39,8 @@ CREATE TABLE trechos_linha (
     codigo int,
     codigo_linha int,
     codigo_trecho int,
-    datahora_partida TIMESTAMP,
-    datahora_chegada TIMESTAMP,
+    partida DATETIME,
+    dia_semana VARCHAR(14),
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
@@ -55,7 +57,7 @@ CREATE TABLE passagem (
     num_assento int,
     codigo_linha int,
     cpf_cliente varchar(11),
-    data_compra TIMESTAMP,
+    data_compra DATETIME,
     CONSTRAINT pk_codigo_passagem PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_passagem FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
@@ -111,7 +113,7 @@ CREATE TABLE pagamento_cartao (
     credito BOOLEAN,
     total_parcelas int,
     nome_titular varchar(60),
-    data_validade TIMESTAMP,
+    data_validade DATETIME,
     codigo_pagamento int,
     CONSTRAINT pk_codigo_cartao PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopagamento_cartao FOREIGN KEY (codigo_pagamento)
