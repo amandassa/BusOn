@@ -121,8 +121,8 @@ Route::get('/inicial_adm', function(){
     return view('administrador.inicial_adm');
 })->name('inicial_adm');
 
-Route::get('/editarAgenda', function(){
-    return view('funcionario.editarAgenda');
+Route::get('/resultadoBusca', function(){
+    return view('funcionario.resultadoBusca');
 });
 
 Route::get('/cadastroFuncionarios', function(){
@@ -154,5 +154,9 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'client
 Route::middleware('auth:cliente')->group(function () {    
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
+Route::get('/agendaEditar', function(){
+    return view('funcionario.agendaEditar');
+})->name('agendaEditar');
 
 ?>
