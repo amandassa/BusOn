@@ -82,12 +82,5 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
-    
-    public function controlador(Request $request){
-        if (Auth::guard($guard)->check()) {            
-            return redirect()->intended(route('funcionario.inicial_func'));
-        }
-        
-    }
 
 }
