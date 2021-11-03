@@ -109,17 +109,14 @@ Route::get('/venderPassagens', function(){
     return view('funcionario.vender_passagens');
 })->name('venderPassagens');
 
-<<<<<<< HEAD
 Route::get('/inicial_adm', function(){
     return view('administrador.inicial_adm');
 })->name('inicial_adm');
 
 Route::get('/resultadoBusca', function(){
     return view('funcionario.resultadoBusca');
-=======
 Route::get('/editarAgenda', function(){
     return view('funcionario.editarAgenda');
->>>>>>> 0486a29a506722adb27f997ac2e22454e7e0ee7a
 });
 
 Route::get('/cadastroFuncionario', function(){
