@@ -12,13 +12,11 @@
 |
 */
 
-use Illuminate\Routing\Route;
 
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
     return view('cliente.partials.cartao');
@@ -162,9 +160,7 @@ Route::get('/home', function(){
         return view('funcionario.inicial_func');
     })->name('dashboard_funcionario');
 
-Route::middleware('auth:cliente')->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-});
+
 
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
