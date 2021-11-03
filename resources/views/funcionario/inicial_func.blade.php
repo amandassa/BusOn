@@ -10,7 +10,7 @@
         <p class="textoPreto">Dashboard</p> 
 
         <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
-            <a class="btn btn-secondary botaoSelecaoInicial" href="vender_passagens" role="button">
+            <a class="btn btn-secondary botaoSelecaoInicial" href="venderPassagens" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">shopping_cart</span>
                 Vender <br> Passagens
             </a>
@@ -25,7 +25,7 @@
                 Gerar <br> Relatorio
             </a>
 
-            <a class="btn btn-secondary botaoSelecaoInicial" href="perfil" role="button">
+            <a class="btn btn-secondary botaoSelecaoInicial" href="editarPerfilFuncionario" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">person</span>
                 Editar <br> Perfil
             </a>
