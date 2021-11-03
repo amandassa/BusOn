@@ -5,14 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-sm-6"> <h5> {{ isset($url) ? ucwords($url) : ""}} Login</h5>
             <div class="card" style="d-flex p-2">
-
+                <?php $habilitar ?>  <!-- Controla o aparecimento do campo 'Cadastra-se'-->
                 <div class="card-body justify-content-center" style="align-contents:center;">
-                    @isset($url)
+                @isset($url)
                     <form method="POST" action="{{ route('funcionarioLogin') }}"
                     enctype="multipart/form-data" class="form">
+                    <?php $habilitar = false?>
                 @else
                     <form method="POST" action="{{ route('clienteLogin') }}"
                     enctype="multipart/form-data" class="form">
+                    <?php $habilitar = true?>
                 @endisset
                         @csrf <div class="form-group row justify-content-center align-items-center">
                             <label for="email" class="col-md-8 col-form-label
@@ -71,15 +73,17 @@
                             <a href="{{ route('password.request')}}" style="color:#1C5576;">
                                                 {{ __('Esqueceu a sua senha?') }}</a>
                     </div></div>
+                    @if ($habilitar)
+                        <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">
+                            <div class="col-md-8 input-group">
+                                </a>
+                                <a href="{{ route('register') }}"style="margin-top: 2px; color:#1C5576;">
+                                                    {{ __(' Cadastrar-se') }}
+                                </a>
+                        </div></div>
+                        </div>
+                    @endif
 
-                    <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">
-                        <div class="col-md-8 input-group">
-                            </a>
-                            <a href="{{ route('register') }}"style="margin-top: 2px; color:#1C5576;">
-                                                {{ __(' Cadastrar-se') }}
-                            </a>
-                    </div></div>
-                    </div>
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn botaoAmarelo" style="margin-top:1em; min-width:200px; min-height:40px; margin-botom:2em;">
