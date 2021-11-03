@@ -12,8 +12,6 @@
 |
 */
 
-use Illuminate\Routing\Route;
-
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');

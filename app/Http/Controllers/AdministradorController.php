@@ -16,12 +16,6 @@ class AdministradorController extends Controller
         return redirect()->route('cadastroFuncionario')
             ->with('status', 'Funcionário Cadastrado com Sucesso!');
     }
-    
-    // validador das informações do formulário de criação do funcionário
-    public function storeCadastroFuncionario(StoreCadastroFuncionarioRequest $request)
-    {
-        dd($request->all());
-    }
 
     public function editarPerfilAdm(Request $request){
 
@@ -32,4 +26,17 @@ class AdministradorController extends Controller
 
 
     }
+
+    // validador das informações do formulário da tela de criação do funcionário
+    public function storeCadastroFuncionario(StoreCadastroFuncionarioRequest $request)
+    {
+        dd($request->all());
+    }
+
+    // validador das informações do formulário da tela de alteração de dados do funcionário
+    public function storeAlteracaoDadosFuncionario(StoreAlteracaoDadosFuncionario $request)
+    {
+        dd($request->all());
+    }
+    
 }
