@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class AdministradorController extends Controller
 {
+
     public function criarFuncionario(Request $request)
     {
         Adm::criarFuncionario($request->all());
@@ -23,13 +24,5 @@ class AdministradorController extends Controller
         dd($request->all());
     }
 
-    public function editarPerfilAdm(Request $request){
-
-        Adm::editarPerfilAdm($request);
-        return redirect()->route('editarPerfilAdm')
-            ->with('status', 'Informações alteradas com sucesso');
-       
-
-
-    }
+    
 }
