@@ -35,4 +35,18 @@ class AdministradorModel extends Model
         }
     }
 
+    public static function editarPerfilAdm(Request $request){
+        
+        $nome = $request['entradaNome'];
+        $email = $request['entradaEmail'];
+        $cpf = $request['cpf'];
+        $senha = $request['entradaSenha'];
+        $confirmarSenha = $request['entradaConfirmarSenha'];
+        if($senha== $confirmarSenha){
+            return DB::update('UPDATE funcionario nome set ?, email set ?, senha set ? where cpf = ?', 
+            [$nome, $email, Hash::make($senha), $cpf]);
+        }
+        
+    }
+
 }
