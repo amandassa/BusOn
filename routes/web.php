@@ -167,4 +167,7 @@ Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, '
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
 
+
+
+
 ?>

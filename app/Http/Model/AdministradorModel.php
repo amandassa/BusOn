@@ -11,13 +11,13 @@ use Illuminate\Database\QueryException;
 
 class AdministradorModel extends Model
 {
+
+  
     // table, fillable =>
     /**
      * Criar novo funcionário.
      */
-    public function index(){
-        
-    }
+    
     public static function criarFuncionario($request){
         $nome = $request['nome'];
         $email = $request['email'];
