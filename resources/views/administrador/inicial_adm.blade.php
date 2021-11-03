@@ -3,7 +3,7 @@
 @section('conteudoPadrao')
 
 @section('campoBotoes')
-        <a class="btn btn-secondary botaoSelecaoInicial" href="#" role="button">
+        <a class="btn btn-secondary botaoSelecaoInicial" href="gerenciaUsuarios" role="button">
             <span class="material-icons" id="iconBotoesPrincipais">people_alt</span>
             Gerenciar Usuários
         </a>

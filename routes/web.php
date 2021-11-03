@@ -106,7 +106,7 @@ Route::get('/geraRelat', function(){
 });
 
 Route::get('/venderPassagens', function(){
-    return view('administrador.vender_passagens');
+    return view('funcionario.vender_passagens');
 })->name('venderPassagens');
 
 Route::get('/editarAgenda', function(){
