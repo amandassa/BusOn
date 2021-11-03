@@ -12,7 +12,6 @@
 |
 */
 
-use Illuminate\Routing\Route;
 
 Auth::routes();
 
