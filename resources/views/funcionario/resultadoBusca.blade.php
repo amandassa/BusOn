@@ -1,9 +1,9 @@
 @extends('app')
 
-@section('title', 'Edita agenda')
+@section('title', 'Resultados da busca')
 @section('content')
 <div class="container">
-    <h4 class="titulo">Editar Agenda</h4>
+    <h4 class="titulo">Resultados de Busca</h4>
     <div class="card">                    
              
          

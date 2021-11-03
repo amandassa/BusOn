@@ -2,8 +2,10 @@
 
 namespace App\Http\Model;
 
+use App\Models\Funcionario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
@@ -12,7 +14,7 @@ use Illuminate\Database\QueryException;
 class AdministradorModel extends Model
 {
 
-  
+    
     // table, fillable =>
     /**
      * Criar novo funcionário.
@@ -36,6 +38,27 @@ class AdministradorModel extends Model
             [$nome, $email, $cpf, Hash::make($senha), $is_admin]);
         }
     }
+
+    public function index(){ 
+           
+        $usuario = Auth::funcionario();
+        dd($usuario);
+       
+        /**return view("administrador.perfil", ['administrador'=>$func]);
+        *$func = [
+        *    'cpf'=>'469708',
+        *    'entradaNome'=>'Thalia',
+        *    'entradaEmail'=>'jacobson.cleta@yahoo.com',
+        *    'entradaMatricula' => '15',
+        *    'entradaSenha'=>'vembrilhar'
+        * ]; */
+        
+        
+    }
+
+    
+
+
 
    
 
