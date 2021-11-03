@@ -3,44 +3,44 @@ CREATE DATABASE buson;
 CREATE TABLE cliente (
     CPF varchar(11),
     nome varchar(60),
-    email varchar(60),
+    email varchar(60) NOT NULL UNIQUE,
     password BINARY(60),
     CONSTRAINT pk_CPF_cliente PRIMARY KEY (CPF)
 );
 
 CREATE TABLE funcionario (
     matricula int AUTO_INCREMENT,
-    CPF varchar(11) UNIQUE,
+    CPF varchar(11) NOT NULL UNIQUE,
     nome varchar(60),
-    email varchar(60) UNIQUE,
+    email varchar(60) NOT NULL UNIQUE,
     password BINARY(60),
-    is_admin BOOLEAN,
+    is_admin BOOLEAN NOT NULL,
     CONSTRAINT pk_matricula_funcionario PRIMARY KEY (matricula)
 );
 
 CREATE TABLE trecho (
-    codigo int,
-    cidade_partida varchar(30),
-    cidade_chegada varchar(30),
-    duracao DATETIME,
-    preco FLOAT,
-    ordem int,
+    codigo int AUTO_INCREMENT,
+    cidade_partida varchar(30) NOT NULL,
+    cidade_chegada varchar(30) NOT NULL,
+    duracao DATETIME NOT NULL,
+    preco FLOAT NOT NULL,
+    ordem int NOT NULL,
     CONSTRAINT pk_codigo_trecho PRIMARY KEY (codigo)
 );
 
 CREATE TABLE linha (
-    codigo int,
-    direta BOOLEAN,
+    codigo int AUTO_INCREMENT,
+    direta BOOLEAN NOT NULL,
     total_vagas int,
     CONSTRAINT pk_codigo_linha PRIMARY KEY (codigo)
 );
 
 CREATE TABLE trechos_linha (
-    codigo int,
+    codigo int AUTO_INCREMENT,
     codigo_linha int,
     codigo_trecho int,
-    partida DATETIME,
-    dia_semana VARCHAR(60),
+    partida DATETIME NOT NULL,
+    dia_semana VARCHAR(14) NOT NULL,
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
@@ -53,11 +53,11 @@ CREATE TABLE trechos_linha (
 );
 
 CREATE TABLE passagem (
-    codigo int,
-    num_assento int,
+    codigo int AUTO_INCREMENT,
+    num_assento int AUTO_INCREMENT,
     codigo_linha int,
     cpf_cliente varchar(11),
-    data_compra DATETIME,
+    data_compra DATETIME NOT NULL,
     CONSTRAINT pk_codigo_passagem PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_passagem FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
@@ -70,9 +70,10 @@ CREATE TABLE passagem (
 );
 
 CREATE TABLE venda (
-    codigo int,
+    codigo int AUTO_INCREMENT,
     codigo_passagem int,
     matricula_vendedor int,
+    valor FLOAT NOT NULL,
     CONSTRAINT pk_codigo_venda PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopassagem_venda FOREIGN KEY (codigo_passagem)
         REFERENCES passagem(codigo)
@@ -85,10 +86,10 @@ CREATE TABLE venda (
 );
 
 CREATE TABLE pagamento (
-    codigo int,
+    codigo int AUTO_INCREMENT,
     codigo_passagem int,
-    realizado BOOLEAN,
-    forma_pagamento int,
+    realizado BOOLEAN NOT NULL,
+    forma_pagamento int NOT NULL,
     CONSTRAINT pk_codigo_pagamento PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopassagem_pagamento FOREIGN KEY (codigo_passagem)
     REFERENCES passagem(codigo)
@@ -97,8 +98,8 @@ CREATE TABLE pagamento (
 );
 
 CREATE TABLE pagamento_dinheiro (
-    codigo int,
-    dinheiro_recebido FLOAT,
+    codigo int AUTO_INCREMENT,
+    dinheiro_recebido FLOAT NOT NULL,
     codigo_pagamento int,
     CONSTRAINT pk_codigo_dinheiro PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopagamento_dinheiro FOREIGN KEY (codigo_pagamento)
@@ -108,12 +109,12 @@ CREATE TABLE pagamento_dinheiro (
 );
 
 CREATE TABLE pagamento_cartao (
-    codigo int,
-    numero_cartao int,
-    credito BOOLEAN,
-    total_parcelas int,
-    nome_titular varchar(60),
-    data_validade DATETIME,
+    codigo int AUTO_INCREMENT,
+    numero_cartao int NOT NULL,
+    credito BOOLEAN NOT NULL,
+    total_parcelas int NOT NULL,
+    nome_titular varchar(60) NOT NULL,
+    data_validade DATETIME NOT NULL,
     codigo_pagamento int,
     CONSTRAINT pk_codigo_cartao PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopagamento_cartao FOREIGN KEY (codigo_pagamento)
@@ -123,10 +124,10 @@ CREATE TABLE pagamento_cartao (
 );
 
 CREATE TABLE pagamento_boleto (
-    codigo int,
-    codigo_barras varchar(48),
-    nome varchar(60),
-    cpf varchar(11),
+    codigo int AUTO_INCREMENT,
+    codigo_barras varchar(48) NOT NULL,
+    nome varchar(60) NOT NULL,
+    cpf varchar(11) NOT NULL,
     codigo_pagamento int,
     CONSTRAINT pk_codigo_boleto PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopagamento_boleto FOREIGN KEY (codigo_pagamento)
@@ -136,8 +137,8 @@ CREATE TABLE pagamento_boleto (
 );
 
 CREATE TABLE pagamento_pix (
-    codigo int,
-    pix_pagador varchar(30),
+    codigo int AUTO_INCREMENT,
+    pix_pagador varchar(30) NOT NULL,
     codigo_pagamento int,
     CONSTRAINT pk_codigo_pix PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopagamento_pix FOREIGN KEY (codigo_pagamento)
