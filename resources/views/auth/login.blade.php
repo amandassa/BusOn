@@ -3,12 +3,17 @@
 @section('content')
     <div class="container" style="flex-grow: 3;">
     <div class="row justify-content-center">
-        <div class="col-sm-6"> <h5>Login</h5>
+        <div class="col-sm-6"> <h5> {{ isset($url) ? ucwords($url) : ""}} Login</h5>
             <div class="card" style="d-flex p-2">
 
                 <div class="card-body justify-content-center" style="align-contents:center;">
+                    @isset($url)
                     <form method="POST" action="{{ route('funcionarioLogin') }}"
                     enctype="multipart/form-data" class="form">
+                @else
+                    <form method="POST" action="{{ route('clienteLogin') }}"
+                    enctype="multipart/form-data" class="form">
+                @endisset
                         @csrf <div class="form-group row justify-content-center align-items-center">
                             <label for="email" class="col-md-8 col-form-label
                             text-md-left">{{ __('Email:') }}</label><br>
