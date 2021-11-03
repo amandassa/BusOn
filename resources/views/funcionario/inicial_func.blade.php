@@ -9,23 +9,23 @@
         @yield('conteudoPadrao')
         <p class="textoPreto">Dashboard</p> 
 
-        <div class="row" id="linhazinha"> <!--Botoes de seleção para tela inical do funcionario-->
-            <a class="btn btn-secondary botaoSelecaoInicial" href="#" role="button">
+        <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
+            <a class="btn btn-secondary botaoSelecaoInicial" href="vender_passagens" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">shopping_cart</span>
                 Vender <br> Passagens
             </a>
 
-            <a class="btn btn-secondary botaoSelecaoInicial" href="#" role="button">
+            <a class="btn btn-secondary botaoSelecaoInicial" href="consultar_linhas" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">book_online</span>
                 Consultar <br> Linha
             </a>
 
-            <a class="btn btn-secondary botaoSelecaoInicial" href="#" role="button">
+            <a class="btn btn-secondary botaoSelecaoInicial" href="geraRelat" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
                 Gerar <br> Relatorio
             </a>
 
-            <a class="btn btn-secondary botaoSelecaoInicial" href="#" role="button">
+            <a class="btn btn-secondary botaoSelecaoInicial" href="perfil" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">person</span>
                 Editar <br> Perfil
             </a>
@@ -45,10 +45,16 @@
                 </div>
             </div>
 
-            <div class="quadro"> <!--Passagens vendidas na semana-->
+            <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <p class="textoNumeroAzul"><b>126</b></p>
-                    <p><b>Passagens vendidas por você esta semana</b></p>
+                    <div class="caixaPesquisa">
+                        <input type="text" class="caixaTexto" id="buscarLinha" placeholder="Pesquisar linha">
+                        <a href="#">
+                            <span class="material-icons" id="iconPesquisa">search</span>
+                        </a>
+                    </div>
+                    <p class="textoNumeroAzul"><b>70</b></p>
+                    <p><b>Passagens vendidas para Jaguaquara X Feira de Santana</b></p>
                 </div>
             </div>
 
@@ -68,17 +74,10 @@
                 </div>
             </div>
 
-
-            <div class="quadro"> <!--Pesquisar linha-->
+            <div class="quadro"> <!--Passagens vendidas na semana-->
                 <div class="card-body">
-                    <div class="caixaPesquisa">
-                        <input type="text" class="caixaTexto" id="buscarLinha" placeholder="Pesquisar linha">
-                        <a href="#">
-                            <span class="material-icons" id="iconPesquisa">search</span>
-                        </a>
-                    </div>
-                    <p class="textoNumeroAmarelo"><b>70</b></p>
-                    <p><b>Passagens vendidas para Jaguaquara X Feira de Santana</b></p>
+                    <p class="textoNumeroAmarelo"><b>126</b></p>
+                    <p><b>Passagens vendidas por você esta semana</b></p>
                 </div>
             </div>
 
