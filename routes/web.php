@@ -12,7 +12,10 @@
 |
 */
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b9350c095ff17de812ea566db12f13b041666d5
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
@@ -168,5 +171,8 @@ Route::middleware('auth:cliente')->group(function () {
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
-Route::post('editarPerfilAdm', 'AdministradorController@editarPerfilAdm')->name('editarPerfilAdm');
+
+
+
+
 ?>

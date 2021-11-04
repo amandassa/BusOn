@@ -21,6 +21,20 @@
 
      }</script>
 
+    <!-- 
+        apresentação de mensagem de erros caso os campos do formulário estejam
+        incompletos ou possuam informações que não passaram na validação
+    -->
+    @if ($errors->any())
+        <div class="alert alert0-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
         <h5 class="texto">Editar Perfil de Funcionário</h5>

@@ -9,18 +9,13 @@ use Illuminate\Http\Request;
 
 class AdministradorController extends Controller
 {
+
     public function criarFuncionario(Request $request)
     {
         Adm::criarFuncionario($request->all());
         
         return redirect()->route('cadastroFuncionario')
             ->with('status', 'Funcionário Cadastrado com Sucesso!');
-    }
-    
-    // validador das informações do formulário de criação do funcionário
-    public function storeCadastroFuncionario(StoreCadastroFuncionarioRequest $request)
-    {
-        dd($request->all());
     }
 
     public function editarPerfilAdm(Request $request){
@@ -32,4 +27,12 @@ class AdministradorController extends Controller
 
 
     }
+
+    // validador das informações do formulário da tela de criação do funcionário
+    public function storeCadastroFuncionario(StoreCadastroFuncionarioRequest $request)
+    {
+        dd($request->all());
+    }
+
+    
 }
