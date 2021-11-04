@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAddTrechoRequest;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Http\Model\AdministradorModel as Adm;
@@ -72,22 +73,9 @@ class AdministradorController extends Controller
         }
         
     }
-    
-    public function createTrecho(Request $request){
-        return redirect()->with('message', 'The success message!');
-    }
 
-    public function storeCadastrarTrecho(Request $request){
-        $validated = $request->validate([
-            'origem' => ['required'],
-            'destino' => ['required', 'different:destino'],
-            'preço' => ['required', 'numeric', 'min:0.05'],
-            'duraçao' => ['required', 'numeric', 'min:1']
-        
-        ]);
-        if($validated){
-            dd($request->all());
-        }
+    public function storeCadastrarTrecho(StoreAddTrechoRequest $request){
+        return redirect('adicionarTrecho')->with('message', 'Trecho Cadastrado.');
     }
     
    

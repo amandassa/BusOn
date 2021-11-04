@@ -13,7 +13,7 @@
         <h4 class="header">Cadastrar trecho:</h4>
 
         @if ($errors->any())
-            <div class="alert alert0-danger">
+            <div class="alert alert-danger">
                 <ul>
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -22,12 +22,10 @@
             </div>
         @endif
         
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-            {{ session()->get('message') }}
-            </div>
+        @if(session('message'))
+            <div class="alert alert-success">{{session('message')}}</div>
         @endif
-        
+
         <form method="POST" action="{{ route('adicionarTrecho') }}">
             @csrf
             <div id="top_portion">
