@@ -73,7 +73,7 @@ class AdministradorController extends Controller
         
     }
     
-    public funcion createTrecho(Request $request){
+    public function createTrecho(Request $request){
         return redirect()->with('message', 'The success message!');
     }
 
