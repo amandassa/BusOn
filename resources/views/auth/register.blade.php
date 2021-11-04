@@ -1,105 +1,100 @@
 @extends('app')
 
+@section('title', 'Cadastre-se - ')
+<!-- Máscara do CPF-->
+<script>function mascara(i,t){
+   
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){
+       i.value = v.substring(0, v.length-1);
+       return;
+    }
+    
+    if(t == "cpf"){
+       i.setAttribute("maxlength", "14");
+       if (v.length == 3 || v.length == 7) i.value += ".";
+       if (v.length == 11) i.value += "-";
+    }
+
+ }</script> 
+
+
+
+<link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
+
 @section('content') <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h5><b>Registro</b></h5> <div class="card">
+            <h5><b>Cadastre-se</b></h5> <div class="card">
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
+                        <!-- Campo do nome-->
+                        <div class="form-group">
+                            <label for="entradaNome">{{ __('Nome') }}</label>
+                            <input type="name" id="entradaNome" class="form-control  
+                            @error('nome') is-invalid @enderror" name="nome"
+                            value="{{ old('nome') }}" required
+                            autocomplete="nome" autofocus>
 
-                        <!-- Campo do nome --> <div class="form-group row">
-                                
-                            <label for="name" class="col-md-4 col-form-label
-                            text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="nome" type="text" class="form-control
-                                @error('nome') is-invalid @enderror" name="nome"
-                                value="{{ old('nome') }}" required
-                                autocomplete="nome" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        
-                        <!-- Campo do email --> <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label
-                            text-md-right">{{ __('Email: ') }}</label>
+                        <!-- Campo do email-->
+                        <div class="form-group">
+                            <label for="entradaEmail">{{ __('Email: ') }}</label>
+                            <input type="email" class="form-control 
+                            @error('email') is-invalid
+                            @enderror" name="email" value="{{ old('email')
+                            }}" required autocomplete="email" id="entradaEmail">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email"
-                                class="form-control @error('email') is-invalid
-                                @enderror" name="email" value="{{ old('email')
-                                }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        
-                        <!-- Campo do CPF --> <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label
-                        text-md-right">{{ __('CPF') }}</label>
-                            
-                            <div class="col-md-4"> <input id="cpf" type="text"
-                            class="form-control @error('cpf') is-invalid
+                        <!-- Campo do CPF-->
+                        <div class="form-group camposMenores">
+                            <label for="entradaCPF">{{ __('CPF') }}</label>
+                            <input oninput="mascara(this, 'cpf')" id="entradaCPF" type="text" class="form-control 
+                            @error('cpf') is-invalid
                             @enderror" name="cpf" value="{{ old('cpf') }}"
-                            required autocomplete="name" autofocus> </div>
-                                
+                            required autocomplete="name" autofocus  name="customer['cpf']">
                         </div>
-                    
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label
-                            text-md-right">Senha</label>
-
-                            <div class="col-md-4">
-                                <input id="senha" type="password"
-                                class="form-control @error('senha') is-invalid
-                                @enderror" name="senha" required
-                                autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <!-- Campo da senha-->
+                        <div class="form-group camposMenores">
+                            <label for="password">Senha</label>
+                            <input id="senha" type="password"
+                            class="form-control @error('senha') is-invalid
+                            @enderror" name="senha" required
+                            autocomplete="new-password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-
-                        <div class="form-group row">
-                            <label for="senha-confirm" class="col-md-4
-                            col-form-label text-md-right">Confirmar
+                        <!-- Campo da confirmação de senha-->
+                        <div class="form-group camposMenores">
+                            <label for="senha-confirm">Confirmar
                             Senha</label>
-
-                            <div class="col-md-4">
-                                <input id="senha-confirm" type="password"
-                                class="form-control" name="senha_confirmation"
-                                required autocomplete="new-password">
-                            </div>
+                            <input id="senha-confirm" type="password"
+                            class="form-control" name="senha_confirmation"
+                            required autocomplete="new-password">
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col">
-                                <center><button type="submit" class="botao
-                                botaoAmarelo" style="margin-top:1em; min-height:
-                                40px; min-width:150px;">
-                                    <i class="fas fa-check-circle"></i> {{
-                                    __('Criar Conta') }}
-                                </button> <br><label
-                                style="padding-top:10px;">Já tem cadastro? <a
-                                href="{{route('login')}}">Acesse sua
-                                conta.</a></label> </center>
-                            </div>
+                        <br>
+                        <div class="btnCC">
+                                <button type="submit" class="botao botaoAmarelo" id="botaoCC"> <span><i class="fas fa-check-circle"></i></span>   {{
+                                    __('Criar Conta') }}</button>
+                        </div>
+                        <div class="linkAC">
+                            <p>Já tem cadastro? <a href={{route('login')}}>Acesse sua conta</a></p> 
                         </div>
                     </form>
                 </div>
