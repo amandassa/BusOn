@@ -73,6 +73,10 @@ class AdministradorController extends Controller
         
     }
     
+    public funcion createTrecho(Request $request){
+        return redirect()->with('message', 'The success message!');
+    }
+
     public function storeCadastrarTrecho(Request $request){
         $validated = $request->validate([
             'origem' => ['required'],
@@ -81,7 +85,9 @@ class AdministradorController extends Controller
             'duraçao' => ['required', 'numeric', 'min:1']
         
         ]);
-        dd($request->all());
+        if($validated){
+            dd($request->all());
+        }
     }
     
    

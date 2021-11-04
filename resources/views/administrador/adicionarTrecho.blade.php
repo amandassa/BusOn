@@ -22,6 +22,12 @@
             </div>
         @endif
         
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+            {{ session()->get('message') }}
+            </div>
+        @endif
+        
         <form method="POST" action="{{ route('adicionarTrecho') }}">
 
             <div id="top_portion">
