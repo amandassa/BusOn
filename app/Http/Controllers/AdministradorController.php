@@ -26,7 +26,7 @@ class AdministradorController extends Controller
     }
 
     // validador das informações do formulário da tela de alteração de dados do funcionário
-    public function storeCadastroFuncionario(StoreAlteracaoDadosFuncionarioRequest $request)
+    public function storeAlteracaoDadosFuncionario(StoreAlteracaoDadosFuncionarioRequest $request)
     {
         dd($request->all());
     }
