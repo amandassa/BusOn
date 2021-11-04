@@ -44,6 +44,11 @@ class RedirectIfAuthenticated
             
               
         }
+    
+    if (Auth::guard($guard)->check() && Auth::guard('funcionario')->user()->is_admin == 1) {                                              
+            return redirect(route('inicial_adm'));
+        //{{ Auth(auth()->guard()->getName)->user()->nome }}
+        }
 
     }
 

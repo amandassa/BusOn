@@ -24,10 +24,10 @@ class StoreAlteracaoDadosFuncionarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'entradaNome' => ['required', new FullName],
-            'entradaEmail' => 'required|email',
-            'entradaSenha' => 'min:8',
-            'entradaConfirmarSenha' => 'min:8',
+            'entradaNome' => ['required_without_all:entradaEmail,entradaSenha', new FullName],
+            'entradaEmail' => ['required_without_all:entradaNome,entradaSenha', 'email', 'unique:email'],
+            'entradaSenha' => ['required_without_all:entradaNome,entradaEmail', 'min:8'],
+            'entradaConfirmarSenha' => ['min:8', 'same:entradaSenha'],
         ];
     }
 

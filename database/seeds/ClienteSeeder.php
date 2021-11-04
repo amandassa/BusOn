@@ -13,18 +13,16 @@ class ClienteSeeder extends Seeder
      */
     public function run()
     {
-        try {
+        //try {
             DB::beginTransaction();
-
-            $clientes = factory(Cliente::class, 10)->make()->toArray();
-
-            foreach($clientes as $cliente) {
-                Cliente::create($cliente);
+            $clientes = factory(Cliente::class, 10)->make()->toArray();            
+            foreach($clientes as $cliente) {                
+                DB::statement('insert into cliente(nome, CPF, email, password) values (?, ?, ?, ?)', [$cliente['nome'], $cliente['CPF'], $cliente['email'], $cliente['password']]);
             }
-
             DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-        }
+            
+        /*} catch (Exception $e) {
+         //   DB::rollBack();
+        }*/
     }
 }

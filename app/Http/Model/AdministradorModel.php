@@ -39,25 +39,112 @@ class AdministradorModel extends Model
         }
     }
 
-    public function index(){ 
-           
-        $usuario = Auth::funcionario();
-        dd($usuario);
-       
-        /**return view("administrador.perfil", ['administrador'=>$func]);
-        *$func = [
-        *    'cpf'=>'469708',
-        *    'entradaNome'=>'Thalia',
-        *    'entradaEmail'=>'jacobson.cleta@yahoo.com',
-        *    'entradaMatricula' => '15',
-        *    'entradaSenha'=>'vembrilhar'
-        * ]; */
-        
-        
+    public static function index(){ 
+
+        $emaillogado = Auth::guard('funcionario')->user()->email;
+        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+
+        $admCpf = $usuario->CPF;
+        $admNome = $usuario->nome;
+        $admEmail = $usuario->email;
+        $admMatricula = $usuario->matricula;
+        $admSenha = '';
+        $confirmar = '';
+
+
+        $administrador = [
+            'cpf'=> $admCpf,
+            'entradaNome' => $admNome,
+            'entradaEmail'=> $admEmail,
+            'entradaMatricula' => $admMatricula,
+            'entradaSenha' => $admSenha,
+            'entradaConfirmarSenha' => $confirmar       
+         ];
+
+        return $administrador;
+              
     }
+
+    public static function editar(Request $request){
+            $emaillogado = Auth::guard('funcionario')->user()->email;
+            $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+            
+            $cpf = $usuario->CPF;
+            $nome = $request['nome'];
+            $matricula = $usuario->matricula;
+            $email = $request['email'];
+            $senha = $request['senha'];
+            $confirmarSenha = $request['confirmarSenha'];
+            if(empty($senha or $confirmarSenha)){
+                return 1;
+            }else{
+
+                if($senha == $confirmarSenha){
+                    DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
+                    [$nome, $email, $senha, $cpf]);
+                    return 2;
+                }
+                 else {
+                    return 3;
+                }
+            }
+            
+    }
+
+    public static function perfilFunc(){ 
+
+        $emaillogado = 'jasmin@bus.on';
+        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+
+        $funCPf = $usuario->CPF;
+        $funNome = $usuario->nome;
+        $funEmail = $usuario->email;
+        $funMatricula = $usuario->matricula;
+        $funSenha = '';
+        $confirmar = '';
+
+
+        $funcionario = [
+            'cpf'=> $funCPf,
+            'entradaNome' => $funNome,
+            'entradaEmail'=> $funEmail,
+            'entradaMatricula' => $funMatricula,
+            'entradaSenha' => $funSenha,
+            'entradaConfirmarSenha' => $confirmar       
+         ];
+
+        return $funcionario;
+              
+    }
+
+    public static function editarFunc(Request $request){
+        $emaillogado ='jasmin@bus.on';
+        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+        
+        $cpf = $usuario->CPF;
+        $nome = $request['nome'];
+        $matricula = $usuario->matricula;
+        $email = $request['email'];
+        $senha = $request['senha'];
+        $confirmarSenha = $request['confirmarSenha'];
+
+        if(empty($senha or $confirmarSenha)){
+                return 1;
+        }else{
+            if($senha == $confirmarSenha){
+                DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
+                [$nome, $email, $senha, $cpf]);
+                return 2;
+            }else {
+                return 3;
+            }
+        }
+        
+}
 
     
 
+    
 
 
    

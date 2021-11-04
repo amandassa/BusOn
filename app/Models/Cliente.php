@@ -23,8 +23,7 @@ class Cliente extends Authenticatable
         'password',
     ];
     
-    protected $hidden = [
-        'password',
+    protected $hidden = [        
         'remember_token',
     ];
     
