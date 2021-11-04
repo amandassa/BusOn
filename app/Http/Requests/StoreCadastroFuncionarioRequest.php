@@ -28,8 +28,8 @@ class StoreCadastroFuncionarioRequest extends FormRequest
             'nome' => ['required' , new FullName],
             'email' => 'required|email|unique:email',
             'cpf' => 'required|cpf|formato_cpf|unique:cpf',
-            'senha' => 'required|min:8|same:confirmacaoSenha',
-            'confirmacaoSenha' => 'required|min:8|same:senha',
+            'senha' => ['required', 'min:8'],
+            'confirmacaoSenha' => 'required|same:senha',
         ];
     }
 
