@@ -29,7 +29,7 @@
         @endif
         
         <form method="POST" action="{{ route('adicionarTrecho') }}">
-
+            @csrf
             <div id="top_portion">
                 
                 <div class="line_info">
