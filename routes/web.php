@@ -12,15 +12,10 @@
 |
 */
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b9350c095ff17de812ea566db12f13b041666d5
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/pagamento', function(){
     return view('cliente.partials.cartao');
@@ -90,7 +85,6 @@ Route::get('/adicionarTrecho', function(){
     return view('administrador.adicionarTrecho');
 })->name('adicionaTrecho');
 
-Route::any('/logar', 'HomeController@logar')->name('logar');
 
 Route::get('/pagamento/cartao', function(){
     return view('cliente._partials.cartao');
@@ -141,38 +135,12 @@ Route::get('/gerenciaUsuarios', function(){
     return view('administrador.gerenciaUsuarios');
 })->name('gerenciaUsuarios');
 
-//Route::post('login', [RegisterController::class, 'login']);
-
-
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
-
 Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'showFuncionarioLoginForm'])->name('funcionarioLoginfront');
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
-
-/*Route::middleware('auth:funcionario')->group(function () {
-    Route::get('/home', function(){
-        return view('funcionario.inicial_func');
-    })->name('dashboard_funcionario');
-
-    Route::get('/home', function(){
-        return view('administrador.inicial_adm');
-    })->name('dashboard_adm');
-});*/
-
-
-Route::get('/home', function(){
-        return view('funcionario.inicial_func');
-    })->name('dashboard_funcionario');
-
-Route::middleware('auth:cliente')->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-});
 
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
-
-
-
-
+Route::post('editarPerfilAdm', 'AdministradorController@editarPerfilAdm')->name('editarPerfilAdm');
 ?>

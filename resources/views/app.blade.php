@@ -24,20 +24,21 @@
                     </div>
                     <div class="col-md-8"> <!-- Coluna de espaço -->                       
                     </div>
-                    <div class="col-md-6 "> <!-- Coluna das opções-->
-                        @if (@auth('funcionario')->user() || @auth('cliente')->user())
-                            
+                    <div class="col-md-6" style="text-align: right"> <!-- Coluna das opções-->
+                        @if (auth('funcionario')->user() || auth('cliente')->user())
                             <div class="dropdown">
-                            <i class="fas fa-user dropbtn"></i> Olá, !                               
-                            <div class="dropdown-content">
+                            @if (auth('funcionario')->user())  <!-- Autenticado como funcionário-->
+                                <i class="fas fa-user dropbtn"> </i> Olá, {{auth('funcionario') ->user()->nome}}  
+                            @else <!-- Autenticado como cliente-->
+                            <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente') ->user()->nome}}   
+                            @endif                              
+                            <div class="dropdown-content" style="text-align: left">
                               <a href="#">Minhas Passagens</a>
                               <a href="#">Meus Dados</a>
-                              <a href="#">Sair</a>
+                              <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit()">Sair</a>
                             </div>
                           </div>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                                     <button type="button" class="botao botaoAzul">Sair</button></a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>                                                                                                                         

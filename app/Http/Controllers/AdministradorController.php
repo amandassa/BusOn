@@ -18,15 +18,7 @@ class AdministradorController extends Controller
             ->with('status', 'Funcionário Cadastrado com Sucesso!');
     }
 
-    public function editarPerfilAdm(Request $request){
-
-        Adm::editarPerfilAdm($request);
-        return redirect()->route('editarPerfilAdm')
-            ->with('status', 'Informações alteradas com sucesso');
-       
-
-
-    }
+    
 
     // validador das informações do formulário da tela de criação do funcionário
     public function storeCadastroFuncionario(StoreCadastroFuncionarioRequest $request)
