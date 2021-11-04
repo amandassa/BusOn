@@ -62,7 +62,7 @@ class LoginController extends Controller
         ]);
         
         if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
-                return redirect()->intended('/home');
+                return redirect()->intended('/inicio');
         }
 
         return back()->withInput($request->only('email', 'remember'));
@@ -76,11 +76,38 @@ class LoginController extends Controller
         ]);
         
         if (Auth::guard('funcionario')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
-                return redirect()->intended('/home');
-                //$this->controlador($request);
+            if(Auth::guard('funcionario')->user()->is_admin == 1) 
+            {
+                return redirect()->intended('/inicialAdm');
+            }      
+            
+            if(Auth::guard('funcionario')->user()->is_admin == 0) 
+            {
+                return redirect()->intended('/inicialFuncionario');
+            }
+                
         }
 
         return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function logout(Request $request)  
+    {
+        $tipo = null;
+        if(Auth::guard('cliente')->check())
+            $tipo = 0;
+        else
+            $tipo = 1;
+        
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        if($tipo)
+            return redirect(route('funcionarioLoginfront'));
+        else
+            return redirect(route('login'));
+
     }
 
 }
