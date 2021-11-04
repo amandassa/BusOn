@@ -54,7 +54,7 @@ CREATE TABLE trechos_linha (
 
 CREATE TABLE passagem (
     codigo int AUTO_INCREMENT,
-    num_assento int AUTO_INCREMENT,
+    num_assento int,
     codigo_linha int,
     cpf_cliente varchar(11),
     data_compra DATETIME NOT NULL,
