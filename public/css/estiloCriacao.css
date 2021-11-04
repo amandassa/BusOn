@@ -79,6 +79,7 @@ table {
 }
 
 .bottom_button{
+    margin-top: 25px;
     background-color: #103A52;
     color: white;
     border: 1px solid black;

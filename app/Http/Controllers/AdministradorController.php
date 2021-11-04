@@ -73,6 +73,16 @@ class AdministradorController extends Controller
         
     }
     
+    public function storeCadastrarTrecho(Request $request){
+        $validated = $request->validate([
+            'origem' => ['required'],
+            'destino' => ['required', 'different:destino'],
+            'preço' => ['required', 'numeric', 'min:0.05'],
+            'duraçao' => ['required', 'numeric', 'min:1']
+        
+        ]);
+        dd($request->all());
+    }
     
    
 

@@ -144,7 +144,7 @@ Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::cl
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
-
+Route::post('/adicionarTrecho', [App\Http\Controllers\AdministradorController::class, 'storeCadastrarTrecho'])->name('adicionarTrecho');
 
 Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
 Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
