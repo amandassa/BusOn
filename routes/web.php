@@ -12,6 +12,8 @@
 |
 */
 
+
+
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
@@ -169,6 +171,10 @@ Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::
 
 
 
+Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
+Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
 
+Route::get('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
+Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
 
 ?>

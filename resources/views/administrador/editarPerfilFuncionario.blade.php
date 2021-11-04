@@ -19,7 +19,25 @@
            if (v.length == 11) i.value += "-";
         }
 
-     }</script>
+    }</script>
+
+    @if ($errors->any())
+       <div class="alert alert-warning">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+    @if (session('success'))
+           <div class="alert alert-success alert-block">
+               {{session ('success')}}
+           </div>
+    @endif
+    @if (session('error'))
+           <div class="alert alert-danger">
+               {{session ('error')}}
+           </div>
+    @endif
 
     <!-- 
         apresentação de mensagem de erros caso os campos do formulário estejam
@@ -40,30 +58,31 @@
         <h5 class="texto">Editar Perfil de Funcionário</h5>
         <div class="card">
             <div class="card-body">
-                <form>
+                <form  action="{{route('perfilAdministrador.editarFunc')}}" method="post">
+                    @csrf
                     <div class="form-group">
                         <label for="entradaNome">Nome Completo</label>
-                        <input type="name" class="form-control" id="entradaNome">
+                        <input type="name" class="form-control" id="entradaNome"  name = "nome"  value="{{$funcionario['entradaNome']}}">
                     </div>
                     <div class="form-group">
                         <label for="entradaEmail">Email</label>
-                        <input type="email" class="form-control" id="entradaEmail">
+                        <input type="email" class="form-control" id="entradaEmail" name = "email" value="{{$funcionario['entradaEmail']}}">
                     </div>
                     <div class="form-group">
                         <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" disabled>
+                        <input oninput="mascara(this, 'cpf')" class="form-control"  autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>
-                        <input type="cpf" class="form-control" id="disabledInput entradaCPF" disabled>
+                        <input type="cpf" class="form-control" id="disabledInput entradaCPF" name = "matricula"value="{{$funcionario['entradaMatricula']}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
-                        <input type="password" class="form-control" id="entradaSenha">
+                        <input type="password" class="form-control" id="entradaSenha" name="senha" value="{{$funcionario['entradaSenha']}}">
                     </div>
                     <div class="form-group">
                         <label for="entradaConfirmarSenha">Confirmação de senha</label>
-                        <input type="password" class="form-control" id="entradaConfirmarSenha">
+                        <input type="password" class="form-control" id="entradaConfirmarSenha" name = "confirmarSenha" value="{{$funcionario['entradaConfirmarSenha']}}">
                     </div>
                     <div class="btnCC">
                         <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>
