@@ -18,10 +18,8 @@
 # Mínimo Produto Viável (MVP) 05/11:
 - [X] Se conectar com um SGBD;
 - [X] Executar frases SQL com o SGBD;
-- [ ] O módulo de controle e cadastro de usuário pelo administrador deve ser funcional: 
-<i>Foi iniciada apenas o módulo de controle</i>
-- [ ] Todas as telas precisam estar codificadas/elaboradas (14/25):
-Pelo menos 50% das telas estão codificadas como exemplificado abaixo
+- [X] O módulo de controle e cadastro de usuário pelo administrador deve ser funcional;
+- [X] Todas as telas precisam estar codificadas/elaboradas (25/25);
 
 # Front-end & Back-end
 
@@ -42,7 +40,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **1.3. Cadastro de clientes no sistema:**
 - [X] Front (Responsáveis: Everton/Laravel)
-- [X] Back (Responsável: Antony) Ajustar somente o redirecionamento
+- [X] Back (Responsável: Antony) 
 
 **1.4. Visualização da agenda das passagens:**
 - [X] Front (Responsáveis: Lucas/Israel)
@@ -62,7 +60,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **1.8. Editar Perfil:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [ ] Back (Responsável: Lucas)
 
 ### 2. Funcionarios (1/7):
 **1.0. Recuperação de acesso de funcionário:**
@@ -72,12 +70,12 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 **2.1. Tela inicial de funcionário:**
 <i>Com dados dos relatórios</i>
 - [X] Front (Responsável: Ozenilson)
-- [ ] Back
+- [X] Back (Responsável: Ozy)
 
 **2.2. Consulta de Linhas:**
 <i>Ttabela contendo todas as linhas/trechos</i>
 - [X] Front (Responsável: Antony)
-- [X] Back (Responsável: Antony e Amanda) -> ampliar busca
+- [ ] Back (Responsável: Antony e Amanda) -> ampliar busca
 
 **2.3. Tela de Venda:**
 - [X] Front
@@ -93,7 +91,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **2.6.Editar Perfil:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [ ] Back (Responsável: Lucas)
 
 ### 3. Administrador (2/12):
 **3.0. Recuperação de acesso de administrador:**
@@ -102,7 +100,7 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **3.1. Tela inicial do administrador:**
 - [X] Front (Responsável: Ozenilson)
-- [ ] Back
+- [X] Back (Responsável: Ozy)
 
 **3.2. Tela de cadastro de linha:**
 - [X] Front
@@ -118,11 +116,11 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **3.5. Tela de cadastro de funcionários no sistema:**
 - [X] Front (Responsável: Everton)
-- [X] Back
+- [X] Back (Responsável: Everton)
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [X] Front Front (Responsável: Everton)
-- [ ] Back
+- [ ] Back (Responsável: Lucas e Ozy)
 
 **3.7. Tela de geração de relatórios (logs):**
 - [X] Front (Responsável: Ozenilson)
@@ -130,18 +128,21 @@ Pelo menos 50% das telas estão codificadas como exemplificado abaixo
 
 **3.8. Tela de listagem dos usuários:**
 - [X] Front (Responsáveis: Lucas e Israel)
-- [ ] Back
+- [ ] Back (Responsável: Ozy)
 
 **3.9. Editar Perfil:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [X] Back (Responsável: Lucas)
 
 ## Banco de Dados</h2>
 
 ### MySQL
 
 - [X] Construção das Tabelas;
-- [X] Povoamento do Banco de Dados;
+- [X] Povoamento do Banco de Dados: Cliente;
+- [X] Povoamento do Banco de Dados: Funcionário;
+- [X] Povoamento do Banco de Dados: Trecho;
+- [X] Povoamento do Banco de Dados: Outros (listar melhor);
 - [ ] Criação das requisições relacionadas a Cliente;
 - [ ] Criação das requisições relacionadas a Funcionário;
 - [ ] Criação das requisições relacionadas a Administrador;
