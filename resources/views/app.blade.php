@@ -35,7 +35,7 @@
                                         document.getElementById('logout-form').submit()">Sair</a>
                                     </div>
                                 @else <!-- Autenticado como cliente-->
-                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente') ->user()->nome}} <i class="fa fa-caret-down"></i>
+                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente')->user()->nome}} <i class="fa fa-caret-down"></i>
                                                                 
                                     <div class="dropdown-content" style="text-align: left">
                                     <a href="#">Minhas Passagens</a>
