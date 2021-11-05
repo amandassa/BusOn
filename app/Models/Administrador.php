@@ -1,115 +1,152 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
-use Funcionario;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Funcionario;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
+// Use DB, use Request
 
-/*
-Nome: Funcionario (classe)
-Funcionalidade: Representa a entidade funcionário e as ações executadas pela mesma
-Autor(es): Israel Braitt
-*/
-class Administrador extends Funcionario {
-    
-    // construtor da classe
-    public function __construct() {}
-
-
-    /*
-    Nome: cadastrarFuncionario (método)
-    Funcionalidade: Cadastrar um novo funcionário no sistema
-    Autor(es): Israel Braitt
-    */
-    public function cadastrarFuncionario() {
-
-    }
-
-    /*
-    Nome: alterarFuncionario (método)
-    Funcionalidade: Alterar os dados de um funcionário no sistema
-    Autor(es): Israel Braitt
-    */
-    public function alterarFuncionario() {
-
-    }
-    
-    /*
-    Nome: consultarVendasDoDia (método)
-    Funcionalidade: Mostrar vendas realizadas no dia
-    Autor(es): Israel Braitt
-    */
-    public function consultarVendasDoDia() {
-
-    }
-
-    /*
-    Nome: consultarVendasDaLinha (método)
-    Funcionalidade: Mostrar vendas realizadas para uma determinada linha
-    Autor(es): Israel Braitt
-    */
-    public function consultarVendasDaLinha() {
-
-    }
-
-    /*
-    Nome: consultarAcessos (método)
-    Funcionalidade: Mostrar os acessos dos usuários ao sistema
-    Autor(es): Israel Braitt
-    */
-    public function consultarAcessos() {
-
-    }
-
-    /*
-    Nome: alterarPermissoes (método)
-    Funcionalidade: Alterar permissões dos usuários
-    Autor(es): Israel Braitt
-    */
-    public function alterarPermissoes() {
-
-    }
-
-    /*
-    Nome: listarUsuarios (método)
-    Funcionalidade: Listar usuários cadastrados no sistema
-    Autor(es): Israel Braitt
-    */
-    public function listarUsuarios() {
-
-    }
-
-    /*
-    Nome: cadastrarLinha (método)
-    Funcionalidade: Cadastrar uma linha
-    Autor(es): Israel Braitt
-    */
-    public function cadastrarLinha() {
-
-    }
-
-    /*
-    Nome: cadastrarTrecho (método)
-    Funcionalidade: Cadastrar um trecho
-    Autor(es): Israel Braitt
-    */
-    public function cadastrarTrecho() {
-
-    }
-
-    /*
-    Nome: alterarLinha (método)
-    Funcionalidade: Alterar dados de uma linha
-    Autor(es): Israel Braitt
-    */
-    public function alterarLinha() {
-
-    }
+class Administrador extends Model
+{
 
     
+    // table, fillable =>
+    /**
+     * Criar novo funcionário.
+     */
+    
+    public static function criarFuncionario($request){
+        $nome = $request['nome'];
+        $email = $request['email'];
+        $cpf = str_replace(".", "", $request['cpf']);
+        $cpf = str_replace("-", "", $cpf);
+        $senha = $request['senha'];
+        $is_admin = null;
+        if (isset($_POST['is_admin'])) {
+            $is_admin = '1';
+        } else {
+            $is_admin = '0';
+        }
+        $confirmarSenha = $request['confirmacaoSenha'];
+        if ($senha == $confirmarSenha) {
+            DB::insert('insert into funcionario (nome, email, cpf, senha, is_admin) values (?, ?, ?, ?, ?)',
+            [$nome, $email, $cpf, Hash::make($senha), $is_admin]);
+        }
+    }
+
+    public static function index(){ 
+
+        $emaillogado = Auth::guard('funcionario')->user()->email;
+        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+
+        $admCpf = $usuario->CPF;
+        $admNome = $usuario->nome;
+        $admEmail = $usuario->email;
+        $admMatricula = $usuario->matricula;
+        $admSenha = '';
+        $confirmar = '';
+
+
+        $administrador = [
+            'cpf'=> $admCpf,
+            'entradaNome' => $admNome,
+            'entradaEmail'=> $admEmail,
+            'entradaMatricula' => $admMatricula,
+            'entradaSenha' => $admSenha,
+            'entradaConfirmarSenha' => $confirmar       
+         ];
+
+        return $administrador;
+              
+    }
+
+    public static function editar(Request $request){
+            $emaillogado = Auth::guard('funcionario')->user()->email;
+            $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+            
+            $cpf = $usuario->CPF;
+            $nome = $request['nome'];
+            $matricula = $usuario->matricula;
+            $email = $request['email'];
+            $senha = $request['senha'];
+            $confirmarSenha = $request['confirmarSenha'];
+            if(empty($senha or $confirmarSenha)){
+                return 1;
+            }else{
+
+                if($senha == $confirmarSenha){
+                    DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
+                    [$nome, $email, $senha, $cpf]);
+                    return 2;
+                }
+                 else {
+                    return 3;
+                }
+            }
+            
+    }
+
+    public static function perfilFunc(){ 
+
+        $emaillogado = Auth::guard('funcionario')->user()->email;
+        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+
+        $funCPf = $usuario->CPF;
+        $funNome = $usuario->nome;
+        $funEmail = $usuario->email;
+        $funMatricula = $usuario->matricula;
+        $funSenha = '';
+        $confirmar = '';
+
+
+        $funcionario = [
+            'cpf'=> $funCPf,
+            'entradaNome' => $funNome,
+            'entradaEmail'=> $funEmail,
+            'entradaMatricula' => $funMatricula,
+            'entradaSenha' => $funSenha,
+            'entradaConfirmarSenha' => $confirmar       
+         ];
+
+        return $funcionario;
+              
+    }
+
+    public static function editarFunc(Request $request){
+        $emaillogado ='jasmin@bus.on';
+        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
+        
+        $cpf = $usuario->CPF;
+        $nome = $request['nome'];
+        $matricula = $usuario->matricula;
+        $email = $request['email'];
+        $senha = $request['senha'];
+        $confirmarSenha = $request['confirmarSenha'];
+
+        if(empty($senha or $confirmarSenha)){
+                return 1;
+        }else{
+            if($senha == $confirmarSenha){
+                DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
+                [$nome, $email, $senha, $cpf]);
+                return 2;
+            }else {
+                return 3;
+            }
+        }
+        
 }
 
-?>
+    
+
+    
+
+
+   
+
+}

@@ -4,14 +4,12 @@
 
 use App\Models\Trecho;
 use Faker\Generator as Faker;
-use Faker\Provider\pt_BR\Address as pt_BR;
 
-$factory->define(Trecho::class, function (Faker $faker, pt_BR $pt_BR) {
+$factory->define(Trecho::class, function (Faker $faker) {
     return [
-         'cidade_partida'=>$pt_BR->state(), 
-         'cidade_chegada'=>$pt_BR->state(), 
+         'cidade_partida'=>$faker->city(), 
+         'cidade_chegada'=>$faker->city(), 
          'duracao'=>$faker->time('H:i:s', 'now'), 
          'preco'=>$faker->randomFloat(2, 0, null), 
-         'ordem'=>rand(1, 10)
     ];
 });

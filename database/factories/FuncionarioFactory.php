@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Funcionario::class, function (Faker $faker) {
     return [
-        'nome' => $faker->name(),
+        'nome' => $faker->firstName(),
         'email' => $faker->email(),
         'CPF' => strval(rand(10000000000, 99999999999)),
         'password' => bcrypt("12345678"),
