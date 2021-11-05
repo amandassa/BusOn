@@ -93,7 +93,7 @@ class Administrador extends Model
 
     public static function perfilFunc(){ 
 
-        $emaillogado = 'bazevedo@terra.com.br';
+        $emaillogado = 'leal.gisela@mendonca.net';
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
 
         $funCPf = $usuario->CPF;
@@ -118,7 +118,7 @@ class Administrador extends Model
     }
 
     public static function editarFunc(Request $request){
-        $emaillogado ='bazevedo@terra.com.br';
+        $emaillogado ='leal.gisela@mendonca.net';
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
         
         $cpf = $usuario->CPF;
