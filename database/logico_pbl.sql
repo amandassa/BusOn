@@ -20,7 +20,7 @@ CREATE TABLE trecho (
     codigo int AUTO_INCREMENT,
     cidade_partida varchar(30) NOT NULL,
     cidade_chegada varchar(30) NOT NULL,
-    duracao DATETIME NOT NULL,
+    duracao TIME NOT NULL,
     preco FLOAT NOT NULL,
     CONSTRAINT pk_codigo_trecho PRIMARY KEY (codigo)
 );

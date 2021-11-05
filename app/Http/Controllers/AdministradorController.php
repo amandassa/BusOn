@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAddTrechoRequest;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
-use App\Http\Model\AdministradorModel as Adm;
+use App\Models\Administrador as Adm;
 use Dotenv\Regex\Result;
 use Illuminate\Http\Request;
 
