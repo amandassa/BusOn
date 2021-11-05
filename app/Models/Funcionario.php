@@ -33,8 +33,7 @@ class Funcionario extends Authenticatable {
 
     public $timestamps = false;
 
-    protected $hidden = [
-        'password',
+    protected $hidden = [        
         'remember_token',
     ];
 
