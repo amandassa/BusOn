@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:cliente']], function () {
     Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
     Route::any('/perfilCliente', 'ClienteController@index')->name('perfilCliente');
     Route::post('/editarPerfilCliente', 'ClienteController@editarPerfil')->name('editarPerfilCliente');
+    Route::get('/minhasPassagens', function(){return view('cliente.minhasPassagens');})->name('minhasPassagens');
     Route::get('/selecao', function(){return view('cliente.selecao');})->name('selecao');
     Route::get('/pagamento', function(){return view('cliente.partials.cartao');})->name('pagamento.cartao');
     Route::get('/pagamento', function(){return view('cliente.pagamento')->with('valor', 1);})->name('pagamento');
@@ -31,7 +32,6 @@ Route::group(['middleware' => ['auth:cliente']], function () {
     Route::get('/pagamento/boleto', function(){return view('cliente._partials.boleto');})->name('boleto');
     Route::get('/confirmacao', function(){return view('cliente.confirmacao_pagamento.confirmacao');})->name('confirmacao');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
-    Route::get('/recuperarAcessoCliente', function(){ return view('cliente.recuperarAcesso');})->name('recuperarAcessoCliente');
 });
 
 
@@ -39,7 +39,6 @@ Route::group(['middleware' => ['auth:cliente']], function () {
 Route::group(['middleware' => ['auth:funcionario']], function () {
     Route::get('/inicialFuncionario', function(){return view('funcionario.inicial_func');})->name('inicial_func');
     Route::get('/perfilFuncionario', function(){return view('funcionario.perfil');})->name('perfilFuncionario');
-    Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
     Route::get('/editarAgenda', function(){return view('funcionario.editarAgenda');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
@@ -63,9 +62,10 @@ Route::group(['middleware' => ['adm']], function () {
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
+    Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
+    Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
 
     //Rotas de FUNCIONARIOS que os ADMNISTRADORES possuem acesso
-    Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
    
 }); 
@@ -74,6 +74,7 @@ Route::group(['middleware' => ['adm']], function () {
 Route::get('/base', function(){
     return view('app');
     })->name('base');
+   
 
 
 
@@ -81,9 +82,8 @@ Route::get('/base', function(){
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
 Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'showFuncionarioLoginForm'])->name('funcionarioLoginfront');
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
-
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
-Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
+Route::get('/recuperarAcessoCliente', function(){ return view('cliente.recuperarAcesso');})->name('recuperarAcessoCliente');
 
 
 
