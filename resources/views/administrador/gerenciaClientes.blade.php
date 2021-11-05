@@ -55,8 +55,8 @@
           <table class="table table-bordered" id="tabela">          
             <thead>
               <tr>
-                <td class="bg-warning">Nome</td>
                 <td class="bg-warning">CPF</td>
+                <td class="bg-warning">Nome</td>
                 <td class="bg-warning">Email</td>
               </tr>
             </thead>
