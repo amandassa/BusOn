@@ -41,11 +41,7 @@ class Funcionario extends Authenticatable {
         return $this->password;
     }
     */
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    
 
     /*
     Nome: login (método)
