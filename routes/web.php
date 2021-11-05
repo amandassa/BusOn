@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Rotas restritas apenas para CLIENTES
 Route::group(['middleware' => ['auth:cliente']], function () {
