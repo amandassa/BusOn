@@ -27,21 +27,27 @@
                     <div class="col-md-6" style="text-align: right"> <!-- Coluna das opções-->
                         @if (auth('funcionario')->user() || auth('cliente')->user())
                             <div class="dropdown">
-                            @if (auth('funcionario')->user())  <!-- Autenticado como funcionário-->
-                                <i class="fas fa-user dropbtn"> </i> Olá, {{auth('funcionario') ->user()->nome}}  
-                            @else <!-- Autenticado como cliente-->
-                            <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente') ->user()->nome}}   
-                            @endif                              
-                            <div class="dropdown-content" style="text-align: left">
-                              <a href="#">Minhas Passagens</a>
-                              <a href="#">Meus Dados</a>
-                              <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit()">Sair</a>
+                                @if (auth('funcionario')->user())  <!-- Autenticado como funcionário-->
+                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('funcionario') ->user()->nome}}
+                                    <div class="dropdown-content" style="text-align: left">
+                                        <a href="{{route('perfilFuncionario')}}";>Meus Dados</a>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit()">Sair</a>
+                                    </div>
+                                @else <!-- Autenticado como cliente-->
+                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente') ->user()->nome}}   
+                                                                
+                                    <div class="dropdown-content" style="text-align: left">
+                                    <a href="#">Minhas Passagens</a>
+                                    <a href="{{route('perfilCliente')}}">Meus Dados</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit()">Sair</a>
+                                    </div>
                             </div>
-                          </div>
+                          @endif 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
-                            </form>                                                                                                                         
+                            </form>         
                         @endif
                     </div>
                 </div>

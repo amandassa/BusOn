@@ -18,7 +18,7 @@ class Trecho extends Model {
     private double $preco;
 
     // constutor da classe
-    public function __construct(string $cidade_origem, string $cidade_destino, int $codigo, double $preco) {
+    public function __construct(string $cidade_origem, string $cidade_destino, int $codigo, int $vagas, float $preco) {
         $this->cidade_origem = $cidade_origem;
         $this->cidade_destino = $cidade_destino;
         $this->codigo = $codigo;

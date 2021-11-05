@@ -71,7 +71,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $cpf = $data['cpf'];
+        $cpf = str_replace(".", "", $data['cpf']);
+        $cpf = str_replace("-", "", $cpf);
         $nome = $data['nome'];
         $email = $data['email'];
         $senha = Hash::make($data['senha']);        
