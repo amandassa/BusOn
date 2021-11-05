@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Rotas restritas apenas para CLIENTES
 Route::group(['middleware' => ['auth:cliente']], function () {
@@ -49,73 +50,30 @@ Route::group(['middleware' => ['adm']], function () {
     Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
     Route::get('/venderPassagens', function(){return view('administrador.vender_passagens');})->name('venderPassagens');
-    
+    Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
+    Route::post('/adicionarTrecho', [App\Http\Controllers\AdministradorController::class, 'storeCadastrarTrecho'])->name('adicionarTrecho');
+    Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
+    Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
+    Route::get('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
+    Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
+    Route::get('/cadastroFuncionario', function(){return view('administrador.cadastroFuncionario');})->name('cadastroFuncionario');
+    Route::get('/editarPerfilFuncionario', function(){return view('administrador.editarPerfilFuncionario');})->name('editarPerfilFuncionario');
+    Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
+    Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
+    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+    Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
+    Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
+
+    //Rotas de FUNCIONARIOS que os ADMNISTRADORES possuem acesso
+    Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
+    Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
+   
 }); 
-
-
-
-
 
 
 Route::get('/base', function(){
     return view('app');
     })->name('base');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
-
-Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
-
-Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
-
-Route::get('/adicionarLinha', function(){
-    return view('administrador.adicionarLinha');
-})->name('adicionaLinha');
-
-Route::get('/adicionarTrecho', function(){
-    return view('administrador.adicionarTrecho');
-})->name('adicionaTrecho');
-
-
-
-
-
-
-
-
-
-
-Route::get('/cadastroFuncionario', function(){
-    return view('administrador.cadastroFuncionario');
-})->name('cadastroFuncionario');
-
-Route::get('/editarPerfilFuncionario', function(){
-    return view('administrador.editarPerfilFuncionario');
-})->name('editarPerfilFuncionario');
-
-Route::get('/recuperarAcessoAdministrador', function(){
-    return view('administrador.recuperarAcesso');
-})->name('recuperarAcessoAdministrador');
-
-
 
 
 
@@ -127,10 +85,6 @@ Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::cl
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
-Route::post('/adicionarTrecho', [App\Http\Controllers\AdministradorController::class, 'storeCadastrarTrecho'])->name('adicionarTrecho');
-
-Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
-Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
 
 Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
 Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
