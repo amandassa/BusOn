@@ -16,8 +16,8 @@
 </head>
     
 <body "cz-shortcut-listen="true">
-        <nav class="navbar"> <!-- Header/NavBar-->
-            <div class="container" style="margin: 0px;">
+        <nav class="navbar mx-auto"> <!-- Header/NavBar-->
+            <div class="container mx-auto" style="margin: 0px;">
                 <div class="row flex-nowrap nomargin"> <!-- Linha -->
                     <div class="col-md-4"> <!-- Coluna da logo -->
                             <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
