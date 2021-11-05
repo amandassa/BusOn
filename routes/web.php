@@ -61,7 +61,8 @@ Route::group(['middleware' => ['adm']], function () {
     Route::get('/cadastroFuncionario', function(){return view('administrador.cadastroFuncionario');})->name('cadastroFuncionario');
     Route::get('/editarPerfilFuncionario', function(){return view('administrador.editarPerfilFuncionario');})->name('editarPerfilFuncionario');
     Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
-    Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
+    Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
+    Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
@@ -97,8 +98,7 @@ Route::get('/base', function(){
 
 
 
-Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
-Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
+
 
 Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
 
