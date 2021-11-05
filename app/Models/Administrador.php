@@ -91,9 +91,8 @@ class Administrador extends Model
             
     }
 
-    public static function perfilFunc(){ 
-
-        $emaillogado = 'leal.gisela@mendonca.net';
+    public static function perfilFunc($email){ 
+        $emaillogado = $email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
 
         $funCPf = $usuario->CPF;
@@ -118,9 +117,8 @@ class Administrador extends Model
     }
 
     public static function editarFunc(Request $request){
-        $emaillogado ='leal.gisela@mendonca.net';
-        $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-        
+        $matricula =$request['matricula'];
+        $usuario = DB::select("select * from funcionario where matricula = ?", [$matricula])[0];
         $cpf = $usuario->CPF;
         $nome = $request['nome'];
         $matricula = $usuario->matricula;
@@ -129,14 +127,27 @@ class Administrador extends Model
         $confirmarSenha = $request['confirmarSenha'];
 
         if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha)){
-                return 1;
+                $usu = [
+                    'id' => '1',
+                    'email' => $email
+                ];
+                return $usu;
         }else{
             if($senha == $confirmarSenha){
                 DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
                 [$nome, $email, $senha, $cpf]);
-                return 2;
+                $usu = [
+                    'id' => '2',
+                    'email' => $email
+                ];
+                return $usu;
+                
             }else {
-                return 3;
+                $usu = [
+                    'id' => '3',
+                    'email' => $email
+                ];
+                return $usu;
             }
         }
         
