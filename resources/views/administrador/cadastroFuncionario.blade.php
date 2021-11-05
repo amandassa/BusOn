@@ -74,8 +74,6 @@
 
                                 <input type="password" class="form-control" id="confirmacaoSenha" name="confirmacaoSenha">
 
-                                <input type="password" class="form-control" name="senha">
-
                             </div>
                             <div class="form-check" style="margin-bottom: 20px">
                                 <input class="form-check-input" name="is_admin" type="checkbox" value="true" id="flexCheckDefault">
