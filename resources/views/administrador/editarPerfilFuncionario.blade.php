@@ -70,11 +70,11 @@
                     </div>
                     <div class="form-group">
                         <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control"  autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}" disabled>
+                        <input oninput="mascara(this, 'cpf')" class="form-control"  autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}"disabled />
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>
-                        <input type="cpf" class="form-control" id="disabledInput entradaCPF" name = "matricula"value="{{$funcionario['entradaMatricula']}}" disabled>
+                        <input type="number" class="form-control" id="matricula" name = "matricula" value="{{$funcionario['entradaMatricula']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
