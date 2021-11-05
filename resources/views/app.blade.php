@@ -38,7 +38,7 @@
                                     <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente')->user()->nome}} <i class="fa fa-caret-down"></i>
                                                                 
                                     <div class="dropdown-content" style="text-align: left">
-                                    <a href="#">Minhas Passagens</a>
+                                    <a href="">Minhas Passagens</a>
                                     <a href="{{route('perfilCliente')}}">Meus Dados</a>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit()">Sair</a>
