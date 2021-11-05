@@ -3,323 +3,103 @@
 @section('title', 'Gerenciar Usuários - ')
 
 @section('content')
-<link href="/css/estiloGerencia.css" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="/css/estiloGerencia.css" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-      <div class="container" id="contPrincipal">
+  <script> //busca a cada tecla digitada
+    $(document).ready(function(){
 
-        <ol class="breadcrumb" id="superior">
-          <li> <a href="#" style="text-decoration: none"> 
-                <button type="button" class="button_listagem_adm" id="button_listagem_cliente"> 
-                  Lista de clientes
-                </button>
-              </a>
-          </li>
-          <li> <a href="#" style="text-decoration: none">
-                <button type="button" class="button_listagem_adm" id="button_listagem_funcionario"> 
-                  Lista de funcionários
-                </button>
-               </a>
-          </li>
-        </ol>
+      $('#buscaG').keyup(function(){
 
-        <div id="meio">
-         
-          <div class="cimaGu">
-            <div class="buscGu">
-              <input type="text" class="busca" id="buscaGu" placeholder="Digite a busca desejada.">
-              <img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa">
-                <select name="buscaOpcoes" id="buscaOpcoes">
-                  <option value="todos">Todos</option>
-                  <option value="nome">Nome</option>
-                  <option value="cpf">CPF</option>
-                  <option value="email">Email</option>
-                 </select>            
-            </div>
-            <button class="botaoAmarelo" id="botaoBusca"> Buscar </button>
-          </div>
-          <hr>
+        var buscaG = $(this).val();
+        var buscaOp = $('#buscaOp').val();
+        var buscaTipo = $('#tipoUser').val();
+
+        alert(buscaOp);
+        $.post('processa.php', {buscaG: buscaG}, {bucasOP: buscaOp}, function(data){
           
-          <!-- subpágina com a lista de cliente e suas informações -->
-          <article class ="subpagina_cliente">
-            <div class="row" id="rowCentral">
-              <div class="col" id="colEsquerda">
-                <div class="card" id="cardsGu">
-                  <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                  </div>
-                </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu"; aling-items: center>
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                  </div>
-                </div>
-              </div>
-            <div class="col" id="colDireita">
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <hr>
-                    </div>      
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="btn" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-secondary"><<</button>
-              <button type="button" class="btn btn-secondary">1</button>
-              <button type="button" class="btn btn-secondary">2</button>
-              <button type="button" class="btn btn-secondary">3</button>
-              <button type="button" class="btn btn-secondary">4</button>
-              <button type="button" class="btn btn-secondary">>></button>
-            </div>
-          </div>
-          </article>
+        });
+      });
 
-          <!-- subpágina com a lista de funcionários e suas informações -->
-          <article class ="subpagina_funcionario">
-            <div class="row" id="rowCentral">
-              <div class="col" id="colEsquerda">
-                <div class="card" id="cardsGu">
-                  <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                  </div>
-                </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu"; aling-items: center>
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                  </div>
-                </div>
-              </div>
-            <div class="col" id="colDireita">
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF: </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                </div>
-              </div>
-              <div class="card" id="cardsGu">
-                <div class="card-body" id="cardBodyGu">
-                    <div class="divCentro" id="centroGu">
-                      <label for="staticNome">Nome: </label>
-                      <input type="text" readonly class="inputNome" id="staticNome" value="Jailson Ferreira Etcher">
-                      <label for="staticEmail">Email: </label>
-                      <input type="text" readonly class="inputEmail" id="staticEmail" value="etcher.jailson@gmail.com">
-                      <label for="staticCpf">CPF </label>
-                      <input type="text" readonly class="inputCpf" id="staticCpf" value="530.106.021-19">
-                      <label for="staticMatricula">Matrícula: </label>
-                      <input type="text" readonly class="inputMatricula" id="staticMatricula" value="FUNC 003">
-                      <hr>
-                      <button class="botaoAzul" id="botaoEditar"> Editar Informações</button>
-                    </div>      
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="btn" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-secondary"><<</button>
-              <button type="button" class="btn btn-secondary">1</button>
-              <button type="button" class="btn btn-secondary">2</button>
-              <button type="button" class="btn btn-secondary">3</button>
-              <button type="button" class="btn btn-secondary">4</button>
-              <button type="button" class="btn btn-secondary">>></button>
-            </div>
-          </div>
-          </article>
+    });
+  </script>
 
-          <div class="baixoGu">
-              <button class="botaoAmarelo" id="botaoGu"> Baixar Arquivo Completo </button>
+  <div class="container">        
+    <div class="card text-center">
+
+      <div class="card-header" id="meio">
+
+        <div class="cimaGu">
+
+          <div class="buscGu form-inline" method="post" id="form-pesquisa" action="">
+              <input type="text" name="buscaG" id="buscaG" placeholder="Digite a busca desejada...">
+              <!--img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa"-->
+              <select name="buscaOp" id="buscaOp">
+                <option value="nome">Nome</option>
+                <option value="cpf">CPF</option>
+                <option value="email">Email</option>
+                <option value="matricula">Matricula</option>
+              </select>
+              <input type="submit" class="botaoAmarelo" id="botaoBusca" name="botaoBusca" value="Buscar"></input>
           </div>
-          
+        </div>
+
+        <div class="form-check-inline" method="post" id="form-pesquisa2" action="">
+          <input class="form-check-input" type="radio" name="tipoUser" id="todos"  value="todos" checked>
+          <label class="form-check-label" for="todos"> Todos</label>
+
+          <input class="form-check-input" type="radio" name="tipoUser" value="todos" id="func" >
+          <label class="form-check-label" for="func"> Funcionários </label>
+
+          <input class="form-check-input" type="radio" name="tipoUser" value="todos" id="adm">
+          <label class="form-check-label" for="adm"> Administradores </label>
         </div>
         
+
+        
       </div>
+
+      <div class="card-body">
+        <table class="table table-bordered table-striped" id="resultado">
+          <thead>
+            <tr>
+              <td class="bg-warning">Matrícula</td>
+              <td class="bg-warning">Nome</td>
+              <td class="bg-warning">CPF</td>
+              <td class="bg-warning">Email</td>
+              <td class="bg-warning">Tipo</td>
+              <td class="bg-warning">Ações</td>
+            </tr>
+          </thead>
+          <tbody>                 
+              <tr>
+                @foreach ($funcionarios as $funcionario)
+                  <th scope="row"> {{ $funcionario->matricula }} </th>
+                  <td> {{ $funcionario->nome }} </td>
+                  <td> {{ $funcionario->CPF }}</td>
+                  <td> {{ $funcionario->email }} </td>
+                  <td>
+                    @if($funcionario->is_admin)
+                      Administrador
+                    @else
+                      Funcionário
+                    @endif
+                  </td>
+                  <td>
+                    <a class="btn botaoAzul" href="editarPerfilFuncionario" role="button">Editar Perfil</a>
+                  </td>
+                </tr> 
+                @endforeach
+              
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="card-footer text-muted">
+        <a class="btn botaoAmarelo" href="cadastroFuncionario" role="button">Cadastrar Funcionário</a>
+      </div>
+    </div>
+  </div>
       
 @endsection

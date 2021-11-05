@@ -70,9 +70,8 @@ Route::get('/perfilAdministrador', function(){
     return view('administrador.perfil');
 })->name('perfilAdministrador');
 
-Route::get('/gerenciaUsuario_adm', function(){
-    return view('administrador.gerenciaUsuarios');
-})->name('gerenciaUsuarios');
+
+Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
 
 Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
 
@@ -105,7 +104,7 @@ Route::get('/geraRelat', function(){
 });
 
 Route::get('/venderPassagens', function(){
-    return view('administrador.vender_passagens');
+    return view('funcionario.vender_passagens');
 })->name('venderPassagens');
 
 Route::get('/editarAgenda', function(){
@@ -132,9 +131,6 @@ Route::get('/recuperarAcessoCliente', function(){
     return view('cliente.recuperarAcesso');
 })->name('recuperarAcessoCliente');
 
-Route::get('/gerenciaUsuarios', function(){
-    return view('administrador.gerenciaUsuarios');
-})->name('gerenciaUsuarios');
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'clienteLogin'])->name('clienteLogin');
 Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'showFuncionarioLoginForm'])->name('funcionarioLoginfront');

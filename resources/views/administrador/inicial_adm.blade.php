@@ -2,17 +2,19 @@
 
 @section('conteudoPadrao')
 
+
 @section('campoBotoes')
-        <a class="btn btn-secondary botaoSelecaoInicial" href="gerenciaUsuarios" role="button">
+        <a class="btn botaoAmarelo botaoSelecaoInicial" href="gerenciaUsuarios" role="button">
             <span class="material-icons" id="iconBotoesPrincipais">people_alt</span>
             Gerenciar Usuários
         </a>
 
-        <a class="btn btn-secondary botaoSelecaoInicial" href="verificarLogs" role="button">
+        <a class="btn botaoAmarelo botaoSelecaoInicial" href="verificarLogs" role="button">
             <span class="material-icons" id="iconBotoesPrincipais">description</span>
             Verificar <br> Logs
         </a>
 @endsection
+
 
 @section('campoRelatorios')
     <div class="row text-center">

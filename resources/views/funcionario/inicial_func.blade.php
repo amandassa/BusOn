@@ -8,27 +8,28 @@
     <div class="container">
         @yield('conteudoPadrao')
         <p class="textoPreto">Dashboard</p> 
-
+        
         <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
-            <a class="btn btn-secondary botaoSelecaoInicial" href="venderPassagens" role="button">
+            <a class="btn botaoAmarelo botaoSelecaoInicial" href="venderPassagens" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">shopping_cart</span>
                 Vender <br> Passagens
             </a>
 
-            <a class="btn btn-secondary botaoSelecaoInicial" href="consultar_linhas" role="button">
+            <a class="btn botaoAmarelo botaoSelecaoInicial" href="consultar_linhas" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">book_online</span>
                 Consultar <br> Linha
             </a>
 
-            <a class="btn btn-secondary botaoSelecaoInicial" href="geraRelat" role="button">
+            <a class="btn botaoAmarelo botaoSelecaoInicial" href="geraRelat" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
                 Gerar <br> Relatorio
             </a>
-
-            <a class="btn btn-secondary botaoSelecaoInicial" href="editarPerfilFuncionario" role="button">
+           
+            <a class="btn botaoAmarelo botaoSelecaoInicial" href="editarPerfilFuncionario" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">person</span>
                 Editar <br> Perfil
             </a>
+            
 
             @yield('campoBotoes')
         </div>

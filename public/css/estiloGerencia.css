@@ -1,17 +1,5 @@
-#contPrincipal{
-    display: flex;
-    padding: 0px;
-    justify-content: center;
-}
-
-
-
 #meio{
     margin-top: 30px;
-    width: 700px;
-    border-radius: 6px;
-    border: 2px solid rgba(0, 0, 0, 0.062);
-    background-color: white;
     justify-content: center;    
     position: relative;
 }
@@ -49,13 +37,10 @@
 }
 
 #buscaGu{
-    width: 550px;
-    margin-left: 15px;
+    width: 90%;
     border: 2px solid rgba(0, 0, 0, 0.062);
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-radius: 6px;
-    padding: 5px;
-    padding-left: 46px;
 }
 
 #lupa{
@@ -74,10 +59,7 @@
 #buscaOpcoes{
     display: flex;
     border: none;
-    position: absolute;
-    background-color: #f5f5f5;
-    padding: 5px;
-    right: 15px;
+    background-color: #ffffff;
 }
     
 

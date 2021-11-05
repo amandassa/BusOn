@@ -6,10 +6,9 @@
     <link href="/css/estiloInicio.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <div class="container">
+        <h2> Filtrar</h2>
         <div class="card">
             <div class="card-body">
-                <h2 class="text-center" id="tabelas"> Filtrar</h2>
-
                 <form>
                     <div class="form-group"> 
                         <label for="idFuncionario"><b>Código identificador do funcionário</b></label>
@@ -92,7 +91,7 @@
             </tbody>
         </table>
 
-        <div class="row text-center" id="linhazinha">
+        <div class="row text-center">
             <button type="button" class="botao botaoAzul">
                 <span class="material-icons">download</span>
                 Download
