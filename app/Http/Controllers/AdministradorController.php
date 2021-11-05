@@ -72,21 +72,22 @@ class AdministradorController extends Controller
         
     }
 
-    public function perfilFunc(){
-        $funcionario = Adm::perfilFunc();
+    public function perfilFunc($email){
+        $funcionario = Adm::perfilFunc($email);
         return view("administrador.editarPerfilFuncionario", ['funcionario'=>$funcionario]);
     }
     
     public function editarFunc(Request $request){
+        
         $func = Adm::editarFunc($request);
 
-        if ($func == 1) {
+        if ($func['id'] == 1) {
             return redirect()
                         ->back()
                         ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
-        } elseif ($func ==2 ) {
+        } elseif ($func['id'] ==2 ) {
             return redirect()
-                        ->route('perfilAdministrador.perfilFunc')
+                        ->route('perfilAdministrador.perfilFunc', ['email' =>$func['email']])
                         ->with('success', 'Perfil atualizado com sucesso!');
         } else {
             return redirect()

@@ -87,7 +87,8 @@
                     @endif
                   </td>
                   <td>
-                    <a class="btn botaoAzul" href="editarPerfilFuncionario" role="button" method="post" action=""> Editar Perfil</a>
+                    <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
+                    
                   </td>
                 </tr> 
                 @endforeach

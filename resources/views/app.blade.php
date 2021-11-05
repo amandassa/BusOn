@@ -19,26 +19,26 @@
         <nav class="navbar mx-auto"> <!-- Header/NavBar-->
             <div class="container mx-auto" style="margin: 0px;">
                 <div class="row flex-nowrap nomargin"> <!-- Linha -->
-                    <div class="col-md-4"> <!-- Coluna da logo -->
-                            <img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" />            
+                    <div class="col-sm-4"> <!-- Coluna da logo -->
+                            <a href="{{ route('home')}}"><img class="logo" src="{{URL::asset('/imagens/logoBus.png')}}" /></a>
                     </div>
                     <div class="col-md-8"> <!-- Coluna de espaço -->                       
                     </div>
-                    <div class="col-md-6" style="text-align: right; vertical-align: middle;"> <!-- Coluna das opções-->
+                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center" style="text-align: right; vertical-align: middle;"> <!-- Coluna das opções-->
                         @if (auth('funcionario')->user() || auth('cliente')->user())
                             <div class="dropdown">
                                 @if (auth('funcionario')->user())  <!-- Autenticado como funcionário-->
-                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('funcionario') ->user()->nome}}
+                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('funcionario')->user()->nome}} <i class="fa fa-caret-down"></i>
                                     <div class="dropdown-content" style="text-align: left">
-                                        <a href="{{route('perfilFuncionario')}}";>Meus Dados</a>
+                                        <a href="{{route('perfilAdministrador.index')}}";>Meus Dados</a>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit()">Sair</a>
                                     </div>
                                 @else <!-- Autenticado como cliente-->
-                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente') ->user()->nome}}   
+                                    <i class="fas fa-user dropbtn"> </i> Olá, {{auth('cliente')->user()->nome}} <i class="fa fa-caret-down"></i>
                                                                 
                                     <div class="dropdown-content" style="text-align: left">
-                                    <a href="#">Minhas Passagens</a>
+                                    <a href="">Minhas Passagens</a>
                                     <a href="{{route('perfilCliente')}}">Meus Dados</a>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit()">Sair</a>

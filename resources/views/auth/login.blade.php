@@ -3,18 +3,15 @@
 @section('content')
     <div class="container" style="flex-grow: 3;">
     <div class="row justify-content-center">
-        <div class="col-sm-6"> <h5> {{ isset($url) ? ucwords($url) : ""}} Login</h5>
-            <div class="card" style="d-flex p-2">
-                <?php $habilitar ?>  <!-- Controla o aparecimento do campo 'Cadastra-se'-->
+        <div class="col-sm-6"> <h5>Login {{ isset($url) ? "- " . ucwords($url) : ""}}</h5>
+            <div class="card" style="d-flex p-2">                
                 <div class="card-body justify-content-center" style="align-contents:center;">
                 @isset($url)
                     <form method="POST" action="{{ route('funcionarioLogin') }}"
-                    enctype="multipart/form-data" class="form">
-                    <?php $habilitar = false?>
+                    enctype="multipart/form-data" class="form">                    
                 @else
                     <form method="POST" action="{{ route('clienteLogin') }}"
-                    enctype="multipart/form-data" class="form">
-                    <?php $habilitar = true?>
+                    enctype="multipart/form-data" class="form">                    
                 @endisset
                         @csrf <div class="form-group row justify-content-center align-items-center">
                             <label for="email" class="col-md-8 col-form-label
@@ -73,7 +70,8 @@
                             <a href="{{ route('password.request')}}" style="color:#1C5576;">
                                                 {{ __('Esqueceu a sua senha?') }}</a>
                     </div></div>
-                    @if ($habilitar)
+                        <!-- Controla o aparecimento do campo 'Cadastra-se'-->
+                    @empty($url) 
                         <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">
                             <div class="col-md-8 input-group">
                                 </a>
@@ -81,8 +79,9 @@
                                                     {{ __(' Cadastrar-se') }}
                                 </a>
                         </div></div>
+                     @endempty       
                         </div>
-                    @endif
+                    
 
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-4">

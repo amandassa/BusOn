@@ -38,7 +38,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return "alo";
+        if (Auth::guard($guard)->check()) 
+        {                                       
+            if(Auth::guard('cliente')->user()) 
+            {
+                return redirect(route('inicio'));
+            }
+    
+            else
+            {
+    
+                if(Auth::guard('funcionario')->user()->is_admin == 1) 
+                {
+                    return redirect(route('inicial_adm'));
+                }      
+                
+                if(Auth::guard('funcionario')->user()->is_admin == 0) 
+                {
+                    return redirect(route('inicial_func'));
+                }
+            }
+        }
+        return redirect(route('login'));
     }
-
 }
