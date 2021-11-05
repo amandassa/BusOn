@@ -75,7 +75,7 @@ class Administrador extends Model
             $email = $request['email'];
             $senha = $request['senha'];
             $confirmarSenha = $request['confirmarSenha'];
-            if(empty($senha or $confirmarSenha)){
+            if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha)){
                 return 1;
             }else{
 
@@ -93,7 +93,7 @@ class Administrador extends Model
 
     public static function perfilFunc(){ 
 
-        $emaillogado = Auth::guard('funcionario')->user()->email;
+        $emaillogado = 'bazevedo@terra.com.br';
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
 
         $funCPf = $usuario->CPF;
@@ -118,7 +118,7 @@ class Administrador extends Model
     }
 
     public static function editarFunc(Request $request){
-        $emaillogado ='jasmin@bus.on';
+        $emaillogado ='bazevedo@terra.com.br';
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
         
         $cpf = $usuario->CPF;
@@ -128,7 +128,7 @@ class Administrador extends Model
         $senha = $request['senha'];
         $confirmarSenha = $request['confirmarSenha'];
 
-        if(empty($senha or $confirmarSenha)){
+        if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha)){
                 return 1;
         }else{
             if($senha == $confirmarSenha){
