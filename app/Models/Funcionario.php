@@ -33,8 +33,7 @@ class Funcionario extends Authenticatable {
 
     public $timestamps = false;
 
-    protected $hidden = [
-        'password',
+    protected $hidden = [        
         'remember_token',
     ];
 
@@ -42,11 +41,7 @@ class Funcionario extends Authenticatable {
         return $this->password;
     }
     */
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    
 
     /*
     Nome: login (método)

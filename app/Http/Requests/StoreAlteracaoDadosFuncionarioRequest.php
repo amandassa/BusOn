@@ -24,10 +24,10 @@ class StoreAlteracaoDadosFuncionarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'entradaNome' => ['required', new FullName],
-            'entradaEmail' => 'required|email',
-            'entradaSenha' => 'min:8',
-            'entradaConfirmarSenha' => 'min:8',
+            'entradaNome' => ['required_without_all:entradaEmail,entradaSenha', new FullName],
+            'entradaEmail' => ['required_without_all:entradaNome,entradaSenha', 'email', 'unique:email'],
+            'entradaSenha' => ['required_without_all:entradaNome,entradaEmail', 'min:8'],
+            'entradaConfirmarSenha' => ['min:8', 'same:entradaSenha'],
         ];
     }
 
@@ -35,10 +35,11 @@ class StoreAlteracaoDadosFuncionarioRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome deve ser preenchido.',
-            'email.required' => 'O campo e-mail é obrigatório.',
-            'email.email' => 'Digite um e-mail válido.',
-            'senha.min:8' => 'A senha deve ter no mínimo 8 caracteres.',
+            'entradaNome.required' => 'O campo nome é obrigatório.',
+            'entradaEmail.required' => 'O campo e-mail é obrigatório.',
+            'entradaEmail.email' => 'Digite um e-mail válido.',
+            'entradaSenha.min' => 'A senha deve ter no mínimo 8 caracteres.',
+            'entradaConfirmarSenha.same' => 'Senha não confirmada.'
         ];
     }
     

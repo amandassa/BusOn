@@ -4,27 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/*
-Nome: Trecho (classe)
-Funcionalidade: Representa a entidade trecho e as informações contidas na mesma
-Autor(es): Israel Braitt 
-*/
 class Trecho extends Model {
 
     // atributos
-    private string $cidade_origem;
-    private string $cidade_destino;
-    private int $codigo;
-    private double $preco;
-
-    // constutor da classe
-    public function __construct(string $cidade_origem, string $cidade_destino, int $codigo, double $preco) {
-        $this->cidade_origem = $cidade_origem;
-        $this->cidade_destino = $cidade_destino;
-        $this->codigo = $codigo;
-        $this->vagas = $vagas;
-        $this->preco = $preco;
-    }
+    protected $table = 'trecho';
+    protected $primaryKey = 'codigo';
+    protected string $cidade_origem;
+    protected string $cidade_destino;
+    protected int $codigo;
+    protected float $preco;
+    
+    protected $fillable = [
+        'cidade_partida', 
+        'cidade_chegada', 
+        'duracao', 
+        'preco', 
+        'ordem'
+    ];
 
     // método de acesso ao atributo cidade_origem
     public function getCidade_origem() {
@@ -62,7 +58,7 @@ class Trecho extends Model {
     }
 
     // método de alteração do atributo preco
-    public function setPreco(double $novo_preco) {
+    public function setPreco(float $novo_preco) {
         $this->preco = $novo_preco;
     }
 

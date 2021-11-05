@@ -1,5 +1,3 @@
-CREATE DATABASE buson;
-
 CREATE TABLE cliente (
     CPF varchar(11),
     nome varchar(60),
@@ -22,9 +20,8 @@ CREATE TABLE trecho (
     codigo int AUTO_INCREMENT,
     cidade_partida varchar(30) NOT NULL,
     cidade_chegada varchar(30) NOT NULL,
-    duracao DATETIME NOT NULL,
+    duracao TIME NOT NULL,
     preco FLOAT NOT NULL,
-    ordem int NOT NULL,
     CONSTRAINT pk_codigo_trecho PRIMARY KEY (codigo)
 );
 
@@ -41,6 +38,7 @@ CREATE TABLE trechos_linha (
     codigo_trecho int,
     partida DATETIME NOT NULL,
     dia_semana VARCHAR(14) NOT NULL,
+    ordem int NOT NULL,
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
@@ -54,7 +52,7 @@ CREATE TABLE trechos_linha (
 
 CREATE TABLE passagem (
     codigo int AUTO_INCREMENT,
-    num_assento int AUTO_INCREMENT,
+    num_assento int,
     codigo_linha int,
     cpf_cliente varchar(11),
     data_compra DATETIME NOT NULL,

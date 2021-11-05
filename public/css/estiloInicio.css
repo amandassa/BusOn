@@ -8,7 +8,14 @@
     width: 320px;
     height: 180px; 
     border-radius: 5%;
-    box-shadow: 1px 1px 1px rgba(136, 134, 134, 0.589)
+    box-shadow: 1px 1px 1px rgba(136, 134, 134, 0.589);
+    position: relative;
+}
+
+.quadro:hover
+{
+    top:-2px;
+    box-shadow:0 2px 2px #666
 }
 
 .botaoSelecaoInicial
@@ -20,12 +27,19 @@
     height: 85px;
     font-size: 16px;
     text-align: left;
-    border-radius: 10%;
+    border-radius: 5%;
     font-weight: bold;
     color: black;
     background-color: #f9c536;
-    box-shadow: 1px 2px 1px rgba(136, 134, 134, 0.589)
+    box-shadow: 1px 2px 1px rgba(136, 134, 134, 0.589);
+    border: 0px;
 }
+
+.botaoSelecaoInicial:hover{
+    color: #f9c536;
+    background-color: black;
+}
+
 
 .textoNumeroAzul
 {
