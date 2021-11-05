@@ -42,13 +42,16 @@ Route::group(['middleware' => ['auth:funcionario']], function () {
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
     Route::get('/editarAgenda', function(){return view('funcionario.editarAgenda');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
+    Route::get('/venderPassagens', function(){return view('administrador.vender_passagens');})->name('venderPassagens');
+    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+    Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
 }); 
 
 //Rotas restritas apenas para ADMNISTRADOR
 Route::group(['middleware' => ['adm']], function () {
     Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
-    Route::get('/venderPassagens', function(){return view('administrador.vender_passagens');})->name('venderPassagens');
+  
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', [App\Http\Controllers\AdministradorController::class, 'storeCadastrarTrecho'])->name('adicionarTrecho');
     Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
@@ -67,7 +70,7 @@ Route::group(['middleware' => ['adm']], function () {
 
     //Rotas de FUNCIONARIOS que os ADMNISTRADORES possuem acesso
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
-   
+    Route::get('/venderPassagens', function(){return view('administrador.vender_passagens');})->name('venderPassagens');
 }); 
 
 
