@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAddTrechoRequest;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Http\Model\AdministradorModel as Adm;
@@ -36,7 +37,7 @@ class AdministradorController extends Controller
         if ($adm == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Um dos campos de senha está vazio');
+                        ->with('error', 'Algum dos campos está vazio!');
         } elseif ($adm ==2 ) {
             return redirect()
                         ->route('perfilAdministrador.index')
@@ -72,7 +73,10 @@ class AdministradorController extends Controller
         }
         
     }
-    
+
+    public function storeCadastrarTrecho(StoreAddTrechoRequest $request){
+        return redirect('adicionarTrecho')->with('message', 'Trecho Cadastrado.');
+    }
     
    
 

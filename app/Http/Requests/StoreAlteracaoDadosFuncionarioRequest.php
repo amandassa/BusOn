@@ -35,10 +35,11 @@ class StoreAlteracaoDadosFuncionarioRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome deve ser preenchido.',
-            'email.required' => 'O campo e-mail é obrigatório.',
-            'email.email' => 'Digite um e-mail válido.',
-            'senha.min:8' => 'A senha deve ter no mínimo 8 caracteres.',
+            'entradaNome.required' => 'O campo nome é obrigatório.',
+            'entradaEmail.required' => 'O campo e-mail é obrigatório.',
+            'entradaEmail.email' => 'Digite um e-mail válido.',
+            'entradaSenha.min' => 'A senha deve ter no mínimo 8 caracteres.',
+            'entradaConfirmarSenha.same' => 'Senha não confirmada.'
         ];
     }
     
