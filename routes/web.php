@@ -80,7 +80,8 @@ Route::get('/base', function(){
 
 
 
-Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
+Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
+Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
 
 Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
 

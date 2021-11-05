@@ -30,13 +30,22 @@ class AdministradorController extends Controller
     /**
      * Busca todos os Usuários do sistema
      */
-    public function buscarUsuarios ()
+    public function buscarFuncionarios ()
     {              
         
         $funcionarios = DB::select("SELECT * FROM funcionario");
+        //return os usuários cadastrados no sistema;
+        return view('administrador.gerenciaFuncionarios', ['funcionarios'=>$funcionarios]);
+    }
+
+    /**
+     * Busca todos os Clientes do sistema
+     */
+    public function buscarClientes ()
+    {              
         $clientes = DB::select("SELECT * FROM cliente");
         //return os usuários cadastrados no sistema;
-        return view('administrador.gerenciaUsuarios', ['funcionarios'=>$funcionarios, 'clientes'=>$clientes]);
+        return view('administrador.gerenciaClientes', ['clientes'=>$clientes]);
     }
 
     public function index(){
