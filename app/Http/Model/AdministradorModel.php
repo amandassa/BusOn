@@ -75,7 +75,8 @@ class AdministradorModel extends Model
             $email = $request['email'];
             $senha = $request['senha'];
             $confirmarSenha = $request['confirmarSenha'];
-            if(empty($senha or $confirmarSenha)){
+            
+            if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha) ){
                 return 1;
             }else{
 
@@ -93,7 +94,7 @@ class AdministradorModel extends Model
 
     public static function perfilFunc(){ 
 
-        $emaillogado = 'jasmin@bus.on';
+        $emaillogado = 'bazevedo@terra.com.br';
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
 
         $funCPf = $usuario->CPF;
@@ -118,7 +119,7 @@ class AdministradorModel extends Model
     }
 
     public static function editarFunc(Request $request){
-        $emaillogado ='jasmin@bus.on';
+        $emaillogado ='bazevedo@terra.com.br';
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
         
         $cpf = $usuario->CPF;
@@ -128,12 +129,12 @@ class AdministradorModel extends Model
         $senha = $request['senha'];
         $confirmarSenha = $request['confirmarSenha'];
 
-        if(empty($senha or $confirmarSenha)){
-                return 1;
+        if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha)){
+            return 1;
         }else{
             if($senha == $confirmarSenha){
                 DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
-                [$nome, $email, $senha, $cpf]);
+                [$nome, $email, Hash::make($senha), $cpf]);
                 return 2;
             }else {
                 return 3;

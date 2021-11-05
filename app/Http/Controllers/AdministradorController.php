@@ -37,7 +37,7 @@ class AdministradorController extends Controller
         if ($adm == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Algum dos campos está vazio!');
+                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
         } elseif ($adm ==2 ) {
             return redirect()
                         ->route('perfilAdministrador.index')
@@ -61,7 +61,7 @@ class AdministradorController extends Controller
         if ($func == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Um dos campos de senha está vazio');
+                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
         } elseif ($func ==2 ) {
             return redirect()
                         ->route('perfilAdministrador.perfilFunc')
