@@ -11,6 +11,5 @@ $factory->define(Trecho::class, function (Faker $faker) {
          'cidade_chegada'=>$faker->city(), 
          'duracao'=>$faker->time('H:i:s', 'now'), 
          'preco'=>$faker->randomFloat(2, 0, null), 
-         'ordem'=>rand(1, 10)
     ];
 });
