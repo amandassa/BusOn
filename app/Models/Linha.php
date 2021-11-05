@@ -20,10 +20,10 @@ class Linha extends Model {
     private string $cidade_destino;
     private int $codigo;
     private int $vagas;
-    private double $preco;
+    private float $preco;
 
     // constutor da classe
-    public function __construct(string $tipo, string $cidade_origem, string $cidade_destino, int $codigo, int $vagas, double $preco) {
+    public function __construct(string $tipo, string $cidade_origem, string $cidade_destino, int $codigo, int $vagas, float $preco) {
         $this->trechos = pesquisaListaTrechosLinha();
         $this->tipo = $tipo;
         $this->cidade_origem = $cidade_origem;
