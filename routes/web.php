@@ -20,7 +20,7 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Rotas restritas apenas para CLIENTES
-Route::group(['middleware' => ['auth:cliente']], function () {
+Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
     Route::any('/perfilCliente', 'ClienteController@index')->name('perfilCliente');
     Route::post('/editarPerfilCliente', 'ClienteController@editarPerfil')->name('editarPerfilCliente');
@@ -35,23 +35,26 @@ Route::group(['middleware' => ['auth:cliente']], function () {
 });
 
 
-//Rotas restritas apenas para FUNCIONARIOS
-Route::group(['middleware' => ['auth:funcionario']], function () {
+//Rotas restritas apenas para FUNCIONARIOS 
+Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/inicialFuncionario', function(){return view('funcionario.inicial_func');})->name('inicial_func');
     Route::get('/perfilFuncionario', function(){return view('funcionario.perfil');})->name('perfilFuncionario');
-    Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
     Route::get('/editarAgenda', function(){return view('funcionario.editarAgenda');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
-    Route::get('/venderPassagens', function(){return view('administrador.vender_passagens');})->name('venderPassagens');
+
+    //Administradores também possem acesso
+    Route::get('/venderPassagens', function(){return view('funcionario.vender_passagens');})->name('venderPassagens');
+    Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
+    
+
 }); 
 
 //Rotas restritas apenas para ADMNISTRADOR
-Route::group(['middleware' => ['adm']], function () {
+Route::middleware(['adm'])->group(function () {
     Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
-  
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', [App\Http\Controllers\AdministradorController::class, 'storeCadastrarTrecho'])->name('adicionarTrecho');
     Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
@@ -63,39 +66,15 @@ Route::group(['middleware' => ['adm']], function () {
     Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
     Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
-    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
-    Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
     Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
     Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
-
-    //Rotas de FUNCIONARIOS que os ADMNISTRADORES possuem acesso
-    Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
-    Route::get('/venderPassagens', function(){return view('administrador.vender_passagens');})->name('venderPassagens');
 }); 
 
 
 Route::get('/base', function(){
     return view('app');
     })->name('base');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
