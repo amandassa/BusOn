@@ -9,7 +9,7 @@
         @yield('conteudoPadrao')
         <p class="textoPreto">Dashboard</p> 
         
-        <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
+        <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inicial do funcionario-->
             <a class="btn botaoAmarelo botaoSelecaoInicial" href="venderPassagens" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">shopping_cart</span>
                 Vender <br> Passagens
@@ -22,7 +22,7 @@
 
             <a class="btn botaoAmarelo botaoSelecaoInicial" href="geraRelat" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
-                Gerar <br> Relatorio
+                Gerar <br> Relatório
             </a>
            
             <a class="btn botaoAmarelo botaoSelecaoInicial" href="perfilAdministrador" role="button">
@@ -49,7 +49,7 @@
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
                     <div class="caixaPesquisa">
-                        <input type="text" class="caixaTexto" id="buscarLinha" placeholder="Pesquisar linha">
+                        <input type="text" class="caixaTexto" id="buscarLinha" placeholder="Pesquisar linha pelo código">
                         <a href="#">
                             <span class="material-icons" id="iconPesquisa">search</span>
                         </a>
