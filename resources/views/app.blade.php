@@ -30,7 +30,7 @@
                                 @if (auth('funcionario')->user())  <!-- Autenticado como funcionário-->
                                     <i class="fas fa-user dropbtn"> </i> Olá, {{auth('funcionario')->user()->nome}} <i class="fa fa-caret-down"></i>
                                     <div class="dropdown-content" style="text-align: left">
-                                        <a href="{{route('perfilAdministrador.index')}}";>Meus Dados</a>
+                                        <a href="#";>Meus Dados</a>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit()">Sair</a>
                                     </div>
