@@ -14,9 +14,15 @@
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
     @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')
     
+    @push('js')
     <script>
-        var opcao = $('#opcaoBusca').value;
-        if (opcao == 'Codigo') {
+        function desativacao() {
+        $('#cidade_partida').attr('disabled','disabled');
+            $('#cidade_destino').attr('disabled','disabled');
+            $('#codigo_linha').attr('disabled','true');
+            var opcao = $('#opcaoBusca').value;
+            alert(opcao);
+        if (opcao == "Código") {
             $('#cidade_partida').attr('disabled','disabled');
             $('#cidade_destino').attr('disabled','disabled');
             $('#codigo_linha').attr('disabled','true');
@@ -25,7 +31,9 @@
             $('#cidade_destino').attr('disabled','true');
             $('#codigo_linha').attr('disabled','disabled');
         }
+        }        
     </script>
+    @endpush
     
     <style>
         .espaco{
@@ -40,45 +48,46 @@
         </div>
         <div class="row-xl">
             <div class="card card-default">
-                <div class="card-body">                    
-                        <div class="row espaco">
-                        <div class="col-sm-4">
+                <div class="card-body">
+                <form method="POST" action="{{ route('consulta') }}" class="form">
+                        <div class="row espaco">                        
+                        <div class="col-sm-4">                            
+                            @csrf 
                             <span>Definir tipo de busca: </span>
-                                <select name="opcaoBusca" class="form-control">
+                                <select id="opcaoBusca" onchange="desativacao()" name="opcaoBusca" class="form-control">
                                     <option>Nome</option>
                                     <option>Código</option>
                                 </select>
-                        </div>                                                    
-                        <form method="POST" action="{{ route('consulta') }}" class="form">
-                        <div class="col-sm-8">
+                        </div>                                                                            
+                        <div class="col-sm-4">
                             <span>Código da Linha: </span>
-                            <input id="codigo_linha" name="codigo_linha" class="form-control"/>
+                            <input id="codigo_linha" name="codigo_linha" value="{{ old('codigo_linha') }}" class="form-control"/>
                         </div>
                         </div>
-                        @csrf 
+                        
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                
                                     <span>Cidade de Partida: </span>
-                                    <input id="cidade_partida" name="cidade_partida" class="form-control"/>
+                                    <input id="cidade_partida" name="cidade_partida" value="{{ old('cidade_partida') }}" class="form-control"/>
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Cidade de Destino: </span>
-                                    <input id="cidade_destino" name="cidade_destino" class="form-control">
+                                    <input id="cidade_destino" name="cidade_destino" value="{{ old('cidade_destino') }}" class="form-control">
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Data de Partida: </span>
-                                    <input id="data_partida" class="form-control">
+                                    <input type="date" id="data_partida" value="{{ old('data_partida') }}" name="data_partida" class="form-control">
                                 </div>
                         </div>
                         
                         <div class="row espaco">
                             <div class="col-sm-4">                                
                                 
-                                    <input class="form-check form-check-inline" type="checkbox" name="tipoLinha" value="" id="opcao1">
+                                    <input class="form-check form-check-inline" type="checkbox" name="tipoLinha_op1" value="">
                                     <label class="form-check-label" style="margin-right:1em;">Linha Comum</label>
                                         
                                         
-                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha" value="" id="opcao2">
+                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha_op2" value="">
                                     <label class="form-check-label"">Linha Direta</label>
                                     
                             </div>
@@ -111,7 +120,7 @@
                              <th scope="row">{{ $linha['codigo']}}</th>
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
-                                <td> {{ $linha['preco']}} </td>
+                                <td>R$ {{ $linha['preco']}} </td>
                                 @if ($linha['tipo'] == 1 )
                                     <td> Direta </td>
                                 @else
