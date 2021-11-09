@@ -56,11 +56,11 @@
         <h3 class="text-center">Atualizações no sistema</h3>
         <table class="table table-striped table-bordered text-center">
             <thead>
-                <tr id="tabelas">
-                    <th scope="col">Data</th>
-                    <th scope="col">Administrador</th>
-                    <th scope="col">Contato</th>
-                    <th scope="col">Ação</th>
+                <tr>
+                    <th class="bg-warning">Data</th>
+                    <th class="bg-warning">Administrador</th>
+                    <th class="bg-warning">Contato</th>
+                    <th class="bg-warning">Ação</th>
                 </tr>
             </thead>
             <tbody>

@@ -25,7 +25,7 @@
                 Gerar <br> Relatorio
             </a>
            
-            <a class="btn botaoAmarelo botaoSelecaoInicial" href="editarPerfilFuncionario" role="button">
+            <a class="btn botaoAmarelo botaoSelecaoInicial" href="perfilAdministrador" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">person</span>
                 Editar <br> Perfil
             </a>

@@ -7,26 +7,36 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <script> //busca a cada tecla digitada
+  <script>
     $(document).ready(function(){
 
-      $('#buscaG').keyup(function(){
+      var $rows = $('#tabela tbody tr');
 
-        var buscaG = $(this).val();
-        var buscaOp = $('#buscaOp').val();
-        var buscaTipo = $('#tipoUser').val();
-
-        alert(buscaOp);
-        $.post('processa.php', {buscaG: buscaG}, {bucasOP: buscaOp}, function(data){
+      $('#buscaG').keyup(function() {
           
-        });
+          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+              reg = RegExp(val, 'i'),
+              text;
+          
+          $rows.show().filter(function() {
+              text = $(this).text().replace(/\s+/g, ' ');
+              return !reg.test(text);
+          }).hide();
       });
-
     });
   </script>
 
   <div class="container">        
-    <div class="card text-center">
+    <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
+      <a class="btn" id="botaoMigalha" href="#">
+          Lista de funcionários
+      </a>
+      <a class="btn" id="botaoMigalha" href="gerenciaClientes">
+          Lista de clientes
+      </a>
+    </div>
+    
+    <div class="card text-center"> <!--card com informações e ações sobre funcionarios cadastrados e fazer cadastros no sistema-->
 
       <div class="card-header" id="meio">
 
@@ -35,17 +45,17 @@
           <div class="buscGu form-inline" method="post" id="form-pesquisa" action="">
               <input type="text" name="buscaG" id="buscaG" placeholder="Digite a busca desejada...">
               <!--img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa"-->
-              <select name="buscaOp" id="buscaOp">
-                <option value="nome">Nome</option>
-                <option value="cpf">CPF</option>
-                <option value="email">Email</option>
-                <option value="matricula">Matricula</option>
-              </select>
-              <input type="submit" class="botaoAmarelo" id="botaoBusca" name="botaoBusca" value="Buscar"></input>
+              <!--select name="buscaOp" id="buscaOp">
+                <option value="nom">Nome</option>
+                <option value="cp">CPF</option>
+                <option value="emai">Email</option>
+                <option value="matricul">Matricula</option>
+              </select-->
           </div>
+          <!--button type="button" class="btn botaoAmarelo" id="botaoBusca"> Buscar</button-->
         </div>
 
-        <div class="form-check-inline" method="post" id="form-pesquisa2" action="">
+        <!--div class="form-check-inline" method="post" id="form-pesquisa2" action="">
           <input class="form-check-input" type="radio" name="tipoUser" id="todos"  value="todos" checked>
           <label class="form-check-label" for="todos"> Todos</label>
 
@@ -54,22 +64,22 @@
 
           <input class="form-check-input" type="radio" name="tipoUser" value="todos" id="adm">
           <label class="form-check-label" for="adm"> Administradores </label>
-        </div>
+        </div-->
         
 
         
       </div>
 
       <div class="card-body">
-        <table class="table table-bordered table-striped" id="resultado">
+        <table class="table table-bordered" id="tabela">
           <thead>
             <tr>
-              <td class="bg-warning">Matrícula</td>
-              <td class="bg-warning">Nome</td>
-              <td class="bg-warning">CPF</td>
-              <td class="bg-warning">Email</td>
-              <td class="bg-warning">Tipo</td>
-              <td class="bg-warning">Ações</td>
+              <th class="bg-warning">Matrícula</th>
+              <th class="bg-warning">Nome</th>
+              <th class="bg-warning">CPF</th>
+              <th class="bg-warning">Email</th>
+              <th class="bg-warning">Tipo</th>
+              <th class="bg-warning">Ações</th>
             </tr>
           </thead>
           <tbody>                 
@@ -87,8 +97,7 @@
                     @endif
                   </td>
                   <td>
-                    <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                    
+                  <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
                   </td>
                 </tr> 
                 @endforeach
@@ -100,6 +109,8 @@
       <div class="card-footer text-muted">
         <a class="btn botaoAmarelo" href="cadastroFuncionario" role="button">Cadastrar Funcionário</a>
       </div>
+    </div>
+
     </div>
   </div>
       

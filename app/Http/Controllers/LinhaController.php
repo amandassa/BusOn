@@ -117,8 +117,36 @@ class LinhaController extends Controller
     public function consulta (Request $request)
     {        
         $cidade_partida = $request['cidade_partida'];
-        $cidade_destino = $request['cidade_destino'];        
-        $codigo_trechos = DB::select("SELECT codigo FROM trecho WHERE cidade_partida = :cp and cidade_chegada = :cd", ['cp' => $cidade_partida, 'cd' => $cidade_destino]);        
+        $cidade_destino = $request['cidade_destino'];
+        $trechos_partida = DB::select("SELECT codigo FROM trecho WHERE cidade_partida LIKE :cp", ['cp' => $cidade_partida]);        
+        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE cidade_partida LIKE :cp", ['cp' => $cidade_partida]);        
+        $linhas_partida = [];
+        $linhas = [];
+        foreach($trechos_partida as $trecho_partida){            
+            $linha_trechopartida = DB::select("SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = :ct", ['ct' => $trecho_partida->codigo]);
+            foreach($linha_trechopartida as $codigo){
+                $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);
+                $trecho_destino = DB::select("SELECT codigo_trecho FROM trechos_linha WHERE ordem = :ordem and codigo_linha = :codigo_linha", ['ordem' => $quantidade[0]->ordem, 'codigo_linha' => $codigo->codigo_linha]);
+                $destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = :cod_destino", ['cod_destino' => $trecho_destino[0]->codigo_trecho ]);
+                $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo->codigo_linha]);                
+                if($destino[0]->cidade_chegada == $cidade_destino){                    
+                    $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo->codigo_linha]);
+                    $preco = $preco[0]->soma;
+                    $linha = [
+                    'codigo'=>$codigo->codigo_linha, 
+                    'partida'=>$cidade_partida[0]->cidade_partida, 
+                    'destino'=>$destino[0]->cidade_chegada,
+                    'tipo'=>$tipo[0]->direta,
+                    'preco'=>$preco
+                    ];
+                    array_push($linhas, $linha);            
+                }
+            
+            }
+            
+        }        
+        
+        /*$codigo_trechos = DB::select("SELECT codigo FROM trecho WHERE cidade_partida = :cp and cidade_chegada = :cd", ['cp' => $cidade_partida, 'cd' => $cidade_destino]);        
         $linhas = [];        
         foreach($codigo_trechos as $codigo_trecho){            
             $codigo = $codigo_trecho->codigo;        
@@ -144,7 +172,7 @@ class LinhaController extends Controller
             'preco'=>$preco
             ];
             array_push($linhas, $linha);            
-        }
+        }*/
         
         // infos enviadas para o front:        
         //return $linha;
