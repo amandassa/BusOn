@@ -40,22 +40,23 @@
         </div>
         <div class="row-xl">
             <div class="card card-default">
-                <div class="card-body">                    
-                        <div class="row espaco">
-                        <div class="col-sm-4">
+                <div class="card-body">
+                <form method="POST" action="{{ route('consulta') }}" class="form">
+                        <div class="row espaco">                        
+                        <div class="col-sm-4">                            
+                            @csrf 
                             <span>Definir tipo de busca: </span>
-                                <select name="opcaoBusca" class="form-control">
+                                <select id="opcaoBusca" name="opcaoBusca" class="form-control">
                                     <option>Nome</option>
                                     <option>Código</option>
                                 </select>
-                        </div>                                                    
-                        <form method="POST" action="{{ route('consulta') }}" class="form">
-                        <div class="col-sm-8">
+                        </div>                                                                            
+                        <div class="col-sm-4">
                             <span>Código da Linha: </span>
                             <input id="codigo_linha" name="codigo_linha" value="{{ old('codigo_linha') }}" class="form-control"/>
                         </div>
                         </div>
-                        @csrf 
+                        
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                
                                     <span>Cidade de Partida: </span>
