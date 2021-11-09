@@ -39,7 +39,15 @@ class LinhaController extends Controller
             ];
             array_push($linhas, $linhaS);            
         }
-        return view('funcionario.consultar_linhas', ['linhas'=>$linhas]);
+
+        $url = explode("/", $_SERVER["REQUEST_URI"]);
+        if($url[1] == 'consultar_linhas') 
+        {
+            return view('funcionario.consultar_linhas', ['linhas'=>$linhas]);
+        }
+        else
+            return view('funcionario.vender_passagens', ['linhas'=>$linhas]);
+        
     }
 
     /**
@@ -176,6 +184,16 @@ class LinhaController extends Controller
         
         // infos enviadas para o front:        
         //return $linha;
-        return view('funcionario.consultar_linhas')->with('linhas', $linhas);
+
+        $url = explode("/", $_SERVER["REQUEST_URI"]);
+        if($url[1] == 'consultar_linhas') 
+        {
+            return view('funcionario.consultar_linhas')->with('linhas', $linhas);
+        }
+        else
+            return view('funcionario.vender_passagens')->with('linhas', $linhas);
+        
     }
+
+    
 }
