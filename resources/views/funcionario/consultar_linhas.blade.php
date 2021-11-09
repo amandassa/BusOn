@@ -52,22 +52,22 @@
                         <form method="POST" action="{{ route('consulta') }}" class="form">
                         <div class="col-sm-8">
                             <span>Código da Linha: </span>
-                            <input id="codigo_linha" name="codigo_linha" class="form-control"/>
+                            <input id="codigo_linha" name="codigo_linha" value="{{ old('codigo_linha') }}" class="form-control"/>
                         </div>
                         </div>
                         @csrf 
                         <div class="row espaco">                            
                                 <div class="col-sm-4">                                
                                     <span>Cidade de Partida: </span>
-                                    <input id="cidade_partida" name="cidade_partida" class="form-control"/>
+                                    <input id="cidade_partida" name="cidade_partida" value="{{ old('cidade_partida') }}" class="form-control"/>
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Cidade de Destino: </span>
-                                    <input id="cidade_destino" name="cidade_destino" class="form-control">
+                                    <input id="cidade_destino" name="cidade_destino" value="{{ old('cidade_destino') }}" class="form-control">
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Data de Partida: </span>
-                                    <input id="data_partida" class="form-control">
+                                    <input type="date" id="data_partida" value="{{ old('data_partida') }}" name="data_partida" class="form-control">
                                 </div>
                         </div>
                         
