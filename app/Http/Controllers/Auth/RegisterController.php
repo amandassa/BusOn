@@ -83,7 +83,8 @@ class RegisterController extends Controller
     }
     
     protected function createFuncionario(Request $data)
-    {        
+    {
+        dd($data);
         $cpf = str_replace(".", "", $data->cpf);
         $cpf = str_replace("-", "", $cpf);
         $nome = $data->nome;

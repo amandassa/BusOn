@@ -82,7 +82,7 @@ class LoginController extends Controller
             }      
             
             if(Auth::guard('funcionario')->user()->is_admin == 0) 
-            {
+            {                
                 return redirect()->intended('/inicialFuncionario');
             }
                 

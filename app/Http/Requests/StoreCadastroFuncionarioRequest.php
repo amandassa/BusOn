@@ -26,8 +26,7 @@ class StoreCadastroFuncionarioRequest extends FormRequest
     {
         return [
             'nome' => ['required' , new FullName],
-            'email' => 'required|email|unique:email',
-            'cpf' => 'required|cpf|formato_cpf|unique:cpf',
+            'email' => 'required|email|unique:email',            
             'senha' => ['required', 'min:8'],
             'confirmacaoSenha' => 'required|same:senha',
         ];
