@@ -127,7 +127,7 @@ class LinhaController extends Controller
         $linhas = [];
         
         
-        if($request['opcaoBusca'] == 'Nome'){
+        if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){
             $cidade_partida = $request['cidade_partida'];
             $cidade_destino = $request['cidade_destino'];
             $trechos_partida = DB::select("SELECT codigo FROM trecho WHERE cidade_partida LIKE :cp", ['cp' => $cidade_partida]);        
@@ -142,7 +142,8 @@ class LinhaController extends Controller
                         $destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = :cod_destino", ['cod_destino' => $trecho_destino[$i]->codigo_trecho ]);                    
                         if($destino[0]->cidade_chegada == $cidade_destino){                    
                             $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo->codigo_linha]);                            
-                            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem <= ?)", [$codigo->codigo_linha, $i+1]);
+                            $ordem = DB::select("SELECT ordem from trechos_linha WHERE codigo_trecho = ?", [$trecho_partida->codigo]);
+                            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
                             $preco = $preco[0]->soma;                            
                             $linha = [
                             'codigo'=>$codigo->codigo_linha, 
@@ -176,37 +177,7 @@ class LinhaController extends Controller
             ];
             array_push($linhas, $linha);            
         }
-        /*$codigo_trechos = DB::select("SELECT codigo FROM trecho WHERE cidade_partida = :cp and cidade_chegada = :cd", ['cp' => $cidade_partida, 'cd' => $cidade_destino]);        
-        $linhas = [];        
-        foreach($codigo_trechos as $codigo_trecho){            
-            $codigo = $codigo_trecho->codigo;        
-            $codigo_linha = DB::select("SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = ?", [$codigo]);
-            $codigo_linha = $codigo_linha[0]->codigo_linha;        
-            $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo_linha]);
-            $tipo = $tipo[0]->direta;
-            $trecho_partida = DB::select("SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = ? and ordem = ?", [$codigo_linha, 1]);
-            $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_partida[0]->codigo_trecho]);
-            $cidade_partida = $cidade_partida[0]->cidade_partida;
-            $qtd_trechos = DB::select("SELECT count(codigo) as contagem from trechos_linha where codigo_linha = ?", [$codigo_linha]);
-            $trecho_destino = DB::select("SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = ? and ordem = ?", [$codigo_linha, $qtd_trechos[0]->contagem]);
-            $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_destino[0]->codigo_trecho]);
-            $cidade_destino = $cidade_destino[0]->cidade_chegada; 
-            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN 
-            (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
-            $preco = $preco[0]->soma;
-            $linha = [
-            'codigo'=>$codigo_linha, 
-            'partida'=>$cidade_partida, 
-            'destino'=>$cidade_destino,
-            'tipo'=>$tipo,
-            'preco'=>$preco
-            ];
-            array_push($linhas, $linha);            
-        }*/
         
-        // infos enviadas para o front:        
-        //return $linha;
-
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {

@@ -24,11 +24,21 @@
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
                 Gerar <br> Relatório
             </a>
-           
+            
+            @if(auth('funcionario')->user()->is_admin == 1)
             <a class="btn botaoAmarelo botaoSelecaoInicial" href="perfilAdministrador" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">person</span>
-                Editar <br> Perfil
+                Editar <br> Perfil 
             </a>
+            @endif
+            @if(auth('funcionario')->user()->is_admin == 0)
+                
+                <a class="btn botaoAmarelo botaoSelecaoInicial" href="perfilFuncionario" role="button">
+                    <span class="material-icons" id="iconBotoesPrincipais">person</span>
+                    Editar <br> Perfil 
+                </a>
+            @endif
+            
             
 
             @yield('campoBotoes')
