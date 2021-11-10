@@ -183,7 +183,7 @@ class LinhaController extends Controller
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {
-            return view('funcionario.consultar_linhas')->with('linhas', $linhas);
+            return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash()]);;
         }
         else
             return view('funcionario.vender_passagens')->with('linhas', $linhas);
