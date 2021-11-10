@@ -29,6 +29,8 @@
         }   
              });
     } )
+
+        
         //Mascara do CPF
         function mascara(i,t)
         {
@@ -49,7 +51,7 @@
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
 
-    <div class="container-flex principal">
+    <div class="container principal">
         <div class="row">
             <div class="col-md-6">
                 <h5 class="titulos">Consulta de Linhas</h5>
@@ -59,15 +61,16 @@
                         <div class="row">
                             <div class="col">
                                 <label class="textoPreto" for="partidaInput">Partida:</label>
-                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida'>
+                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('partidaInput') }}">
                             </div>
                             <div class="col">
                                 <label class="textoPreto" for="chegadaInput">Chegada:</label>
-                                <input type="text" class="form-control form-control-sm" id="chegadaInput" name="cidade_destino">
+                                <input type="text" class="form-control form-control-sm" id="chegadaInput" name="cidade_destino" value="{{ old('cidade_destino') }}">
                             </div>
+                            
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput">
+                                <input type="date" class="form-control form-control-sm" id="dataInput" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_input') }}">
                                 
                             </div>
                         </div>
@@ -166,13 +169,20 @@
                              <th scope="row">{{ $linha['codigo']}}</th>
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
-                                <td> {{ $linha['preco']}} </td>
+                                @php
+                                    $preco = number_format($linha['preco'],2,",","."); //Formatação do preço
+                                    $preco = round($preco, 2);
+                                @endphp
+                                <td> R$ {{$preco}} </td>
                                 @if ($linha['tipo'] == 1 )
                                     <td> Direta </td>
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</td>
+                                @php
+                                    $subtotal = 0;
+                                @endphp
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco()">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
@@ -184,7 +194,7 @@
                 <div class="card cardTotal">
                     <div class="row">
                         <div class="col colTotalEsquerda">Subtotal:</div>
-                        <div class="col colTotalDireita">R$ 53,50</div>
+                        <div class="col colTotalDireita">R$ {{$subtotal}}</div>
                     </div>
                     <hr>
                     <div class="row">
@@ -204,7 +214,7 @@
                     <hr>
                     <div class="row">
                         <div class="col colBtnAmarelo"><button type="button" class="botao botaoAmarelo" id="btnFinal" ><span><i class="fas fa-check-circle"></i></span>  Finalizar</button></div>
-                        <div class="col colBtnVermelho"><button type="button" class="botao botaoAmarelo botaoVermelho" id="btnCancel"> <span><i class="fas fa-times-circle"></i></span> Cancelar</button></div>
+                        <div class="col colBtnVermelho"> <a href="/venderPassagens"><button type="button" class="botao botaoAmarelo botaoVermelho" id="btnCancel"><span><i class="fas fa-times-circle"></i></span> Cancelar</button></a></div>
                     </div>
                 </div>
             </div>

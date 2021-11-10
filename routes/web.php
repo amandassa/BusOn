@@ -49,8 +49,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
-    Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
-    Route::any('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
+    
     
 
 }); 
@@ -86,6 +85,10 @@ Route::get('/base', function(){
 
 
 
+Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
+Route::any('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
+Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
 Route::get('/adicionarLinha', function(){
     return view('administrador.adicionarLinha');
 })->name('adicionaLinha');
