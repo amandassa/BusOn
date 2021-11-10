@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 /*
 Nome: Funcionario (classe)
 Funcionalidade: Representa a entidade funcionário e as ações executadas pela mesma
@@ -27,7 +31,7 @@ class Funcionario extends Authenticatable {
         'nome',
         'email',
         'CPF',
-        'password',        
+        'password',       
         'is_admin',
     ];
 
@@ -36,6 +40,61 @@ class Funcionario extends Authenticatable {
     protected $hidden = [        
         'remember_token',
     ];
+
+
+
+    public static function index(){ 
+        $cpflogado = Auth::guard('funcionario')->user()->CPF;
+        $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
+
+
+        $funCpf = $usuario->CPF;
+        $funNome = $usuario->nome;
+        $funEmail = $usuario->email;
+        $funMatricula = $usuario->matricula;
+        $funSenha = '';
+        $confirmar = '';
+
+
+        $funcionario = [
+            'cpf'=> $funCpf,
+            'entradaNome' => $funNome,
+            'entradaEmail'=> $funEmail,
+            'entradaMatricula' => $funMatricula,
+            'entradaSenha' => $funSenha,
+            'entradaConfirmarSenha' => $confirmar       
+         ];
+
+        return $funcionario;
+              
+    }
+
+    public static function editar(Request $request){
+            
+            $cpflogado = (Auth::guard('funcionario')->user()->CPF);
+            $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
+            
+            $cpf = $usuario->CPF;
+            $nome = $request['nome'];
+            $matricula = $usuario->matricula;
+            $email = $request['email'];
+            $senha = $request['senha'];
+            $confirmarSenha = $request['confirmarSenha'];
+            if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha)){
+                return 1;
+            }else{
+
+                if($senha == $confirmarSenha){
+                    DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
+                    [$nome, $email, $senha, $cpf]);
+                    return 2;
+                }
+                 else {
+                    return 3;
+                }
+            }
+            
+    }
 
     /*public function getAuthPassword(){
         return $this->password;
