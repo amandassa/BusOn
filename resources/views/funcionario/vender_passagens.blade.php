@@ -14,8 +14,10 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
-   
-    <script>$(document).ready(function() {
+    
+    <script>
+        $(document).ready(function() {
+        //Script do datatable - serve para deixar a tabela com varias funcionalidades
         $('.tabela').DataTable({"info":     false,
         language: 
         {
@@ -27,67 +29,70 @@
         }   
              });
     } )
-    
-        function mascara(i,t){
-        
-        var v = i.value;
-        
-        if(isNaN(v[v.length-1])){
-            i.value = v.substring(0, v.length-1);
-            return;
+        //Mascara do CPF
+        function mascara(i,t)
+        {
+            var v = i.value;
+            
+            if(isNaN(v[v.length-1])){
+                i.value = v.substring(0, v.length-1);
+                return;
+            }
+            
+            if(t == "cpf"){
+                i.setAttribute("maxlength", "14");
+                if (v.length == 3 || v.length == 7) i.value += ".";
+                if (v.length == 11) i.value += "-";
+            }
         }
-        
-        if(t == "cpf"){
-            i.setAttribute("maxlength", "14");
-            if (v.length == 3 || v.length == 7) i.value += ".";
-            if (v.length == 11) i.value += "-";
-        }
-
-    }</script>
+    </script>
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
 
-    <div class="container principal">
+    <div class="container-flex principal">
         <div class="row">
             <div class="col-md-6">
                 <h5 class="titulos">Consulta de Linhas</h5>
                 <div class="card cardCL">
-                    <div class="row">
-                        <div class="col">
-                            <label class="textoPreto" for="partidaInput">Partida:</label>
-                            <input type="text" class="form-control form-control-sm" id="partidaInput">
-                        </div>
-                        <div class="col">
-                            <label class="textoPreto" for="chegadaInput">Chegada:</label>
-                            <input type="text" class="form-control form-control-sm" id="chegadaInput">
-                        </div>
-                        <div class="col">
-                            <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                            <input type="date" class="form-control form-control-sm" id="dataInput">
-                            
-                        </div>
-                    </div>
-                    <div class="row rowBotoes">
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="checkBoxLD">
-                                <label class="form-check-label" for="checkBoxLD">
-                                  Linhas Diretas
-                                </label>
+                    <form method="POST" action="{{route('consultaVP')}}" class="form">
+                        @csrf 
+                        <div class="row">
+                            <div class="col">
+                                <label class="textoPreto" for="partidaInput">Partida:</label>
+                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida'>
+                            </div>
+                            <div class="col">
+                                <label class="textoPreto" for="chegadaInput">Chegada:</label>
+                                <input type="text" class="form-control form-control-sm" id="chegadaInput" name="cidade_destino">
+                            </div>
+                            <div class="col">
+                                <label class="textoPreto" for="dataInput">Data de Partida:</label>
+                                <input type="date" class="form-control form-control-sm" id="dataInput">
+                                
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="checkBoxLI">
-                                <label class="form-check-label" for="checkBoxLI">
-                                  Linhas Indiretas
-                                </label>
+                        <div class="row rowBotoes">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLD">
+                                    <label class="form-check-label" for="checkBoxLD">
+                                    Linhas Diretas
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLI">
+                                    <label class="form-check-label" for="checkBoxLI">
+                                    Linhas Indiretas
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm colBtnAzul">
+                                <button type="submit" class="botao botaoAzul" id="btnBuscar">Buscar</button>
                             </div>
                         </div>
-                        <div class="col-sm colBtnAzul">
-                            <button type="button" class="botao botaoAzul" id="btnBuscar">Buscar</button>
-                        </div>
-                    </div>
+                    </form>
 
 
                 </div>
@@ -148,47 +153,28 @@
                         <thead>
                           <tr>
                             <th scope="col">Código</th>
-                            <th scope="col">Saida</th>
-                            <th scope="col">Linha</th>
+                            <th scope="col">Cidade de Origem</th>
+                            <th scope="col">Cidade de Destino</th>
                             <th scope="col">Preço</th>
+                            <th scope="col">Tipo</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>000000000</td>
-                            <td>6:00</td>
-                            <td>Dir</td>
-                            <td>R$ 53,50</td>
-                            <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
-                          </tr>
-                          <tr>
-                            <td>123456789</td>
-                            <td>10:00</td>
-                            <td>Ind</td>
-                            <td>R$ 35,00</td>
-                            <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
-                          </tr>
-                          <tr>
-                            <td>987654321</td>
-                            <td>12:00</td>
-                            <td>Dir</td>
-                            <td>R$ 53,50</td>
-                            <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
-                          </tr>
-                          <tr>
-                            <td>098789098</td>
-                            <td>15:45</td>
-                            <td>Ind</td>
-                            <td>R$ 35,00</td>
-                            <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td></tr>
-                          <tr>
-                            <td>123321456</td>
-                            <td>17:00</td>
-                            <td>Dir</td>
-                            <td>R$ 53,50</td>
-                            <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
-                           </tr>                    
+                            @foreach ($linhas as $linha)
+                            <tr>
+                             <th scope="row">{{ $linha['codigo']}}</th>
+                                <td> {{ $linha['partida']}} </td>
+                                <td> {{ $linha['destino']}} </td>
+                                <td> {{ $linha['preco']}} </td>
+                                @if ($linha['tipo'] == 1 )
+                                    <td> Direta </td>
+                                @else
+                                    <td> Comum </td>
+                                @endif
+                                <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</td>
+                            </tr>
+                            @endforeach          
                         </tbody>
                       </table>
                 </div>

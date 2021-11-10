@@ -53,8 +53,8 @@
         <br>
         <br>
 
-        <h3 class="text-center">Atualizações no sistema</h3>
-        <table class="table table-striped table-bordered text-center">
+        <h3>Atualizações no sistema</h3>
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th class="bg-warning">Data</th>
