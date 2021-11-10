@@ -142,7 +142,8 @@ class LinhaController extends Controller
                         $destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = :cod_destino", ['cod_destino' => $trecho_destino[$i]->codigo_trecho ]);                    
                         if($destino[0]->cidade_chegada == $cidade_destino){                    
                             $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo->codigo_linha]);                            
-                            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem <= ?)", [$codigo->codigo_linha, $i+1]);
+                            $ordem = DB::select("SELECT ordem from trechos_linha WHERE codigo_trecho = ?", [$trecho_partida->codigo]);
+                            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
                             $preco = $preco[0]->soma;                            
                             $linha = [
                             'codigo'=>$codigo->codigo_linha, 
