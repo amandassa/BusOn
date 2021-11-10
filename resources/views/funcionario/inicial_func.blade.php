@@ -62,7 +62,7 @@
             <div class="quadro"> <!--Passagens vendidas no mes-->
                 <div class="card-body">
                     <p class="textoNumeroAmarelo">324</p>
-                    <p><b>Passagens vendidas por você este mês</b></p>
+                    <p><b>Passagens vendidas por você nos últimos 30 dias</b></p>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
             <div class="quadro"> <!--Passagens vendidas na semana-->
                 <div class="card-body">
                     <p class="textoNumeroAmarelo"><b>126</b></p>
-                    <p><b>Passagens vendidas por você esta semana</b></p>
+                    <p><b>Passagens vendidas por você nos últimos 7 dias</b></p>
                 </div>
             </div>
 

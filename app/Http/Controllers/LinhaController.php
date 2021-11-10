@@ -217,5 +217,17 @@ class LinhaController extends Controller
         
     }
 
+     /**
+     * Busca a linha mais vendida
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function linha_mais_vendida ()
+    {
+        $linha = DB::select("SELECT min() FROM venda");
+
+        return view('funcionario.inicial_func')->with('linha_mais_vendida', $linha);
+
+    }
     
 }
