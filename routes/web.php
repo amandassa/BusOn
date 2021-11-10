@@ -42,7 +42,8 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/perfilFuncionario', function(){return view('funcionario.perfil');})->name('perfilFuncionario');
     Route::get('/editarAgenda', function(){return view('funcionario.editarAgenda');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
-
+    Route::get('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('perfilFuncionario.index');
+    Route::post('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'editar'])->name('perfilFuncionario.editar');
     //Administradores também possem acesso
     Route::get('/venderPassagens', function(){return view('funcionario.vender_passagens');})->name('venderPassagens');
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
