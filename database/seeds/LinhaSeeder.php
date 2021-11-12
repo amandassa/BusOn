@@ -18,6 +18,6 @@ class LinhaSeeder extends Seeder
                 DB::statement('insert into linha(direta, total_vagas) values (?, ?)',
                  [$linha['direta'], $linha['total_vagas']]);
             }
-            DB::commit();
+        DB::commit();
     }
 }
