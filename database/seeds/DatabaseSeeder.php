@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TrechoSeeder::class);
         $this->call(LinhaSeeder::class);
         $this->call(TrechosLinhaSeeder::class);
+        //$this->call(PassagemSeeder::class);
     }
 }
