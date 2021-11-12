@@ -13,23 +13,6 @@ class TrechosLinhaSeeder extends Seeder
      */
     public function run()
     {
-/*        //esse seeder tem que rodar os factories de Trecho, Linha e TrechosLinha
-        DB::beginTransaction();
-        $trechos = factory(Trecho::class, 10)->make()->toArray();
-        foreach($trechos as $trecho){
-            DB::statement('insert into trecho(cidade_partida, cidade_chegada, duracao, preco) values(?, ?, ?, ?)',
-            [$trecho['cidade_partida'], $trecho['cidade_chegada'], $trecho['duracao'], $trecho['preco']]);
-        }
-        DB::commit();
-
-        DB::beginTransaction();
-        $linhas = factory(Linha::class, 10)->make()->toArray();            
-            foreach($linhas as $linha) {                
-                DB::statement('insert into linha(direta, total_vagas) values (?, ?)',
-                 [$linha['direta'], $linha['total_vagas']]);
-            }
-        DB::commit();
-*/
         DB::beginTransaction();
         $trechoslinhas = factory(TrechosLinha::class, 10)->make()->toArray();            
             foreach($trechoslinhas as $trecholinha) {                
