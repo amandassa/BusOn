@@ -16,14 +16,14 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $consulta= DB::select("SELECT * FROM linha");
         $linhas = [];
         foreach($consulta as $linha){            
-            $codigo = $linha->codigo;
-            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);
+            $codigo = $linha->codigo;            
+            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            
             if ($codigo_trecho == null) break;
-            $trecho_inicial = $codigo_trecho[0]->codigo_trecho;                    
+            $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
             $tipo = $linha->direta;    
             $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]);
             $cidade_partida = $cidade_partida[0]->cidade_partida;        

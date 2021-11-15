@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class TrechosLinha extends Model
 {
@@ -13,10 +14,11 @@ class TrechosLinha extends Model
         'total_vagas'
     ];
     
-    public function getCodigoTrecho(String $coluna, String $parametro){
-        $codigo_trecho = DB::select("SELECT codigo_trecho FROM trechos_linha WHERE :coluna = :parametro", ['col' => $coluna, 'par' =>$parametro]);
+    public static function getCodigoTrecho($coluna, $parametro){
+        $query = "SELECT codigo_trecho FROM trechos_linha WHERE ".$coluna." = ?";
+        $codigo_trecho = DB::select($query, [$parametro]);        
         if($codigo_trecho)
-            return $codigo_trecho[0]->codigo_trecho;
+            return $codigo_trecho;
         else
             return null;
     }
