@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Linha;
+use App\Models\TrechosLinha;
 
 class LinhaController extends Controller
 {
@@ -19,7 +21,7 @@ class LinhaController extends Controller
         $linhas = [];
         foreach($consulta as $linha){            
             $codigo = $linha->codigo;
-            $codigo_trecho = DB::select("SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = ?", [$codigo]);
+            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);
             if ($codigo_trecho == null) break;
             $trecho_inicial = $codigo_trecho[0]->codigo_trecho;                    
             $tipo = $linha->direta;    
