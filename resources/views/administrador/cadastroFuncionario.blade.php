@@ -3,46 +3,7 @@
 @section('title', 'Cadastrar Funcionário - ')
 
 
-@section('content')
-    <script>function mascara(i,t){
-        var v = i.value;
-        if(isNaN(v[v.length-1])){
-           i.value = v.substring(0, v.length-1);
-           return;
-        }
-        if(t == "cpf"){
-           i.setAttribute("maxlength", "14");
-           if (v.length == 3 || v.length == 7) i.value += ".";
-           if (v.length == 11) i.value += "-";
-        }
-     }</script>
-
-    @if (session('status'))
-        <div class="alert alert-success"> {{session('status')}} </div>
-     @endif
-     @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <!-- 
-        apresentação de mensagem de erros caso os campos do formulário estejam
-        incompletos ou possuam informações que não passaram na validação
-    -->
-    @if ($errors->any())
-        <div class="alert alert0-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@section('content')    
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
@@ -51,7 +12,7 @@
                 <h5 class="texto">Cadastrar Funcionário</h5>
                 <div class="card">
                     <div class="card-body">
-                        <form  method="POST" action="{{ route('criarFuncionario') }}">
+                        <form method="POST" action="{{ route('criarFuncionario') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="entradaNome">Nome Completo</label>

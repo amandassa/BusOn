@@ -1,24 +1,11 @@
 <?php
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 
 //Rotas restritas apenas para CLIENTES
 Route::middleware(['auth:cliente'])->group(function () {
@@ -35,7 +22,6 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
 });
 
-
 //Rotas restritas apenas para FUNCIONARIOS 
 Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/inicialFuncionario', function(){return view('funcionario.inicial_func');})->name('inicial_func');
@@ -44,8 +30,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
     Route::get('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('perfilFuncionario.index');
     Route::post('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'editar'])->name('perfilFuncionario.editar');
-    //Administradores também possem acesso
-    
+    //Administradores também possem acesso    
     Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
@@ -55,7 +40,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
 }); 
 
 //Rotas restritas apenas para ADMNISTRADOR
-Route::middleware(['adm'])->group(function () {
+Route::middleware(['auth:funcionario', 'adm'])->group(function () {        
     Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
@@ -68,14 +53,13 @@ Route::middleware(['adm'])->group(function () {
     Route::get('/editarPerfilFuncionario', function(){return view('administrador.editarPerfilFuncionario');})->name('editarPerfilFuncionario');
     Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
     Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
-    //Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
-    Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
     Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
+    Route::post('/criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
 }); 
 
 
@@ -128,7 +112,6 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'client
 Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'showFuncionarioLoginForm'])->name('funcionarioLoginfront');
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
-//Route::post('/criarFuncionario', [App\Http\Controllers\Auth\RegisterController::class, 'createFuncionario'])->name('criarFuncionario');
 Route::get('/recuperarAcessoCliente', function(){ return view('cliente.recuperarAcesso');})->name('recuperarAcessoCliente');
 
 

@@ -15,8 +15,8 @@ class AutenticarADM
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-        if(Auth::guard('funcionario')->user()!=null)
+    {        
+        if(Auth::guard('funcionario')->user() != null)
             if(Auth::guard('funcionario')->user()->is_admin == 1)
                 return $next($request);
         return redirect('/login/funcionario');

@@ -33,8 +33,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
-
+    //protected $redirectTo = '/login';
+    
     /**
      * Create a new controller instance.
      *
@@ -47,6 +47,9 @@ class RegisterController extends Controller
         $this->middleware('guest:funcionario')->except('logout');
     }
 
+    public function showFuncionarioRegisterForm(){
+        return view('administrador.cadastroFuncionario');        
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -56,10 +59,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'cpf' => ['required', 'string'],
-            'nome' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:cliente'],
-            'senha' => ['required', 'string', 'min:8', 'confirmed'],
+            //'cpf' => ['required', 'string'],
+            //'nome' => ['required', 'string', 'max:255'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:cliente'],
+            //'senha' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -82,9 +85,9 @@ class RegisterController extends Controller
         return $cliente;    
     }
     
-    protected function createFuncionario(Request $data)
+    protected function criarFuncionario(Request $request)
     {
-        dd($data);
+        dd($request);
         $cpf = str_replace(".", "", $data->cpf);
         $cpf = str_replace("-", "", $cpf);
         $nome = $data->nome;
