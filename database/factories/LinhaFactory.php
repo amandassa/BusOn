@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Linha::class, function (Faker $faker) {
     return [
         'direta' => rand(0, 1),
-        'total_vagas' => rand(2, 6)*10
+        'total_vagas' => 60
     ];
 });
