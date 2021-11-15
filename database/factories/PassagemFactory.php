@@ -14,7 +14,7 @@ $factory->define(Passagem::class, function (Faker $faker) {
     return [
         'num_assento' => rand(0, 60),
         'codigo_linha' => rand(0, 10),
-        'cpf_cliente' => strval(DB::select('select cpf from cliente where cpf = ?', [strval($clientes[rand(0, $len)])])),
+        'cpf_cliente' => $clientes[rand(0, $len-1)]->cpf,
         'data_compra' => $faker->dateTimeThisCentury()
     ];
 });

@@ -4,23 +4,17 @@
 
 
 @section('content')
-    <script>function mascara(i,t){
+    @push('js')
+    <script>
+        $(document).ready(function () {
+            $(".editarCPF").mask('000.000.000-00', {reverse: true});
+            console.log('novocpf! ', cep);
 
-        var v = i.value;
+        });
+    </script>
 
-        if(isNaN(v[v.length-1])){
-           i.value = v.substring(0, v.length-1);
-           return;
-        }
-
-        if(t == "cpf"){
-           i.setAttribute("maxlength", "14");
-           if (v.length == 3 || v.length == 7) i.value += ".";
-           if (v.length == 11) i.value += "-";
-        }
-
-    }</script>
-
+        @endpush
+        
     @if ($errors->any())
        <div class="alert alert-warning">
             @foreach ($errors->all() as $error)
@@ -70,11 +64,11 @@
                     </div>
                     <div class="form-group">
                         <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control"  autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}"disabled />
+                        <input oninput="mascara(this, 'cpf')" data-mask="000.000.000-00" class="form-control"  autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}"disabled />
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>
-                        <input type="number" class="form-control" id="matricula" name = "matricula" value="{{$funcionario['entradaMatricula']}}"/>
+                        <input type="text" class="form-control" id="matricula" name = "matricula" value="{{$funcionario['entradaMatricula']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
