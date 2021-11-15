@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Linha;
+use App\Models\Trecho;
 use App\Models\TrechosLinha;
 
 class LinhaController extends Controller
@@ -133,28 +134,28 @@ class LinhaController extends Controller
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){
             $cidade_partida = $request['cidade_partida'];
             $cidade_destino = $request['cidade_destino'];
-            $trechos_partida = DB::select("SELECT codigo FROM trecho WHERE cidade_partida LIKE :cp", ['cp' => $cidade_partida]);        
+            $trechos_partida = Trecho::getCodigo('cidade_partida', $cidade_partida);
 
             foreach($trechos_partida as $trecho_partida){            
-                $linha_trechopartida = DB::select("SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = :ct", ['ct' => $trecho_partida->codigo]);
-                $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = :cod", ['cod' => $trecho_partida->codigo]); 
+                $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo);
+                $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo);
                 foreach($linha_trechopartida as $codigo){
-                    $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo->codigo_linha]);
+                    $tipo = Linha::getTipo('codigo', $codigo->codigo_linha);
                     if (!($tipo[0]->direta == $request['tipoLinha_op1'] || $tipo[0]->direta == $request['tipoLinha_op2'])) break;
                     $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);
                     for($i = 0; $i < $quantidade[0]->ordem; $i = $i + 1){
-                        $trecho_destino = DB::select("SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = :codigo_linha", ['codigo_linha' => $codigo->codigo_linha]);
-                        $destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = :cod_destino", ['cod_destino' => $trecho_destino[$i]->codigo_trecho ]);                    
+                        $trecho_destino = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo->codigo_linha);
+                        $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);
                         if($destino[0]->cidade_chegada == $cidade_destino){                    
-                            $ordem = DB::select("SELECT ordem from trechos_linha WHERE codigo_trecho = ?", [$trecho_partida->codigo]);
+                            $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
                             $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
                             $preco = $preco[0]->soma;                            
                             $linha = [
-                            'codigo'=>$codigo->codigo_linha, 
-                            'partida'=>$cidade_partida[0]->cidade_partida, 
-                            'destino'=>$destino[0]->cidade_chegada,
-                            'tipo'=>$tipo[0]->direta,
-                            'preco'=>$preco
+                                'codigo'=>$codigo->codigo_linha, 
+                                'partida'=>$cidade_partida[0]->cidade_partida, 
+                                'destino'=>$destino[0]->cidade_chegada,
+                                'tipo'=>$tipo[0]->direta,
+                                'preco'=>$preco
                             ];
                             array_push($linhas, $linha);
                             break;
@@ -169,7 +170,7 @@ class LinhaController extends Controller
             $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = :cod_linha and ordem = 1)", ['cod_linha' => $codigo_linha]);
             $ordem = DB::select("select max(ordem) as ordem from trechos_linha where codigo_linha = :cod_linha", ['cod_linha' => $codigo_linha]);
             $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = :cod_linha and ordem = :ordem)", ['cod_linha' => $codigo_linha, 'ordem' => $ordem[0]->ordem]);
-            $tipo = DB::select("SELECT direta FROM linha WHERE codigo = ?", [$codigo_linha]);                
+            $tipo = Linha::getTipo('codigo', $codigo_linha->codigo);
             $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
             $preco = $preco[0]->soma;
             $linha = [

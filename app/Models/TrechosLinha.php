@@ -22,4 +22,25 @@ class TrechosLinha extends Model
         else
             return null;
     }
+
+    public static function getCodigoLinha ($coluna, $parametro) {
+        $query = "SELECT codigo_linha FROM trechos_linha WHERE " . $coluna . " LIKE :ct";
+        $codigo_linha = DB::select($query, ['ct' => $parametro]);
+        if($codigo_linha)
+            return $codigo_linha;
+        else
+            return null;
+    }
+
+    public static function getOrdem ($coluna, $parametro) {
+        $query = "SELECT ordem from trechos_linha WHERE " . $coluna . " LIKE :cod ";
+        $ordem = DB::select($query, ['cod' => $parametro]);
+        return $ordem;
+        /*
+        if ($ordem) {
+            return $ordem;
+        } else {
+            return null;
+        }*/
+    }
 }

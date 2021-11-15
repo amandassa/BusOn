@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-use app\Models\Trecho;
+use Illuminate\Support\Facades\DB;
 
 /*
 Nome: Linha (classe)
@@ -18,6 +17,15 @@ class Linha extends Model {
         'total_vagas'
     ];
     
+    public static function getTipo ($coluna, $param) {
+        $query = "SELECT direta FROM linha WHERE ".$coluna." LIKE :cod";
+        $direta = DB::select($query, ['cod' => $param]);
+        if ($direta) {
+            return $direta;
+        } else {
+            return null;
+        }
+    }
 
 
 }
