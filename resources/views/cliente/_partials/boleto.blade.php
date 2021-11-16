@@ -24,8 +24,7 @@
             $('#botao_baixar').css('visibility', 'visible');
             document.getElementById('alerta').style.visibility = 'visible';
             document.getElementById('botao_baixar').style.visibility = 'visible';
-            document.getElementById('botao_copiar').style.visibility = 'visible';
-            
+            document.getElementById('botao_copiar').style.visibility = 'visible';            
             }
         }
     </script>            
