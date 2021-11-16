@@ -27,5 +27,9 @@ class Linha extends Model {
         }
     }
 
-
+    public static function getData($coluna, $parametro){
+        $query = "SELECT dias_semana FROM linha WHERE ".$coluna." LIKE :cod";
+        $data = DB::select($query, ['cod' => $parametro]);
+        return $data;
+    }
 }

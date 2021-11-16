@@ -47,10 +47,10 @@ class LinhaController extends Controller
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {
-            return view('funcionario.consultar_linhas', ['linhas'=>$linhas]);
+            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
         }
         else
-            return view('funcionario.vender_passagens', ['linhas'=>$linhas]);
+            return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
         
     }
 
@@ -131,7 +131,8 @@ class LinhaController extends Controller
         $linhas = [];
         $errors = [];
         $status = "";
-        $trava = false;
+        $erro  = 0;
+        $dia = date('w', strtotime($request['data_partida']));
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){
             $cidade_partida = $request['cidade_partida'];
             $cidade_destino = $request['cidade_destino'];
@@ -141,13 +142,19 @@ class LinhaController extends Controller
                 $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo);
                 $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo);
                 foreach($linha_trechopartida as $codigo){
-                    $tipo = Linha::getTipo('codigo', $codigo->codigo_linha);
-                    if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
-                        $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);
-                        for($i = 0; $i < $quantidade[0]->ordem; $i = $i + 1){
-                            $trecho_destino = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo->codigo_linha);
-                            $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);
-                            if($destino[0]->cidade_chegada == $cidade_destino){                    
+                    $tipo = Linha::getTipo('codigo', $codigo->codigo_linha);                    
+                    $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);
+                    for($i = 0; $i < $quantidade[0]->ordem; $i = $i + 1){
+                        $trecho_destino = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo->codigo_linha);
+                        $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);
+                        if($destino[0]->cidade_chegada == $cidade_destino){
+                            if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
+                                $data = Linha::getData('codigo', $codigo->codigo_linha);                        
+                                $data = explode(";", $data[0]->dias_semana);
+                                if(in_array($dia, $data) == false){
+                                    array_push($errors, "Linha não encontrada");
+                                    break;
+                                }
                                 $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
                                 $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
                                 $preco = $preco[0]->soma;                            
@@ -161,12 +168,12 @@ class LinhaController extends Controller
                                 array_push($linhas, $linha);
                                 $status =  "Linha encontrada com sucesso";                                  
                                 break;
-                            }
+                            } else {                                
+                                array_push($errors, "Linha não encontrada");
+                                break;
+                            } 
                         }
-                    
-                    } else {
-                        array_push($errors, "Linha não encontrada");
-                    }
+                    }                                                    
                 }
             }
         } else {
@@ -177,17 +184,23 @@ class LinhaController extends Controller
             $tipo = Linha::getTipo('codigo', $codigo_linha);
             
             if (strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2'])){
-                $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
-                $preco = $preco[0]->soma;
-                $linha = [
-                            'codigo'=>$codigo_linha, 
-                            'partida'=>$cidade_partida[0]->cidade_partida, 
-                            'destino'=>$cidade_chegada[0]->cidade_chegada,
-                            'tipo'=>$tipo[0]->direta,
-                            'preco'=>$preco
-                ];
-                array_push($linhas, $linha);
-                $status =  "Linha encontrada com sucesso";                                  
+                $data = Linha::getData('codigo', $codigo_linha);                        
+                $data = explode(";", $data[0]->dias_semana);
+                if(in_array($dia, $data)){
+                    $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
+                    $preco = $preco[0]->soma;
+                    $linha = [
+                        'codigo'=>$codigo_linha, 
+                        'partida'=>$cidade_partida[0]->cidade_partida, 
+                        'destino'=>$cidade_chegada[0]->cidade_chegada,
+                        'tipo'=>$tipo[0]->direta,
+                        'preco'=>$preco
+                    ];
+                    array_push($linhas, $linha);
+                    $status =  "Linha encontrada com sucesso";
+                } else {
+                    array_push($errors, "Linha não encontrada");
+                }
             } else {
                 array_push($errors, "Linha não encontrada");
             }
