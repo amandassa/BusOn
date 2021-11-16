@@ -16,7 +16,12 @@
 
     
     <script>
+        
+        var ultimoPreco = 0; //Armazena o último preço selecionado
+
         $(document).ready(function() {
+        var preco  = 0;
+
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
         $('.tabela').DataTable({"info":     false,
         language: 
@@ -47,10 +52,64 @@
                 if (v.length == 11) i.value += "-";
             }
         }
+
+
+        //É chamada sempre que o input de valor ou descontos é alterado
+        function alteracaoInput()
+        {
+            preco(ultimoPreco);
+        }
+
+        //Atualiza os precos do card total
+        function preco(preco)
+        {
+            alert(preco);
+            var valorPago = document.getElementById('pagoInput').value;
+            var valorDesconto = document.getElementById('descontosInput').value;
+            var valorTroco = 0;
+
+            //Subtotal
+            var subtotal = document.getElementById('subtotal');
+            subtotal.innerHTML = 'R$ ' + preco;
+
+            //Descontos
+            var desconto = document.getElementById('descontos');
+            desconto.innerHTML = 'R$ ' + valorDesconto;
+
+            //Troco
+            var precoComDesconto = preco - valorDesconto;
+
+            if(valorPago == precoComDesconto) 
+            {
+                valorTroco = 0;
+                troco.innerHTML = 'R$ ' + valorTroco;
+                alert("Não há troco!");
+            }
+
+            else if(valorPago > precoComDesconto) 
+            {
+                valorTroco = valorPago - precoComDesconto;
+                troco = document.getElementById('troco');
+                troco.innerHTML = "R$ " + valorTroco;
+            }
+
+            else 
+            {
+                alert("Valor pago é insufiencinte!!!");
+            }
+
+            //Total
+            total = document.getElementById('total');
+            total.innerHTML = 'R$ ' + precoComDesconto;
+
+            ultimoPreco = preco;
+        }
+
+
+        
     </script>
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
-
     <div class="container principal">
         <div class="row">
             <div class="col-md-6">
@@ -131,16 +190,16 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput">
+                                <input type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput()">
                               </div>
                         </div>
                         <div class="col">
                             <label class="textoPreto" for="descontosInput">Descontos:</label>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="inputGroup-sizing-sm">%</span>
+                                  <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput">
+                                <input type="number" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput" value="0.00" placeholder="0,00" onchange="alteracaoInput()">
                               </div>
 
                         </div>
@@ -179,10 +238,7 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                @php
-                                    $subtotal = 0;
-                                @endphp
-                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco()">Selecionar</button></td>
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');{{$ultimoPreco = $preco}}">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
@@ -193,23 +249,23 @@
                 <br><h5 class="titulos">Total</h5>
                 <div class="card cardTotal">
                     <div class="row">
-                        <div class="col colTotalEsquerda">Subtotal:</div>
-                        <div class="col colTotalDireita">R$ {{$subtotal}}</div>
+                        <div class="col colTotalEsquerda"> Subtotal:</div>
+                        <div class="col colTotalDireita" id="subtotal" name="subtotal"> R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Descontos:</div>
-                        <div class="col colTotalDireita">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="descontos" name="descontos">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Troco:</div>
-                        <div class="col colTotalDireita">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="troco" name="troco">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Total a pagar:</div>
-                        <div class="col colTotalDireita">R$ 53,50</div>
+                        <div class="col colTotalDireita" id="total" name="total">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
