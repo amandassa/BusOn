@@ -131,8 +131,7 @@ class LinhaController extends Controller
     {
         $linhas = [];
         $errors = [];
-        $status = "";
-        $erro  = 0;
+        $status = "";        
         $dia = date('w', strtotime($request['data_partida']));
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){
             $cidade_partida = $request['cidade_partida'];
@@ -167,7 +166,8 @@ class LinhaController extends Controller
                                     'preco'=>$preco
                                 ];
                                 array_push($linhas, $linha);
-                                $status =  "Linha encontrada com sucesso";                                  
+                                $status =  "Linha encontrada com sucesso";
+                                $errors = array();
                                 break;
                             } else {                                
                                 array_push($errors, "Linha não encontrada");
@@ -213,7 +213,7 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         }
         else
-            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, 'errors' => $errors, 'status' => $status]);
+            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
     }
 

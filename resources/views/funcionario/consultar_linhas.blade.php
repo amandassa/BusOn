@@ -89,11 +89,11 @@
                         <div class="row espaco">
                             <div class="col-sm-4">                                
                                 
-                                    <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" value="0">
+                                    <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" value="0" checked>
                                     <label class="form-check-label">Linha Comum</label>
                                         
                                         
-                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha_op2" value="1">
+                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha_op2" value="1" checked>
                                     <label class="form-check-label">Linha Direta</label>
                                     
                             </div>
