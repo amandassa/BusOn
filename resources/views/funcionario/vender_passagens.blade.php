@@ -13,17 +13,16 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
 
     
     <script>
         
-        var ultimoPreco = 0; //Armazena o último preço selecionado
-
         $(document).ready(function() {
-        var preco  = 0;
-
+      
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
-        $('.tabela').DataTable({"info":     false,
+        $('.tabela').DataTable({select:{selector:'#btnSel'}, info:false,
         language: 
         {
             oPaginate: 
@@ -32,8 +31,12 @@
                 sPrevious: '<i class="fas fa-angle-double-left"></i>'
             }
         }   
-             });
+        });
+
+        
     } )
+
+
 
         
         //Mascara do CPF
@@ -53,17 +56,29 @@
             }
         }
 
+        var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
+        var alterouValorPago = false; //Verifica se o input valorPago foi alterado, dessa forma 
+        //a mensagem de valor insuficiente só é apresentada caso esse variável for true;
+        var selecionado = false;
 
-        //É chamada sempre que o input de valor ou descontos é alterado
-        function alteracaoInput()
+        function finalizar()
         {
+
+        }
+
+        //É chamada sempre que o input de valor pago ou descontos é alterado
+        function alteracaoInput(alterou)
+        {
+            if(alterou)
+                alterouValorPago = true;
             preco(ultimoPreco);
+            alterouValorPago = false;
         }
 
         //Atualiza os precos do card total
+
         function preco(preco)
         {
-            alert(preco);
             var valorPago = document.getElementById('pagoInput').value;
             var valorDesconto = document.getElementById('descontosInput').value;
             var valorTroco = 0;
@@ -78,7 +93,7 @@
 
             //Troco
             var precoComDesconto = preco - valorDesconto;
-
+            
             if(valorPago == precoComDesconto) 
             {
                 valorTroco = 0;
@@ -93,16 +108,20 @@
                 troco.innerHTML = "R$ " + valorTroco;
             }
 
-            else 
+            else if(alterouValorPago)
             {
-                alert("Valor pago é insufiencinte!!!");
+                troco.innerHTML = "VALOR INSUFICIENTE"
+                alert("Valor pago é insuficiente!!!");
             }
+            
 
             //Total
             total = document.getElementById('total');
             total.innerHTML = 'R$ ' + precoComDesconto;
 
-            ultimoPreco = preco;
+        
+
+            ultimoPreco = preco; 
         }
 
 
@@ -190,7 +209,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput()">
+                                <input type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(true)">
                               </div>
                         </div>
                         <div class="col">
@@ -199,7 +218,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="number" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput" value="0.00" placeholder="0,00" onchange="alteracaoInput()">
+                                <input type="number" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(false)">
                               </div>
 
                         </div>
@@ -211,7 +230,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card cardPassagens">
-                    <table class="table tabela" style="text-align: center">
+                    <table class="table table-hover tabela" style="text-align: center">
                         <thead>
                           <tr>
                             <th scope="col">Código</th>
@@ -238,7 +257,7 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');{{$ultimoPreco = $preco}}">Selecionar</button></td>
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
@@ -269,7 +288,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col colBtnAmarelo"><button type="button" class="botao botaoAmarelo" id="btnFinal" ><span><i class="fas fa-check-circle"></i></span>  Finalizar</button></div>
+                        <div class="col colBtnAmarelo"><button type="button" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button></div>
                         <div class="col colBtnVermelho"> <a href="/venderPassagens"><button type="button" class="botao botaoAmarelo botaoVermelho" id="btnCancel"><span><i class="fas fa-times-circle"></i></span> Cancelar</button></a></div>
                     </div>
                 </div>
