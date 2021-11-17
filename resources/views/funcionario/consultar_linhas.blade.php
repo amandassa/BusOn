@@ -41,11 +41,17 @@
             margin-left:1em;
         }
     </style>
+        
+    <!-- 
+        apresentação de mensagem de erros caso os campos do formulário estejam
+        incompletos ou possuam informações que não passaram na validação
+    -->
+    
     
     <div class="container">
-        <div class="row">
+        <div class="row">         
             <h3>Consulta de Linhas</h3>            
-        </div>
+        </div>        
         <div class="row-xl">
             <div class="card card-default">
                 <div class="card-body">
@@ -83,12 +89,12 @@
                         <div class="row espaco">
                             <div class="col-sm-4">                                
                                 
-                                    <input class="form-check form-check-inline" type="checkbox" name="tipoLinha_op1" value="">
-                                    <label class="form-check-label" style="margin-right:1em;">Linha Comum</label>
+                                    <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" value="0">
+                                    <label class="form-check-label">Linha Comum</label>
                                         
                                         
-                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha_op2" value="">
-                                    <label class="form-check-label"">Linha Direta</label>
+                                    <input class="form-check form-check-inline" style="margin-left:1em;" type="checkbox" name="tipoLinha_op2" value="1">
+                                    <label class="form-check-label">Linha Direta</label>
                                     
                             </div>
                             <div class="col-sm-4">                                
@@ -100,9 +106,22 @@
                     </div>            
                 </form>    
             </div>
-                
+                            
+             @if ($status)
+        <div class="alert alert-success" style="margin:10px;"> {{ $status}} </div>
+     @endif
+     @if (count($errors) > 0)
+        <div class="alert alert-danger" style="margin:10px;">
+            <ul>
+                @foreach ($errors as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
             <!-- Tabela de resultados de consulta -->
-            <div class="card card-default">
+            <div class="card card-default">            
                 <div class="card-body">
                     <table class="table">
                         <thead>

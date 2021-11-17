@@ -17,40 +17,32 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
-
-    
-        
-    if (Auth::guard($guard)->check()) 
-    {                       
-            
-        if(Auth::guard('cliente')->user()) 
-        {
-            return redirect(route('inicio'));
-        }
-
-        else
-        {
-
-            if(Auth::guard('funcionario')->user()->is_admin == 1) 
+    {    
+        if (Auth::guard($guard)->check()) 
+        {                       
+                
+            if(Auth::guard('cliente')->user()) 
             {
-                return redirect(route('inicial_adm'));
-            }      
-            
-            if(Auth::guard('funcionario')->user()->is_admin == 0) 
-            {
-                return redirect(route('inicial_func'));
+                return redirect(route('inicio'));
             }
-            
-              
-        }
     
-    if (Auth::guard($guard)->check() && Auth::guard('funcionario')->user()->is_admin == 1) {                                              
-            return redirect(route('inicial_adm'));
-        //{{ Auth(auth()->guard()->getName)->user()->nome }}
+            else
+            {
+    
+                if(Auth::guard('funcionario')->user()->is_admin == 1) 
+                {                    
+                    return redirect(route('inicial_adm'));
+                }      
+                
+                if(Auth::guard('funcionario')->user()->is_admin == 0) 
+                {
+                    return redirect(route('inicial_func'));
+                }
+                
+                  
+            }    
+    
         }
-
-    }
 
         
         return $next($request);

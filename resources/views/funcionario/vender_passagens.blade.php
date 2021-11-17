@@ -13,12 +13,16 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
 
     
     <script>
+        
         $(document).ready(function() {
+      
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
-        $('.tabela').DataTable({"info":     false,
+        $('.tabela').DataTable({select:{selector:'#btnSel'}, info:false,
         language: 
         {
             oPaginate: 
@@ -27,8 +31,12 @@
                 sPrevious: '<i class="fas fa-angle-double-left"></i>'
             }
         }   
-             });
+        });
+
+        
     } )
+
+
 
         
         //Mascara do CPF
@@ -47,10 +55,80 @@
                 if (v.length == 11) i.value += "-";
             }
         }
+
+        var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
+        var alterouValorPago = false; //Verifica se o input valorPago foi alterado, dessa forma 
+        //a mensagem de valor insuficiente só é apresentada caso esse variável for true;
+        var selecionado = false;
+
+        function finalizar()
+        {
+
+        }
+
+        //É chamada sempre que o input de valor pago ou descontos é alterado
+        function alteracaoInput(alterou)
+        {
+            if(alterou)
+                alterouValorPago = true;
+            preco(ultimoPreco);
+            alterouValorPago = false;
+        }
+
+        //Atualiza os precos do card total
+
+        function preco(preco)
+        {
+            var valorPago = document.getElementById('pagoInput').value;
+            var valorDesconto = document.getElementById('descontosInput').value;
+            var valorTroco = 0;
+
+            //Subtotal
+            var subtotal = document.getElementById('subtotal');
+            subtotal.innerHTML = 'R$ ' + preco;
+
+            //Descontos
+            var desconto = document.getElementById('descontos');
+            desconto.innerHTML = 'R$ ' + valorDesconto;
+
+            //Troco
+            var precoComDesconto = preco - valorDesconto;
+            
+            if(valorPago == precoComDesconto) 
+            {
+                valorTroco = 0;
+                troco.innerHTML = 'R$ ' + valorTroco;
+                alert("Não há troco!");
+            }
+
+            else if(valorPago > precoComDesconto) 
+            {
+                valorTroco = valorPago - precoComDesconto;
+                troco = document.getElementById('troco');
+                troco.innerHTML = "R$ " + valorTroco;
+            }
+
+            else if(alterouValorPago)
+            {
+                troco.innerHTML = "VALOR INSUFICIENTE"
+                alert("Valor pago é insuficiente!!!");
+            }
+            
+
+            //Total
+            total = document.getElementById('total');
+            total.innerHTML = 'R$ ' + precoComDesconto;
+
+        
+
+            ultimoPreco = preco; 
+        }
+
+
+        
     </script>
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
-
     <div class="container principal">
         <div class="row">
             <div class="col-md-6">
@@ -131,16 +209,16 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput">
+                                <input type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(true)">
                               </div>
                         </div>
                         <div class="col">
                             <label class="textoPreto" for="descontosInput">Descontos:</label>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="inputGroup-sizing-sm">%</span>
+                                  <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput">
+                                <input type="number" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(false)">
                               </div>
 
                         </div>
@@ -152,7 +230,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card cardPassagens">
-                    <table class="table tabela" style="text-align: center">
+                    <table class="table table-hover tabela" style="text-align: center">
                         <thead>
                           <tr>
                             <th scope="col">Código</th>
@@ -179,10 +257,7 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                @php
-                                    $subtotal = 0;
-                                @endphp
-                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco()">Selecionar</button></td>
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
@@ -193,27 +268,27 @@
                 <br><h5 class="titulos">Total</h5>
                 <div class="card cardTotal">
                     <div class="row">
-                        <div class="col colTotalEsquerda">Subtotal:</div>
-                        <div class="col colTotalDireita">R$ {{$subtotal}}</div>
+                        <div class="col colTotalEsquerda"> Subtotal:</div>
+                        <div class="col colTotalDireita" id="subtotal" name="subtotal"> R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Descontos:</div>
-                        <div class="col colTotalDireita">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="descontos" name="descontos">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Troco:</div>
-                        <div class="col colTotalDireita">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="troco" name="troco">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Total a pagar:</div>
-                        <div class="col colTotalDireita">R$ 53,50</div>
+                        <div class="col colTotalDireita" id="total" name="total">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col colBtnAmarelo"><button type="button" class="botao botaoAmarelo" id="btnFinal" ><span><i class="fas fa-check-circle"></i></span>  Finalizar</button></div>
+                        <div class="col colBtnAmarelo"><button type="button" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button></div>
                         <div class="col colBtnVermelho"> <a href="/venderPassagens"><button type="button" class="botao botaoAmarelo botaoVermelho" id="btnCancel"><span><i class="fas fa-times-circle"></i></span> Cancelar</button></a></div>
                     </div>
                 </div>

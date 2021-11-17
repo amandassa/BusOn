@@ -3,17 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Trecho extends Model {
 
     // atributos
     protected $table = 'trecho';
-    protected $primaryKey = 'codigo';
-    protected string $cidade_origem;
-    protected string $cidade_destino;
-    protected int $codigo;
-    protected float $preco;
-    
     protected $fillable = [
         'cidade_partida', 
         'cidade_chegada', 
@@ -23,28 +18,34 @@ class Trecho extends Model {
     ];
 
     // método de acesso ao atributo cidade_origem
-    public function getCidade_origem() {
-        return $this->cidade_origem;
+    public static function getCidade_partida($coluna, $param) {
+        $query = "SELECT cidade_partida FROM trecho WHERE ".$coluna." LIKE :cod";
+        $cidade_partida = DB::select($query, ['cod' => $param]);
+        if ($cidade_partida){
+            return $cidade_partida;
+        } else {
+            return null;
+        }
     }
 
-    // método de alteração do atributo cidade_origem
-    public function setCidade_origem(string $nova_cidade_origem) {
-        $this->cidade_origem = $nova_cidade_origem;
+    public static function getCidade_chegada ($coluna, $param) {
+        $query = "SELECT cidade_chegada FROM trecho WHERE ".$coluna." LIKE :cod";
+        $cidade_chegada = DB::select($query, ['cod' => $param]);
+        if ($cidade_chegada) {
+            return $cidade_chegada;
+        } else {
+            return null;
+        }
     }
 
-    // método de acesso ao atributo cidade_destino
-    public function getCidade_destino() {
-        return $this->cidade_destino;
-    }
-
-    // método de alteração do atributo cidade_destino
-    public function setCidade_destino(string $nova_cidade_destino) {
-        $this->cidade_destino = $nova_cidade_destino;
-    }
-
-    // método de acesso ao atributo codigo
-    public function getCodigo() {
-        return $this->codigo;
+    // método de acesso ao codigo
+    public static function getCodigo($coluna, $parametro) {
+        $query = "SELECT codigo FROM trecho WHERE ".$coluna." LIKE :cp";
+        $codigo = DB::select($query, ['cp' => $parametro]);
+        if($codigo)
+            return $codigo;
+        else
+            return null;
     }
 
     // método de alteração do atributo codigo

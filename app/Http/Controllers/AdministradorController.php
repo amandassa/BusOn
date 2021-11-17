@@ -9,13 +9,36 @@ use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Models\Administrador as Adm;
 use Dotenv\Regex\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Funcionario;
 
 class AdministradorController extends Controller
 {
 
-    public function criarFuncionario(Request $request)
+    public function criarFuncionario(Request $data)
     {
-        Adm::criarFuncionario($request->all());
+        $cpf = str_replace(".", "", $data->cpf);
+        $cpf = str_replace("-", "", $cpf);
+        $nome = $data->nome;
+        $email = $data->email;
+        $is_admin = null;
+        if (isset($_POST['is_admin'])) {
+            $is_admin = '1';
+        } else {
+            $is_admin = '0';
+        }
+        $senha = Hash::make($data->senha);        
+        DB::statement('insert into funcionario(nome, CPF, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
+        $funcionario = new Funcionario;
+        $data = [
+                 'nome' => $nome,
+                 'email' => $email,
+                 'CPF'  => $cpf,
+                 'password' => $senha,
+                 'is_admin' => $is_admin
+                 ];
+        $funcionario->fill($data);
         
         return redirect()->route('cadastroFuncionario')
             ->with('status', 'Funcionário Cadastrado com Sucesso!');
