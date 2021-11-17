@@ -29,6 +29,7 @@ CREATE TABLE linha (
     codigo int AUTO_INCREMENT,
     direta BOOLEAN NOT NULL,
     total_vagas int,
+    dias_semana VARCHAR(14) NOT NULL,
     CONSTRAINT pk_codigo_linha PRIMARY KEY (codigo)
 );
 
@@ -36,8 +37,7 @@ CREATE TABLE trechos_linha (
     codigo int AUTO_INCREMENT,
     codigo_linha int,
     codigo_trecho int,
-    partida DATETIME NOT NULL,
-    dia_semana VARCHAR(14) NOT NULL,
+    partida DATETIME NOT NULL,    
     ordem int NOT NULL,
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)

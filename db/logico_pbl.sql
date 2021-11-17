@@ -32,6 +32,7 @@ CREATE TABLE linha (
     codigo int,
     direta BOOLEAN,
     total_vagas int,
+    dia_semana VARCHAR(14),
     CONSTRAINT pk_codigo_linha PRIMARY KEY (codigo)
 );
 
@@ -39,8 +40,7 @@ CREATE TABLE trechos_linha (
     codigo int,
     codigo_linha int,
     codigo_trecho int,
-    partida DATETIME,
-    dia_semana VARCHAR(14),
+    partida DATETIME,    
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
