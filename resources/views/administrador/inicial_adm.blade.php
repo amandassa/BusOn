@@ -13,6 +13,11 @@
             <span class="material-icons" id="iconBotoesPrincipais">description</span>
             Verificar <br> Logs
         </a>
+
+        <a class="btn botaoAmarelo botaoSelecaoInicial" href="adicionarLinha" role="button">
+                <span class="material-icons" id="iconBotoesPrincipais">add</span>
+                Cadastrar <br> Linha
+            </a>
 @endsection
 
 

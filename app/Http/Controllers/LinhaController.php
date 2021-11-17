@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
 use App\Models\Trecho;
 use App\Models\TrechosLinha;
@@ -216,16 +217,53 @@ class LinhaController extends Controller
         
     }
 
-     /**
+    /**
      * Busca a linha mais vendida
-     *
-     * @return \Illuminate\Http\Response
      */
     public function linha_mais_vendida ()
     {
-        $linha = DB::select("SELECT min() FROM venda");
+        //busca a linha mais vendida no banco de dados
+        $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT max(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
+        $linha_mais_vendida = $this->buscar_linha($linha[0]->codigo_linha);
+        
+        return view('funcionario.inicial_func')->with(['linha_mais_vendida_partida'=> $linha_mais_vendida[0], 'linha_mais_vendida_chegada'=> $linha_mais_vendida[1]]);
 
-        return view('funcionario.inicial_func')->with('linha_mais_vendida', $linha);
+    }
+    
+    /**
+     * Busca a linha menos vendida
+     */
+    public function linha_menos_vendida ()
+    {
+        //busca a linha mais vendida no banco de dados
+        $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT min(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
+        $linha_menos_vendida = $this->buscar_linha($linha[0]->codigo_linha);
+
+        return view('funcionario.inicial_func')->with(['linha_menos_vendida_partida'=> $linha_menos_vendida[0], 'linha_menos_vendida_chegada'=> $linha_menos_vendida[1]]);
+
+    }
+
+    /**
+     * Busca o nome da linha pelo codigo
+     */
+    public function buscar_linhaV (Request $request)
+    {  
+        
+    }
+
+
+    /**
+     * Busca o nome da linha pelo codigo
+     */
+    public function buscar_linha ($codigo_linha)
+    {   
+        $codigo_linha = 1;
+        //busca o nome da linha pelo codigo
+        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = 1)");
+        $ordem = DB::select("SELECT max(ordem) as ordem from trechos_linha where codigo_linha = 1");
+        $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = :ordem)", ['ordem' => $ordem[0]->ordem]);
+
+        return [$cidade_partida[0]->cidade_partida, $cidade_chegada[0]->cidade_chegada];
 
     }
     
