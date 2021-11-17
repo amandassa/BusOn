@@ -38,6 +38,8 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::any('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
+    
+    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('vende');
 }); 
 
 //Rotas restritas apenas para ADMNISTRADOR
