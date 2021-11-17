@@ -22,7 +22,7 @@
 
             <a class="btn botaoAmarelo botaoSelecaoInicial" href="geraRelat" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
-                Passageiros por <br> Linha
+                Relatório <br> da Linha
             </a>
         
             @yield('campoBotoes')
