@@ -131,7 +131,8 @@ class LinhaController extends Controller
     {
         $linhas = [];
         $errors = [];
-        $status = "";        
+        $status = "";
+        $encontrado = 0;
         $dia = date('w', strtotime($request['data_partida']));
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){
             $cidade_partida = $request['cidade_partida'];
@@ -151,8 +152,7 @@ class LinhaController extends Controller
                             if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
                                 $data = Linha::getData('codigo', $codigo->codigo_linha);                        
                                 $data = explode(";", $data[0]->dias_semana);
-                                if(in_array($dia, $data) == false){
-                                    array_push($errors, "Linha não encontrada");
+                                if(in_array($dia, $data) == false){                                    
                                     break;
                                 }
                                 $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
@@ -167,10 +167,9 @@ class LinhaController extends Controller
                                 ];
                                 array_push($linhas, $linha);
                                 $status =  "Linha encontrada com sucesso";
-                                $errors = array();
-                                break;
+                                $encontrado = 1;
+                                break;                                
                             } else {                                
-                                array_push($errors, "Linha não encontrada");
                                 break;
                             } 
                         }
@@ -199,12 +198,14 @@ class LinhaController extends Controller
                     ];
                     array_push($linhas, $linha);
                     $status =  "Linha encontrada com sucesso";
-                } else {
-                    array_push($errors, "Linha não encontrada");
-                }
-            } else {
-                array_push($errors, "Linha não encontrada");
-            }
+                    $encontrado = 1;
+                } 
+            } 
+        }
+        
+        if($encontrado == 0){
+            array_push($errors, "Linha não encontrada");
+            $encontrado = 1;
         }
         
         $url = explode("/", $_SERVER["REQUEST_URI"]);

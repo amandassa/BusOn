@@ -138,8 +138,8 @@
                         @csrf 
                         <div class="row">
                             <div class="col">
-                                <label class="textoPreto" for="partidaInput">Partida:</label>
-                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('partidaInput') }}">
+                                <label class="textoPreto" for="cidade_partida">Partida:</label>
+                                <input type="text" class="form-control form-control-sm" id="cidade_partida" name='cidade_partida' value="{{ old('cidade_partida') }}">
                             </div>
                             <div class="col">
                                 <label class="textoPreto" for="chegadaInput">Chegada:</label>
@@ -148,7 +148,7 @@
                             
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_input') }}">
+                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}">
                                 
                             </div>
                         </div>
@@ -248,7 +248,8 @@
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
                                 @php
-                                    $preco = number_format($linha['preco'],2,",","."); //Formatação do preço
+                                    $preco = $linha['preco'];
+                                    $preco = number_format($preco ,2,",","."); //Formatação do preço
                                     $preco = round($preco, 2);
                                 @endphp
                                 <td> R$ {{$preco}} </td>
