@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Funcionario as Func;
-use DateTime;
+use \DateTime;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class FuncionarioController extends Controller {
 
@@ -39,20 +40,23 @@ class FuncionarioController extends Controller {
      *
      * @return void
      */
-    public function passagens_vendidas_dia($mat_funcionario)
+    public function passagens_vendidas()
     {
         $mat_funcionario= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado
+        
+        $data = new DateTime(); //Pega a data atual
+        
+        $data_hoje = $data->format('Y-m-d');
+        $data_uma_semana_atras = $data->modify('-7 day')->format('Y-m-d');  //Pega a data 7 dias antes
+        $data_uma_mes_atras = $data->modify('+7 day')->modify('-1 month')->format('Y-m-d'); //Pega a data 30 dias antes
+    
+        $qtd_vendas_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND $data_hoje = (SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
+        $qtd_vendas_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje)"); 
+        $qtd_vendas_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje)"); 
 
-        $data_hoje = new DateTime('d/m/Y'); //Pega a data atual
-        $data_uma_semana_atras = $data_hoje->modify('-7 day');  //Pega a data 7 dias antes
-        $data_uma_mes_atras = $data_hoje->modify('-30 day'); //Pega a data 30 dias antes
-
-        $qtd_vendas_hoje = DB:: select("SELECT count() FROM venda WHERE funcionario = $mat_funcionario AND $data_hoje = (SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo");
-        $qtd_vendas_7dias = DB:: select("SELECT count() FROM venda WHERE funcionario = $mat_funcionario = ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje"); 
-        $qtd_vendas_30dias = DB:: select("SELECT count() FROM venda WHERE funcionario = $mat_funcionario = ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje"); 
-
-
-        return view('funcionario.inicial_func')->with(['qtd_vendas_hoje', $qtd_vendas_hoje], ['qtd_vendas_7dias', $qtd_vendas_7dias], ['qtd_vendas_30dias', $qtd_vendas_30dias]);
+        return view('funcionario.inicial_func')->with(['qtd_vendas_hoje' => $qtd_vendas_hoje[0]->contagem_vendas, 
+                                                        'qtd_vendas_7dias' => $qtd_vendas_7dias[0]->contagem_vendas,
+                                                        'qtd_vendas_30dias' => $qtd_vendas_30dias[0]->contagem_vendas]);
     }
 
   
