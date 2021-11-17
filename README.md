@@ -70,12 +70,12 @@
 **2.1. Tela inicial de funcionário:**
 <i>Com dados dos relatórios</i>
 - [X] Front (Responsável: Ozenilson)
-- [X] Back (Responsável: Ozy)
+- [ ] Back (Responsável: Ozy)
 
 **2.2. Consulta de Linhas:**
 <i>Ttabela contendo todas as linhas/trechos</i>
 - [X] Front (Responsável: Antony)
-- [ ] Back (Responsável: Antony e Amanda) -> ampliar busca
+- [X] Back (Responsável: Antony e Amanda) -> ampliar busca
 
 **2.3. Tela de Venda:**
 - [X] Front
