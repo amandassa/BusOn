@@ -148,14 +148,14 @@
                             
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_input') }}">
+                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_input') }}">
                                 
                             </div>
                         </div>
                         <div class="row rowBotoes">
                             <div class="col-sm">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkBoxLD">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLD" name="tipoLinha_op2" value="1">
                                     <label class="form-check-label" for="checkBoxLD">
                                     Linhas Diretas
                                     </label>
@@ -163,9 +163,9 @@
                             </div>
                             <div class="col-sm">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkBoxLI">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLI" name="tipoLinha_op1" value="0">
                                     <label class="form-check-label" for="checkBoxLI">
-                                    Linhas Indiretas
+                                    Linhas Comuns
                                     </label>
                                 </div>
                             </div>
