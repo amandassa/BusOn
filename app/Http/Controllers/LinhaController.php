@@ -131,7 +131,8 @@ class LinhaController extends Controller
     {
         $linhas = [];
         $errors = [];
-        $status = "";        
+        $status = "";
+        $encontrado = 0;
         $dia = date('w', strtotime($request['data_partida']));
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){
             $cidade_partida = $request['cidade_partida'];
@@ -151,8 +152,7 @@ class LinhaController extends Controller
                             if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
                                 $data = Linha::getData('codigo', $codigo->codigo_linha);                        
                                 $data = explode(";", $data[0]->dias_semana);
-                                if(in_array($dia, $data) == false){
-                                    array_push($errors, "Linha não encontrada");
+                                if(in_array($dia, $data) == false){                                    
                                     break;
                                 }
                                 $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
@@ -167,10 +167,9 @@ class LinhaController extends Controller
                                 ];
                                 array_push($linhas, $linha);
                                 $status =  "Linha encontrada com sucesso";
-                                $errors = array();
-                                break;
+                                $encontrado = 1;
+                                break;                                
                             } else {                                
-                                array_push($errors, "Linha não encontrada");
                                 break;
                             } 
                         }
@@ -199,12 +198,14 @@ class LinhaController extends Controller
                     ];
                     array_push($linhas, $linha);
                     $status =  "Linha encontrada com sucesso";
-                } else {
-                    array_push($errors, "Linha não encontrada");
-                }
-            } else {
-                array_push($errors, "Linha não encontrada");
-            }
+                    $encontrado = 1;
+                } 
+            } 
+        }
+        
+        if($encontrado == 0){
+            array_push($errors, "Linha não encontrada");
+            $encontrado = 1;
         }
         
         $url = explode("/", $_SERVER["REQUEST_URI"]);
@@ -215,56 +216,5 @@ class LinhaController extends Controller
         else
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
-    }
-
-    /**
-     * Busca a linha mais vendida
-     */
-    public function linha_mais_vendida ()
-    {
-        //busca a linha mais vendida no banco de dados
-        $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT max(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
-        $linha_mais_vendida = $this->buscar_linha($linha[0]->codigo_linha);
-        
-        return view('funcionario.inicial_func')->with(['linha_mais_vendida_partida'=> $linha_mais_vendida[0], 'linha_mais_vendida_chegada'=> $linha_mais_vendida[1]]);
-
-    }
-    
-    /**
-     * Busca a linha menos vendida
-     */
-    public function linha_menos_vendida ()
-    {
-        //busca a linha mais vendida no banco de dados
-        $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT min(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
-        $linha_menos_vendida = $this->buscar_linha($linha[0]->codigo_linha);
-
-        return view('funcionario.inicial_func')->with(['linha_menos_vendida_partida'=> $linha_menos_vendida[0], 'linha_menos_vendida_chegada'=> $linha_menos_vendida[1]]);
-
-    }
-
-    /**
-     * Busca o nome da linha pelo codigo
-     */
-    public function buscar_linhaV (Request $request)
-    {  
-        
-    }
-
-
-    /**
-     * Busca o nome da linha pelo codigo
-     */
-    public function buscar_linha ($codigo_linha)
-    {   
-        $codigo_linha = 1;
-        //busca o nome da linha pelo codigo
-        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = 1)");
-        $ordem = DB::select("SELECT max(ordem) as ordem from trechos_linha where codigo_linha = 1");
-        $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = :ordem)", ['ordem' => $ordem[0]->ordem]);
-
-        return [$cidade_partida[0]->cidade_partida, $cidade_chegada[0]->cidade_chegada];
-
-    }
-    
+    }    
 }

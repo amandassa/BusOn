@@ -57,7 +57,7 @@
 
             <div class="quadro"> <!--Passagens vendidas no mes-->
                 <div class="card-body">
-                    <p class="textoNumeroAmarelo"><b> </b></p>
+                    <p class="textoNumeroAmarelo"><b></b></p>
                     <p><b>Passagens vendidas por você nos últimos 30 dias</b></p>
                 </div>
             </div>
@@ -66,21 +66,21 @@
         <div class="row text-center"> <!-- Linha 2 -->
             <div class="quadro"> <!--Linha mais vendida-->
                 <div class="card-body">
-                <p class="textoCidade"><b> </b></p>
+                <p class="textoCidade"><b></b></p>
                     <p><b>É a linha mais vendida</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Passagens vendidas na semana-->
                 <div class="card-body">
-                    <p class="textoNumeroAmarelo"><b> </b></p>
+                    <p class="textoNumeroAmarelo"><b></b></p>
                     <p><b>Passagens vendidas por você nos últimos 7 dias</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Linha menos vendida-->
                 <div class="card-body">
-                    <p class="textoCidade"><b> </b></p>
+                    <p class="textoCidade"><b></b></p>
                     <p><b>É a linha menos vendida</b></p>
                 </div>
             </div>
