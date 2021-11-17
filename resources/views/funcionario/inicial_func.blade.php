@@ -22,7 +22,7 @@
 
             <a class="btn botaoAmarelo botaoSelecaoInicial" href="geraRelat" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
-                Gerar <br> Relatório
+                Passageiros por <br> Linha
             </a>
         
             @yield('campoBotoes')
@@ -36,28 +36,28 @@
         <div class="row text-center"> <!-- Linha 1 -->
             <div class="quadro"> <!--Passagens vendidas no dia-->
                 <div class="card-body">
-                    <p class="textoNumeroAmarelo"><b></b></p>
+                    <p class="textoNumeroAmarelo"><b>{{--$dados['qtd_vendas_hoje']--}}</b></p>
                     <p><b>Passagens vendidas por você hoje</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <div class="form caixaPesquisa" method="get">
+                    <div class="form caixaPesquisa" method="post">
                         @csrf
-                        <input type="number" class="caixaTexto" id="buscarLinha" placeholder="Pesquisar linha pelo código">
+                        <input type="number" class="caixaTexto" id="buscarLinhaInicial" placeholder="Pesquisar linha pelo código">
                         <a href="#">
                             <span class="material-icons" id="iconPesquisa">search</span>
                         </a>
                     </div>
-                    <p class="textoNumeroAzul"><b> </b></p>
-                    <p><b>Passagens vendidas para Jaguaquara X Feira de Santana</b></p>
+                    <p class="textoNumeroAzul"><b>{{--$dados['total_vendas']--}}</b></p>
+                    <p><b>Passagens vendidas para {{--$dados['cidade_partida']}} x {{$dados['cidade_chegada']--}}</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Passagens vendidas no mes-->
                 <div class="card-body">
-                    <p class="textoNumeroAmarelo"><b></b></p>
+                    <p class="textoNumeroAmarelo"><b>{{--$dados['qtd_vendas_30dias']--}}</b></p>
                     <p><b>Passagens vendidas por você nos últimos 30 dias</b></p>
                 </div>
             </div>
@@ -66,22 +66,22 @@
         <div class="row text-center"> <!-- Linha 2 -->
             <div class="quadro"> <!--Linha mais vendida-->
                 <div class="card-body">
-                <p class="textoCidade"><b></b></p>
-                    <p><b>É a linha mais vendida</b></p>
+                <p class="textoCidade"><b>{{--$dados['linha_mais_vendida_partida']--}} <br> {{--$dados['linha_mais_vendida_chegada']--}}</b></p>
+                    <p><b>É a linha mais vendida com o total de {{$dados['total_mais_vendida']}} passagens</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Passagens vendidas na semana-->
                 <div class="card-body">
-                    <p class="textoNumeroAmarelo"><b></b></p>
+                    <p class="textoNumeroAmarelo"><b>{{--$dados['qtd_vendas_7dias']--}}</b></p>
                     <p><b>Passagens vendidas por você nos últimos 7 dias</b></p>
                 </div>
             </div>
 
             <div class="quadro"> <!--Linha menos vendida-->
                 <div class="card-body">
-                    <p class="textoCidade"><b></b></p>
-                    <p><b>É a linha menos vendida</b></p>
+                    <p class="textoCidade"><b>{{--$dados['linha_menos_vendida_partida']--}} <br> {{--$dados['linha_menos_vendida_chegada']--}}</b></p>
+                    <p><b>É a linha menos vendida com o total de {{$dados['total_menos_vendida']}} passagens</b></p>
                 </div>
             </div>
         </div>

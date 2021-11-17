@@ -24,7 +24,7 @@ Route::middleware(['auth:cliente'])->group(function () {
 
 //Rotas restritas apenas para FUNCIONARIOS 
 Route::middleware(['auth:funcionario'])->group(function () {
-    Route::get('/inicialFuncionario', function(){return view('funcionario.inicial_func');})->name('inicial_func');
+    Route::get('/inicialFuncionario', 'FuncionarioController@estatisticas')->name('inicial_func');
     Route::get('/perfilFuncionario', function(){return view('funcionario.perfil');})->name('perfilFuncionario');
     Route::get('/editarAgenda', function(){return view('funcionario.editarAgenda');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');

@@ -47,7 +47,7 @@ class Linha extends Model {
         }
         $linha_mais_vendida = Li::buscar_linha($linha[0]->codigo_linha);
         
-        return ['linha_mais_vendida_partida'=> $linha_mais_vendida['cidade_partida'], 'linha_mais_vendida_chegada'=> $linha_mais_vendida['cidade_chegada']];
+        return ['total_mais_vendida'=> $linha_mais_vendida['total'],'linha_mais_vendida_partida'=> $linha_mais_vendida['cidade_partida'], 'linha_mais_vendida_chegada'=> $linha_mais_vendida['cidade_chegada']];
 
     }
     
@@ -64,7 +64,7 @@ class Linha extends Model {
         }
         $linha_menos_vendida = Li::buscar_linha($linha[0]->codigo_linha);
 
-        return ['linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
+        return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
 
     }
 
@@ -76,12 +76,12 @@ class Linha extends Model {
     { 
         //busca o nome da linha pelo codigo
         $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = 1)");
-        $ordem = DB::select("SELECT max(ordem) as ordem from trechos_linha where codigo_linha = 1");
+        $ordem = DB::select("SELECT max(ordem) as ordem from trechos_linha where codigo_linha =  $codigo_linha");
         $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = :ordem)", ['ordem' => $ordem[0]->ordem]);
         $total_passagens = DB::select("SELECT count(*) as total FROM passagem WHERE codigo_linha = $codigo_linha");
 
         //checa se todas as listas tem algum valor
-        if(empty($total_passagens) || empty( $cidade_chegada) || empty($cidade_partida)) {
+        if(empty($total_passagens) or empty( $cidade_chegada) or empty($cidade_partida)) {
             return ['total' => 0, 'cidade_partida' => '', 'cidade_chegada' => ''];
         }
 

@@ -43,30 +43,39 @@ class FuncionarioController extends Controller {
     public function estatisticas (Request $request)
     {
 
-        $mat_funcionario= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado
-        
-        $passagens_vendidas = Func::passagens_vendidas($mat_funcionario);
-        $linha_mais_vendida = Linha::linha_mais_vendida();
+        $mat_funcionario= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
+        $passagens_vendidas = Func::passagens_vendidas($mat_funcionario); 
         $linha_menos_vendida = Linha::linha_menos_vendida();
-        //dd($request['buscarLinha']);
-        //$linha_por_codigo =  Linha::buscar_linha ($request['buscarLinha']);
+        $linha_mais_vendida = Linha::linha_mais_vendida();
+        
+        if($request['buscarLinha'] == null){
+            $cod_busca = 2;
+        }else{
+            $cod_busca = $request['buscarLinha'];
+        }
+        $linha_por_codigo =  Linha::buscar_linha ($cod_busca);
 
+        //dd($linha_por_codigo);
 
-        return view('funcionario.inicial_func')->with(['qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
-                                                        'qtd_vendas_7dias' => $passagens_vendidas['qtd_vendas_7dias'], 
-                                                        'qtd_vendas_30dias' => $passagens_vendidas['qtd_vendas_30dias'],
+        $dados = [
+            'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
+            'qtd_vendas_7dias' => $passagens_vendidas['qtd_vendas_7dias'], 
+            'qtd_vendas_30dias' => $passagens_vendidas['qtd_vendas_30dias'],
 
-                                                        'linha_mais_vendida_partida' => $linha_mais_vendida['linha_mais_vendida_partida'],
-                                                        'linha_mais_vendida_chegada' => $linha_mais_vendida['linha_mais_vendida_chegada'],
+            'total_mais_vendida' => $linha_mais_vendida['total_mais_vendida'],
+            'linha_mais_vendida_partida' => $linha_mais_vendida['linha_mais_vendida_partida'],
+            'linha_mais_vendida_chegada' => $linha_mais_vendida['linha_mais_vendida_chegada'],
 
-                                                        'linha_menos_vendida_partida' => $linha_menos_vendida['linha_menos_vendida_partida'],
-                                                        'linha_menos_vendida_chegada' => $linha_menos_vendida['linha_menos_vendida_chegada'],
+            'total_menos_vendida' => $linha_menos_vendida['total_menos_vendida'],
+            'linha_menos_vendida_partida' => $linha_menos_vendida['linha_menos_vendida_partida'],
+            'linha_menos_vendida_chegada' => $linha_menos_vendida['linha_menos_vendida_chegada'],
 
-                                                        /*'total_vendas' => $linha_por_codigo['total'],
-                                                        'cidade_partida' => $linha_por_codigo['cidade_partida'],
-                                                        'cidade_chegada'=> $linha_por_codigo['cidade_chegada']*/
-                                                    
-                                                    ]);
+            'total_vendas' => $linha_por_codigo['total'],
+            'cidade_partida' => $linha_por_codigo['cidade_partida'],
+            'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
+
+        ];
+        return view('funcionario.inicial_func')->with('dados', $dados);
 
     }
 
