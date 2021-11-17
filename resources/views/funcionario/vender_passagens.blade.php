@@ -248,7 +248,8 @@
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
                                 @php
-                                    $preco = number_format($linha['preco'],2,",","."); //Formatação do preço
+                                    $preco = $linha['preco'];
+                                    $preco = number_format($preco ,2,",","."); //Formatação do preço
                                     $preco = round($preco, 2);
                                 @endphp
                                 <td> R$ {{$preco}} </td>
