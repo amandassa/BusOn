@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Requests\StoreAddTrechoRequest;
 use App\Models\Funcionario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Database\QueryException;
 // Use DB, use Request
 
@@ -20,7 +22,7 @@ class Administrador extends Model
      * Criar novo funcionário.
      */
     
-    public static function criarFuncionario($request){
+    public static function criarFuncionario(StoreCadastroFuncionarioRequest $request){
         $nome = $request['nome'];
         $email = $request['email'];
         $cpf = str_replace(".", "", $request['cpf']);
@@ -43,8 +45,8 @@ class Administrador extends Model
 
         $emaillogado = Auth::guard('funcionario')->user()->email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-        $Cpf =$usuario->CPF;
-        $admCpf = substr($Cpf, 0, 3) . '.' . substr($Cpf, 3, 3) . '.' . substr($Cpf, 6, 3) . '-' . substr($Cpf, 9);
+
+        $admCpf = $usuario->CPF;
         $admNome = $usuario->nome;
         $admEmail = $usuario->email;
         $admMatricula = $usuario->matricula;
@@ -94,8 +96,8 @@ class Administrador extends Model
     public static function perfilFunc($email){ 
         $emaillogado = $email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-        $fCpf = $usuario -> CPF;
-        $funCPf = substr($fCpf, 0, 3) . '.' . substr($fCpf, 3, 3) . '.' . substr($fCpf, 6, 3) . '-' . substr($fCpf, 9);
+
+        $funCPf = $usuario->CPF;
         $funNome = $usuario->nome;
         $funEmail = $usuario->email;
         $funMatricula = $usuario->matricula;
@@ -151,7 +153,11 @@ class Administrador extends Model
             }
         }
         
-}
+    }
+
+    public static function addTrecho(StoreAddTrechoRequest $request){
+        
+    }
 
     
 
