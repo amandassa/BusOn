@@ -16,32 +16,35 @@ use App\Models\Funcionario;
 class AdministradorController extends Controller
 {
 
-    public function criarFuncionario(Request $data)
+    public function criarFuncionario(StoreCadastroFuncionarioRequest $data)
     {
-        $cpf = str_replace(".", "", $data->cpf);
+        Adm::criarFuncionario($request);
+        return redirect()->back()->with('message', 'Funcionário Cadastrado com Sucesso!');
+        /*
+        $cpf = str_replace(".", "", $request->cpf);
         $cpf = str_replace("-", "", $cpf);
-        $nome = $data->nome;
-        $email = $data->email;
+        $nome = $request->nome;
+        $email = $request->email;
         $is_admin = null;
         if (isset($_POST['is_admin'])) {
             $is_admin = '1';
         } else {
             $is_admin = '0';
         }
-        $senha = Hash::make($data->senha);        
+        $senha = Hash::make($request->senha);        
         DB::statement('insert into funcionario(nome, CPF, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
         $funcionario = new Funcionario;
-        $data = [
+        $request = [
                  'nome' => $nome,
                  'email' => $email,
                  'CPF'  => $cpf,
                  'password' => $senha,
                  'is_admin' => $is_admin
                  ];
-        $funcionario->fill($data);
+        $funcionario->fill($request);
         
-        return redirect()->route('cadastroFuncionario')
-            ->with('status', 'Funcionário Cadastrado com Sucesso!');
+        
+        */
     }
 
     // validador das informações do formulário da tela de criação do funcionário
