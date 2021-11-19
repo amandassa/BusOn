@@ -160,13 +160,64 @@ class Funcionario extends Authenticatable {
     /*
     Nome: venderPassagem (método)
     Funcionalidade: Vender passagem para um cliente
-    Autor(es): Israel Braitt
+    Autor(es): Israel Braitt, Anderson Lima, Guilherme Nobre
     */
-    public function venderPassagem(AddVendaRequest $request) {
-        $matricula = Auth::guard('funcionario')->user()->matricula;
+    public static function venderPassagem(AddVendaRequest $request) {
+        
+        $cpflogado = (Auth::guard('funcionario')->user()->CPF);
+        $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
+
+        $matricula = $usuario->matricula;
+
         $cpf_cliente = $request['cpf_atual'];
+
+        $cpf_cliente = str_replace(".", "", $cpf_cliente);
+        $cpf_cliente = str_replace("-", "", $cpf_cliente);
+
+        $data_compra = date("y/m/d/H");
+
         $cod_passagem = $request['cod_passagem'];
         $valor = $request['preco_atual'];
+
+        $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_passagem])[0];
+        $max_vagas = $vagas->total_vagas;
+
+        $assentos = DB::select('SELECT num_assento FROM passagem;');
+        $lista_assentos = array();
+
+        for($i = 0; $i < sizeof($assentos); $i++){
+            $lista_assentos[$i] = $assentos[$i]->num_assento;
+        }
+
+        if(sizeof($assentos) >= $max_vagas){
+            return 0;
+        }
+        else{
+            $assento_encontrado = false;
+            $assento = 1;
+            
+            while($assento_encontrado == false){
+                $assento = rand(1, $max_vagas);
+                if(in_array($assento, $lista_assentos)){
+                    $assento_encontrado = true;
+                }
+            }
+
+            
+            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data_compra, num_assento) VALUES (?, ?, ?, ?);', [$cod_passagem, $cpf_cliente, $data_compra,  $assento]);
+            DB::insert('INSERT INTO venda (codigo_passagem, matricula_vendedor, valor) VALUES (?, ?, ?);', [$cod_passagem, $matricula, $valor]);
+            DB::insert('INSERT INTO pagamento (codigo_passagem, realizado, forma_pagamento) VALUES (?, ?, ?);', [$cod_passagem, 1, 1]);
+            
+            $id_pagamento = DB::select('SELECT MAX(codigo) AS id from pagamento')[0];
+            $id_pagamento = $id_pagamento->id;
+
+            DB::insert('INSERT INTO pagamento_dinheiro (dinheiro_recebido, codigo_pagamento) VALUES (?, ?);', [$valor, $id_pagamento]);
+
+            
+            return 1;
+        }
+        
+        
     }
 
     /*
