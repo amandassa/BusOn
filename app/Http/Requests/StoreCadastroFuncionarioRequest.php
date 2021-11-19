@@ -25,7 +25,7 @@ class StoreCadastroFuncionarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'cpf' => ['required', 'size:14', 'unique:funcionario,cpf'],
+            'cpf' => ['required', 'size:11', 'unique:funcionario,cpf'],
             'nome' => ['required'],
             'email' => ['required', 'email', 'unique:funcionario,email'],            
             'senha' => ['required', 'min:6'],
