@@ -93,7 +93,7 @@ class AdministradorController extends Controller
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem');
+                        ->with('error', 'As senhas não coincidems');
         }
         
     }
