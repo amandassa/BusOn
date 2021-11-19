@@ -25,10 +25,11 @@ class StoreCadastroFuncionarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => ['required' , new FullName],
-            'email' => 'required|email|unique:email',            
-            'senha' => ['required', 'min:8'],
-            'confirmacaoSenha' => 'required|same:senha',
+            'cpf' => ['required', 'size:11', 'unique:funcionario,cpf'],
+            'nome' => ['required'],
+            'email' => ['required', 'email', 'unique:funcionario,email'],            
+            'senha' => ['required', 'min:6'],
+            'confirmacaoSenha' => ['required', 'same:senha']
         ];
     }
 
@@ -36,16 +37,15 @@ class StoreCadastroFuncionarioRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome é obrigatório.',
+            'nome.required' => 'O campo nome é obrigatório.',
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'Digite um e-mail válido.',
             'email.unique' => 'Esse email já foi cadastrado.',
             'cpf.required' => 'O campo cpf é obrigatório.',
             'cpf.cpf' => 'Inclua um cpf válido.',
-            'cpf.unique' => 'Esse cpf já foi cadastrado.',
             'senha.required' => 'O campo senha é obrigatório.',
             'senha.min:8' => 'A senha deve ter no mínimo 8 caracteres.',
-            'confirmacaoSenha.required' => 'O campo cconfirmar senha é obrigatório.',
+            'confirmacaoSenha.required' => 'O campo confirmar senha é obrigatório.',
             'confirmacaoSenha.same' => 'A confirmação da senha não é igual à senha.',
         ];
     }

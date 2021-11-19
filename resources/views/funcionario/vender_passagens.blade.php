@@ -77,6 +77,17 @@
 
         //Atualiza os precos do card total
 
+        function atualizar_cpf(){
+            cpf_atual = document.getElementById("cpf_atual");
+            cpf_atual.value = document.getElementById("cpfInput").value;
+        }
+
+        function atualizar_cod(linha){
+            nu_cod = linha['codigo'];
+            cod_passagem = document.getElementById("cod_atual");
+            cod_passagem.value = nu_cod.toString();
+        }
+
         function preco(preco)
         {
             var valorPago = document.getElementById('pagoInput').value;
@@ -114,14 +125,17 @@
                 alert("Valor pago é insuficiente!!!");
             }
             
-
+            ultimoPreco = preco; 
+            preco_atual = document.getElementById("preco_atual");
+            preco_atual.value = ultimoPreco;
+            
             //Total
             total = document.getElementById('total');
             total.innerHTML = 'R$ ' + precoComDesconto;
 
         
 
-            ultimoPreco = preco; 
+            
         }
 
 
@@ -138,8 +152,8 @@
                         @csrf 
                         <div class="row">
                             <div class="col">
-                                <label class="textoPreto" for="cidade_partida">Partida:</label>
-                                <input type="text" class="form-control form-control-sm" id="cidade_partida" name='cidade_partida' value="{{ old('cidade_partida') }}">
+                                <label class="textoPreto" for="partidaInput">Partida:</label>
+                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('partidaInput') }}">
                             </div>
                             <div class="col">
                                 <label class="textoPreto" for="chegadaInput">Chegada:</label>
@@ -148,14 +162,14 @@
                             
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}">
+                                <input type="date" class="form-control form-control-sm" id="dataInput" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_input') }}">
                                 
                             </div>
                         </div>
                         <div class="row rowBotoes">
                             <div class="col-sm">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkBoxLD" name="tipoLinha_op2" value="1">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLD">
                                     <label class="form-check-label" for="checkBoxLD">
                                     Linhas Diretas
                                     </label>
@@ -163,9 +177,9 @@
                             </div>
                             <div class="col-sm">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkBoxLI" name="tipoLinha_op1" value="0">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLI">
                                     <label class="form-check-label" for="checkBoxLI">
-                                    Linhas Comuns
+                                    Linhas Indiretas
                                     </label>
                                 </div>
                             </div>
@@ -188,7 +202,7 @@
                         </div>
                         <div class="col">
                             <label class="textoPreto" for="cpfInput">Documento:</label>
-                            <input oninput="mascara(this, 'cpf')" id="cpfInput" type="text" class="form-control form-control-sm" autocomplete="on" name="customer['cpf']">
+                            <input oninput="mascara(this, 'cpf')" id="cpfInput" type="text" onchange="atualizar_cpf();" class="form-control form-control-sm" autocomplete="on" name="customer['cpf']">
                         </div>
                     </div>
                     <div class="row rowPagamento">
@@ -209,7 +223,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(true)">
+                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(true)">
                               </div>
                         </div>
                         <div class="col">
@@ -248,8 +262,9 @@
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
                                 @php
-                                    $preco = number_format($linha['preco'],2,",","."); //Formatação do preço
+                                    $preco = $linha['preco'];
                                     $preco = round($preco, 2);
+                                    
                                 @endphp
                                 <td> R$ {{$preco}} </td>
                                 @if ($linha['tipo'] == 1 )
@@ -257,7 +272,7 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();">Selecionar</button></td>
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();atualizar_cod({{json_encode($linha)}});">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
@@ -288,7 +303,16 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col colBtnAmarelo"><button type="button" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button></div>
+                        <div class="col colBtnAmarelo">
+                            <form method="POST" action="{{ route('vende') }}">
+                                @csrf
+                                <input id="cod_atual" name="cod_passagem" type="hidden"></input>
+                                <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
+                                <input id="preco_atual" name="preco_atual" type="hidden"></input>
+
+                                <button name="finalize" type="submit" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button>
+                            </form>
+                        </div>
                         <div class="col colBtnVermelho"> <a href="/venderPassagens"><button type="button" class="botao botaoAmarelo botaoVermelho" id="btnCancel"><span><i class="fas fa-times-circle"></i></span> Cancelar</button></a></div>
                     </div>
                 </div>

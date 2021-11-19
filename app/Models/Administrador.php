@@ -34,7 +34,7 @@ class Administrador extends Model
         }
         $confirmarSenha = $request['confirmacaoSenha'];
         if ($senha == $confirmarSenha) {
-            DB::insert('insert into funcionario (nome, email, cpf, senha, is_admin) values (?, ?, ?, ?, ?)',
+            DB::insert('insert into funcionario (nome, email, cpf, password, is_admin) values (?, ?, ?, ?, ?)',
             [$nome, $email, $cpf, Hash::make($senha), $is_admin]);
         }
     }

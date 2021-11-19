@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Http\Requests\AddVendaRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -161,8 +162,11 @@ class Funcionario extends Authenticatable {
     Funcionalidade: Vender passagem para um cliente
     Autor(es): Israel Braitt
     */
-    public function venderPassagem() {
-
+    public function venderPassagem(AddVendaRequest $request) {
+        $matricula = Auth::guard('funcionario')->user()->matricula;
+        $cpf_cliente = $request['cpf_atual'];
+        $cod_passagem = $request['cod_passagem'];
+        $valor = $request['preco_atual'];
     }
 
     /*
