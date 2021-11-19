@@ -87,7 +87,7 @@
                 @foreach ($funcionarios as $funcionario)
                   <th scope="row"> {{ $funcionario->matricula }} </th>
                   <td> {{ $funcionario->nome }} </td>
-                  <td> {{ $funcionario->CPF }}</td>
+                  <td> {{substr($funcionario->CPF, 0, 3) . '.' . substr($funcionario->CPF , 3, 3) . '.' . substr($funcionario->CPF , 6, 3) . '-' . substr($funcionario->CPF , 9)}}</td>
                   <td> {{ $funcionario->email }} </td>
                   <td>
                     @if($funcionario->is_admin)

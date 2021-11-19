@@ -43,8 +43,8 @@ class Administrador extends Model
 
         $emaillogado = Auth::guard('funcionario')->user()->email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-
-        $admCpf = $usuario->CPF;
+        $Cpf =$usuario->CPF;
+        $admCpf = substr($Cpf, 0, 3) . '.' . substr($Cpf, 3, 3) . '.' . substr($Cpf, 6, 3) . '-' . substr($Cpf, 9);
         $admNome = $usuario->nome;
         $admEmail = $usuario->email;
         $admMatricula = $usuario->matricula;
@@ -94,8 +94,8 @@ class Administrador extends Model
     public static function perfilFunc($email){ 
         $emaillogado = $email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-
-        $funCPf = $usuario->CPF;
+        $fCpf = $usuario -> CPF;
+        $funCPf = substr($fCpf, 0, 3) . '.' . substr($fCpf, 3, 3) . '.' . substr($fCpf, 6, 3) . '-' . substr($fCpf, 9);
         $funNome = $usuario->nome;
         $funEmail = $usuario->email;
         $funMatricula = $usuario->matricula;

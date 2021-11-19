@@ -48,9 +48,8 @@ class Funcionario extends Authenticatable {
     public static function index(){ 
         $cpflogado = Auth::guard('funcionario')->user()->CPF;
         $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
-
-
-        $funCpf = $usuario->CPF;
+        $fCpf = $usuario -> CPF;
+        $funCpf = substr($fCpf, 0, 3) . '.' . substr($fCpf, 3, 3) . '.' . substr($fCpf, 6, 3) . '-' . substr($fCpf, 9);
         $funNome = $usuario->nome;
         $funEmail = $usuario->email;
         $funMatricula = $usuario->matricula;
