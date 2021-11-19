@@ -37,7 +37,7 @@ class StoreCadastroFuncionarioRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome é obrigatório.',
+            'nome.required' => 'O campo nome é obrigatório.',
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'Digite um e-mail válido.',
             'email.unique' => 'Esse email já foi cadastrado.',
