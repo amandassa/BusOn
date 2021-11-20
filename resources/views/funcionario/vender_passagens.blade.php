@@ -78,8 +78,14 @@
         //Atualiza os precos do card total
 
         function atualizar_cpf(){
-            cpf_atual = document.getElementById("cpf_atual")
+            cpf_atual = document.getElementById("cpf_atual");
             cpf_atual.value = document.getElementById("cpfInput").value;
+        }
+
+        function atualizar_cod(linha){
+            nu_cod = linha['codigo'];
+            cod_passagem = document.getElementById("cod_atual");
+            cod_passagem.value = nu_cod.toString();
         }
 
         function preco(preco)
@@ -138,6 +144,21 @@
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
     <div class="container principal">
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if(session('message'))
+            <div class="alert alert-success">{{session('message')}}</div>
+        @endif    
+
         <div class="row">
             <div class="col-md-6">
                 <h5 class="titulos">Consulta de Linhas</h5>
@@ -266,7 +287,7 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();cod_passagem.value=$linha['codigo'];">Selecionar</button></td>
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();atualizar_cod({{json_encode($linha)}});">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
@@ -300,8 +321,7 @@
                         <div class="col colBtnAmarelo">
                             <form method="POST" action="{{ route('vende') }}">
                                 @csrf
-                                <input name="cod_passagem" type="hidden"></input>
-
+                                <input id="cod_atual" name="cod_passagem" type="hidden"></input>
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
 

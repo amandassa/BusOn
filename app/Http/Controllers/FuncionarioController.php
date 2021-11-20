@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddVendaRequest;
 use App\Models\Funcionario as Func;
 use \DateTime;
 use Illuminate\Support\Facades\Auth;
@@ -68,8 +69,14 @@ class FuncionarioController extends Controller {
                                                         'qtd_vendas_30dias' => $qtd_vendas_30dias[0]->contagem_vendas]);
     }
 
-    public function vender(Request $request){
-        dd($request);
+    public function vender(AddVendaRequest $request){
+        $result = Func::venderPassagem($request);
+        if($result == 0){
+            return redirect()->back()->with('error', 'Sem vagas.');
+        }else{
+            return redirect()->back()->with('message', 'Venda Feita.');
+        }
+
         //Func::venderPassagem($request);
     }
 

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Requests\StoreAddTrechoRequest;
 use App\Models\Funcionario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Database\QueryException;
 // Use DB, use Request
 
@@ -20,7 +22,7 @@ class Administrador extends Model
      * Criar novo funcionário.
      */
     
-    public static function criarFuncionario($request){
+    public static function criarFuncionario(StoreCadastroFuncionarioRequest $request){
         $nome = $request['nome'];
         $email = $request['email'];
         $cpf = str_replace(".", "", $request['cpf']);
@@ -34,7 +36,7 @@ class Administrador extends Model
         }
         $confirmarSenha = $request['confirmacaoSenha'];
         if ($senha == $confirmarSenha) {
-            DB::insert('insert into funcionario (nome, email, cpf, senha, is_admin) values (?, ?, ?, ?, ?)',
+            DB::insert('insert into funcionario (nome, email, cpf, password, is_admin) values (?, ?, ?, ?, ?)',
             [$nome, $email, $cpf, Hash::make($senha), $is_admin]);
         }
     }
@@ -151,7 +153,11 @@ class Administrador extends Model
             }
         }
         
-}
+    }
+
+    public static function addTrecho(StoreAddTrechoRequest $request){
+        
+    }
 
     
 
