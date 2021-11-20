@@ -135,7 +135,7 @@ class Administrador extends Model
         }else{
             if($senha == $confirmarSenha){
                 DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
-                [$nome, $email, $senha, $cpf]);
+                [$nome, $email, Hash::make($senha), $cpf]);
                 $usu = [
                     'id' => '2',
                     'email' => $email

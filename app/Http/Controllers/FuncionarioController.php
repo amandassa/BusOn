@@ -8,6 +8,9 @@ use App\Models\Funcionario as Func;
 use \DateTime;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class FuncionarioController extends Controller {
 
@@ -15,6 +18,12 @@ class FuncionarioController extends Controller {
         $funcionario = Func::index();
         return view("funcionario.perfil", ['funcionario'=>$funcionario]);
     }
+
+    public function gerarRelatorioViagem(){
+        $clientes = DB::select("SELECT * FROM cliente;");
+        $clientes_paginados = new Paginator($clientes, 15);        
+        return view('funcionario.gerarRelatorio', ['clientes' => $clientes_paginados]);
+    }    
     
     public function editar(Request $request){
         $funcionario = Func::editar($request);
