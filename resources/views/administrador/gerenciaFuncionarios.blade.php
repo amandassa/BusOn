@@ -98,6 +98,7 @@
                   </td>
                   <td>
                   <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
+                  <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Excluir</a>
                   </td>
                 </tr> 
                 @endforeach
