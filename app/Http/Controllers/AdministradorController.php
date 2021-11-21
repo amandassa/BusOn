@@ -127,7 +127,16 @@ class AdministradorController extends Controller
         Adm::addTrecho($request);
         return redirect()->back()->with('message', 'Trecho Cadastrado.');
     }
-    
-   
+
+    public function estatisticasAdministrador()
+    {
+        [$qtd_vendas_hoje, $qtd_vendas_7dias, $qtd_vendas_30dias] = Adm::passagensVendidas;
+        [$qtd_vendas_total_hoje, $qtd_vendas_total_7dias, $qtd_vendas_total_30dias] = Adm::passagensVendidasTotal;
+
+        return view('funcionario.inicial_func')->with(['qtd_vendas_hoje' => $qtd_vendas_hoje[0]->contagem_vendas, 
+                    'qtd_vendas_7dias' => $qtd_vendas_7dias[0]->contagem_vendas,
+                    'qtd_vendas_30dias' => $qtd_vendas_30dias[0]->contagem_vendas]);
+    }
 
 }
+?>
