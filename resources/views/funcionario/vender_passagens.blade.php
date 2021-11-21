@@ -144,6 +144,21 @@
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
     <div class="container principal">
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if(session('message'))
+            <div class="alert alert-success">{{session('message')}}</div>
+        @endif    
+
         <div class="row">
             <div class="col-md-6">
                 <h5 class="titulos">Consulta de Linhas</h5>

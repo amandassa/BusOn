@@ -16,7 +16,7 @@ use App\Models\Funcionario;
 class AdministradorController extends Controller
 {
 
-    public function criarFuncionario(StoreCadastroFuncionarioRequest $data)
+    public function criarFuncionario(StoreCadastroFuncionarioRequest $request)
     {
         Adm::criarFuncionario($request);
         return redirect()->back()->with('message', 'Funcionário Cadastrado com Sucesso!');
@@ -124,7 +124,8 @@ class AdministradorController extends Controller
     }
 
     public function storeCadastrarTrecho(StoreAddTrechoRequest $request){
-        return redirect('adicionarTrecho')->with('message', 'Trecho Cadastrado.');
+        Adm::addTrecho($request);
+        return redirect()->back()->with('message', 'Trecho Cadastrado.');
     }
     
    

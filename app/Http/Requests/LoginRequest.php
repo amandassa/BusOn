@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddVendaRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class AddVendaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cod_passagem' => ['required', 'min:1'],
-            'cpf_atual' => ['required'],
-            'preco_atual' => ['required', 'min:0.01']
-
+            'origem' => ['required'],
+            'destino' => ['required', 'different:origem'],
+            'preço' => ['required', 'numeric', 'min:0.01'],
+            'duração' => ['required', 'numeric', 'min:1']
         ];
     }
 
@@ -35,9 +35,7 @@ class AddVendaRequest extends FormRequest
     public function messages()
     {
         return [
-            'cod_passagem.required' => 'Escolha uma passagem para vender.',
-            'cpf_atual.required' => 'Preencha as informações do comprador.',
-            'preco_atual.required' => 'Passagem não foi paga devidamente.'
+            
         ];
     }
     

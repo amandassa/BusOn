@@ -31,7 +31,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('perfilFuncionario.index');
     Route::post('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'editar'])->name('perfilFuncionario.editar');
     //Administradores também possem acesso    
-    Route::get('/geraRelat', function(){return view('funcionario.geraRelat');});
+    Route::get('/gerarRelatorio', 'FuncionarioController@gerarRelatorioViagem');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
@@ -40,6 +40,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     
     Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('vende');
+    
 }); 
 
 //Rotas restritas apenas para ADMNISTRADOR
