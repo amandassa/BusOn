@@ -160,7 +160,10 @@ class Administrador extends Funcionario
     }
 
     // passagens vendidas pelo administrador
-    //Func::passagensVendidas();
+    public function passagensVendidas() {
+        Func::passagensVendidas();
+    }
+    
 
      /**
      * Passagens vendidas no sistema
