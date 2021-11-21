@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddVendaRequest;
 use App\Models\Funcionario as Func;
-use \DateTime;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-
+use App\Traits\PaginationTrait;
 
 class FuncionarioController extends Controller {
+    use PaginationTrait;    
 
     public function index(){
         $funcionario = Func::index();
@@ -22,9 +21,20 @@ class FuncionarioController extends Controller {
 
     public function gerarRelatorioViagem(){
         $clientes = DB::select("SELECT * FROM cliente;");
-        $clientes_paginados = new Paginator($clientes, 15);        
+        $clientes_paginados =  $this->paginate($clientes);
+        $clientes_paginados->withPath('gerarRelatorio');
         return view('funcionario.gerarRelatorio', ['clientes' => $clientes_paginados]);
     }    
+
+    public function buscarRelatorioViagem(Request $request){
+        $codigo_linha = $request['codigo_linha'];
+        $data = $request['data'];
+        $data = strtotime($data);        
+        $clientes = DB::select("SELECT * FROM cliente where CPF in (SELECT cpf_cliente FROM passagem where codigo_linha = :codlinha and data_compra = :data)", ["codlinha" => $codigo_linha, "data" => date('Y-m-d', $data)]);        
+        $clientes_paginados =  $this->paginate($clientes);
+        $clientes_paginados->withPath('gerarRelatorio');
+        return view('funcionario.gerarRelatorio', ['clientes' => $clientes_paginados]);
+    }
     
     public function editar(Request $request){
         $funcionario = Func::editar($request);

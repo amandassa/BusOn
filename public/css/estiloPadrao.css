@@ -16,8 +16,25 @@ nav{
     height: 4em;  
     -ms-flex-item-align: start;
     align-self: flex-start;
-    padding-bottom:0.5em;
-    background-color: #F9C536;
+    align-content:center;
+    padding-bottom:0.5em;    
+}
+
+.page-item.active .page-link{
+    color: #f9c536;
+    background-color: black;
+}
+
+.page-link{
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color:black;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+
 }
 
 .divLogo
@@ -133,4 +150,15 @@ footer {
     display: flex;
     align-items: center;
     flex-direction: row;
+}
+
+.estiloPaginacao{
+    background-color: none;
+    background: none;
+
+}
+
+.estiloPaginacao{
+    color: black;
+    background-color:yellow;
 }
