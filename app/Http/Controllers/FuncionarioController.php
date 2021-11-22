@@ -27,10 +27,11 @@ class FuncionarioController extends Controller {
     }    
 
     public function buscarRelatorioViagem(Request $request){
-        $codigo_linha = $request['codigo_linha'];
+        $codigo_linha = intval($request['codigo_linha']);        
         $data = $request['data'];
-        $data = strtotime($data);        
-        $clientes = DB::select("SELECT * FROM cliente where CPF in (SELECT cpf_cliente FROM passagem where codigo_linha = :codlinha and data_compra = :data)", ["codlinha" => $codigo_linha, "data" => date('Y-m-d', $data)]);        
+        $data = strtotime($data);
+        $dataconv = date('Y-m-d', $data);
+        $clientes = DB::select("SELECT * FROM cliente where CPF in (SELECT cpf_cliente FROM passagem where codigo_linha = :codlinha and data_compra = :data)", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
         $clientes_paginados =  $this->paginate($clientes);
         $clientes_paginados->withPath('gerarRelatorio');
         return view('funcionario.gerarRelatorio', ['clientes' => $clientes_paginados]);
