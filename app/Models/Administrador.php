@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Database\QueryException;
+use DateTime;
+
 // Use DB, use Request
 
 class Administrador extends Funcionario
@@ -159,11 +161,6 @@ class Administrador extends Funcionario
         
     }
 
-    // passagens vendidas pelo administrador
-    public function passagensVendidas() {
-        Func::passagensVendidas();
-    }
-    
 
      /**
      * Passagens vendidas no sistema

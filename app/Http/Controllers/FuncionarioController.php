@@ -74,7 +74,7 @@ class FuncionarioController extends Controller {
         }else{
             $cod_busca = $request['buscarLinha'];
         }
-        $linha_por_codigo =  Linha::buscar_linha ($cod_busca);
+        $linha_por_codigo =  Linha::buscar ($cod_busca);
 
         //dd($linha_por_codigo);
 
@@ -95,6 +95,8 @@ class FuncionarioController extends Controller {
             'cidade_partida' => $linha_por_codigo['cidade_partida'],
             'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
         ];
+
+        dd($dados);
         return view('funcionario.inicial_func')->with('dados', $dados);
     }
 
