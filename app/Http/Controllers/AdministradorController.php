@@ -125,9 +125,9 @@ class AdministradorController extends Controller
         
     }
 
-    public function storeCadastrarTrecho(StoreAddTrechoRequest $request){
+    public function cadastrarTrecho(StoreAddTrechoRequest $request){
         Adm::addTrecho($request);
-        return redirect()->back()->with('message', 'Trecho Cadastrado.');
+        return redirect()->back()->with('message', 'Trecho Cadastrado!');
     }
     
     public function excluir(Request $request){
