@@ -36,7 +36,7 @@ class Linha extends Model {
 
     /**
      * Busca a linha mais vendida
-     * @return (cidade_partida e cidade_chegada) da linha mais vendida
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida da linha menos vendida
      */
     public static function linha_mais_vendida ()
     {
@@ -53,7 +53,7 @@ class Linha extends Model {
     
     /**
      * Busca a linha menos vendida
-     * @return (cidade_partida e cidade_chegada) da linha menos vendida
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida da linha mais vendida
      */
     public static function linha_menos_vendida ()
     {
@@ -70,7 +70,17 @@ class Linha extends Model {
 
     /**
      * Busca o nome da linha pelo codigo
-     * @return (cidade_partida e cidade_chegada)
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida de uma linha
+     */
+    public static function buscar ($codigo_linha)
+    { 
+        return Li::buscar_linha ($codigo_linha);
+
+    }
+
+    /**
+     * Busca o nome da linha pelo codigo
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida de uma linha
      */
     public static function buscar_linha ($codigo_linha)
     { 
@@ -85,6 +95,6 @@ class Linha extends Model {
             return ['total' => 0, 'cidade_partida' => '', 'cidade_chegada' => ''];
         }
 
-        return ['total' => $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
+        return ['total'=> $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
     }
 }

@@ -18,7 +18,7 @@
 </head>
     
 <body "cz-shortcut-listen="true">
-        <nav class="navbar mx-auto"> <!-- Header/NavBar-->
+        <nav class="navbar mx-auto" style="background-color: #F9C536;"> <!-- Header/NavBar-->
             <div class="container mx-auto" style="margin: 0px;">
                 <div class="row flex-nowrap nomargin"> <!-- Linha -->
                     <div class="col-sm-4"> <!-- Coluna da logo -->

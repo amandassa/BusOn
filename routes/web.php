@@ -31,21 +31,21 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('perfilFuncionario.index');
     Route::post('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'editar'])->name('perfilFuncionario.editar');
     //Administradores também possem acesso    
-    Route::get('/gerarRelatorio', 'FuncionarioController@gerarRelatorioViagem');
+    Route::get('/gerarRelatorio', 'FuncionarioController@gerarRelatorioViagem')->name('gerarRelatorio');
+    Route::post('/gerarRelatorio', 'FuncionarioController@buscarRelatorioViagem')->name('buscarRelatorio');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
     Route::any('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
-    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
-    Route::any('/consultar_linhas/resultado', 'LinhaController@consulta')->name('consulta');
-    
+    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');        
     Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('vende');
     
 }); 
 
 //Rotas restritas apenas para ADMNISTRADOR
-Route::middleware(['auth:funcionario', 'adm'])->group(function () {        
-    Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
+Route::middleware(['auth:funcionario', 'adm'])->group(function () {     
+   // Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
+    Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', [App\Http\Controllers\AdministradorController::class, 'storeCadastrarTrecho'])->name('adicionarTrecho');
