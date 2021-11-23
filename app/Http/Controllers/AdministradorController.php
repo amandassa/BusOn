@@ -129,6 +129,24 @@ class AdministradorController extends Controller
         Adm::addTrecho($request);
         return redirect()->back()->with('message', 'Trecho Cadastrado.');
     }
+    
+    public function excluir(Request $request){
+         $usuario = DB::select("select * from funcionario where email = ?", [$request['email']])[0];
+         $adm = $usuario->is_admin;
+         $nome = $usuario->nome;
+         Adm::excluir($request);      
+         if ($adm == 1){
+            return redirect()
+                        ->route('gerenciaFuncionarios')
+                        ->with('success', "Administrador(ora) $nome excluido(a) com sucesso!");
+         }else {
+            return redirect()
+            ->route('gerenciaFuncionarios')
+            ->with('success', "Funcionario(ria) $nome excluido(a) com sucesso!");
+         }
+         
+    }
+
 
     public function estatisticasAdministrador(Request $request)
     {
