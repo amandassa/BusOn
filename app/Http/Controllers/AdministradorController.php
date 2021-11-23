@@ -106,7 +106,6 @@ class AdministradorController extends Controller
     }
     
     public function editarFunc(Request $request){
-        
         $func = Adm::editarFunc($request);
 
         if ($func['id'] == 1) {
