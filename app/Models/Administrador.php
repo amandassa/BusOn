@@ -96,9 +96,9 @@ class Administrador extends Funcionario
     }
 
     public static function perfilFunc($email){ 
+
         $emaillogado = $email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-
         $funCPf = $usuario->CPF;
         $funNome = $usuario->nome;
         $funEmail = $usuario->email;
