@@ -83,7 +83,7 @@ class Administrador extends Model
 
                 if($senha == $confirmarSenha){
                     DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
-                    [$nome, $email, $senha, $cpf]);
+                    [$nome, $email, Hash::make($senha), $cpf]);
                     return 2;
                 }
                  else {
@@ -157,6 +157,11 @@ class Administrador extends Model
 
     public static function addTrecho(StoreAddTrechoRequest $request){
         
+    }
+
+    public static function excluir(Request $request){
+        $email = $request['email'];
+        DB::delete('DELETE FROM funcionario WHERE email = ?', [$email]);
     }
 
     
