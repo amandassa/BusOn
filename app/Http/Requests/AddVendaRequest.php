@@ -24,7 +24,7 @@ class AddVendaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cod_passagem' => ['required', 'min:1'],
+            'cod_linha' => ['required', 'min:1'],
             'cpf_atual' => ['required'],
             'preco_atual' => ['required', 'min:0.01']
 
@@ -35,7 +35,7 @@ class AddVendaRequest extends FormRequest
     public function messages()
     {
         return [
-            'cod_passagem.required' => 'Escolha uma passagem para vender.',
+            'cod_linha.required' => 'Escolha uma passagem para vender.',
             'cpf_atual.required' => 'Preencha as informações do comprador.',
             'preco_atual.required' => 'Passagem não foi paga devidamente.'
         ];
