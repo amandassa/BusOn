@@ -43,13 +43,19 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <div class="form caixaPesquisa" method="POST">
+                    <form method="POST">
                         @csrf
-                        <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar linha pelo código">
-                        <a href="#">
-                            <span class="material-icons" id="iconPesquisa">search</span>
-                        </a>
-                    </div>
+                        <div class="caixaPesquisa">
+                            <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar linha pelo código">
+                            <button type="submit" id="btnCriarConta">
+                                <span class="material-icons" id="iconPesquisa">search</span>
+                            </button>
+                            
+                            <!--a href="#">
+                                <span class="material-icons" id="iconPesquisa">search</span>
+                            </a-->
+                        </div>
+                    </form>
                     <p class="textoNumeroAzul"><b>{{--$dados['total_vendas']--}}</b></p>
                     <p><b>Passagens vendidas para {{--$dados['cidade_partida']--}} x {{--$dados['cidade_chegada']--}}</b></p>
                 </div>
