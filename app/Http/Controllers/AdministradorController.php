@@ -153,10 +153,11 @@ class AdministradorController extends Controller
         $passagens_vendidas = Adm::passagens_vendidas($mat_adm);
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
-        if($request['buscarLinha'] == null){
-            $cod_busca = 1;
+        if($request->input('buscarLinha') == null){
+            $cod_busca = 2;
         }else{
-            $cod_busca = $request['buscarLinha'];
+            $cod_busca = $request->input('buscarLinha');
+            //dd($cod_busca);
         }
         $linha_por_codigo =  Linha::buscar ($cod_busca);
 

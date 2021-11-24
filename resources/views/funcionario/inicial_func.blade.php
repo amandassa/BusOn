@@ -43,18 +43,16 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <form method="POST" action="{{ route('inicial_adm') }}">
+                    <form method="POST">
                         @csrf
-                        <div class="caixaPesquisa">
+                        <!--div class="caixaPesquisa">
                             <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
-                            <a type="submit" id="btnCriarConta">
+                            <a href="#">
                                 <span class="material-icons" id="iconPesquisa">search</span>
                             </a>
-                            
-                            <!--a href="#">
-                                <span class="material-icons" id="iconPesquisa">search</span>
-                            </a-->
-                        </div>
+                        </div-->
+                        <input type="number" name="buscarLinha">
+                        <input type="submit" value="salvar">
                     </form>
                     @if($dados['cidade_partida'] == '' or $dados['cidade_chegada'] == '')
                         <p><b>Sem dados dessa linha.</b></p>
