@@ -41,7 +41,8 @@ Route::middleware(['auth:funcionario'])->group(function () {
 
 //Rotas restritas apenas para ADMNISTRADOR
 Route::middleware(['auth:funcionario', 'adm'])->group(function () {
-    Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
+    //Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
+    Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
@@ -62,6 +63,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
     Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
     Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
+    Route::delete('/gerenciaUsuarios', [App\Http\Controllers\AdministradorController::class, 'excluir'])->name('gerenciaUsuarios.excluir');
 
 });
 

@@ -54,8 +54,9 @@ class Linha extends Model {
         //busca a linha mais vendida no banco de dados
         $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT max(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
         if(empty($linha)){
-            return ['linha_mais_vendida_partida'=> '', 'linha_mais_vendida_chegada'=> ''];
+            return ['total_mais_vendida'=> 0, 'linha_mais_vendida_partida'=> '', 'linha_mais_vendida_chegada'=> ''];
         }
+
         $linha_mais_vendida = Li::buscar_linha($linha[0]->codigo_linha);
         
         return ['total_mais_vendida'=> $linha_mais_vendida['total'],'linha_mais_vendida_partida'=> $linha_mais_vendida['cidade_partida'], 'linha_mais_vendida_chegada'=> $linha_mais_vendida['cidade_chegada']];
@@ -68,15 +69,23 @@ class Linha extends Model {
      */
     public static function linha_menos_vendida ()
     {
-        //busca a linha mais vendida no banco de dados
-        $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT min(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
-        if(empty($linha)){
-            return ['linha_menos_vendida_partida'=> '', 'linha_menos_vendida_chegada'=> ''];
+        //busca as linhas que nao possuem vendas no banco de dados
+        $linhas_sem_vendas = DB::select("SELECT * FROM linha as l WHERE NOT EXISTS (SELECT p.codigo_linha FROM passagem as p WHERE l.codigo = p.codigo_linha)");
+        if(!empty($linhas_sem_vendas)){
+            $linha_menos_vendida = Li::buscar_linha($linhas_sem_vendas[0]->codigo);   
+            return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
         }
-        $linha_menos_vendida = Li::buscar_linha($linha[0]->codigo_linha);
+        
+        //busca a linha menos vendida no banco de dados
+        $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT min(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
+        if(!empty($linha)){
+            //se todas as linhas ja possuem alguma venda, entao a linha menos vendida esta correta
+            $linha_menos_vendida = Li::buscar_linha($linha[0]->codigo_linha);
 
-        return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
-
+            return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
+        
+        }
+        return ['linha_menos_vendida_partida'=> '', 'linha_menos_vendida_chegada'=> ''];
     }
 
     /**
