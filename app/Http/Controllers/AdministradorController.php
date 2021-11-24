@@ -177,7 +177,7 @@ class AdministradorController extends Controller
             'cidade_partida' => $linha_por_codigo['cidade_partida'],
             'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
         ];
-
+        
         return view('administrador.inicial_adm')->with('dados', $dados);
     }
 
