@@ -154,7 +154,7 @@ class AdministradorController extends Controller
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
         if($request->input('buscarLinha') == null){
-            $cod_busca = 2;
+            $cod_busca = 1;
         }else{
             $cod_busca = $request->input('buscarLinha');
         }
