@@ -43,7 +43,7 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" action="{{ route('inicial_adm') }}">
                         @csrf
                         <div class="caixaPesquisa">
                             <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
