@@ -91,13 +91,14 @@ class FuncionarioController extends Controller {
             $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
             array_push($passagens_clientes, $passagem_cliente);                      
         }                                
-        $passagens_paginadas =  $this->paginate($passagens_clientes);
-        $passagens_paginadas->withPath('gerarRelatorio');        
+        $passagens_paginadas =  ($passagens_clientes);        
         return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas]);
     }    
 
     public function buscarRelatorioViagem(Request $request){
-        $codigo_linha = intval($request['codigo_linha']);        
+        $codigo_linha = intval($request['codigo_linha']);  
+        $linha_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = :codigo_linha and ordem = 1)", ['codigo_linha' => $codigo_linha])[0]->cidade_partida;
+        $linha_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = ? and ordem = (SELECT MAX(ordem) FROM trechos_linha WHERE codigo_linha = ?))", [$codigo_linha, $codigo_linha])[0]->cidade_chegada;
         $data = $request['data'];
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);
@@ -146,9 +147,8 @@ class FuncionarioController extends Controller {
             $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
             array_push($passagens_clientes, $passagem_cliente);                      
         }                                
-        $passagens_paginadas =  $this->paginate($passagens_clientes);
-        $passagens_paginadas->withPath('gerarRelatorio');        
-        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas]);
+        $passagens_paginadas =  $passagens_clientes;        
+        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas, 'linha_partida' => $linha_partida, 'linha_chegada' => $linha_chegada]);
     }
     
     public function editar(Request $request){
