@@ -216,5 +216,7 @@ class LinhaController extends Controller
         else
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
-    }    
+    }
+    
+        
 }

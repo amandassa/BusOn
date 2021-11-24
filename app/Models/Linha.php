@@ -18,6 +18,11 @@ class Linha extends Model {
         'total_vagas'
     ];
     
+    public static function getLinhas(){
+        $linhas = DB::select("SELECT * FROM linhas;");
+        return $linhas;
+    }
+
     public static function getTipo ($coluna, $param) {
         $query = "SELECT direta FROM linha WHERE ".$coluna." LIKE :cod";
         $direta = DB::select($query, ['cod' => $param]);
@@ -32,6 +37,12 @@ class Linha extends Model {
         $query = "SELECT dias_semana FROM linha WHERE ".$coluna." LIKE :cod";
         $data = DB::select($query, ['cod' => $parametro]);
         return $data;
+    }
+
+    public static function getHoraPartida($coluna, $parametro){
+        $query = "SELECT hora_partida FROM linha WHERE ".$coluna." LIKE :cod";
+        $hora_partida = DB::select($query, ['cod' => $parametro]);
+        return $hora_partida;
     }
 
     /**

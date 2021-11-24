@@ -20,7 +20,7 @@
                 Consultar <br> Linha
             </a>
 
-            <a class="btn botaoAmarelo botaoSelecaoInicial" href="geraRelat" role="button">
+            <a class="btn botaoAmarelo botaoSelecaoInicial" href="gerarRelatorio" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">library_books</span>
                 Relatório <br> da Linha
             </a>

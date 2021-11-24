@@ -62,10 +62,6 @@ CREATE TABLE passagem (
     CONSTRAINT fk_codigolinha_passagem FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
         ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    CONSTRAINT fk_cpfcliente_passagem FOREIGN KEY (cpf_cliente)
-        REFERENCES cliente(CPF)
-        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 

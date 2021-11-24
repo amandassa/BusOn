@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddVendaRequest;
-use App\Models\Funcionario as Func;
-use App\Models\Linha as Linha;
+use App\Models\Funcionario;
+use App\Models\Cliente;
+use App\Models\Trecho;
+use App\Models\Linha;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -15,18 +17,81 @@ use App\Traits\PaginationTrait;
 class FuncionarioController extends Controller {
     use PaginationTrait;    
 
-
-
     public function index(){
         $funcionario = Func::index();
         return view("funcionario.perfil", ['funcionario'=>$funcionario]);
     }
 
+    protected function somarTempo($times) {
+        $all_seconds = 0;
+        foreach ($times as $time) {          
+                list($hour, $minute, $second) = explode(':', $time);
+                $all_seconds += $hour * 3600;
+                $all_seconds += $minute * 60;
+                $all_seconds += $second;
+        
+        }
+    
+        $total_minutes = floor($all_seconds/60);
+        $seconds = $all_seconds % 60;
+        $hours = floor($total_minutes / 60); 
+        $minutes = $total_minutes % 60;
+    
+        // returns the time already formatted
+        return sprintf('%02d:%02d:%02d', $hours, $minutes,$seconds);        
+    }
+
     public function gerarRelatorioViagem(){
-        $clientes = DB::select("SELECT * FROM cliente;");
-        $clientes_paginados =  $this->paginate($clientes);
-        $clientes_paginados->withPath('gerarRelatorio');
-        return view('funcionario.gerarRelatorio', ['clientes' => $clientes_paginados]);
+        $codigo_linha = 1;        
+        $data = "2021-11-23";
+        $data = strtotime($data);
+        $dataconv = date('Y-m-d', $data);    
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data_compra = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
+        $clientes = Cliente::getClientes();                
+        // Realiza a busca pelos nomes dos clientes com base no CPF        
+        $passagens_clientes = [];
+        $passagem_cliente = array();         
+        foreach($passagens_viagem as $passagem){            
+            $passagem_cliente['nome']  = "Não Cadastrado";                        
+            $passagem_cliente['cpf'] = $passagem->cpf_cliente;        
+            $passagem_cliente['num_assento'] = $passagem->num_assento;
+            $passagem_cliente['codigo'] = $passagem->codigo;
+            $passagem_cliente['cidade_partida'] = $passagem->cidade_partida;
+            $passagem_cliente['cidade_chegada'] = $passagem->cidade_chegada; 
+            $tempos = [];           
+            foreach($clientes as $cliente){
+                if($passagem->cpf_cliente == $cliente->CPF){
+                    $passagem_cliente['nome'] = $clientes->nome;
+                    break;
+                }
+            }
+
+            $horario_partida = (Linha::getHoraPartida('codigo', $passagem->codigo_linha))[0]->hora_partida;            
+            $passagem_cliente['horario_partida'] = $horario_partida;
+            $trava = 1;            
+            $trechos = Trecho::getTrechosEmLinha($codigo_linha);
+            $tempos[] = $horario_partida;                    
+
+            // Calcula a duração da viagem do cliente
+            foreach($trechos as $trecho){
+                if(Trecho::getCidade_partida('codigo', $trecho->codigo)[0]->cidade_partida == $passagem->cidade_partida){                    
+                    $trava = 1;
+                }
+
+                if($trava){
+                    $tempos[] = $trecho->duracao;                    
+                    if(Trecho::getCidade_chegada('codigo', $trecho->codigo)[0]->cidade_chegada == $passagem->cidade_chegada){
+                        $trava = 0;
+                    }
+                }
+            }
+
+            $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
+            array_push($passagens_clientes, $passagem_cliente);                      
+        }                                
+        $passagens_paginadas =  $this->paginate($passagens_clientes);
+        $passagens_paginadas->withPath('gerarRelatorio');        
+        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas]);
     }    
 
     public function buscarRelatorioViagem(Request $request){
@@ -34,14 +99,57 @@ class FuncionarioController extends Controller {
         $data = $request['data'];
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);
-        $clientes = DB::select("SELECT * FROM cliente where CPF in (SELECT cpf_cliente FROM passagem where codigo_linha = :codlinha and data_compra = :data)", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
-        $clientes_paginados =  $this->paginate($clientes);
-        $clientes_paginados->withPath('gerarRelatorio');
-        return view('funcionario.gerarRelatorio', ['clientes' => $clientes_paginados]);
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data_compra = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
+        $clientes = Cliente::getClientes();                
+        // Realiza a busca pelos nomes dos clientes com base no CPF        
+        $passagens_clientes = [];
+        $passagem_cliente = array();   
+        
+        foreach($passagens_viagem as $passagem){            
+            $passagem_cliente['nome']  = "Não Cadastrado";                        
+            $passagem_cliente['cpf'] = $passagem->cpf_cliente;        
+            $passagem_cliente['num_assento'] = $passagem->num_assento;
+            $passagem_cliente['codigo'] = $passagem->codigo;
+            $passagem_cliente['cidade_partida'] = $passagem->cidade_partida;
+            $passagem_cliente['cidade_chegada'] = $passagem->cidade_chegada; 
+            $tempos = [];           
+            foreach($clientes as $cliente){
+                if($passagem->cpf_cliente == $cliente->CPF){
+                    $passagem_cliente['nome'] = $cliente->nome;
+                    break;
+                }
+            }
+
+            $horario_partida = (Linha::getHoraPartida('codigo', $passagem->codigo_linha))[0]->hora_partida;            
+            $passagem_cliente['horario_partida'] = $horario_partida;
+            $trava = 1;            
+            $trechos = Trecho::getTrechosEmLinha($codigo_linha);
+            $tempos[] = $horario_partida;                    
+
+            // Calcula a duração da viagem do cliente
+            foreach($trechos as $trecho){
+                if(Trecho::getCidade_partida('codigo', $trecho->codigo)[0]->cidade_partida == $passagem->cidade_partida){                    
+                    $trava = 1;
+                }
+
+                if($trava){
+                    $tempos[] = $trecho->duracao;                    
+                    if(Trecho::getCidade_chegada('codigo', $trecho->codigo)[0]->cidade_chegada == $passagem->cidade_chegada){
+                        $trava = 0;
+                    }
+                }
+            }
+                                
+            $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
+            array_push($passagens_clientes, $passagem_cliente);                      
+        }                                
+        $passagens_paginadas =  $this->paginate($passagens_clientes);
+        $passagens_paginadas->withPath('gerarRelatorio');        
+        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas]);
     }
     
     public function editar(Request $request){
-        $funcionario = Func::editar($request);
+        $funcionario = Funcionario::editar($request);
 
         if ($funcionario == 1) {
             return redirect()
@@ -67,7 +175,7 @@ class FuncionarioController extends Controller {
     {
 
         $mat_funcionario= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
-        $passagens_vendidas = Func::passagens_vendidas($mat_funcionario); 
+        $passagens_vendidas = Funcionario::passagens_vendidas($mat_funcionario); 
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
         if($request['buscarLinha'] == null){
@@ -102,14 +210,14 @@ class FuncionarioController extends Controller {
     }
 
     public function vender(AddVendaRequest $request){
-        $result = Func::venderPassagem($request);
+        $result = Funcionario::venderPassagem($request);
         if($result == 0){
             return redirect()->back()->with('error', 'Sem vagas.');
         }else{
             return redirect()->back()->with('message', 'Venda Feita.');
         }
 
-        //Func::venderPassagem($request);
+        //Funcionario::venderPassagem($request);
     }
 
 }

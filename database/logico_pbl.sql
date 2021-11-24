@@ -28,8 +28,9 @@ CREATE TABLE trecho (
 CREATE TABLE linha (
     codigo int AUTO_INCREMENT,
     direta BOOLEAN NOT NULL,
-    total_vagas int,
+    total_vagas int NOT NULL,
     dias_semana VARCHAR(14) NOT NULL,
+    hora_partida TIME NOT NULL,
     CONSTRAINT pk_codigo_linha PRIMARY KEY (codigo)
 );
 
@@ -53,16 +54,14 @@ CREATE TABLE trechos_linha (
 CREATE TABLE passagem (
     codigo int AUTO_INCREMENT,
     num_assento int,
-    codigo_linha int,
+    codigo_linha int NOT NULL,
+    cidade_partida varchar(30) NOT NULL,
+    cidade_chegada varchar(30) NOT NULL,
     cpf_cliente varchar(11),
     data_compra DATETIME NOT NULL,
     CONSTRAINT pk_codigo_passagem PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_passagem FOREIGN KEY (codigo_linha)
         REFERENCES linha(codigo)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    CONSTRAINT fk_cpfcliente_passagem FOREIGN KEY (cpf_cliente)
-        REFERENCES cliente(CPF)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );

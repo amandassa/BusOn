@@ -25,6 +25,23 @@
       });
     });
   </script>
+  @if ($errors->any())
+    <div class="alert alert-warning">
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    </div>
+  @endif
+  @if (session('success'))
+        <div class="alert alert-success alert-block">
+            {{session ('success')}}
+        </div>
+  @endif
+  @if (session('error'))
+        <div class="alert alert-danger">
+            {{session ('error')}}
+        </div>
+  @endif
 
   <div class="container">        
     <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
@@ -98,7 +115,7 @@
                   </td>
                   <td>
                   <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                  <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Excluir</a>
+                  <a class="btn botaoAzul" href="{{route('gerenciaUsuarios.excluir', $funcionario->email)}}" role="button" method="post"> Excluir</a>
                   </td>
                 </tr> 
                 @endforeach
@@ -114,5 +131,6 @@
 
     </div>
   </div>
+  
       
 @endsection

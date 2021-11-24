@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use DateTime;
+use Carbon\Carbon;
 
 /*
 Nome: Funcionario (classe)
@@ -91,7 +92,7 @@ class Funcionario extends Authenticatable {
 
                 if($senha == $confirmarSenha){
                     DB::update('UPDATE funcionario set nome = ?, email = ?, password = ? where cpf = ?',
-                    [$nome, $email, $senha, $cpf]);
+                    [$nome, $email, Hash::make($senha), $cpf]);
                     return 2;
                 }
                  else {
@@ -151,15 +152,15 @@ class Funcionario extends Authenticatable {
         $cpf_cliente = str_replace(".", "", $cpf_cliente);
         $cpf_cliente = str_replace("-", "", $cpf_cliente);
 
-        $data_compra = date("y/m/d/H");
+        $data_compra =  Carbon::now();
 
-        $cod_passagem = $request['cod_passagem'];
+        $cod_linha = $request['cod_linha'];
         $valor = $request['preco_atual'];
 
-        $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_passagem])[0];
+        $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_linha])[0];
         $max_vagas = $vagas->total_vagas;
 
-        $assentos = DB::select('SELECT num_assento FROM passagem;');
+        $assentos = DB::select('SELECT num_assento FROM passagem WHERE codigo_linha = :cod_linha', ['cod_linha' => $cod_linha]);
         $lista_assentos = array();
 
         for($i = 0; $i < sizeof($assentos); $i++){
@@ -169,30 +170,40 @@ class Funcionario extends Authenticatable {
         if(sizeof($assentos) >= $max_vagas){
             return 0;
         }
-        else{
+        else
+        {
+
             $assento_encontrado = false;
             $assento = 1;
             
-            while($assento_encontrado == false){
-                $assento = rand(1, $max_vagas);
-                if(in_array($assento, $lista_assentos)){
-                    $assento_encontrado = true;
+            if(sizeof($assentos) != 0) {
+                while(!$assento_encontrado)
+                {
+                    $assento = $assento + 1;
+                    if(!in_array($assento, $lista_assentos)){
+                        $assento_encontrado = true;
+                    }
                 }
             }
 
             
-            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data_compra, num_assento) VALUES (?, ?, ?, ?);', [$cod_passagem, $cpf_cliente, $data_compra,  $assento]);
+            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data_compra, num_assento) VALUES (?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data_compra,  $assento]);
+
+            $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data_compra = :data_compra', ['assento' => $assento, 'cod_linha' => $cod_linha, 'data_compra' => $data_compra]);
+            //dd($cod_passagem);
+            $cod_passagem = $cod_passagem[0]->codigo;
+            
+
             DB::insert('INSERT INTO venda (codigo_passagem, matricula_vendedor, valor) VALUES (?, ?, ?);', [$cod_passagem, $matricula, $valor]);
             DB::insert('INSERT INTO pagamento (codigo_passagem, realizado, forma_pagamento) VALUES (?, ?, ?);', [$cod_passagem, 1, 1]);
-            
-            $id_pagamento = DB::select('SELECT MAX(codigo) AS id from pagamento')[0];
+            $id_pagamento = DB::select('SELECT MAX(codigo) AS id from pagamento')[0];   
             $id_pagamento = $id_pagamento->id;
-
             DB::insert('INSERT INTO pagamento_dinheiro (dinheiro_recebido, codigo_pagamento) VALUES (?, ?);', [$valor, $id_pagamento]);
 
-            
             return 1;
         }
+
+        
         
         
     }
