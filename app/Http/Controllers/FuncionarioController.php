@@ -181,10 +181,10 @@ class FuncionarioController extends Controller {
         $passagens_vendidas = Funcionario::passagens_vendidas($mat_funcionario); 
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
-        if($request['buscarLinha'] == null){
+        if($request->input('buscarLinha') == null){
             $cod_busca = 1;
         }else{
-            $cod_busca = $request['buscarLinha'];
+            $cod_busca = $request->input('buscarLinha');
         }
         $linha_por_codigo =  Linha::buscar ($cod_busca);
         $dados = [
