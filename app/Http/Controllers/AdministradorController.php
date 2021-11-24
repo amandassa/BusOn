@@ -153,12 +153,23 @@ class AdministradorController extends Controller
         $passagens_vendidas = Adm::passagens_vendidas($mat_adm);
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
-        if($request['buscarLinha'] == null){
+        if($request->input('buscarLinha') == null){
             $cod_busca = 2;
         }else{
-            $cod_busca = $request['buscarLinha'];
+            $cod_busca = $request->input('buscarLinha');
+            //dd($cod_busca);
         }
         $linha_por_codigo =  Linha::buscar ($cod_busca);
+
+        $passagens_vendidas_total = Adm::passagensVendidasTotal();
+        
+        if($request['buscarLinhaHoje'] == null){
+            $cod_busca_vendas_linha = 1;
+        }else{
+            $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
+        }
+
+        $vendidas_linha = Adm::buscar_vendas_linha($cod_busca_vendas_linha);
 
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
@@ -175,7 +186,15 @@ class AdministradorController extends Controller
 
             'total_vendas' => $linha_por_codigo['total'],
             'cidade_partida' => $linha_por_codigo['cidade_partida'],
-            'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
+            'cidade_chegada'=> $linha_por_codigo['cidade_chegada'],
+
+            'passagens_vendidas_total' => $passagens_vendidas_total['qtd_vendas_total_hoje'],
+
+            'total_vendas_linha' => $vendidas_linha['total'],
+            'cidade_partida_vendas_linha' => $vendidas_linha['cidade_partida'],
+            'cidade_chegada_vendas_linha'=> $vendidas_linha['cidade_chegada'],
+
+
         ];
         
         return view('administrador.inicial_adm')->with('dados', $dados);

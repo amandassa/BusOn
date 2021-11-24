@@ -18,7 +18,7 @@ class FuncionarioController extends Controller {
     use PaginationTrait;    
 
     public function index(){
-        $funcionario = Func::index();
+        $funcionario = Funcionario::index();
         return view("funcionario.perfil", ['funcionario'=>$funcionario]);
     }
 
@@ -182,14 +182,11 @@ class FuncionarioController extends Controller {
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
         if($request['buscarLinha'] == null){
-            $cod_busca = 2;
+            $cod_busca = 1;
         }else{
             $cod_busca = $request['buscarLinha'];
         }
         $linha_por_codigo =  Linha::buscar ($cod_busca);
-
-        //dd($linha_por_codigo);
-
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
             'qtd_vendas_7dias' => $passagens_vendidas['qtd_vendas_7dias'], 
@@ -208,7 +205,6 @@ class FuncionarioController extends Controller {
             'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
         ];
 
-        dd($dados);
         return view('funcionario.inicial_func')->with('dados', $dados);
     }
 

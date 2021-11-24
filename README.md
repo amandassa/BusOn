@@ -60,7 +60,7 @@
 
 **1.8. Editar Perfil:**
 - [X] Front (Responsável: Everton)
-- [ ] Back (Responsável: Lucas)
+- [X] Back (Responsável: Lucas)
 
 ### 2. Funcionarios (1/7):
 **1.0. Recuperação de acesso de funcionário:**
@@ -91,7 +91,7 @@
 
 **2.6.Editar Perfil:**
 - [X] Front (Responsável: Everton)
-- [ ] Back (Responsável: Lucas)
+- [X] Back (Responsável: Lucas)
 
 ### 3. Administrador (2/12):
 **3.0. Recuperação de acesso de administrador:**
