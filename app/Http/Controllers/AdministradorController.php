@@ -195,7 +195,7 @@ class AdministradorController extends Controller
 
 
         ];
-
+        
         return view('administrador.inicial_adm')->with('dados', $dados);
     }
 

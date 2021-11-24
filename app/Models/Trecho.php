@@ -17,6 +17,16 @@ class Trecho extends Model {
         'ordem'
     ];
 
+    public static function getTrechosEmLinha($codigo_linha){
+        $query = "SELECT * FROM trecho WHERE codigo IN (SELECT codigo_trecho FROM trechos_linha WHERE codigo_linha = :codigo)";
+        $trechos = DB::select($query, ['codigo' => $codigo_linha]);
+        if ($trechos){
+            return $trechos;
+        } else {
+            return null;
+        }
+    }
+
     // método de acesso ao atributo cidade_origem
     public static function getCidade_partida($coluna, $param) {
         $query = "SELECT cidade_partida FROM trecho WHERE ".$coluna." LIKE :cod";

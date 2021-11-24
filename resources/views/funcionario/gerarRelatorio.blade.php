@@ -51,30 +51,36 @@
       <table class="table">
           <thead>
           <tr>
-            <th scope="col">Código</th>
+            <th scope="col">Nº Assento</th>
             <th scope="col">Nome</th>
             <th scope="col">CPF</th>
-            <th scope="col">Data</th>          
+            <th scope="col">Passagem</th>
+            <th scope="col">Cidade de Partida</th>          
+            <th scope="col">Horário</th>          
+            <th scope="col">Cidade de Chegada</th>          
+            <th scope="col">Horário</th>                      
           </tr>
           </thead>
-        <tbody>        
-              @php $count = 0; @endphp                
-              @foreach ($clientes as $cliente)
+        <tbody>                                            
+              @foreach ($passagens as $passagem)
               <tr>
-                <th scope="row">{{ $count }}</th>
-                  <td> {{ $cliente->nome }} </td>
-                  <td> {{ $cliente->CPF }} </td>
-                  <td> {{ $cliente->nome }} </td>
-                  @php $count = $count + 1; @endphp
+                <th scope="row"> {{ $passagem['num_assento'] }} </th>                  
+                  <td> {{ $passagem['nome'] }} </td>
+                  <td> {{ $passagem['cpf'] }} </td>                  
+                  <td> {{ $passagem['codigo'] }} </td>                  
+                  <td> {{ $passagem['cidade_partida'] }} </td>                  
+                  <td> {{ $passagem['horario_partida'] }} </td>                 
+                  <td> {{ $passagem['cidade_chegada'] }} </td>                  
+                  <td> {{ $passagem['horario_chegada'] }} </td>                   
               </tr>
-              @endforeach                        
+              @endforeach               
         </tbody>
       </table>  
   </div>
 </div>  
     <div class="d-flex">
       <div class="mx-auto">
-        {{ $clientes->links() }}
+        {{ $passagens->links() }}
       </div>
     </div>
   

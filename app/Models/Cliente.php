@@ -50,6 +50,11 @@ class Cliente extends Authenticatable
             return $cliente->first();
     }
 
+    public static function getClientes(){
+        $clientes = DB::select("SELECT * FROM cliente");
+        return $clientes;
+    }
+
     public static function index(){
         $emailLogado = Auth::guard('cliente')->user()->email;
         $usuario = DB::select("select * from cliente where email = ?", [$emailLogado])[0];
