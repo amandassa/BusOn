@@ -157,7 +157,6 @@ class AdministradorController extends Controller
             $cod_busca = 2;
         }else{
             $cod_busca = $request->input('buscarLinha');
-            //dd($cod_busca);
         }
         $linha_por_codigo =  Linha::buscar ($cod_busca);
 

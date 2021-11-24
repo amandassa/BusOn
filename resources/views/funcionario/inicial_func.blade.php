@@ -45,14 +45,12 @@
                 <div class="card-body">
                     <form method="POST">
                         @csrf
-                        <!--div class="caixaPesquisa">
+                        <div class="caixaPesquisa">
                             <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
-                            <a href="#">
+                            <a type="submit" id="btnCriarConta">
                                 <span class="material-icons" id="iconPesquisa">search</span>
                             </a>
-                        </div-->
-                        <input type="number" name="buscarLinha">
-                        <input type="submit" value="salvar">
+                        </div>
                     </form>
                     @if($dados['cidade_partida'] == '' or $dados['cidade_chegada'] == '')
                         <p><b>Sem dados dessa linha.</b></p>
