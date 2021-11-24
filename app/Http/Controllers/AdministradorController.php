@@ -130,19 +130,19 @@ class AdministradorController extends Controller
     }
     
     public function excluir(Request $request){
-         $usuario = DB::select("select * from funcionario where email = ?", [$request['email']])[0];
-         $adm = $usuario->is_admin;
-         $nome = $usuario->nome;
-         Adm::excluir($request);      
-         if ($adm == 1){
-            return redirect()
+        $usuario = DB::select("select * from funcionario where email = ?", [$request['email']])[0];
+        $adm = $usuario->is_admin;
+        $nome = $usuario->nome;
+        Adm::excluir($request);      
+        if ($adm == 1){
+             return redirect()
                         ->route('gerenciaFuncionarios')
                         ->with('success', "Administrador(ora) $nome excluido(a) com sucesso!");
-         }else {
+        }else {
             return redirect()
             ->route('gerenciaFuncionarios')
-            ->with('success', "Funcionario(ria) $nome excluido(a) com sucesso!");
-         }
+            ->with('success', "Funcionario(a) $nome excluido(a) com sucesso!");
+        }
          
     }
 

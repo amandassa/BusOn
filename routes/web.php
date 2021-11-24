@@ -65,6 +65,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
     Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
     Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
+    Route::delete('/gerenciaUsuarios', [App\Http\Controllers\AdministradorController::class, 'excluir'])->name('gerenciaUsuarios.excluir');
 
 });
 
