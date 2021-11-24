@@ -43,9 +43,9 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <div class="form caixaPesquisa" method="post">
+                    <div class="form caixaPesquisa" method="POST">
                         @csrf
-                        <input type="number" class="caixaTexto" id="buscarLinhaInicial" placeholder="Pesquisar linha pelo código">
+                        <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar linha pelo código">
                         <a href="#">
                             <span class="material-icons" id="iconPesquisa">search</span>
                         </a>

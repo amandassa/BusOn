@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Http\Requests\StoreAddTrechoRequest;
-use App\Models\Funcionario as Func;
+use App\Models\Administrador as Adm;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -186,22 +186,49 @@ class Administrador extends Funcionario
      /**
      * Passagens vendidas no sistema
      *
-     * @return [$qtd_vendas_total_hoje, $qtd_vendas_total_dias, $qtd_vendas_total_30dias] um array 
-     * com as passagens vendidas no sistema nos períodos indicados
+     * @return qtd_vendas_total_hoje - total de vendas daquele dia
      */
-    public function passagensVendidasTotal()
+    public static function passagensVendidasTotal()
     {
         $data = new DateTime(); //Pega a data atual
-        
         $data_hoje = $data->format('Y-m-d');
-        $data_uma_semana_atras = $data->modify('-7 day')->format('Y-m-d');  //Pega a data 7 dias antes
-        $data_uma_mes_atras = $data->modify('+7 day')->modify('-1 month')->format('Y-m-d'); //Pega a data 30 dias antes
-    
         $qtd_vendas_total_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE $data_hoje = (SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
-        $qtd_vendas_total_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje)"); 
-        $qtd_vendas_total_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje)"); 
 
-        return [$qtd_vendas_total_hoje, $qtd_vendas_total_7dias, $qtd_vendas_total_30dias];
+        return ['qtd_vendas_total_hoje' => $qtd_vendas_total_hoje[0]->contagem_vendas];
+    }
+
+
+    /**
+     * Passagens vendidas para uma determinada linha
+     *
+     * @return qtd_vendas_total_hoje - total de vendas daquele dia
+     */
+    public static function passagensVendidas_linhaHoje($codigo_linha)
+    {
+        $data = new DateTime(); //Pega a data atual
+        $data_hoje = $data->format('Y-m-d');
+         //busca o nome da linha pelo codigo
+        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = 1)");
+        $ordem = DB::select("SELECT max(ordem) as ordem from trechos_linha where codigo_linha =  $codigo_linha");
+        $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = :ordem)", ['ordem' => $ordem[0]->ordem]);
+        $total_passagens = DB::select("SELECT count(*) as total FROM passagem WHERE codigo_linha = $codigo_linha and data_compra = $data_hoje");
+
+        //checa se todas as listas tem algum valor
+        if(empty($total_passagens) or empty( $cidade_chegada) or empty($cidade_partida)) {
+            return ['total' => 0, 'cidade_partida' => '', 'cidade_chegada' => ''];
+        }
+
+        return ['total'=> $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
+     }
+
+     /**
+     * Busca o nome da linha pelo codigo
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida de uma linha
+     */
+    public static function buscar_vendas_linha ($codigo_linha)
+    { 
+        return Adm::passagensVendidas_linhaHoje ($codigo_linha);
+
     }
 
 }
