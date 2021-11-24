@@ -152,10 +152,13 @@ class Funcionario extends Authenticatable {
         $cpf_cliente = str_replace(".", "", $cpf_cliente);
         $cpf_cliente = str_replace("-", "", $cpf_cliente);
 
-        $data_compra =  Carbon::now();
+        $data_compra =  date('y/m/d');
 
         $cod_linha = $request['cod_linha'];
         $valor = $request['preco_atual'];
+
+        $partida = $request['cidade_partida'];
+        $destino = $request['cidade_destino'];
 
         $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_linha])[0];
         $max_vagas = $vagas->total_vagas;
@@ -187,10 +190,9 @@ class Funcionario extends Authenticatable {
             }
 
             
-            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data_compra, num_assento) VALUES (?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data_compra,  $assento]);
+            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data_compra, num_assento, cidade_partida, cidade_chegada) VALUES (?, ?, ?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data_compra,  $assento, $partida, $destino]);
 
             $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data_compra = :data_compra', ['assento' => $assento, 'cod_linha' => $cod_linha, 'data_compra' => $data_compra]);
-            //dd($cod_passagem);
             $cod_passagem = $cod_passagem[0]->codigo;
             
 

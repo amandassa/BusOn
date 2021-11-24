@@ -3,7 +3,7 @@
 @section('title', 'Venda de Passagens - ')
 
 @section('content')
-    <link rel="stylesheet" href="/css/estiloVenderPassagens.css">
+    <link rel="stylesheet" href="/css/estiloVP.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -22,9 +22,16 @@
         $(document).ready(function() {
       
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
-        $('.tabela').DataTable({select:{selector:'#btnSel'}, info:false,
+        $('.tabela').DataTable({
+        select:{selector:'#btnSel'}, 
+        info:false, 
+        pageLength : 5,
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
         language: 
         {
+            lengthMenu: "Exibir _MENU_ linhas",
+            search: "Busca",
+            zeroRecords: "Linha não encontrada!",
             oPaginate: 
             {
                 sNext: '<i class="fas fa-angle-double-right"></i>',
@@ -77,10 +84,17 @@
             cpf_atual.value = document.getElementById("cpfInput").value;
         }
 
-        function atualizar_cod(linha){
+        function atualizar_info_linha(linha){
             nu_cod = linha['codigo'];
             cod_linha = document.getElementById("cod_linha");
             cod_linha.value = nu_cod.toString();
+
+            partida = linha['partida'];
+            destino = linha['destino'];
+            valor_partida = document.getElementById('cidade_partida');
+            valor_destino = document.getElementById('cidade_destino');
+            valor_partida.value = partida.toString();
+            valor_destino.value = destino.toString();            
         }
 
         function atualizar_valor(){
@@ -142,24 +156,27 @@
     </script>
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
-    <div class="container principal">
+    <div class="container-lg principal">
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
+        @if (sizeof($errors) > 0)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <ul>
-                    @foreach($errors->all() as $error)
+                    @foreach($errors as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         @if(session('message'))
-            <div class="alert alert-success">{{session('message')}}</div>
+            <div class="alert alert-success">{{session('message')}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif    
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <h5 class="titulos">Consulta de Linhas</h5>
                 <div class="card cardCL">
                     <form method="POST" action="{{route('consultaVP')}}" class="form">
@@ -167,7 +184,7 @@
                         <div class="row">
                             <div class="col">
                                 <label class="textoPreto" for="partidaInput">Partida:</label>
-                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('partidaInput') }}">
+                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('cidade_partida') }}">
                             </div>
                             <div class="col">
                                 <label class="textoPreto" for="chegadaInput">Chegada:</label>
@@ -176,14 +193,14 @@
                             
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_input') }}">
+                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}">
                                 
                             </div>
                         </div>
                         <div class="row rowBotoes">
                             <div class="col-sm">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkBoxLD">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLD" name="tipoLinha_op2" value="1" checked>
                                     <label class="form-check-label" for="checkBoxLD">
                                     Linhas Diretas
                                     </label>
@@ -191,9 +208,9 @@
                             </div>
                             <div class="col-sm">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkBoxLI">
+                                    <input class="form-check-input" type="checkbox" id="checkBoxLI" name="tipoLinha_op1" value="0" checked>
                                     <label class="form-check-label" for="checkBoxLI">
-                                    Linhas Indiretas
+                                    Linhas Comuns
                                     </label>
                                 </div>
                             </div>
@@ -206,7 +223,7 @@
 
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h5 class="titulos">Dados do passageiro e pagamento</h5>
                 <div class="card cardDPP">
                     <div class="row">
@@ -256,17 +273,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="card cardPassagens">
                     <table class="table table-hover tabela" style="text-align: center">
                         <thead>
                           <tr>
                             <th scope="col">Código</th>
-                            <th scope="col">Cidade de Origem</th>
-                            <th scope="col">Cidade de Destino</th>
+                            <th scope="col">Origem</th>
+                            <th scope="col">Destino</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col"></th>
+                            <th data-orderable="false" scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -286,14 +303,14 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
-                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();atualizar_cod({{json_encode($linha)}});">Selecionar</button></td>
+                                <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();atualizar_info_linha({{json_encode($linha)}});">Selecionar</button></td>
                             </tr>
                             @endforeach          
                         </tbody>
                       </table>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <br><h5 class="titulos">Total</h5>
                 <div class="card cardTotal">
                     <div class="row">
@@ -320,6 +337,8 @@
                         <div class="col colBtnAmarelo">
                             <form method="POST" action="{{ route('vende') }}">
                                 @csrf
+                                <input id="cidade_partida" name="cidade_partida" type="hidden"></input>
+                                <input id="cidade_destino" name="cidade_destino" type="hidden"></input>
                                 <input id="cod_linha" name="cod_linha" type="hidden"></input>
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
@@ -327,7 +346,7 @@
                                 <button name="finalize" type="submit" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button>
                             </form>
                         </div>
-                        <div class="col colBtnVermelho"> <a href="/venderPassagens"><button type="button" class="botao botaoAmarelo botaoVermelho" id="btnCancel"><span><i class="fas fa-times-circle"></i></span> Cancelar</button></a></div>
+                        <div class="col colBtnVermelho"> <a href="/venderPassagens"><button type="button" class="botao botaoAmarelo botaoCancelar" id="btnCancel"><span><i class="fas fa-times-circle"></i></span> Cancelar</button></a> </div>
                     </div>
                 </div>
             </div>

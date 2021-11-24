@@ -67,7 +67,15 @@
 .btn-info:hover{background-color:#1b5576d0}
         
 
-.botaoVermelho{background-color:#f44336}
+.botaoCancelar{background-color:#000000; color:#f9c536}
 
-.botaoVermelho:hover {background-color: #f44336d0;}
+.botaoCancelar:hover {background-color: #181514d0;}
 
+
+table.dataTable tbody tr.selected {
+    background-color: #f7ca50 !important;
+    color: #000000;
+    font-weight: bolder;
+    font-size: large;
+    font-family: 'darker grotesque';
+}
