@@ -18,7 +18,7 @@ class FuncionarioController extends Controller {
     use PaginationTrait;    
 
     public function index(){
-        $funcionario = Func::index();
+        $funcionario = Funcionario::index();
         return view("funcionario.perfil", ['funcionario'=>$funcionario]);
     }
 
