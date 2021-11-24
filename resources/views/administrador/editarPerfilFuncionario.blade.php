@@ -68,7 +68,7 @@
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>
-                        <input type="text" class="form-control" id="matricula" name = "matricula" value="{{$funcionario['entradaMatricula']}}"/>
+                        <input type="text" class="form-control" id="matricula" name = "matricula" value="{{$funcionario['entradaMatricula']}}" readonly/>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>

@@ -35,11 +35,11 @@
 - [ ] Back
 
 **1.2. Login de usuários no sistema:**
-- [X] Front (Responsáveis: Everton/Laravel)
+- [X] Front (Responsáveis: Everton)
 - [X] Back (Responsável: Antony)
 
 **1.3. Cadastro de clientes no sistema:**
-- [X] Front (Responsáveis: Everton/Laravel)
+- [X] Front (Responsáveis: Everton)
 - [X] Back (Responsável: Antony) 
 
 **1.4. Visualização da agenda das passagens:**
@@ -47,7 +47,7 @@
 - [ ] Back
 
 **1.5. Seleção do método de pagamento:**
-- [X] Front (Responsável: Antony
+- [X] Front (Responsável: Antony)
 - [ ] Back
 
 **1.6. Confirmação:**
@@ -56,7 +56,7 @@
 
 **1.7. Consulta de passagens compradas:**
 - [X] Front (Responsável: Ozenilson)
-- [ ] Back
+- [X] Back (Responsável: Everton)
 
 **1.8. Editar Perfil:**
 - [X] Front (Responsável: Everton)

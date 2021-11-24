@@ -115,7 +115,7 @@
                   </td>
                   <td>
                   <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                  <a class="btn botaoAzul" href="{{route('gerenciaUsuarios.excluir', $funcionario->email)}}" role="button" method="post"> Excluir</a>
+                  <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
                   </td>
                 </tr> 
                 @endforeach
@@ -131,6 +131,49 @@
 
     </div>
   </div>
+
   
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F9C536">
+          <h5 class="modal-title" id="exampleModalLabel">Exclusão </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{route('gerenciaUsuarios.excluir')}}" id="deleteForm" method="post">
+          @csrf
+          @method('DELETE')
+          <div class="modal-body">
+            <p> Deseja excluir o usuario(a): </p>
+            <input type="text" name="nome" id="nome" value=""  readonly style= "border: none;">
+            <input type="hidden" name="email" id="id" value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn botaoAmarelo" data-dismiss="modal">Cancelar</button>
+            <button type="sumbmit" class="btn botaoAzul">Confirmar</button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+
+  
+
+  <script>
+    $(document).on('click','.delete',function(){
+        var userID=$(this).attr('data-id');
+        $('#id').val(userID); 
       
+        var userNome=$(this).attr('data-nome');
+        $('#nome').val(userNome); 
+        $('#exampleModal').modal('show'); 
+    });
+    </script>
+  
+
 @endsection
+

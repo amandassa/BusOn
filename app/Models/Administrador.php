@@ -96,9 +96,9 @@ class Administrador extends Funcionario
     }
 
     public static function perfilFunc($email){ 
+
         $emaillogado = $email;
         $usuario = DB::select("select * from funcionario where email = ?", [$emaillogado])[0];
-
         $funCPf = $usuario->CPF;
         $funNome = $usuario->nome;
         $funEmail = $usuario->email;
@@ -158,7 +158,22 @@ class Administrador extends Funcionario
     }
 
     public static function addTrecho(StoreAddTrechoRequest $request){
+        $origem = $request['origem'];
+        $destino = $request['destino'];
+        $valor = $request['preço'];
+        $valor = intval($valor);
+        $horas = $request['duração1'];
+        $minutos = $request['duração2'];
+        $segundos = $request['duração3'];
         
+        if($horas < 10) $horas = "0"."".$horas;
+        if($minutos < 10) $minutos = "0"."".$minutos;
+        if($segundos < 10) $segundos = "0"."".$segundos;
+
+        $duração = sprintf("%s:%s:%s", $horas, $minutos, $segundos);
+        
+        DB::insert("INSERT INTO trecho (cidade_partida, cidade_chegada, duracao , preco) VALUES (?, ?, ?, ?)", [$origem, $destino, $duração, $valor]);
+
     }
 
     public static function excluir(Request $request){

@@ -59,13 +59,8 @@
         var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
         var alterouValorPago = false; //Verifica se o input valorPago foi alterado, dessa forma 
         //a mensagem de valor insuficiente só é apresentada caso esse variável for true;
-        var selecionado = false;
 
-        function finalizar()
-        {
-
-        }
-
+    
         //É chamada sempre que o input de valor pago ou descontos é alterado
         function alteracaoInput(alterou)
         {
@@ -75,7 +70,7 @@
             alterouValorPago = false;
         }
 
-        //Atualiza os precos do card total
+        
 
         function atualizar_cpf(){
             cpf_atual = document.getElementById("cpf_atual");
@@ -84,9 +79,18 @@
 
         function atualizar_cod(linha){
             nu_cod = linha['codigo'];
-            cod_passagem = document.getElementById("cod_atual");
-            cod_passagem.value = nu_cod.toString();
+            cod_linha = document.getElementById("cod_linha");
+            cod_linha.value = nu_cod.toString();
         }
+
+        function atualizar_valor(){
+            preco_atual = document.getElementById("preco_atual");
+            preco_atual.value = document.getElementById("pagoInput").value;
+        }
+
+
+
+        //Atualiza os precos do card total
 
         function preco(preco)
         {
@@ -125,17 +129,12 @@
                 alert("Valor pago é insuficiente!!!");
             }
             
-            ultimoPreco = preco; 
-            preco_atual = document.getElementById("preco_atual");
-            preco_atual.value = ultimoPreco;
-            
             //Total
             total = document.getElementById('total');
             total.innerHTML = 'R$ ' + precoComDesconto;
 
-        
+            ultimoPreco = preco; 
 
-            
         }
 
 
@@ -238,7 +237,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(true)">
+                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" min="0" onchange="alteracaoInput(true); atualizar_valor()" oninput="this.value = Math.abs(this.value)">
                               </div>
                         </div>
                         <div class="col">
@@ -247,7 +246,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input type="number" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput" value="0.00" placeholder="0,00" onchange="alteracaoInput(false)">
+                                <input type="number" class="form-control" aria-label="Descontos" aria-describedby="inputGroup-sizing-sm" id="descontosInput" value="0.00" placeholder="0,00" min ="0" onchange="alteracaoInput(false)" oninput="this.value = Math.abs(this.value)">
                               </div>
 
                         </div>
@@ -321,7 +320,7 @@
                         <div class="col colBtnAmarelo">
                             <form method="POST" action="{{ route('vende') }}">
                                 @csrf
-                                <input id="cod_atual" name="cod_passagem" type="hidden"></input>
+                                <input id="cod_linha" name="cod_linha" type="hidden"></input>
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
 
