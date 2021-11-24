@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Models\Administrador as Adm;
 use Dotenv\Regex\Result;
+use App\Models\Linha as Linha;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Funcionario;
@@ -127,7 +129,40 @@ class AdministradorController extends Controller
         Adm::addTrecho($request);
         return redirect()->back()->with('message', 'Trecho Cadastrado.');
     }
-    
-   
+
+    public function estatisticasAdministrador(Request $request)
+    {
+        $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
+        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);
+        $linha_menos_vendida = Linha::linha_menos_vendida();
+        $linha_mais_vendida = Linha::linha_mais_vendida();
+        if($request['buscarLinha'] == null){
+            $cod_busca = 2;
+        }else{
+            $cod_busca = $request['buscarLinha'];
+        }
+        $linha_por_codigo =  Linha::buscar ($cod_busca);
+
+        $dados = [
+            'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
+            'qtd_vendas_7dias' => $passagens_vendidas['qtd_vendas_7dias'], 
+            'qtd_vendas_30dias' => $passagens_vendidas['qtd_vendas_30dias'],
+
+            'total_mais_vendida' => $linha_mais_vendida['total_mais_vendida'],
+            'linha_mais_vendida_partida' => $linha_mais_vendida['linha_mais_vendida_partida'],
+            'linha_mais_vendida_chegada' => $linha_mais_vendida['linha_mais_vendida_chegada'],
+
+            'total_menos_vendida' => $linha_menos_vendida['total_menos_vendida'],
+            'linha_menos_vendida_partida' => $linha_menos_vendida['linha_menos_vendida_partida'],
+            'linha_menos_vendida_chegada' => $linha_menos_vendida['linha_menos_vendida_chegada'],
+
+            'total_vendas' => $linha_por_codigo['total'],
+            'cidade_partida' => $linha_por_codigo['cidade_partida'],
+            'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
+        ];
+
+        return view('administrador.inicial_adm')->with('dados', $dados);
+    }
 
 }
+?>

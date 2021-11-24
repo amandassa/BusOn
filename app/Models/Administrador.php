@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Http\Requests\StoreAddTrechoRequest;
-use App\Models\Funcionario;
+use App\Models\Funcionario as Func;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Database\QueryException;
+use DateTime;
+
 // Use DB, use Request
 
-class Administrador extends Model
+class Administrador extends Funcionario
 {
 
     
@@ -159,11 +161,27 @@ class Administrador extends Model
         
     }
 
+
+     /**
+     * Passagens vendidas no sistema
+     *
+     * @return [$qtd_vendas_total_hoje, $qtd_vendas_total_dias, $qtd_vendas_total_30dias] um array 
+     * com as passagens vendidas no sistema nos períodos indicados
+     */
+    public function passagensVendidasTotal()
+    {
+        $data = new DateTime(); //Pega a data atual
+        
+        $data_hoje = $data->format('Y-m-d');
+        $data_uma_semana_atras = $data->modify('-7 day')->format('Y-m-d');  //Pega a data 7 dias antes
+        $data_uma_mes_atras = $data->modify('+7 day')->modify('-1 month')->format('Y-m-d'); //Pega a data 30 dias antes
     
+        $qtd_vendas_total_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE $data_hoje = (SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
+        $qtd_vendas_total_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje)"); 
+        $qtd_vendas_total_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje)"); 
 
-    
-
-
-   
+        return [$qtd_vendas_total_hoje, $qtd_vendas_total_7dias, $qtd_vendas_total_30dias];
+    }
 
 }
+?>

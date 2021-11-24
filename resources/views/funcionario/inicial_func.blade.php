@@ -67,7 +67,7 @@
             <div class="quadro"> <!--Linha mais vendida-->
                 <div class="card-body">
                 <p class="textoCidade"><b>{{--$dados['linha_mais_vendida_partida']--}} <br> {{--$dados['linha_mais_vendida_chegada']--}}</b></p>
-                    <p><b>É a linha mais vendida com o total de {{$dados['total_mais_vendida']}} passagens</b></p>
+                    <p><b>É a linha mais vendida com o total de {{--$dados['total_mais_vendida']--}} passagens</b></p>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
             <div class="quadro"> <!--Linha menos vendida-->
                 <div class="card-body">
                     <p class="textoCidade"><b>{{--$dados['linha_menos_vendida_partida']--}} <br> {{--$dados['linha_menos_vendida_chegada']--}}</b></p>
-                    <p><b>É a linha menos vendida com o total de {{$dados['total_menos_vendida']}} passagens</b></p>
+                    <p><b>É a linha menos vendida com o total de {{--$dados['total_menos_vendida']--}} passagens</b></p>
                 </div>
             </div>
         </div>
