@@ -43,17 +43,13 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <form method="POST" action="{{ route('inicial_adm') }}">
+                    <form method="POST">
                         @csrf
                         <div class="caixaPesquisa">
                             <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
                             <a type="submit" id="btnCriarConta">
                                 <span class="material-icons" id="iconPesquisa">search</span>
                             </a>
-                            
-                            <!--a href="#">
-                                <span class="material-icons" id="iconPesquisa">search</span>
-                            </a-->
                         </div>
                     </form>
                     @if($dados['cidade_partida'] == '' or $dados['cidade_chegada'] == '')

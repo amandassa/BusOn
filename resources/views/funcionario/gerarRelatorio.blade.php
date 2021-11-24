@@ -4,24 +4,33 @@
 @section('content')
 <link href="/css/estiloPadrao.css" rel="stylesheet">
 
-@push('js')
-<script>
-  $( "#date" ).datepicker({
-    format: "dd/mm/yyyy",
-    language: "pt-BR"
+<style>
+  @media print {
+    body * {
+    visibility: hidden;
+    }
+  
+    #printable, #printable * {
+      visibility: visible;
+    }
+  }
+</style>
+
+<script>  
+  $(document).ready(function(){
+
+  $("#div_impressao").printThis();
+
   });
-  $(document).ready(function() {
-    $('.pagination').addClass('align-self-center');
-    $('.pagination li').addClass('page-item');
-    $('.pagination li a').addClass('page-link');
-    $('.page-item.active .page-link').addClass('corPaginacao');
-    $( "#date" ).datepicker({
-    format: "dd/mm/yyyy",
-    language: "pt-BR"
-  });
-  });    
+
+  function impressao(){    
+    var printContents = document.getElementById('div_impressao').innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;    
+  }
 </script>
-@endpush
 
 <div class="container">
     <h4 class="titulo">Relatório de passageiros por linha</h4> 
@@ -46,8 +55,13 @@
      </div>
     </form>
 
-  <div class="card">
+  <div class="card printable" id="div_impressao">
     <div class="card-body">
+
+    @isset($linha_chegada)
+    <h4> Relatório de Passageiros da linha: {{$linha_partida}} x {{ $linha_chegada}} </h4>
+    @endisset
+
       <table class="table">
           <thead>
           <tr>
@@ -78,14 +92,14 @@
       </table>  
   </div>
 </div>  
-    <div class="d-flex">
+    <div class="d-flex" style="margin-top:2em;">
       <div class="mx-auto">
-        {{ $passagens->links() }}
+        <button class="botao botaoAmarelo" type="button" onClick="impressao()" >Imprimir</button>
       </div>
     </div>
   
 
-    <button class="btn btn-primary" type="button">Imprimir</button></div></div>
+    </div></div>
     
      
 </div>
