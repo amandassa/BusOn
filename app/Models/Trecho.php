@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AddTrechoInLinhaRequest;
+use Illuminate\Http\Request;
 
 class Trecho extends Model {
 
@@ -73,4 +75,68 @@ class Trecho extends Model {
         $this->preco = $novo_preco;
     }
 
+    public static function getTrecho(string $cod){
+        
+    }
+
+    public static function getTrechoInfo(AddTrechoInLinhaRequest $request){
+        $origem = $request['origem'];
+        $destino = $request['destino'];
+
+        $info = DB::select("SELECT * FROM trecho WHERE cidade_partida = ? AND cidade_chegada = ?;", [$origem, $destino])[0];
+        return $info;
+    }
+
+    public static function getAll(){
+        $all = DB::select("SELECT * FROM trecho;");
+        return $all;
+    }
+
+    public static function getTrechoList(array $cod_array){
+        $query = "SELECT * FROM trecho WHERE codigo IN (%d";
+        foreach($cod_array as $cod){
+            if($cod != null){
+                $query = sprintf($query, $cod);
+                $query .= ", %d";
+            }
+        }
+        $query = sprintf($query, 0);
+        $query .= ");";
+        dd($query);
+    }
+
+    public static function consulta(Request $request){
+        $query = "SELECT * FROM trecho";
+        $plus = false;
+        if($request['codigo'] != null){
+            $query .= " WHERE codigo = %d";
+            $query = sprintf($query, $request['codigo']);
+            $plus = true;
+        }
+        if($request['origem'] != null){
+            if($plus == true) $query .= " AND";
+            else $query .= " WHERE";
+            $query .= " cidade_partida = '%s'";
+            $query = sprintf($query, $request['origem']);
+            $plus = true;
+        }
+        if($request['destino'] != null){
+            if($plus == true) $query .= " AND";
+            else $query .= " WHERE";
+            $query .= " cidade_chegada = '%s'";
+            $query = sprintf($query, $request['destino']);
+            $plus = true;
+        }
+        if($request['preço'] != null){
+            if($plus == true) $query .= " AND";
+            else $query .= " WHERE";
+            $query .= " preco= %d";
+            $query = sprintf($query, $request['preço']);
+            $plus = true;
+        }
+        $query .= ";";
+
+        $result = DB::select($query);
+        return $result;
+    }
 }

@@ -26,7 +26,7 @@ Route::middleware(['auth:cliente'])->group(function () {
 Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/inicialFuncionario', 'FuncionarioController@estatisticas')->name('inicial_func');
     Route::get('/perfilFuncionario', function(){return view('funcionario.perfil');})->name('perfilFuncionario');
-    Route::get('/editarAgenda', function(){return view('funcionario.editarAgenda');});
+    Route::get('/editarAgenda', function(){return view('funcionario.agendaEditar');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
     Route::get('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('perfilFuncionario.index');
     Route::post('/perfilFuncionario', [App\Http\Controllers\FuncionarioController::class, 'editar'])->name('perfilFuncionario.editar');
@@ -44,8 +44,17 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     //Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
     Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
+    
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
+    
+    Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
+    Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');
+
+    Route::get('/adicionarLinha', 'TrechoController@startLinha')->name('adicionaLinha');
+    Route::post('/adicionarLinha//select', 'LinhaController@BuildLinha')->name('trechoSelect');
+    Route::post('/adicionarLinha', function(){return redirect()->route('adicionaTrecho');})->name('gotoAdicionarTrecho');
+
     Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
     Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
     Route::get('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
