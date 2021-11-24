@@ -37,8 +37,7 @@ CREATE TABLE linha (
 CREATE TABLE trechos_linha (
     codigo int AUTO_INCREMENT,
     codigo_linha int,
-    codigo_trecho int,
-    partida DATETIME NOT NULL,    
+    codigo_trecho int,    
     ordem int NOT NULL,
     CONSTRAINT pk_codigo_trechoslinha PRIMARY KEY (codigo),
     CONSTRAINT fk_codigolinha_trechoslinha FOREIGN KEY (codigo_linha)
