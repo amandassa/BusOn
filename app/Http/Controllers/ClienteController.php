@@ -70,7 +70,7 @@ class ClienteController extends Controller
     public function consultaMinhasPassagens() {
         $cliente = Cli::index();
         $cpf = $cliente['cpf'];
-        $passagens = DB::select('SELECT codigo, num_assento, data_compra FROM passagem WHERE cpf_cliente = ? ORDER BY data_compra DESC;', [$cpf]);
+        $passagens = DB::select('SELECT codigo, cidade_partida, cidade_chegada, num_assento, data_compra FROM passagem WHERE cpf_cliente = ? ORDER BY data_compra DESC;', [$cpf]);
         return view('cliente.minhasPassagens', ['passagens'=>$passagens]);
     }
 
