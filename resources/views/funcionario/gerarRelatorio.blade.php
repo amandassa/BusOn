@@ -61,7 +61,7 @@
             <th scope="col">Horário</th>                      
           </tr>
           </thead>
-        <tbody>                                
+        <tbody>                                            
               @foreach ($passagens as $passagem)
               <tr>
                 <th scope="row"> {{ $passagem['num_assento'] }} </th>                  
@@ -73,7 +73,7 @@
                   <td> {{ $passagem['cidade_chegada'] }} </td>                  
                   <td> {{ $passagem['horario_chegada'] }} </td>                   
               </tr>
-              @endforeach                        
+              @endforeach               
         </tbody>
       </table>  
   </div>

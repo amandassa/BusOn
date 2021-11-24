@@ -42,11 +42,12 @@ class FuncionarioController extends Controller {
     }
 
     public function gerarRelatorioViagem(){
-        $codigo_linha = 1;        
+        //$codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);");        
+        $codigo_linha = 14;
         $data = "2021-11-23";
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);    
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data_compra = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data_compra = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no CPF        
         $passagens_clientes = [];
@@ -61,15 +62,16 @@ class FuncionarioController extends Controller {
             $tempos = [];           
             foreach($clientes as $cliente){
                 if($passagem->cpf_cliente == $cliente->CPF){
-                    $passagem_cliente['nome'] = $clientes->nome;
+                    $passagem_cliente['nome'] = $cliente->nome;
                     break;
                 }
             }
 
             $horario_partida = (Linha::getHoraPartida('codigo', $passagem->codigo_linha))[0]->hora_partida;            
             $passagem_cliente['horario_partida'] = $horario_partida;
-            $trava = 1;            
+            $trava = 0;            
             $trechos = Trecho::getTrechosEmLinha($codigo_linha);
+            if($trechos == null) continue;
             $tempos[] = $horario_partida;                    
 
             // Calcula a duração da viagem do cliente
@@ -124,6 +126,7 @@ class FuncionarioController extends Controller {
             $passagem_cliente['horario_partida'] = $horario_partida;
             $trava = 1;            
             $trechos = Trecho::getTrechosEmLinha($codigo_linha);
+            if($trechos == null) continue;
             $tempos[] = $horario_partida;                    
 
             // Calcula a duração da viagem do cliente
