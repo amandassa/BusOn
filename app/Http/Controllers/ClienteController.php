@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use App\Models\Cliente as Cli;
+use App\Models\Cliente;
 
 use Illuminate\Http\Request;
 
@@ -12,9 +12,12 @@ class ClienteController extends Controller
      * Método padrão para preencher o formulário (valores provisórios em 20/10)
      */
 
-    public function index(){
-        $cliente = Cli::index();
-        return view("cliente.perfil", ['cliente'=>$cliente]);
+    public function index(){        
+        return view("cliente.perfil");
+    }
+
+    public function formaPagamento(){
+        $passagem =
     }
 
     function login(Request $request)
