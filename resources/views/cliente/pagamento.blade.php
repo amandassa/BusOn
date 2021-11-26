@@ -97,45 +97,18 @@
                                 <hr/>     
                                 
                                 <!--Boleto--> 
-                                <form>
-                                    <div class="form-group" id="boleto">
-                                        <div class="container" style="padding-left:0px;">
-                                            <div id="teste" class="row justify-content-md-center">
-                                                <div class="col-sm-12">
-                                                    <label> Nome do titular: </label>
-                                                    <input id="nome_titular" type="text" class="form-control"/>
-                                                </div>
-                                            </div>
-                                            <div id="teste" class="row justify-content-md-left" style="margin-top:1em;">
-                                                <div class="col-sm-7">
-                                                    <label> CPF do titular: </label>
-                                                    <input id="cpf" name="cpf" type="text" class="form-control"/>
-                                                </div>
-                                                <div class="col-sm-5" >
-                                                <center>
-                                                    <label style="color:white;">Carlos me dá 10</label>
-                                                    <button type="button" id="botao_gerar" class="botao botaoAmarelo" onClick="mostrar();"><i class="far fa-check-circle"></i> Gerar Boleto</button>                        
-                                                </center>
-                                                </div>                                                
-                                            </div>
-                                                <hr>
-                                            <div id="divOpcoes" class="row justify-content-md-center">                
-                                            <center>
-                                                <div id="alerta" class="alert alert-success" role="alert" style="visibility:hidden;">
-                                                Boleto gerado com sucesso!                                    
-                                              </div>
-                                                <button id="botao_baixar" class="botao botaoAzul" style="visibility:hidden;"><i class="fas fa-file-download"></i> Baixar PDF</button>
-                                                <button id="botao_copiar" class="botao botaoAzul" style="visibility:hidden;"><i class="fas fa-copy"></i> Copiar Código de Barras</button>
-                                            </center>
-                                            </div>
-                                    </div>
-                                </div>
-                                </form>
-
-                                <div id="pix" style="font-size: medium">
-                                    <p>Após clicar em Comprar Passagem o código QR Code será gerado para a efetuação do pagamento.</p>
+                                <div id="boleto" style="font-size: medium; text-align:justify">
+                                    <p>Após clicar em Comprar Passagem você será redirecionado para uma página em que será possível acessar o boleto gerado.</p>
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
-                                          O código é válido por apenas 30 minutos. </p>
+                                          Até que seu pagamento seja confirmado sua passagem não está assegurada</p>
+                                    <p> <i class="fas fa-check-circle" style="color: green"></i>
+                                          Pagamentos com boleto são identificados em até 3 dias. </p>
+                                </div>
+
+                                <div id="pix" style="font-size: medium; text-align:justify">
+                                    <p>Após clicar em Comprar Passagem o código QR Code e código de pagamento do Pix será gerado para a efetuação do pagamento.</p>
+                                    <p> <i class="fas fa-check-circle" style="color: green"></i>
+                                           Depois de gerar o código você terá 30 minutos para fazer o pagamento e garantir a sua passagem. </p>
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
                                           O pedido só será confirmado após o pagamento. </p>
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
