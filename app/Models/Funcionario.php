@@ -35,7 +35,7 @@ class Funcionario extends Authenticatable {
         'nome',
         'matricula',
         'email',
-        'CPF',
+        'cpf',
         'password',       
         'is_admin',
     ];
@@ -49,12 +49,12 @@ class Funcionario extends Authenticatable {
 
 
     public static function index(){ 
-        $cpflogado = Auth::guard('funcionario')->user()->CPF;
+        $cpflogado = Auth::guard('funcionario')->user()->cpf;
         
-        $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
+        $usuario = DB::select("select * from funcionario where cpf = ?", [$cpflogado])[0];
 
 
-        $funCpf = $usuario->CPF;
+        $funCpf = $usuario->cpf;
         $funNome = $usuario->nome;
         $funEmail = $usuario->email;
         $funMatricula = $usuario->matricula;
@@ -77,10 +77,10 @@ class Funcionario extends Authenticatable {
 
     public static function editar(Request $request){
             
-            $cpflogado = (Auth::guard('funcionario')->user()->CPF);
-            $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
+            $cpflogado = (Auth::guard('funcionario')->user()->cpf);
+            $usuario = DB::select("select * from funcionario where cpf = ?", [$cpflogado])[0];
             
-            $cpf = $usuario->CPF;
+            $cpf = $usuario->cpf;
             $nome = $request['nome'];
             $matricula = $usuario->matricula;
             $email = $request['email'];
@@ -142,8 +142,8 @@ class Funcionario extends Authenticatable {
     */
     public static function venderPassagem(AddVendaRequest $request) {
         
-        $cpflogado = (Auth::guard('funcionario')->user()->CPF);
-        $usuario = DB::select("select * from funcionario where CPF = ?", [$cpflogado])[0];
+        $cpflogado = (Auth::guard('funcionario')->user()->cpf);
+        $usuario = DB::select("select * from funcionario where cpf = ?", [$cpflogado])[0];
 
         $matricula = $usuario->matricula;
 
@@ -152,45 +152,23 @@ class Funcionario extends Authenticatable {
         $cpf_cliente = str_replace(".", "", $cpf_cliente);
         $cpf_cliente = str_replace("-", "", $cpf_cliente);
 
-        $data_compra =  Carbon::now();
+        $data =  date('y/m/d');
 
         $cod_linha = $request['cod_linha'];
         $valor = $request['preco_atual'];
 
+        $partida = $request['cidade_partida'];
+        $destino = $request['cidade_destino'];
+
         $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_linha])[0];
         $max_vagas = $vagas->total_vagas;
 
-        $assentos = DB::select('SELECT num_assento FROM passagem WHERE codigo_linha = :cod_linha', ['cod_linha' => $cod_linha]);
-        $lista_assentos = array();
+        $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas);
+        
+        if($num_assento > 0 &&  $num_assento <= $max_vagas){
+            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data, num_assento, cidade_partida, cidade_chegada) VALUES (?, ?, ?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data,  $assento, $partida, $destino]);
 
-        for($i = 0; $i < sizeof($assentos); $i++){
-            $lista_assentos[$i] = $assentos[$i]->num_assento;
-        }
-
-        if(sizeof($assentos) >= $max_vagas){
-            return 0;
-        }
-        else
-        {
-
-            $assento_encontrado = false;
-            $assento = 1;
-            
-            if(sizeof($assentos) != 0) {
-                while(!$assento_encontrado)
-                {
-                    $assento = $assento + 1;
-                    if(!in_array($assento, $lista_assentos)){
-                        $assento_encontrado = true;
-                    }
-                }
-            }
-
-            
-            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data_compra, num_assento) VALUES (?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data_compra,  $assento]);
-
-            $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data_compra = :data_compra', ['assento' => $assento, 'cod_linha' => $cod_linha, 'data_compra' => $data_compra]);
-            //dd($cod_passagem);
+            $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data = :data', ['assento' => $assento, 'cod_linha' => $cod_linha, 'data' => $data]);
             $cod_passagem = $cod_passagem[0]->codigo;
             
 
@@ -201,11 +179,8 @@ class Funcionario extends Authenticatable {
             DB::insert('INSERT INTO pagamento_dinheiro (dinheiro_recebido, codigo_pagamento) VALUES (?, ?);', [$valor, $id_pagamento]);
 
             return 1;
-        }
+        } else return 0;
 
-        
-        
-        
     }
 
     /*
@@ -250,9 +225,9 @@ class Funcionario extends Authenticatable {
         $data_uma_semana_atras = $data->modify('-7 day')->format('Y-m-d');  //Pega a data 7 dias antes
         $data_uma_mes_atras = $data->modify('+7 day')->modify('-1 month')->format('Y-m-d'); //Pega a data 30 dias antes
     
-        $qtd_vendas_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND $data_hoje = (SELECT data_compra FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
-        $qtd_vendas_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje)"); 
-        $qtd_vendas_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data_compra FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje)"); 
+        $qtd_vendas_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND $data_hoje = (SELECT data FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
+        $qtd_vendas_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje)"); 
+        $qtd_vendas_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje)"); 
 
         return ['qtd_vendas_hoje' => $qtd_vendas_hoje[0]->contagem_vendas, 
                 'qtd_vendas_7dias' => $qtd_vendas_7dias[0]->contagem_vendas,

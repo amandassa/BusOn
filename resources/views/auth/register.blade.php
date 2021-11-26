@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title', 'Cadastre-se - ')
-<!-- Máscara do CPF-->
+<!-- Máscara do cpf-->
 <script>function mascara(i,t){
    
     var v = i.value;
@@ -59,10 +59,10 @@
                                 </span>
                             @enderror
                         </div>
-                        <!-- Campo do CPF-->
+                        <!-- Campo do cpf-->
                         <div class="form-group camposMenores">
-                            <label for="entradaCPF">{{ __('CPF') }}</label>
-                            <input oninput="mascara(this, 'cpf')" id="entradaCPF" type="text" class="form-control 
+                            <label for="entradacpf">{{ __('cpf') }}</label>
+                            <input oninput="mascara(this, 'cpf')" id="entradacpf" type="text" class="form-control 
                             @error('cpf') is-invalid
                             @enderror" name="cpf" value="{{ old('cpf') }}"
                             required autocomplete="name" autofocus  name="customer['cpf']">

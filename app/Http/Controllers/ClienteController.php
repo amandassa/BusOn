@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cliente;
+use App\Models\Passagem;
+use App\Models\Pagamento;
+use App\Models\Pagamento_cartao;
+
 
 use Illuminate\Http\Request;
 
@@ -16,8 +20,30 @@ class ClienteController extends Controller
         return view("cliente.perfil");
     }
 
-    public function formaPagamento(){
-        $passagem =
+    public function indexPagamento(Request $request){
+        return view('cliente.pagamento', ['linha' => $request['linha']]);
+    }
+
+    public function efetuarPagamento(Request $request){        
+        $num_assento = 
+        Passagem::criar($request['num_assento'], $request['linha'][0]->codigo, $request['cidade_partida'], $request['$cidade_chegada'], $request['data'], Auth::guard('cliente')->user()->cpf);
+        $codigo_passagem = Passagem::encontrar('cpf', Auth::guard('cliente')->user()->cpf);
+        Pagamento::criar(0, 1, $codigo_passagem);
+        $codigo_pagamento = Pagamento::encontrar('codigo_passagem', $codigo_passagem);
+        
+        switch($request['opcao']){
+            // Cartão de Crédito
+            case 1:
+                $num_cartao = $request['num_cartao'];
+                $parcelas = $request['parcelas'];
+                $validade = $request['validade'];
+                $ccv = ['ccv'];
+                $nome_titular = ['nome_titular'];
+                
+                
+                Pagamento_cartao::criar($num_catao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
+                break;
+        }
     }
 
     function login(Request $request)
@@ -25,7 +51,7 @@ class ClienteController extends Controller
         $requisicao = DB::select("select * from cliente where email = ?", [$request->email])[0];
         if($requisicao){
             $cliente = new Cliente;
-            $cliente->CPF = $requisicao->CPF;
+            $cliente->cpf = $requisicao->cpf;
             $cliente->nome = $requisicao->nome;
             $cliente->email = $requisicao->email;
             $cliente->senha = $requisicao->senha;
@@ -73,7 +99,7 @@ class ClienteController extends Controller
     public function consultaMinhasPassagens() {
         $cliente = Cli::index();
         $cpf = $cliente['cpf'];
-        $passagens = DB::select('SELECT codigo, num_assento, data_compra FROM passagem WHERE cpf_cliente = ? ORDER BY data_compra DESC;', [$cpf]);
+        $passagens = DB::select('SELECT codigo, cidade_partida, cidade_chegada, num_assento, data FROM passagem WHERE cpf_cliente = ? ORDER BY data DESC;', [$cpf]);
         return view('cliente.minhasPassagens', ['passagens'=>$passagens]);
     }
 

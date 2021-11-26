@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
 use App\Models\Trecho;
 use App\Models\TrechosLinha;
+use App\Http\Requests\BuscaTrechoRequest;
+use App\Http\Requests\AddTrechoInLinhaRequest;
 
 class LinhaController extends Controller
 {
@@ -29,7 +31,10 @@ class LinhaController extends Controller
             $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
             $tipo = $linha->direta;    
             $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]);
-            $cidade_partida = $cidade_partida[0]->cidade_partida;        
+            if($cidade_partida==null)
+                continue;  
+            $cidade_partida = $cidade_partida[0]->cidade_partida;   
+               
             $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho;
             $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_final]);
             $cidade_destino = $cidade_destino[0]->cidade_chegada; 
