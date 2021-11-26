@@ -34,12 +34,12 @@ class AdministradorController extends Controller
             $is_admin = '0';
         }
         $senha = Hash::make($request->senha);        
-        DB::statement('insert into funcionario(nome, CPF, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
+        DB::statement('insert into funcionario(nome, cpf, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
         $funcionario = new Funcionario;
         $request = [
                  'nome' => $nome,
                  'email' => $email,
-                 'CPF'  => $cpf,
+                 'cpf'  => $cpf,
                  'password' => $senha,
                  'is_admin' => $is_admin
                  ];

@@ -14,12 +14,12 @@ class Cliente extends Authenticatable
     use Notifiable;
 
     protected $table = 'cliente';
-    protected $primaryKey = 'CPF';
+    protected $primaryKey = 'cpf';
     protected $guard = 'cliente';
 
 
     protected $fillable = [
-        'CPF',
+        'cpf',
         'nome',
         'email',
         'password',
@@ -36,7 +36,7 @@ class Cliente extends Authenticatable
     public function getAuthIdentifierName()
 
     {
-        return 'CPF';
+        return 'cpf';
     }
 
     public function getAuthPassword()
@@ -58,7 +58,7 @@ class Cliente extends Authenticatable
     public static function index(){
         $emailLogado = Auth::guard('cliente')->user()->email;
         $usuario = DB::select("select * from cliente where email = ?", [$emailLogado])[0];
-        $clienteCpf = $usuario->CPF;
+        $clienteCpf = $usuario->cpf;
         $clienteNome = $usuario->nome;
         $clienteEmail = $usuario->email;
         $clienteSenha = '';

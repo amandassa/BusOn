@@ -64,7 +64,7 @@
               <!--img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa"-->
               <!--select name="buscaOp" id="buscaOp">
                 <option value="nom">Nome</option>
-                <option value="cp">CPF</option>
+                <option value="cp">cpf</option>
                 <option value="emai">Email</option>
                 <option value="matricul">Matricula</option>
               </select-->
@@ -93,7 +93,7 @@
             <tr>
               <th class="bg-warning">Matrícula</th>
               <th class="bg-warning">Nome</th>
-              <th class="bg-warning">CPF</th>
+              <th class="bg-warning">cpf</th>
               <th class="bg-warning">Email</th>
               <th class="bg-warning">Tipo</th>
               <th class="bg-warning">Ações</th>
@@ -104,7 +104,7 @@
                 @foreach ($funcionarios as $funcionario)
                   <th scope="row"> {{ $funcionario->matricula }} </th>
                   <td> {{ $funcionario->nome }} </td>
-                  <td> {{substr($funcionario->CPF, 0, 3) . '.' . substr($funcionario->CPF , 3, 3) . '.' . substr($funcionario->CPF , 6, 3) . '-' . substr($funcionario->CPF , 9)}}</td>
+                  <td> {{substr($funcionario->cpf, 0, 3) . '.' . substr($funcionario->cpf , 3, 3) . '.' . substr($funcionario->cpf , 6, 3) . '-' . substr($funcionario->cpf , 9)}}</td>
                   <td> {{ $funcionario->email }} </td>
                   <td>
                     @if($funcionario->is_admin)

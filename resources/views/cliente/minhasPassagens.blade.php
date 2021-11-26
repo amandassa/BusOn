@@ -23,7 +23,7 @@
                         <td> {{$passagem->cidade_partida}}</td>
                         <td> {{$passagem->cidade_chegada}}</td>
                         <td> {{$passagem->num_assento}} </td>
-                        <td> {{$passagem->data_compra}}</td>
+                        <td> {{$passagem->data}}</td>
                       </tr>
                       @endforeach
                 </tbody>

@@ -44,7 +44,7 @@
               <!--img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa"-->
               <!--select name="buscaOp" id="buscaOp">
                 <option value="nome">Nome</option>
-                <option value="cpf">CPF</option>
+                <option value="cpf">cpf</option>
                 <option value="email">Email</option>
               </select-->
           </div>
@@ -55,7 +55,7 @@
           <table class="table table-bordered" id="tabela">          
             <thead>
               <tr>
-                <td class="bg-warning">CPF</td>
+                <td class="bg-warning">cpf</td>
                 <td class="bg-warning">Nome</td>
                 <td class="bg-warning">Email</td>
               </tr>
@@ -63,7 +63,7 @@
             <tbody>                
                 <tr>
                   @foreach ($clientes as $cliente)
-                    <th scope="row"> {{ $cliente->CPF }} </th>
+                    <th scope="row"> {{ $cliente->cpf }} </th>
                     <td> {{ $cliente->nome }} </td>
                     <td> {{$cliente->email}}</td>
                   </tr>

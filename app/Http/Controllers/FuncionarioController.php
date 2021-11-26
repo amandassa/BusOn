@@ -47,9 +47,9 @@ class FuncionarioController extends Controller {
         $data = "2021-11-23";
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);    
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data_compra = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
         $clientes = Cliente::getClientes();                
-        // Realiza a busca pelos nomes dos clientes com base no CPF        
+        // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];
         $passagem_cliente = array();         
         foreach($passagens_viagem as $passagem){            
@@ -61,7 +61,7 @@ class FuncionarioController extends Controller {
             $passagem_cliente['cidade_chegada'] = $passagem->cidade_chegada; 
             $tempos = [];           
             foreach($clientes as $cliente){
-                if($passagem->cpf_cliente == $cliente->CPF){
+                if($passagem->cpf_cliente == $cliente->cpf){
                     $passagem_cliente['nome'] = $cliente->nome;
                     break;
                 }
@@ -102,9 +102,9 @@ class FuncionarioController extends Controller {
         $data = $request['data'];
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data_compra = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
-        // Realiza a busca pelos nomes dos clientes com base no CPF        
+        // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];
         $passagem_cliente = array();   
         
@@ -117,7 +117,7 @@ class FuncionarioController extends Controller {
             $passagem_cliente['cidade_chegada'] = $passagem->cidade_chegada; 
             $tempos = [];           
             foreach($clientes as $cliente){
-                if($passagem->cpf_cliente == $cliente->CPF){
+                if($passagem->cpf_cliente == $cliente->cpf){
                     $passagem_cliente['nome'] = $cliente->nome;
                     break;
                 }

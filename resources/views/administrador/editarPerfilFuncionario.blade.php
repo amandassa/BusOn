@@ -7,7 +7,7 @@
     @push('js')
     <script>
         $(document).ready(function () {
-            $(".editarCPF").mask('000.000.000-00', {reverse: true});
+            $(".editarcpf").mask('000.000.000-00', {reverse: true});
             console.log('novocpf! ', cep);
 
         });
@@ -63,8 +63,8 @@
                         <input type="email" class="form-control" id="entradaEmail" name = "email" value="{{$funcionario['entradaEmail']}}">
                     </div>
                     <div class="form-group">
-                        <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" data-mask="000.000.000-00" class="form-control"  autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}"disabled />
+                        <label for="entradacpf">cpf</label>
+                        <input oninput="mascara(this, 'cpf')" data-mask="000.000.000-00" class="form-control"  autocomplete="on" id="disabledInput entradacpf" name="customer['cpf']" type="text" value="{{$funcionario['cpf']}}"disabled />
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>

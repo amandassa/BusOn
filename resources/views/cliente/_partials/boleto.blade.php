@@ -39,7 +39,7 @@
                 </div>
                 <div id="teste" class="row justify-content-md-left" style="margin-top:1em;">
                     <div class="col-sm-7">
-                        <label> CPF do titular: </label>
+                        <label> cpf do titular: </label>
                         <input id="cpf" name="cpf" type="text" class="form-control"/>
                     </div>
                     <div class="col-sm-5" >

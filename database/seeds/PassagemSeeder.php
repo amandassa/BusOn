@@ -15,8 +15,8 @@ class PassagemSeeder extends Seeder
         DB::beginTransaction();
         $passagens = factory(Passagem::class, 10)->make()->toArray();            
             foreach($passagens as $passagem) {                
-                DB::statement('insert into passagem(num_assento, codigo_linha, cpf_cliente, data_compra) values (?, ?, ?, ?)',
-                 [$passagem['num_assento'], $passagem['codigo_linha'], $passagem['cpf_cliente'], $passagem['data_compra']]);
+                DB::statement('insert into passagem(num_assento, codigo_linha, cpf_cliente, data) values (?, ?, ?, ?)',
+                 [$passagem['num_assento'], $passagem['codigo_linha'], $passagem['cpf_cliente'], $passagem['data']]);
             }
         DB::commit();
     }

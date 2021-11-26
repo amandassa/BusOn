@@ -18,8 +18,8 @@ class FuncionarioSeeder extends Seeder
 
             $funcionarios = factory(Funcionario::class, 10)->make()->toArray();                        
             foreach($funcionarios as $funcionario) {                
-                DB::statement('insert into funcionario(matricula, nome, CPF, email, password, is_admin) values (?, ?, ?, ?, ?, ?)',
-                 [$funcionario['matricula'], $funcionario['nome'], $funcionario['CPF'], $funcionario['email'], $funcionario['password'], $funcionario['is_admin']]);
+                DB::statement('insert into funcionario(matricula, nome, cpf, email, password, is_admin) values (?, ?, ?, ?, ?, ?)',
+                 [$funcionario['matricula'], $funcionario['nome'], $funcionario['cpf'], $funcionario['email'], $funcionario['password'], $funcionario['is_admin']]);
             }            
             DB::commit();
         } catch (Exception $e) {

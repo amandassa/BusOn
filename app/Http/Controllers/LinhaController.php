@@ -23,9 +23,10 @@ class LinhaController extends Controller
     {        
         $consulta= DB::select("SELECT * FROM linha");
         $linhas = [];        
+        dd($consulta);
         foreach($consulta as $linha){            
-            $codigo = $linha->codigo;                        
-            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);                                    
+            $codigo = $linha->codigo;
+            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            
             if ($codigo_trecho == null) continue;
             $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
             $tipo = $linha->direta;    
@@ -204,7 +205,7 @@ class LinhaController extends Controller
                     $status =  "Linha encontrada com sucesso";
                     $encontrado = 1;
                 } 
-            } 
+            }
         }
         
         if($encontrado == 0){

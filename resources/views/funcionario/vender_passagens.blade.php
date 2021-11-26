@@ -46,7 +46,7 @@
 
 
         
-        //Mascara do CPF
+        //Mascara do cpf
         function mascara(i,t)
         {
             var v = i.value;

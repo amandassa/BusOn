@@ -79,7 +79,7 @@ class RegisterController extends Controller
         $nome = $data['nome'];
         $email = $data['email'];
         $senha = Hash::make($data['senha']);        
-        DB::statement('insert into cliente(nome, CPF, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
+        DB::statement('insert into cliente(nome, cpf, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
         $cliente = new Cliente;
         $cliente->fill($data);        
         return $cliente;    
@@ -99,12 +99,12 @@ class RegisterController extends Controller
             $is_admin = '0';
         }
         $senha = Hash::make($data->senha);        
-        DB::statement('insert into funcionario(nome, CPF, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
+        DB::statement('insert into funcionario(nome, cpf, email, password, is_admin) values (?, ?, ?, ?, ?)', [$nome, $cpf, $email, $senha, $is_admin]);
         $funcionario = new Funcionario;
         $data = [
                  'nome' => $nome,
                  'email' => $email,
-                 'CPF'  => $cpf,
+                 'cpf'  => $cpf,
                  'password' => $senha,
                  'is_admin' => $is_admin
                  ];

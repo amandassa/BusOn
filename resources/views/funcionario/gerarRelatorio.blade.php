@@ -65,9 +65,9 @@
       <table class="table">
           <thead>
           <tr>
-            <th scope="col">Nº Assento</th>
+            <th scope="col">Nº</th>
             <th scope="col">Nome</th>
-            <th scope="col">CPF</th>
+            <th scope="col">cpf</th>
             <th scope="col">Passagem</th>
             <th scope="col">Cidade de Partida</th>          
             <th scope="col">Horário</th>          
