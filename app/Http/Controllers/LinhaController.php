@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
 use App\Models\Trecho;
 use App\Models\TrechosLinha;
+use App\Http\Requests\BuscaTrechoRequest;
+use App\Http\Requests\AddTrechoInLinhaRequest;
 
 class LinhaController extends Controller
 {

@@ -10,6 +10,21 @@
 <div class="container" id="contPrincipal">
     <div id="centerpiece">
         <h4 class="header">Cadastrar linha:</h4>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
+        @if(session('message'))
+            <div class="alert alert-success">{{session('message')}}</div>
+        @endif
+
         <div id="top_portion">
             <div class="line_info">
                 <p class="line_info_title">Cidade de origem:</p>
@@ -33,7 +48,7 @@
         </div>
 
         <div id="AddTable">
-            <h5 id="addtabletitle">Adicionar trechos:</h5>
+            <h5 id="addtabletitle">Trechos Adicionados:</h5>
             <table>
                 <thead>
                     <tr>
@@ -45,93 +60,64 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($trechos as $trecho)
                     <tr>
-                        <td>
-                            <p>Feira de Santana, BA</p>
-                            <p>10:00</p>
+                        <td scope="row">
+                            <p>{{ $trecho['origem'] }}</p>
+                            <p>{{ $trecho['hora_origem'] }}</p>
                         </td>
 
-                        <td>
-                            <p>Salvador, BA</p>
-                            <p>12:00</p>
+                        <td scope="row"> 
+                            <p>{{ $trecho['destino'] }}</p>
+                            <p>{{ $trecho['hora_destino'] }}</p>
                         </td>
 
-                        <td>
-                            R$ 8,00
+                        <td scope="row">
+                            R$ {{ $trecho['preço'] }}
                         </td>
 
-                        <td>
+                        <td scope="row">
                             <button type="button" class="botoes_table">Abrir</button>
                         </td>
 
-                        <td>
+                        <td scope="row">
                             <button type="button" class="botoes_table">Editar</button>
                             <button type="button" class="botoes_table">Excluir</button>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>
-                            <p>Conceição do Jacuípe, BA</p>
-                            <p>10:00</p>
-                        </td>
-
-                        <td>
-                            <p>Salvador, BA</p>
-                            <p>10:45</p>
-                        </td>
-
-                        <td>
-                            R$ 13,54
-                        </td>
-
-                        <td>
-                            <button type="button" class="botoes_table">Abrir</button>
-                        </td>
-
-                        <td>
-                            <button type="button" class="botoes_table"">Editar</button>
-                            <button type="button" class="botoes_table">Excluir</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <p>Amélia Rodrigues, BA</p>
-                            <p>11:00</p>
-                        </td>
-
-                        <td>
-                            <p>Salvador, BA</p>
-                            <p>12:00</p>
-                        </td>
-
-                        <td>
-                            R$ 29,90
-                        </td>
-
-                        <td>
-                            <button type="button" class="botoes_table">Abrir</button>
-                        </td>
-
-                        <td>
-                            <button type="button" class="botoes_table">Editar</button>
-                            <button type="button" class="botoes_table">Excluir</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
             
         </div>
 
-        <div id="botoes_trecho"> 
-            <button class="botao_trecho" type="button">Adicionar</button>
-            <button class="botao_trecho" type="button">Cadastrar</button>
+        <div id="botoes_trecho">
+            <form method="GET" class="add_form" action="{{ route('buscarTrechos') }}">
+                <!--
+                <input type="hidden" name="t_list">    
+
+                <p class="line_info_title">Cidade de origem:</p>
+                <input class="line_info_sub" name="origem" >
+
+                <p class="line_info_title">Cidade de destino:</p>
+                <input type="text" class="line_info_sub" name="destino">
+
+                <p class="line_info_title">Horário de partida:</p>
+                <input type="time" class="line_info_sub" name="horario">
+                -->
+                <button class="botao_trecho" type="submit">Selecionar Trechos</button>
+
+            </form>
+
+            <form method="POST" class="add_form" action="{{ route('gotoAdicionarTrecho') }}">
+                @csrf
+                <button class="botao_trecho" type="submit">Cadastrar Trecho</button>
+            </form>
         </div>
 
         <div class="botoes_add">
             <button class="bottom_button" id="cancelbutton" type="button">Cancelar</button>
-            <button class="bottom_button" id="salvarbutton" type="submit">Salvar</button>
+            <button class="bottom_button" id="salvarbutton" type="submit">Salvar Linha</button>
         </div>
 
     </div>
