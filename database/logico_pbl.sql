@@ -107,11 +107,11 @@ CREATE TABLE pagamento_dinheiro (
 
 CREATE TABLE pagamento_cartao (
     codigo int AUTO_INCREMENT,
-    numero_cartao int(16) NOT NULL,    
+    numero_cartao varchar(16) NOT NULL,    
     parcelas_pagas int(2) NOT NULL,
     total_parcelas int(2) NOT NULL,
     nome_titular varchar(60) NOT NULL,
-    data_validade DATETIME NOT NULL,
+    data_validade varchar(5) NOT NULL,
     ccv int(3) NOT NULL,
     codigo_pagamento int,
     CONSTRAINT pk_codigo_cartao PRIMARY KEY (codigo),

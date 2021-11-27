@@ -6,7 +6,8 @@ use App\Models\Cliente;
 use App\Models\Passagem;
 use App\Models\Pagamento;
 use App\Models\Pagamento_cartao;
-
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -30,29 +31,29 @@ class ClienteController extends Controller
         $linha['direta'] = $request['direta'];
         $linha['total_vagas'] = $request['total_vagas'];
         $linha['dias_semana'] = $request['dias_semana'];
-        $linha['hora_partida'] = $request['hora_partida'];              
+        $linha['hora_partida'] = $request['hora_partida'];                    
         return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
     }
 
-    public function efetuarPagamento(Request $request, $linha){                
-        dd($linha);
-        $max_vagas = $request['linha'][2];
-        $num_assento = Passagem::getNumAssento($request['linha'][0], $max_vagas);
+    public function efetuarPagamento(Request $request){                 
+        $linha = json_decode($request['linha_i']);                
+        $max_vagas = intval($linha->total_vagas);
+        $num_assento = Passagem::getNumAssento(intval($linha->codigo), $max_vagas);
         
-        Passagem::criar($num_assento, $request['linha'][0], $request['cidade_partida'], $request['$cidade_chegada'], $request['data'], Auth::guard('cliente')->user()->cpf);
-        $codigo_passagem = Passagem::getCodigo('cpf', Auth::guard('cliente')->user()->cpf);
+        Passagem::criar($num_assento, intval($linha->codigo), "Cidade Partida", "Cidade Chegada", Carbon::now(), Auth::guard('cliente')->user()->cpf);
+        $codigo_passagem = Passagem::getCodigoUltimo('cpf_cliente', Auth::guard('cliente')->user()->cpf);
         Pagamento::criar(0, $request['opcao'], $codigo_passagem);
         $codigo_pagamento = Pagamento::getCodigo('codigo_passagem', $codigo_passagem);
         
         switch($request['opcao']){
             // Cartão de Crédito
             case 1:
-                $num_cartao = $request['numero_cartao'];
-                $parcelas = $request['parcela'];
+                $num_cartao =  str_replace(' ', '', $request['numero_cartao']);
+                $parcelas = intval($request['parcela']);
                 $validade = $request['validade_cartao'];
-                $ccv = ['ccv_cartao'];
-                $nome_titular = ['nome_titular'];                                
-                Pagamento_cartao::criar($num_catao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
+                $ccv = $request['ccv_cartao'];
+                $nome_titular = $request['nome_titular'];                                
+                Pagamento_cartao::criar($num_cartao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
                 break;
         }
 

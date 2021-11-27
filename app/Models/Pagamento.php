@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 class Pagamento extends Model
 {
     public static function criar($realizado, $forma_pagamento, $codigo_passagem){
-        confirmacao = DB::insert("INSERT INTO pagamento (realizado, forma_pagamento, codigo_passagem) VALUES (?, ?, ?)", [$realizado, $forma_pagamento, $codigo_passagem]);
-        return confirmacao;
+        $confirmacao = DB::insert("INSERT INTO pagamento (realizado, forma_pagamento, codigo_passagem) VALUES (?, ?, ?)", [$realizado, $forma_pagamento, $codigo_passagem]);
+        return $confirmacao;
     }
 
     public static function getCodigo($parametro, $codigo){

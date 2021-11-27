@@ -15,7 +15,7 @@ class Passagem extends Model {
     ];
 
     public static function criar($num_assento, $codigo_linha, $cidade_partida, $cidade_chegada, $data, $cpf_cliente){
-        $confirmacao = DB::insert("INSERT INTO passagem VALUES(num_assento, codigo_linha, cidade_partida, cidade_chegada, data, cpf_cliente)", [$num_assento, $codigo_linha, $cidade_partida, $cidade_chegada, $data, $cpf_cliente]);
+        $confirmacao = DB::insert("INSERT INTO passagem (num_assento, codigo_linha, cidade_partida, cidade_chegada, data, cpf_cliente) VALUES(?, ?, ?, ?, ?, ?)", [$num_assento, $codigo_linha, $cidade_partida, $cidade_chegada, $data, $cpf_cliente]);
         return $confirmacao;
     }
 
@@ -50,6 +50,15 @@ class Passagem extends Model {
 
     public static function getCodigo($parametro, $codigo){
         $query = "SELECT codigo FROM passagem WHERE ".$parametro." = :codigo";
+        $codigo = DB::select($query, ['codigo' => $codigo]);
+        if ($codigo)
+            return $codigo[0]->codigo;
+        else
+            return null;
+    }
+
+    public static function getCodigoUltimo($parametro, $codigo){
+        $query = "SELECT codigo FROM passagem WHERE ".$parametro." = :codigo ORDER BY codigo desc";
         $codigo = DB::select($query, ['codigo' => $codigo]);
         if ($codigo)
             return $codigo[0]->codigo;

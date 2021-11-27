@@ -9,13 +9,13 @@
     
     <script>
     $(document).ready(function(){
-        $("#cpf").mask("999.999.999-99");
-        $("#numero_cartao").mask("9999 9999 9999 9999");
-        $("#validade_cartao").mask("99/99");
+        $("#cpf").mask('999.999.999-99');
+        $("#numero_cartao").mask('9999 9999 9999 9999');
+        $("#validade_cartao").mask('99/99');    
+        
         
         document.getElementById("boleto").style.display="none";
         document.getElementById("pix").style.display="none";
-
     });
     
     function mostrar() 
@@ -33,6 +33,7 @@
 
     function alterar(opcao)
     {
+        document.getElementById('opcao').value = opcao;
         switch (opcao) {
                 case 1:
                     document.getElementById("bt_1").className = "botao botaoSelecionado";
@@ -117,20 +118,20 @@
                                 </div>
                                                                 
                                  <!--Cartão-->                                  
-                                <form action="{{ route('confirmacao) }}" method="post">
-                                @csrf                                
-
+                                <form  class="form" action="{{ route('confirmacao') }}" method="post">
+                                @csrf                  
+                                <input type='hidden' class="form-group" name='linha_i' value='<?php echo json_encode($linha); ?>'/>              
+                                <input type='hidden' class="form-group" name='opcao' value='1'/>              
                                     <div class="form-group" id="cartao">
-                                        <div class="container" style="padding-left:0px;">
-                                        
+                                        <div class="container" style="padding-left:0px;">                             
                                             <div class="row">
                                                 <div class="col-sm-8">
                                                     <label>Número do Cartão:</label>
-                                                    <input type="text" class="form-control" id="numero_cartao" placeholder="_ _ _ _  _ _ _ _  _ _ _ _  _ _ _ _">
+                                                    <input type="text" class="form-control" name="numero_cartao" id="numero_cartao" placeholder="_ _ _ _  _ _ _ _  _ _ _ _  _ _ _ _">
                                                 </div>
                                                     <div class="col-sm-4">
                                                         <label>Parcelas: </label>
-                                                            <select class="form-control" id="parcela">
+                                                            <select class="form-control" name="parcela" id="parcela">
                                                                 <option value="1">1x</option>
                                                                 <option value="2">2x</option>
                                                                 <option value="3">3x</option>
@@ -150,26 +151,22 @@
                                             <div class="row"> <!-- Segunda Linha -->
                                                 <div class="col-sm-6">
                                                     <label>Validade:</label>
-                                                    <input type="text" class="form-control" id="validade_cartao" placeholder="mm/aaaa">
+                                                    <input type="text" class="form-control" name="validade_cartao" id="validade_cartao" placeholder="mm/aaaa" />
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label>Código de Segurança (CCV):</label>
-                                                    <input type="text" class="form-control" id="ccv_cartao" placeholder="_ _ _ _"  maxlength = "3">
+                                                    <input type="text" class="form-control" name="ccv_cartao" id="ccv_cartao" placeholder="_ _ _ _"  maxlength = "3" />
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row"> <!-- TerceiraLinha -->
                                                 <div class="col-sm">
                                                     <label>Nome do titular:</label>
-                                                    <input type="text" class="form-control" id="nome_titular">
+                                                    <input type="text" class="form-control" name="nome_titular" id="nome_titular" />
                                                 </div>                    
                                             </div>
                                         </div>                
-                                    </div>
-                                
-                                                                    
-                                                                   
-                                    
+                                    </div>                                                                                                                                                                                                       
                             </div>
                         </div>
                     </div>
@@ -195,10 +192,9 @@
                             <br>                        
                             <button type="submit" class="botao botaoAmarelo" style="width: 100%;height:60px;" ><i class="fas fa-check-circle"></i>                                                        
                             Comprar Passagem                                                        
-                        </button>
-                            </form>
+                        </button>                    
                         </div>
-                        
+                        </form>
                 </section>                
             </div>
         </div>
