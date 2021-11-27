@@ -22,8 +22,7 @@ class LinhaController extends Controller
     public function index()
     {        
         $consulta= DB::select("SELECT * FROM linha");
-        $linhas = [];        
-        dd($consulta);
+        $linhas = [];                
         foreach($consulta as $linha){            
             $codigo = $linha->codigo;
             $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            

@@ -293,9 +293,7 @@
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
                                 @php
-                                    $preco = $linha['preco'];
-                                    $preco = round($preco, 2);
-                                    
+                                    $preco = $linha['preco'];                                                                        
                                 @endphp
                                 <td> R$ {{$preco}} </td>
                                 @if ($linha['tipo'] == 1 )

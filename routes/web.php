@@ -13,12 +13,9 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/perfilCliente', 'ClienteController@index')->name('perfilCliente');
     Route::post('/perfilCliente', 'ClienteController@editarPerfil')->name('editarPerfilCliente');
     Route::get('/minhasPassagens', 'ClienteController@consultaMinhasPassagens')->name('minhasPassagens');
-    Route::get('/selecao', function(){return view('cliente.selecao');})->name('selecao');
-    Route::get('/pagamento', function(){return view('cliente.partials.cartao');})->name('pagamento.cartao');
-    Route::get('/pagamento', function(){return view('cliente.pagamento')->with('valor', 1);})->name('pagamento');
-    Route::get('/pagamento/cartao', function(){return view('cliente._partials.cartao');})->name('cartao');
-    Route::get('/pagamento/boleto', function(){return view('cliente._partials.boleto');})->name('boleto');
-    Route::get('/confirmacao', function(){return view('cliente.confirmacao_pagamento.confirmacao');})->name('confirmacao');
+    Route::get('/selecao', 'ClienteController@indexSelecao')->name('selecao');    
+    Route::get('/pagamento', 'ClienteController@indexPagamento')->name('pagamento');    
+    Route::post('/confirmacao', 'ClienteController@efetuarPagamento')->name('confirmacao');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
 });
 

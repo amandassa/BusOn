@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Passagem extends Model {
 
@@ -14,8 +15,8 @@ class Passagem extends Model {
     ];
 
     public static function criar($num_assento, $codigo_linha, $cidade_partida, $cidade_chegada, $data, $cpf_cliente){
-        confirmacao = DB::insert("INSERT INTO passagem VALUES(num_assento, codigo_linha, cidade_partida, cidade_chegada, data, cpf_cliente)");
-        return confirmacao;
+        $confirmacao = DB::insert("INSERT INTO passagem VALUES(num_assento, codigo_linha, cidade_partida, cidade_chegada, data, cpf_cliente)", [$num_assento, $codigo_linha, $cidade_partida, $cidade_chegada, $data, $cpf_cliente]);
+        return $confirmacao;
     }
 
     public static function getNumAssento($codigo_linha, $max_vagas){
@@ -45,5 +46,21 @@ class Passagem extends Model {
         }   
 
         return $assento;
+    }
+
+    public static function getCodigo($parametro, $codigo){
+        $query = "SELECT codigo FROM passagem WHERE ".$parametro." = :codigo";
+        $codigo = DB::select($query, ['codigo' => $codigo]);
+        if ($codigo)
+            return $codigo[0]->codigo;
+        else
+            return null;
+    }
+
+    public static function buscar ($parametro, $codigo)
+    { 
+        $query = "SELECT * FROM passagem WHERE ".$parametro." = :codigo";
+        $passagem = DB::select($query, ['codigo' => $codigo]);
+        return $passagem;
     }
 }

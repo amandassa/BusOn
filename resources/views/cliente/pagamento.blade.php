@@ -12,7 +12,7 @@
         $("#cpf").mask("999.999.999-99");
         $("#numero_cartao").mask("9999 9999 9999 9999");
         $("#validade_cartao").mask("99/99");
-
+        
         document.getElementById("boleto").style.display="none";
         document.getElementById("pix").style.display="none";
 
@@ -69,7 +69,7 @@
     @section('nomeMigalha1', 'Seleção de Passagem')
     @section('rotaMigalha1') {{route('selecao')}} @endsection
     @section('nomeMigalha2', 'Pagamento')
-    @section('rotaMigalha3') {{ route('confirmacao') }} @endsection
+    @section('rotaMigalha3') @endsection
     @section('nomeMigalha3', 'Confirmação')    
     @section('linkM2', 'ativado')
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
@@ -142,11 +142,14 @@
                                           Copie ou faça a leitura do código QR Code através do site ou app do seu banco. </p>
 
                                 </div>
-                                
-                                 <!--Cartão--> 
-                                <form>
+                                                                
+                                 <!--Cartão-->                                  
+                                <form action="{{ route('confirmacao) }}" method="post">
+                                @csrf                                
+
                                     <div class="form-group" id="cartao">
                                         <div class="container" style="padding-left:0px;">
+                                        
                                             <div class="row">
                                                 <div class="col-sm-8">
                                                     <label>Número do Cartão:</label>
@@ -154,19 +157,19 @@
                                                 </div>
                                                     <div class="col-sm-4">
                                                         <label>Parcelas: </label>
-                                                            <select class="form-control" id="parcelas">
-                                                                <option>1x</option>
-                                                                <option>2x</option>
-                                                                <option>3x</option>
-                                                                <option>4x</option>
-                                                                <option>5x</option>
-                                                                <option>6x</option>
-                                                                <option>7x</option>
-                                                                <option>8x</option>
-                                                                <option>9x</option>
-                                                                <option>10x</option>
-                                                                <option>11x</option>
-                                                                <option>12x</option>
+                                                            <select class="form-control" id="parcela">
+                                                                <option value="1">1x</option>
+                                                                <option value="2">2x</option>
+                                                                <option value="3">3x</option>
+                                                                <option value="4">4x</option>
+                                                                <option value="5">5x</option>
+                                                                <option value="6">6x</option>
+                                                                <option value="7">7x</option>
+                                                                <option value="8">8x</option>
+                                                                <option value="9">9x</option>
+                                                                <option value="10">10x</option>
+                                                                <option value="11">11x</option>
+                                                                <option value="12">12x</option>
                                                             </select>
                                                     </div>
                                             </div>
@@ -185,12 +188,12 @@
                                             <div class="row"> <!-- TerceiraLinha -->
                                                 <div class="col-sm">
                                                     <label>Nome do titular:</label>
-                                                    <input type="text" class="form-control" id="validade_cartao">
+                                                    <input type="text" class="form-control" id="nome_titular">
                                                 </div>                    
                                             </div>
                                         </div>                
                                     </div>
-                                </form>
+                                
                                                                     
                                                                    
                                     
@@ -216,9 +219,12 @@
                                 <h4 class="textoAmarelo" style="text-align:left; font-size:32px; font-weight: bolder;">R$65,00</h4>
                             </div>
                         </div>
-                            <br>
-                            <button class="botao botaoAmarelo" style="width: 100%;height:60px;" ><i class="fas fa-check-circle"></i> Comprar Passagem</button>
-                    </div>
+                            <br>                        
+                            <button type="submit" class="botao botaoAmarelo" style="width: 100%;height:60px;" ><i class="fas fa-check-circle"></i>                                                        
+                            Comprar Passagem                                                        
+                        </button>
+                            </form>
+                        </div>
                         
                 </section>                
             </div>

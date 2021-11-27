@@ -20,30 +20,43 @@ class ClienteController extends Controller
         return view("cliente.perfil");
     }
 
-    public function indexPagamento(Request $request){
-        return view('cliente.pagamento', ['linha' => $request['linha']]);
+    public function indexSelecao(){        
+        $linha = DB::select("SELECT * FROM linha WHERE codigo = 14")[0];        
+        return view('cliente.selecao', ['linha' => $linha]);
     }
 
-    public function efetuarPagamento(Request $request){        
-        $num_assento = 
-        Passagem::criar($request['num_assento'], $request['linha'][0]->codigo, $request['cidade_partida'], $request['$cidade_chegada'], $request['data'], Auth::guard('cliente')->user()->cpf);
-        $codigo_passagem = Passagem::encontrar('cpf', Auth::guard('cliente')->user()->cpf);
-        Pagamento::criar(0, 1, $codigo_passagem);
-        $codigo_pagamento = Pagamento::encontrar('codigo_passagem', $codigo_passagem);
+    public function indexPagamento(Request $request){ 
+        $linha['codigo'] = $request['codigo'];
+        $linha['direta'] = $request['direta'];
+        $linha['total_vagas'] = $request['total_vagas'];
+        $linha['dias_semana'] = $request['dias_semana'];
+        $linha['hora_partida'] = $request['hora_partida'];              
+        return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
+    }
+
+    public function efetuarPagamento(Request $request, $linha){                
+        dd($linha);
+        $max_vagas = $request['linha'][2];
+        $num_assento = Passagem::getNumAssento($request['linha'][0], $max_vagas);
+        
+        Passagem::criar($num_assento, $request['linha'][0], $request['cidade_partida'], $request['$cidade_chegada'], $request['data'], Auth::guard('cliente')->user()->cpf);
+        $codigo_passagem = Passagem::getCodigo('cpf', Auth::guard('cliente')->user()->cpf);
+        Pagamento::criar(0, $request['opcao'], $codigo_passagem);
+        $codigo_pagamento = Pagamento::getCodigo('codigo_passagem', $codigo_passagem);
         
         switch($request['opcao']){
             // Cartão de Crédito
             case 1:
-                $num_cartao = $request['num_cartao'];
-                $parcelas = $request['parcelas'];
-                $validade = $request['validade'];
-                $ccv = ['ccv'];
-                $nome_titular = ['nome_titular'];
-                
-                
+                $num_cartao = $request['numero_cartao'];
+                $parcelas = $request['parcela'];
+                $validade = $request['validade_cartao'];
+                $ccv = ['ccv_cartao'];
+                $nome_titular = ['nome_titular'];                                
                 Pagamento_cartao::criar($num_catao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
                 break;
         }
+
+        return view('cliente.confirmacao');
     }
 
     function login(Request $request)

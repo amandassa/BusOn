@@ -30,8 +30,13 @@
                         <div class="passagens">
                             <p class="partida"> Partida: 6:50Hrs: Feira de Santana-BA</p>
                             <p class="destino"> Destino: 8:20Hrs: Cruz das Almas-BA</p>
-                        </div>
-                        <button> <img src="/imagens/aviao.png" alt="">Selecionar</button>
+                        </div>                        
+                        
+                        <button > <img src="/imagens/aviao.png" alt="">
+                        <a href="{{ route('pagamento', ['codigo' => $linha->codigo, 'direta' => $linha->direta, 'total_vagas' => $linha->total_vagas, 'dias_semana' => $linha->dias_semana, 'hora_partida' => $linha->hora_partida]) }}">
+                        Selecionar </a>
+                    </button>
+                        
                         <div class="central">
                             <p class="textoCentralCima">Linha Comum</p>
                             <hr>

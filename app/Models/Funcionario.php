@@ -140,9 +140,10 @@ class Funcionario extends Authenticatable {
     Funcionalidade: Vender passagem para um cliente
     Autor(es): Israel Braitt, Anderson Lima, Guilherme Nobre
     */
-    public static function venderPassagem(AddVendaRequest $request) {
+    public static function venderPassagem(AddVendaRequest $request) {        
         
-        $cpflogado = (Auth::guard('funcionario')->user()->cpf);
+        $cpflogado = (Auth::guard('funcionario')->user()['cpf']);
+
         $usuario = DB::select("select * from funcionario where cpf = ?", [$cpflogado])[0];
 
         $matricula = $usuario->matricula;
@@ -166,9 +167,9 @@ class Funcionario extends Authenticatable {
         $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas);
         
         if($num_assento > 0 &&  $num_assento <= $max_vagas){
-            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data, num_assento, cidade_partida, cidade_chegada) VALUES (?, ?, ?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data,  $assento, $partida, $destino]);
+            DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data, num_assento, cidade_partida, cidade_chegada) VALUES (?, ?, ?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data,  $num_assento, $partida, $destino]);
 
-            $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data = :data', ['assento' => $assento, 'cod_linha' => $cod_linha, 'data' => $data]);
+            $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data = :data', ['assento' => $num_assento, 'cod_linha' => $cod_linha, 'data' => $data]);
             $cod_passagem = $cod_passagem[0]->codigo;
             
 
