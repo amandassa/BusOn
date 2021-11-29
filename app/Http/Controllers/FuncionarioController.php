@@ -176,17 +176,19 @@ class FuncionarioController extends Controller {
      **/
     public function estatisticas (Request $request)
     {
-
         $mat_funcionario= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
         $passagens_vendidas = Funcionario::passagens_vendidas($mat_funcionario); 
         $linha_menos_vendida = Linha::linha_menos_vendida();
         $linha_mais_vendida = Linha::linha_mais_vendida();
-        if($request->input('buscarLinha') == null){
+       
+        //busca os dados de uma linha dado um determinado código
+        if($request['buscarLinha'] == null){
             $cod_busca = 1;
         }else{
-            $cod_busca = $request->input('buscarLinha');
+            $cod_busca = $request['buscarLinha'];
         }
-        $linha_por_codigo =  Linha::buscar ($cod_busca);
+        $linha_por_codigo =  Linha::buscar_linha($cod_busca);
+        
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
             'qtd_vendas_7dias' => $passagens_vendidas['qtd_vendas_7dias'], 

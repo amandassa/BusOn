@@ -162,7 +162,6 @@ class AdministradorController extends Controller
             $cod_busca = $request['buscarLinha'];
         }
         $linha_por_codigo =  Linha::buscar_linha($cod_busca);
-        //dd($linha_por_codigo);
         
         //busca dados de vendas de uma determinada linha
         if($request['buscarLinhaHoje'] == null){
