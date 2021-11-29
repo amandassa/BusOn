@@ -22,6 +22,7 @@ Route::middleware(['auth:cliente'])->group(function () {
 //Rotas restritas apenas para FUNCIONARIOS
 Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/inicialFuncionario', 'FuncionarioController@estatisticas')->name('inicial_func');
+    Route::post('/inicialFuncionario', 'FuncionarioController@estatisticas')->name('estatisticas');
     Route::get('/perfilFuncionario', function(){return view('funcionario.perfil');})->name('perfilFuncionario');
     Route::get('/editarAgenda', function(){return view('funcionario.agendaEditar');});
     Route::get('/recuperarAcessoFuncionario', function(){return view('funcionario.recuperarAcesso');})->name('recuperarAcessoFuncionario');
@@ -38,8 +39,8 @@ Route::middleware(['auth:funcionario'])->group(function () {
 
 //Rotas restritas apenas para ADMNISTRADOR
 Route::middleware(['auth:funcionario', 'adm'])->group(function () {
-    //Route::get('/inicialAdm', function(){return view('administrador.inicial_adm');})->name('inicial_adm');
     Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
+    Route::post('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('estatisticas');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
     
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');

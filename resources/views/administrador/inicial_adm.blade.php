@@ -26,12 +26,15 @@
 
         <div class="quadro"> <!--Passagens vendidas na para uma linha hoje-->
             <div class="card-body">
-                <div class="caixaPesquisa">
-                    <input type="number" class="caixaTexto" id="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
-                    <a href="#">
-                        <span class="material-icons" id="iconPesquisa">search</span>
-                    </a>
-                </div>
+                <form method="POST" class="form" action="{{route('estatisticas')}}">
+                    @csrf
+                    <div class="caixaPesquisa">
+                        <input type="number" class="caixaTexto" name="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
+                        <a>
+                            <span class="material-icons" id="iconPesquisa">search</span>
+                        </a>
+                    </div>
+                </form>
                 @if($dados['cidade_partida_vendas_linha'] == '' or $dados['cidade_chegada_vendas_linha'] == '')
                     <p><b>Sem dados dessa linha.</b></p>
                 @else

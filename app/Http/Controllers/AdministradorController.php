@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Models\Administrador as Adm;
 use Dotenv\Regex\Result;
-use App\Models\Linha as Linha;
+use App\Models\Linha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -150,25 +150,31 @@ class AdministradorController extends Controller
     public function estatisticasAdministrador(Request $request)
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
-        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);
-        $linha_menos_vendida = Linha::linha_menos_vendida();
-        $linha_mais_vendida = Linha::linha_mais_vendida();
-        if($request->input('buscarLinha') == null){
+        
+        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);// total de passagens vendidas
+        $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
+        $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
+        
+        //busca os dados de uma linha dado um determinado código
+        if($request['buscarLinha'] == null){
             $cod_busca = 1;
         }else{
-            $cod_busca = $request->input('buscarLinha');
+            $cod_busca = $request['buscarLinha'];
         }
-        $linha_por_codigo =  Linha::buscar ($cod_busca);
-
-        $passagens_vendidas_total = Adm::passagensVendidasTotal();
+        $linha_por_codigo =  Linha::buscar_linha($cod_busca);
+        //dd($linha_por_codigo);
         
+        //busca dados de vendas de uma determinada linha
         if($request['buscarLinhaHoje'] == null){
             $cod_busca_vendas_linha = 1;
         }else{
+            
             $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
         }
-
         $vendidas_linha = Adm::buscar_vendas_linha($cod_busca_vendas_linha);
+
+        //retorna o total de passagens vendidas 
+        $passagens_vendidas_total = Adm::passagensVendidasTotal();
 
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
