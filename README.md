@@ -70,7 +70,7 @@
 **2.1. Tela inicial de funcionário:**
 <i>Com dados dos relatórios</i>
 - [X] Front (Responsável: Ozenilson)
-- [ ] Back (Responsável: Ozy)
+- [X] Back (Responsável: Ozy)
 
 **2.2. Consulta de Linhas:**
 <i>Ttabela contendo todas as linhas/trechos</i>
@@ -79,11 +79,11 @@
 
 **2.3. Tela de Venda:**
 - [X] Front
-- [ ] Back
+- [X] Back
 
 **2.4. Tela de relatórios (relatórios de passageiros em uma viagem/linha):**
 - [x] Front (Responsável Andreza)
-- [ ] Back
+- [X] Back
 
 **2.5. Tela de alteração de valor/mudança de agenda:**
 - [X] Front
@@ -91,7 +91,7 @@
 
 **2.6.Editar Perfil:**
 - [X] Front (Responsável: Everton)
-- [ ] Back (Responsável: Lucas)
+- [X] Back (Responsável: Lucas)
 
 ### 3. Administrador (2/12):
 **3.0. Recuperação de acesso de administrador:**
@@ -103,16 +103,16 @@
 - [X] Back (Responsável: Ozy)
 
 **3.2. Tela de cadastro de linha:**
-- [X] Front
-- [ ] Back
+- [X] Front (Responsável: Guilherme)
+- [ ] Back (Responsável: Guilherme)
 
 **3.3. Tela de consulta das linhas:**
 - [X] Front (Responsável: Antony)
 - [X] Back (Responsável: Antony e Amanda)
 
 **3.4. Tela de edição das linhas:**
-- [x] Front
-- [ ] Back
+- [ ] Front
+- [ ] Back (Responsável: Lucas e Amanda)
 
 **3.5. Tela de cadastro de funcionários no sistema:**
 - [X] Front (Responsável: Everton)
@@ -120,7 +120,7 @@
 
 **3.6. Tela de alteração de dados dos funcionários no sistema:**
 - [X] Front Front (Responsável: Everton)
-- [ ] Back (Responsável: Lucas e Ozy)
+- [X] Back (Responsável: Lucas e Ozy)
 
 **3.7. Tela de geração de relatórios (logs):**
 - [X] Front (Responsável: Ozenilson)
@@ -133,6 +133,14 @@
 **3.9. Editar Perfil:**
 - [X] Front (Responsável: Everton)
 - [X] Back (Responsável: Lucas)
+
+**3.10. Edição de trechos:**
+- [ ] Front (Responsável: Guilherme)
+- [ ] Back (Responsável: Guilherme)
+
+**3.11. Cadastro de trechos:**
+- [ ] Front (Responsável: Guilherme)
+- [ ] Back (Responsável: Guilherme)
 
 ## Banco de Dados</h2>
 

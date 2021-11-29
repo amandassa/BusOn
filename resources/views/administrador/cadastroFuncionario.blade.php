@@ -39,8 +39,8 @@
                                 <input type="email" class="form-control" name="email">
                             </div>
                             <div class="form-group camposMenores">
-                                <label for="entradaCPF">CPF</label>
-                                <input oninput="mascara(this, 'cpf')" id="entradaCPF" type="text" class="form-control" autocomplete="on" name="cpf">
+                                <label for="entradacpf">cpf</label>
+                                <input oninput="mascara(this, 'cpf')" id="entradacpf" type="text" class="form-control" autocomplete="on" name="cpf">
                             </div>
                             <div class="form-group camposMenores">
                                 <label for="entradaSenha">Senha</label>

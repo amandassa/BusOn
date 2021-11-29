@@ -24,7 +24,7 @@ class RequestEstatisticasFuncionario extends FormRequest
     public function rules()
     {
         return [
-            'buscarLinha'
+            'buscarLinha' => ['numeric']
         ];
     }
 }

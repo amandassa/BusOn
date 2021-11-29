@@ -55,8 +55,8 @@
                         <input type="email" class="form-control" id="entradaEmail" name = "email"value="{{$administrador['entradaEmail']}}">
                     </div>
                     <div class="form-group">
-                        <label for="entradaCPF">CPF</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradaCPF" name="customer['cpf']" type="text" value="{{$administrador['cpf']}}" disabled>
+                        <label for="entradacpf">cpf</label>
+                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradacpf" name="customer['cpf']" type="text" value="{{$administrador['cpf']}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="entradaMatricula">Matricula</label>

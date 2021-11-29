@@ -36,9 +36,9 @@
                         <input type="email" class="form-control" id="entradaEmail" value="{{$cliente['entradaEmail']}}"/>
                     </div>
                     <div class="form-group">
-                        <label for="entradaCPF">CPF</label>
+                        <label for="entradacpf">cpf</label>
                         <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" 
-                        id="disabledInput entradaCPF" name="cpf" type="text" value="{{$cliente['cpf']}}" disabled/>
+                        id="disabledInput entradacpf" name="cpf" type="text" value="{{$cliente['cpf']}}" disabled/>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>

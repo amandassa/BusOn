@@ -17,8 +17,8 @@ class ClienteSeeder extends Seeder
             DB::beginTransaction();
             $clientes = factory(Cliente::class, 10)->make()->toArray();            
             foreach($clientes as $cliente) {                
-                DB::statement('insert into cliente(nome, CPF, email, password) values (?, ?, ?, ?)',
-                 [$cliente['nome'], $cliente['CPF'], $cliente['email'], $cliente['password']]);
+                DB::statement('insert into cliente(nome, cpf, email, password) values (?, ?, ?, ?)',
+                 [$cliente['nome'], $cliente['cpf'], $cliente['email'], $cliente['password']]);
             }
             DB::commit();
             

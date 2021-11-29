@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(Cliente::class, function (Faker $faker) {
     return [
-        'CPF' => strval(rand(10000000000, 99999999999)),
+        'cpf' => strval(rand(10000000000, 99999999999)),
         'nome' => $faker->firstName(),
         'email' => $faker->email(),
         'password' => Hash::make("12345678"),

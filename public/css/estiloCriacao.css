@@ -8,6 +8,9 @@
 }
 
 table {
+    height: 300px;
+    min-height: 150px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -70,7 +73,7 @@ table {
     padding-bottom: 8px;
     text-align: center;
     margin: auto;
-    display: inline-flex;
+    display: inline-block;
     margin-bottom: 40px;
 }
 
@@ -79,7 +82,7 @@ table {
 }
 
 .bottom_button{
-    margin-top: 25px;
+    
     background-color: #103A52;
     color: white;
     border: 1px solid black;
@@ -106,6 +109,29 @@ table {
     
 }
 
+.trecho_in {
+    
+    border: 1px solid darkgray;
+    padding: 10px;
+    margin-right: 10px;
+    color: black;
+    border-radius: 3px;
+}
+
+.trecho_time_sub {
+    display: inline-block;
+    max-width: 60px;
+    border: 1px solid darkgray;
+    padding: 10px;
+    margin-right: 5px;
+    background-color: #F5F5F5;
+    color: black;
+    border-radius: 3px;
+}
+
+.add_form {
+    display: inline-block;
+}
 
 #addtabletitle {
     padding-top: 5px;
@@ -122,7 +148,9 @@ button {
 }
 
 
-
+#select_btn {
+    text-align:center;
+}
 
 th {
     color: white;
@@ -135,9 +163,15 @@ th {
     
 }
 
+
+
 tr {
     padding-right: 40px;
     margin-right: 10px; 
     width: 100px;
     text-align: center;
+}
+
+tr.p {
+    display: inline-block;
 }

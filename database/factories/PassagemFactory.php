@@ -15,6 +15,6 @@ $factory->define(Passagem::class, function (Faker $faker) {
         'num_assento' => rand(0, 60),
         'codigo_linha' => rand(0, 10),
         'cpf_cliente' => $clientes[rand(0, $len-1)]->cpf,
-        'data_compra' => $faker->dateTimeThisCentury()
+        'data' => $faker->dateTimeThisCentury()
     ];
 });

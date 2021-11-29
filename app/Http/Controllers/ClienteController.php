@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cliente as Cli;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Cliente;
+use App\Models\Passagem;
+use App\Models\Pagamento;
+use App\Models\Pagamento_cartao;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -11,12 +17,51 @@ class ClienteController extends Controller
 {
  
 
+    public function indexSelecao(){        
+        $linha = DB::select("SELECT * FROM linha WHERE codigo = 14")[0];        
+        return view('cliente.selecao', ['linha' => $linha]);
+    }
+
+    public function indexPagamento(Request $request){ 
+        $linha['codigo'] = $request['codigo'];
+        $linha['direta'] = $request['direta'];
+        $linha['total_vagas'] = $request['total_vagas'];
+        $linha['dias_semana'] = $request['dias_semana'];
+        $linha['hora_partida'] = $request['hora_partida'];                    
+        return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
+    }
+
+    public function efetuarPagamento(Request $request){                 
+        $linha = json_decode($request['linha_i']);                
+        $max_vagas = intval($linha->total_vagas);
+        $num_assento = Passagem::getNumAssento(intval($linha->codigo), $max_vagas);
+        
+        Passagem::criar($num_assento, intval($linha->codigo), "Cidade Partida", "Cidade Chegada", Carbon::now(), Auth::guard('cliente')->user()->cpf);
+        $codigo_passagem = Passagem::getCodigoUltimo('cpf_cliente', Auth::guard('cliente')->user()->cpf);
+        Pagamento::criar(0, $request['opcao'], $codigo_passagem);
+        $codigo_pagamento = Pagamento::getCodigo('codigo_passagem', $codigo_passagem);
+        
+        switch($request['opcao']){
+            // Cartão de Crédito
+            case 1:
+                $num_cartao =  str_replace(' ', '', $request['numero_cartao']);
+                $parcelas = intval($request['parcela']);
+                $validade = $request['validade_cartao'];
+                $ccv = $request['ccv_cartao'];
+                $nome_titular = $request['nome_titular'];                                
+                Pagamento_cartao::criar($num_cartao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
+                break;
+        }
+
+        return view('cliente.confirmacao');
+    }
+
     function login(Request $request)
     {
         $requisicao = DB::select("select * from cliente where email = ?", [$request->email])[0];
         if($requisicao){
             $cliente = new Cliente;
-            $cliente->CPF = $requisicao->CPF;
+            $cliente->cpf = $requisicao->cpf;
             $cliente->nome = $requisicao->nome;
             $cliente->email = $requisicao->email;
             $cliente->senha = $requisicao->senha;
@@ -72,7 +117,7 @@ class ClienteController extends Controller
     public function consultaMinhasPassagens() {
         $cliente = Cli::index();
         $cpf = $cliente['cpf'];
-        $passagens = DB::select('SELECT codigo, num_assento, data_compra FROM passagem WHERE cpf_cliente = ? ORDER BY data_compra DESC;', [$cpf]);
+        $passagens = DB::select('SELECT codigo, cidade_partida, cidade_chegada, num_assento, data FROM passagem WHERE cpf_cliente = ? ORDER BY data DESC;', [$cpf]);
         return view('cliente.minhasPassagens', ['passagens'=>$passagens]);
     }
 

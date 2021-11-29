@@ -4,9 +4,6 @@
 @section('bt2', 'botaoSelecionado')
 @section('bt3', 'botao botaoNormal')    
     
-@push('js')
-  <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>    
-@endpush
 
  @section('formaPagamento')
      <script>
@@ -18,10 +15,7 @@
             var alerta = document.getElementById('alerta');
             var nome = document.getElementById('nome_titular');
             var cpf = document.getElementById('cpf');
-            if (nome.value === null && cpf.value === null) {
-            $('#alertaModal').modal('true');
-            } else {
-            $('#botao_baixar').css('visibility', 'visible');
+            if (nome.value != null && cpf.value != null) {
             document.getElementById('alerta').style.visibility = 'visible';
             document.getElementById('botao_baixar').style.visibility = 'visible';
             document.getElementById('botao_copiar').style.visibility = 'visible';            
@@ -45,7 +39,7 @@
                 </div>
                 <div id="teste" class="row justify-content-md-left" style="margin-top:1em;">
                     <div class="col-sm-7">
-                        <label> CPF do titular: </label>
+                        <label> cpf do titular: </label>
                         <input id="cpf" name="cpf" type="text" class="form-control"/>
                     </div>
                     <div class="col-sm-5" >
@@ -65,26 +59,6 @@
                     <button id="botao_copiar" class="botao botaoAzul" style="visibility:hidden;"><i class="fas fa-copy"></i> Copiar Código de Barras</button>
                 </center>
                 </div>
-                    
-                    <div id="alertaModal" class="modal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Erro ao gerar boleto!</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <p>Você precisa inserir o nome do titular e seu cpf para poder gerar um boleto de pagamento válido!</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-primary">Save changes</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
         </div>
     </form>
 @endsection

@@ -46,7 +46,7 @@ for($i = 0; $i < $inserts; $i++){
     $nu_email = $email_generator->email();
     $nu_pass = $pass;
     
-    $values = "INSERT INTO cliente (CPF, nome, email, senha)
+    $values = "INSERT INTO cliente (cpf, nome, email, senha)
     VALUES ($nu_cpf, '$nu_name', '$nu_email', '$nu_pass');";
 
     if (mysqli_query($con, $values)) {

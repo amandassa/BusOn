@@ -55,7 +55,6 @@
 
             <div class="botoes_add">
                 <button class="bottom_button" id="cancelbutton" type="button">Cancelar</button>
-                <button class="bottom_button" id="schedulebutton" type="button">Abrir Agenda</button>
                 <button class="bottom_button" id="salvarbutton" type="submit">Salvar</button>
             </div>
 

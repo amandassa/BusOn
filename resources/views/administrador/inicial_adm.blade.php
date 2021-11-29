@@ -24,27 +24,34 @@
 @section('campoRelatorios')
     <div class="row text-center">
 
-        <div class="quadro"> <!--Pesquisar linha-->
+        <div class="quadro"> <!--Passagens vendidas na para uma linha hoje-->
             <div class="card-body">
-                <div class="caixaPesquisa">
-                    <input type="text" class="caixaTexto" id="buscarLinhaHoje" placeholder="Pesquisar linha">
-                    <a href="#">
-                        <span class="material-icons" id="iconPesquisa">search</span>
-                    </a>
-                </div>
-                <p class="textoNumeroAzul"><b>25</b></p>
-                <p><b>Passagens vendidas para Jaguaquara X Salvador hoje</b></p>
+                <form method="POST" class="form" action="{{route('estatisticas')}}">
+                    @csrf
+                    <div class="caixaPesquisa">
+                        <input type="number" class="caixaTexto" name="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
+                        <a>
+                            <span class="material-icons" id="iconPesquisa">search</span>
+                        </a>
+                    </div>
+                </form>
+                @if($dados['cidade_partida_vendas_linha'] == '' or $dados['cidade_chegada_vendas_linha'] == '')
+                    <p><b>Sem dados dessa linha.</b></p>
+                @else
+                    <p class="textoNumeroAzul"><b>{{$dados['total_vendas_linha']}}</b></p>
+                    <p><b>Passagens vendidas para {{$dados['cidade_partida_vendas_linha']}} X {{$dados['cidade_chegada_vendas_linha']}} hoje</b></p>
+                @endif
             </div>
         </div>
 
-        <div class="quadro" > <!--Passagens vendidas na semana-->
+        <div class="quadro" > <!--Passagens vendidas no total hoje-->
             <div class="card-body">
-                <p class="textoNumeroAmarelo"><b>600</b></p>
+                <p class="textoNumeroAmarelo"><b>{{$dados['passagens_vendidas_total']}}</b></p>
                 <p><b>Passagens vendidas hoje</b></p>
             </div>
         </div>
 
-        <div class="quadro"> <!--Passagens vendidas na semana-->
+        <div class="quadro"> <!--Total de clientes que acessaram o sistema em determinado dia-->
             <div class="card-body">
                 <div class="caixaPesquisa">
                     <input type="date" class="caixaTexto" id="buscarAcessos">
