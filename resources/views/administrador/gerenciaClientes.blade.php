@@ -51,7 +51,7 @@
       
       <div class="card-header" id="meio">
         
-        <form method="POST" class="form">
+        <form method="POST" class="form" action="{{route('buscar_cliente')}}">
           @csrf
           <div class="form-inline text-center" style="display: inline-block; position: relative;">
               <input type="text" name="buscaGu" placeholder="Digite a busca desejada...">
@@ -75,7 +75,12 @@
                 <th scope="col" class="bg-warning">Email</th>
               </tr>
             </thead>
-            <tbody>                
+            <tbody>
+              @if($clientes == null)  
+                <tr>
+                  <td colspan="3">Cliente não encontrado!</td>
+                </tr>
+              @else
                 <tr>
                   @foreach ($clientes as $cliente)
                     <th scope="row"> {{ $cliente->cpf }} </th>
@@ -83,6 +88,7 @@
                     <td> {{$cliente->email}}</td>
                   </tr>
                   @endforeach
+              @endif
             </tbody>
           </table>
       </div>

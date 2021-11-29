@@ -61,11 +61,14 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/cadastroFuncionario', function(){return view('administrador.cadastroFuncionario');})->name('cadastroFuncionario');
     Route::get('/editarPerfilFuncionario', function(){return view('administrador.editarPerfilFuncionario');})->name('editarPerfilFuncionario');
     Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
-    Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::post('/consultar_linhas', 'LinhaController@consulta')->name('consulta');
+    
     Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
+    Route::post('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('buscar_fun');
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
+    Route::post('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('buscar_cliente');
+
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
     Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
     Route::post('/criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');

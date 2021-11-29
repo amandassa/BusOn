@@ -69,7 +69,7 @@
 
       <div class="card-header" id="meio">
 
-        <form method="POST" class="form">
+        <form method="POST" class="form" action="{{route('buscar_fun')}}">
           @csrf   
           <div style="display: inline-block;">
               <input type="text" name="buscaG" placeholder="Digite a busca desejada...">
@@ -110,27 +110,32 @@
               <th data-orderable="false" class="bg-warning">Ações</th>
             </tr>
           </thead>
-          <tbody>                 
+          <tbody> 
+              @if($funcionarios == null)  
               <tr>
-                @foreach ($funcionarios as $funcionario)
-                  <th scope="row"> {{ $funcionario->matricula }} </th>
-                  <td> {{ $funcionario->nome }} </td>
-                  <td> {{substr($funcionario->cpf, 0, 3) . '.' . substr($funcionario->cpf , 3, 3) . '.' . substr($funcionario->cpf , 6, 3) . '-' . substr($funcionario->cpf , 9)}}</td>
-                  <td> {{ $funcionario->email }} </td>
-                  <td>
-                    @if($funcionario->is_admin)
-                      Administrador
-                    @else
-                      Funcionário
-                    @endif
-                  </td>
-                  <td>
-                  <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                  <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
-                  </td>
-                </tr> 
-                @endforeach
-              
+                <td colspan="6">Funcionário não encontrado!</td>
+              </tr>
+              @else                
+                <tr>
+                  @foreach ($funcionarios as $funcionario)
+                    <th scope="row"> {{ $funcionario->matricula }} </th>
+                    <td> {{ $funcionario->nome }} </td>
+                    <td> {{substr($funcionario->cpf, 0, 3) . '.' . substr($funcionario->cpf , 3, 3) . '.' . substr($funcionario->cpf , 6, 3) . '-' . substr($funcionario->cpf , 9)}}</td>
+                    <td> {{ $funcionario->email }} </td>
+                    <td>
+                      @if($funcionario->is_admin)
+                        Administrador
+                      @else
+                        Funcionário
+                      @endif
+                    </td>
+                    <td>
+                    <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
+                    <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
+                    </td>
+                  </tr> 
+                  @endforeach
+              @endif
           </tbody>
         </table>
       </div>
