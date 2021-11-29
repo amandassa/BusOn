@@ -5,24 +5,36 @@
 @section('content')
   <link href="/css/estiloGerencia.css" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+  <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
+  
   <script>
-    $(document).ready(function(){
-
-        var $rows = $('#tabela tbody tr');
-        $('#buscaGu').keyup(function() {
-            var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-                reg = RegExp(val, 'i'),
-                text;
-            
-            $rows.show().filter(function() {
-                text = $(this).text().replace(/\s+/g, ' ');
-                return !reg.test(text);
-            }).hide();
-        });
-    });
-    $('#tabela').DataTable();
+    $(document).ready(function() {
+      
+      //Script do datatable - serve para deixar a tabela com varias funcionalidades
+      $('#tabela').DataTable({
+        info:false, 
+        pageLength : 5,
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
+        language: 
+        {
+            lengthMenu: "Exibir _MENU_",
+            search: "Busca rápida",
+            zeroRecords: "Cliente não encontrado!",
+            oPaginate: 
+            {
+                sNext: '<i class="fas fa-angle-double-right"></i>',
+                sPrevious: '<i class="fas fa-angle-double-left"></i>'
+            }
+        }   
+      }); 
+    } )
   </script>
 
   <div class="container">        
@@ -38,26 +50,29 @@
     <div class="card text-center">
       
       <div class="card-header" id="meio">
-        <div class="cimaGu">
-          <div class="buscGu form-inline" method="post" id="form-pesquisa" action="">
-              <input type="text" name="buscaGu" id="buscaGu" placeholder="Digite a busca desejada...">
-              <!--img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa"-->
-              <!--select name="buscaOp" id="buscaOp">
+        
+        <form method="POST" class="form">
+          @csrf
+          <div class="form-inline text-center" style="display: inline-block; position: relative;">
+              <input type="text" name="buscaGu" placeholder="Digite a busca desejada...">
+              <select name="buscaOp">
                 <option value="nome">Nome</option>
-                <option value="cpf">cpf</option>
+                <option value="cpf">CPF</option>
                 <option value="email">Email</option>
-              </select-->
+              </select>
           </div>
-        </div>
+          <button class="btn botaoAmarelo">Buscar</button>
+        </form>
+        
       </div>
 
       <div class="card-body">
-          <table class="table table-bordered" id="tabela">          
+          <table class="table table-bordered table-hover" id="tabela">          
             <thead>
               <tr>
-                <td class="bg-warning">cpf</td>
-                <td class="bg-warning">Nome</td>
-                <td class="bg-warning">Email</td>
+                <th scope="col" class="bg-warning">CPF</th>
+                <th scope="col" class="bg-warning">Nome</th>
+                <th scope="col" class="bg-warning">Email</th>
               </tr>
             </thead>
             <tbody>                

@@ -47,9 +47,9 @@
                         @csrf
                         <div class="caixaPesquisa">
                             <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
-                            <a>
+                            <button style=" background-color: #ffffff00; border: 0px;">
                                 <span class="material-icons" id="iconPesquisa">search</span>
-                            </a>
+                            </button>
                         </div>
                     </form>
                     @if($dados['cidade_partida'] == '' or $dados['cidade_chegada'] == '')

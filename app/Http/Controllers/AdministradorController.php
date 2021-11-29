@@ -147,6 +147,12 @@ class AdministradorController extends Controller
     }
 
 
+    /**
+     * Retorna todas as estaticas da tela inicial do administrador
+     *
+     * @param Request $request
+     * @return dados 
+     */
     public function estatisticasAdministrador(Request $request)
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
