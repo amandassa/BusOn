@@ -54,8 +54,6 @@ class Administrador extends Funcionario
         $admMatricula = $usuario->matricula;
         $admSenha = '';
         $confirmar = '';
-
-
         $administrador = [
             'cpf'=> $admCpf,
             'entradaNome' => $admNome,

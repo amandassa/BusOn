@@ -94,15 +94,14 @@ class ClienteController extends Controller
         return view("cliente.perfil", ['cliente'=>$cliente]);
     }
     public function editar(Request $request){
-        $Cliente = Cli::editar($request);
-
-        if ($Cliente == 1) {
+        $cnt = Cli::editar($request);
+        if ($cnt == 1) {
             return redirect()
                         ->back()
                         ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
-        } elseif ($Cliente ==2 ) {
+        } elseif ($cnt ==2 ) {
             return redirect()
-                        ->route('perfilCliente.index')
+                        ->route('perfilCliente')
                         ->with('success', 'Perfil atualizado com sucesso!');
         } else {
             return redirect()
