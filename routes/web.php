@@ -10,13 +10,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Rotas restritas apenas para CLIENTES
 Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
-    Route::get('/perfilCliente', 'ClienteController@index')->name('perfilCliente');
-    Route::post('/perfilCliente', 'ClienteController@editarPerfil')->name('editarPerfilCliente');
     Route::get('/minhasPassagens', 'ClienteController@consultaMinhasPassagens')->name('minhasPassagens');
     Route::get('/selecao', 'ClienteController@indexSelecao')->name('selecao');    
     Route::get('/pagamento', 'ClienteController@indexPagamento')->name('pagamento');    
     Route::post('/confirmacao', 'ClienteController@efetuarPagamento')->name('confirmacao');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
+    Route::get('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'index'])->name('perfilCliente');
+    Route::post('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'editar'])->name('perfilCliente.editar');
+    
 });
 
 //Rotas restritas apenas para FUNCIONARIOS
@@ -89,6 +90,7 @@ Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::cla
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::get('/recuperarAcessoCliente', function(){ return view('cliente.recuperarAcesso');})->name('recuperarAcessoCliente');
+
 
 
 ?>

@@ -19,34 +19,53 @@
            if (v.length == 11) i.value += "-";
         }
     
-     }</script>
+     }
+     
+     </script>
+      @if ($errors->any())
+      <div class="alert alert-warning">
+           @foreach ($errors->all() as $error)
+               <p>{{ $error }}</p>
+           @endforeach
+       </div>
+      @endif
+      @if (session('success'))
+          <div class="alert alert-success alert-block">
+              {{session ('success')}}
+          </div>
+      @endif
+      @if (session('error'))
+          <div class="alert alert-danger">
+              {{session ('error')}}
+          </div>
+      @endif
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
         <h5 class="texto">Editar Perfil</h5>
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="{{ route('editarPerfilCliente') }}" enctype="multipart/form-data" class="form">
+                <form method="post" action="{{ route('perfilCliente.editar') }}" >
+                    @csrf
                     <div class="form-group">
                         <label for="entradaNome">Nome Completo</label>
-                        <input type="name" class="form-control" id="entradaNome" value="{{$cliente['entradaNome']}}"/>
+                        <input type="name" class="form-control" id="entradaNome"  name = "nome" value="{{$cliente['entradaNome']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaEmail">Email</label>
-                        <input type="email" class="form-control" id="entradaEmail" value="{{$cliente['entradaEmail']}}"/>
+                        <input type="email" class="form-control" id="entradaEmail" name = "email" value="{{$cliente['entradaEmail']}}"/>
                     </div>
                     <div class="form-group">
-                        <label for="entradacpf">cpf</label>
-                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" 
-                        id="disabledInput entradacpf" name="cpf" type="text" value="{{$cliente['cpf']}}" disabled/>
+                        <label for="entradacpf">Cpf</label>
+                        <input oninput="mascara(this, 'cpf')" class="form-control" autocomplete="on" id="disabledInput entradacpf" name="customer['cpf']"  name="customer['cpf']" value="{{$cliente['cpf']}}" disabled/>
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
-                        <input type="password" class="form-control" id="entradaSenha" value="{{$cliente['entradaEmail']}}"/>
+                        <input type="password" class="form-control" id="entradaSenha"  name = "senha" value="{{$cliente['entradaEmail']}}"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaConfirmarSenha">Confirmação de senha</label>
-                        <input type="password" class="form-control" id="entradaConfirmarSenha">
+                        <input type="password" class="form-control" id="entradaConfirmarSenha" name = "confirmarSenha">
                     </div>            
                     <div class="btnCC">
                         <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Salvar</button>

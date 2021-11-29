@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use App\Models\Cliente as Cli;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente;
 use App\Models\Passagem;
 use App\Models\Pagamento;
@@ -13,13 +15,7 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    /**
-     * Método padrão para preencher o formulário (valores provisórios em 20/10)
-     */
-
-    public function index(){        
-        return view("cliente.perfil");
-    }
+ 
 
     public function indexSelecao(){        
         $linha = DB::select("SELECT * FROM linha WHERE codigo = 14")[0];        
@@ -93,18 +89,25 @@ class ClienteController extends Controller
 
     }
 
-    /**
-     * Editar perfil cliente
-     */
-    public function editarPerfil (Request $request) {
-        $nome = $request['entradaNome'];
-        $email = $request['entradaEmail'];
-        $cpf = $request['cpf'];
-        $senha = $request['entradaSenha'];
-        $confirmarSenha = $request['entradaConfirmarSenha'];
-
-        return DB::update('UPDATE cliente nome set ?, email set ?, senha set ? where cpf = ?',
-        [$nome, $email, Hash::make($senha), $cpf]);
+    public function index(){
+        $cliente = Cli::index();
+        return view("cliente.perfil", ['cliente'=>$cliente]);
+    }
+    public function editar(Request $request){
+        $cnt = Cli::editar($request);
+        if ($cnt == 1) {
+            return redirect()
+                        ->back()
+                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+        } elseif ($cnt ==2 ) {
+            return redirect()
+                        ->route('perfilCliente')
+                        ->with('success', 'Perfil atualizado com sucesso!');
+        } else {
+            return redirect()
+                        ->back()
+                        ->with('error', 'As senhas não coincidems');
+        }
     }
 
     /**
