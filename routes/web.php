@@ -20,6 +20,8 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/pagamento/boleto', function(){return view('cliente._partials.boleto');})->name('boleto');
     Route::get('/confirmacao', function(){return view('cliente.confirmacao_pagamento.confirmacao');})->name('confirmacao');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
+    Route::get('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'index'])->name('perfilCliente.index');
+    Route::post('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'editar'])->name('perfilCliente.editar');
 });
 
 //Rotas restritas apenas para FUNCIONARIOS
@@ -84,6 +86,7 @@ Route::get('/login/funcionario', [App\Http\Controllers\Auth\LoginController::cla
 Route::post('/login/funcionario', [App\Http\Controllers\Auth\LoginController::class, 'funcionarioLogin'])->name('funcionarioLogin');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::get('/recuperarAcessoCliente', function(){ return view('cliente.recuperarAcesso');})->name('recuperarAcessoCliente');
+
 
 
 ?>
