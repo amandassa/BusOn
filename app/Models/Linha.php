@@ -121,7 +121,9 @@ class Linha extends Model {
 
     public static function editarLinha(Request $request){
 
-       
+       dd($request);
 
     }
+    
+    
 }
