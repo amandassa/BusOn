@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Models\Administrador as Adm;
 use Dotenv\Regex\Result;
-use App\Models\Linha as Linha;
+use App\Models\Linha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -58,20 +58,39 @@ class AdministradorController extends Controller
     /**
      * Busca todos os Usuários do sistema
      */
-    public function buscarFuncionarios ()
+    public function buscarFuncionarios (Request $request)
     {              
-        
-        $funcionarios = DB::select("SELECT * FROM funcionario");
-        //return os usuários cadastrados no sistema;
+        if($request["buscaG"] == null){
+            $funcionarios = DB::select("SELECT * FROM funcionario");
+        }
+        else{
+            $atributo = $request["buscaOp"];
+            $valor_atributo = $request["buscaG"];
+            if($request["tipoUser"] == "todos"){  
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%'");
+            }elseif($request["tipoUser"] == "funcionario"){
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 0");
+            }else{
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 1");
+            }
+        }
+        //return os funcionarios cadastrados no sistema;
         return view('administrador.gerenciaFuncionarios', ['funcionarios'=>$funcionarios]);
     }
 
     /**
      * Busca todos os Clientes do sistema
      */
-    public function buscarClientes ()
+    public function buscarClientes (Request $request)
     {              
-        $clientes = DB::select("SELECT * FROM cliente");
+        if($request["buscaGu"] == null){
+            $clientes = DB::select("SELECT * FROM cliente");
+        }
+        else{
+            $atributo = $request["buscaOp"];
+            $valor_atributo = $request["buscaGu"];
+            $clientes = DB::select("SELECT * FROM cliente WHERE $atributo LIKE '$valor_atributo%'");
+        }
         //return os usuários cadastrados no sistema;
         return view('administrador.gerenciaClientes', ['clientes'=>$clientes]);
     }
@@ -147,28 +166,39 @@ class AdministradorController extends Controller
     }
 
 
+    /**
+     * Retorna todas as estaticas da tela inicial do administrador
+     *
+     * @param Request $request
+     * @return dados 
+     */
     public function estatisticasAdministrador(Request $request)
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
-        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);
-        $linha_menos_vendida = Linha::linha_menos_vendida();
-        $linha_mais_vendida = Linha::linha_mais_vendida();
-        if($request->input('buscarLinha') == null){
+        
+        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);// total de passagens vendidas
+        $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
+        $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
+        
+        //busca os dados de uma linha dado um determinado código
+        if($request['buscarLinha'] == null){
             $cod_busca = 1;
         }else{
-            $cod_busca = $request->input('buscarLinha');
+            $cod_busca = $request['buscarLinha'];
         }
-        $linha_por_codigo =  Linha::buscar ($cod_busca);
-
-        $passagens_vendidas_total = Adm::passagensVendidasTotal();
+        $linha_por_codigo =  Linha::buscar_linha($cod_busca);
         
+        //busca dados de vendas de uma determinada linha
         if($request['buscarLinhaHoje'] == null){
             $cod_busca_vendas_linha = 1;
         }else{
+            
             $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
         }
-
         $vendidas_linha = Adm::buscar_vendas_linha($cod_busca_vendas_linha);
+
+        //retorna o total de passagens vendidas 
+        $passagens_vendidas_total = Adm::passagensVendidasTotal();
 
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 

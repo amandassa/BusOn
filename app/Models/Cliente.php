@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class Cliente extends Authenticatable
 {
@@ -58,11 +60,12 @@ class Cliente extends Authenticatable
     public static function index(){
         $emailLogado = Auth::guard('cliente')->user()->email;
         $usuario = DB::select("select * from cliente where email = ?", [$emailLogado])[0];
-        $clienteCpf = $usuario->cpf;
+        $clienteCpf = substr($usuario->cpf, 0, 3) . '.' . substr($usuario->cpf, 3, 3) . '.' . substr($usuario->cpf, 6, 3) . '-' . substr($usuario->cpf, 9);
         $clienteNome = $usuario->nome;
         $clienteEmail = $usuario->email;
         $clienteSenha = '';
         $confirmar = '';
+
         $cliente = [
             'cpf'=> $clienteCpf,
             'entradaNome' => $clienteNome,
@@ -72,4 +75,29 @@ class Cliente extends Authenticatable
         ];
         return $cliente;
     }
+
+
+    public static function editar(Request $request){
+        $emailLogado = Auth::guard('cliente')->user()->email;
+        $usuario = DB::select("select * from cliente where email = ?", [$emailLogado])[0];
+        $cpf = $usuario->cpf;
+        $nome = $request['nome'];
+        $email = $request['email'];
+        $senha = $request['senha'];
+        $confirmarSenha = $request['confirmarSenha'];
+        if(empty($nome) or empty($email) or empty($senha) or empty($confirmarSenha)){
+            return 1;
+        }else{
+
+            if($senha == $confirmarSenha){
+                DB::update('UPDATE cliente set nome = ?, email = ?, password = ? where cpf = ?',
+                [$nome, $email, Hash::make($senha), $cpf]);
+                return 2;
+            }
+             else {
+                return 3;
+            }
+        }
+        
+}
 }

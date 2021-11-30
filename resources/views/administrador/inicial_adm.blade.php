@@ -26,12 +26,15 @@
 
         <div class="quadro"> <!--Passagens vendidas na para uma linha hoje-->
             <div class="card-body">
-                <div class="caixaPesquisa">
-                    <input type="number" class="caixaTexto" id="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
-                    <a href="#">
-                        <span class="material-icons" id="iconPesquisa">search</span>
-                    </a>
-                </div>
+                <form method="POST" class="form" action="{{route('estatisticas')}}">
+                    @csrf
+                    <div class="caixaPesquisa">
+                        <input type="number" class="caixaTexto" name="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
+                        <button style=" background-color: #ffffff00; border: 0px;">
+                            <span class="material-icons" id="iconPesquisa">search</span>
+                        </button>
+                    </div>
+                </form>
                 @if($dados['cidade_partida_vendas_linha'] == '' or $dados['cidade_chegada_vendas_linha'] == '')
                     <p><b>Sem dados dessa linha.</b></p>
                 @else
@@ -50,12 +53,15 @@
 
         <div class="quadro"> <!--Total de clientes que acessaram o sistema em determinado dia-->
             <div class="card-body">
-                <div class="caixaPesquisa">
-                    <input type="date" class="caixaTexto" id="buscarAcessos">
-                    <a href="#">
-                        <span class="material-icons" id="iconPesquisa">search</span>
-                    </a>
-                </div>
+                <form method="POST" class="form" action="{{route('estatisticas')}}">
+                @csrf
+                    <div class="caixaPesquisa">
+                        <input type="date" class="caixaTexto" id="buscarAcessos" name="buscarAcessos">
+                        <button style=" background-color: #ffffff00; border: 0px;">
+                            <span class="material-icons" id="iconPesquisa">search</span>
+                        </button>
+                    </div>
+                </form>
                 <p class="textoNumeroAzul"><b>1557</b></p>
                 <p><b>Clientes acessaram o sistema no dia 25/10/2021</b></p>
             </div>

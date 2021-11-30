@@ -7,24 +7,36 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+  <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
+  
   <script>
-    $(document).ready(function(){
-
-      var $rows = $('#tabela tbody tr');
-
-      $('#buscaG').keyup(function() {
-          
-          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-              reg = RegExp(val, 'i'),
-              text;
-          
-          $rows.show().filter(function() {
-              text = $(this).text().replace(/\s+/g, ' ');
-              return !reg.test(text);
-          }).hide();
-      });
-    });
+    $(document).ready(function() {
+      
+      //Script do datatable - serve para deixar a tabela com varias funcionalidades
+      $('#tabela').DataTable({
+        select:{}, 
+        info:false, 
+        pageLength : 5,
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
+        language: 
+        {
+            lengthMenu: "Exibir _MENU_",
+            search: "Busca rápida",
+            zeroRecords: "Funcionário não encontrado!",
+            oPaginate: 
+            {
+                sNext: '<i class="fas fa-angle-double-right"></i>',
+                sPrevious: '<i class="fas fa-angle-double-left"></i>'
+            }
+        }   
+      }); 
+    } )
   </script>
+
   @if ($errors->any())
     <div class="alert alert-warning">
         @foreach ($errors->all() as $error)
@@ -57,69 +69,73 @@
 
       <div class="card-header" id="meio">
 
-        <div class="cimaGu">
-
-          <div class="buscGu form-inline" method="post" id="form-pesquisa" action="">
-              <input type="text" name="buscaG" id="buscaG" placeholder="Digite a busca desejada...">
-              <!--img src="/imagens/lupa.png" alt="Imagem Lupa" id="lupa"-->
-              <!--select name="buscaOp" id="buscaOp">
-                <option value="nom">Nome</option>
-                <option value="cp">cpf</option>
-                <option value="emai">Email</option>
-                <option value="matricul">Matricula</option>
-              </select-->
+        <form method="POST" class="form" action="{{route('buscar_fun')}}">
+          @csrf   
+          <div style="display: inline-block;">
+              <input type="text" name="buscaG" placeholder="Digite a busca desejada...">
+              <select name="buscaOp">
+                <option value="nome">Nome</option>
+                <option value="cpf">CPF</option>
+                <option value="email">Email</option>
+                <option value="matricula">Matricula</option>
+              </select>
+              <button class="btn botaoAmarelo">Buscar</button>
           </div>
-          <!--button type="button" class="btn botaoAmarelo" id="botaoBusca"> Buscar</button-->
-        </div>
-
-        <!--div class="form-check-inline" method="post" id="form-pesquisa2" action="">
-          <input class="form-check-input" type="radio" name="tipoUser" id="todos"  value="todos" checked>
-          <label class="form-check-label" for="todos"> Todos</label>
-
-          <input class="form-check-input" type="radio" name="tipoUser" value="todos" id="func" >
-          <label class="form-check-label" for="func"> Funcionários </label>
-
-          <input class="form-check-input" type="radio" name="tipoUser" value="todos" id="adm">
-          <label class="form-check-label" for="adm"> Administradores </label>
-        </div-->
-        
-
-        
+          <div>     
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tipoUser" value="todos"  id="todos" checked>
+              <label class="form-check-label" for="todos"> Todos</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tipoUser" value="func" id="func" >
+              <label class="form-check-label" for="func"> Funcionários </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tipoUser" value="adm" id="adm">
+              <label class="form-check-label" for="adm"> Administradores </label>
+            </div>
+          </div>
+        </form>
       </div>
 
       <div class="card-body">
-        <table class="table table-bordered" id="tabela">
+        <table class="table table-bordered table-hover" id="tabela">
           <thead>
             <tr>
-              <th class="bg-warning">Matrícula</th>
-              <th class="bg-warning">Nome</th>
-              <th class="bg-warning">cpf</th>
-              <th class="bg-warning">Email</th>
-              <th class="bg-warning">Tipo</th>
-              <th class="bg-warning">Ações</th>
+              <th scope="col" class="bg-warning">Matrícula</th>
+              <th scope="col" class="bg-warning">Nome</th>
+              <th scope="col" class="bg-warning">CPF</th>
+              <th scope="col" class="bg-warning">Email</th>
+              <th scope="col" class="bg-warning">Tipo</th>
+              <th data-orderable="false" class="bg-warning">Ações</th>
             </tr>
           </thead>
-          <tbody>                 
+          <tbody> 
+              @if($funcionarios == null)  
               <tr>
-                @foreach ($funcionarios as $funcionario)
-                  <th scope="row"> {{ $funcionario->matricula }} </th>
-                  <td> {{ $funcionario->nome }} </td>
-                  <td> {{substr($funcionario->cpf, 0, 3) . '.' . substr($funcionario->cpf , 3, 3) . '.' . substr($funcionario->cpf , 6, 3) . '-' . substr($funcionario->cpf , 9)}}</td>
-                  <td> {{ $funcionario->email }} </td>
-                  <td>
-                    @if($funcionario->is_admin)
-                      Administrador
-                    @else
-                      Funcionário
-                    @endif
-                  </td>
-                  <td>
-                  <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                  <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
-                  </td>
-                </tr> 
-                @endforeach
-              
+                <td colspan="6">Funcionário não encontrado!</td>
+              </tr>
+              @else                
+                <tr>
+                  @foreach ($funcionarios as $funcionario)
+                    <th scope="row"> {{ $funcionario->matricula }} </th>
+                    <td> {{ $funcionario->nome }} </td>
+                    <td> {{substr($funcionario->cpf, 0, 3) . '.' . substr($funcionario->cpf , 3, 3) . '.' . substr($funcionario->cpf , 6, 3) . '-' . substr($funcionario->cpf , 9)}}</td>
+                    <td> {{ $funcionario->email }} </td>
+                    <td>
+                      @if($funcionario->is_admin)
+                        Administrador
+                      @else
+                        Funcionário
+                      @endif
+                    </td>
+                    <td>
+                    <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
+                    <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
+                    </td>
+                  </tr> 
+                  @endforeach
+              @endif
           </tbody>
         </table>
       </div>
