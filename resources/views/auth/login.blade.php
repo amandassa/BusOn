@@ -1,8 +1,12 @@
 @extends('app')
 
 @section('content')
-    <div class="container" style="flex-grow: 3;">
+    <div class="container" style="flex-grow: 3;">    
+    
     <div class="row justify-content-center">
+    @isset($status)
+        <div class="alert alert-success" style="margin:10px;"> {{ $status }} </div>
+    @endisset
         <div class="col-sm-6"> <h5>Login {{ isset($url) ? "- " . ucwords($url) : ""}}</h5>
             <div class="card" style="d-flex p-2">                
                 <div class="card-body justify-content-center" style="align-contents:center;">

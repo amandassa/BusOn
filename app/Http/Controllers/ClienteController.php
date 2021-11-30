@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente;
 use App\Models\Passagem;
 use App\Models\Pagamento;
+use App\Models\Pagamento_boleto;
 use App\Models\Pagamento_cartao;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -51,9 +52,21 @@ class ClienteController extends Controller
                 $nome_titular = $request['nome_titular'];                                
                 Pagamento_cartao::criar($num_cartao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
                 break;
+            //Boleto
+            case 2:
+                $nome = Auth::guard('cliente')->user()->nome;
+                $cpf = Auth::guard('cliente')->user()->cpf;
+                $codigo_barras = rand(1000000000, 9999999999);
+                while(!Pagamento_boleto::codigoBarrasDisponivel($codigo_barras)) {
+                    $codigo_barras = rand(1000000000, 9999999999);
+                }
+                Pagamento_boleto::criar($codigo_barras, $nome, $cpf, $codigo_pagamento);
+                break;
+            
+                
         }
 
-        return view('cliente.confirmacao');
+        return PassagemController::buscarPedido($codigo_passagem, $request['opcao']);
     }
 
     function login(Request $request)
@@ -114,7 +127,7 @@ class ClienteController extends Controller
      * Consulta as passagens compradas pelo cliente
      */
     public function consultaMinhasPassagens() {
-        $cliente = Cli::index();
+        $cliente = Cliente::index();
         $cpf = $cliente['cpf'];
         $passagens = DB::select('SELECT codigo, cidade_partida, cidade_chegada, num_assento, data FROM passagem WHERE cpf_cliente = ? ORDER BY data DESC;', [$cpf]);
         return view('cliente.minhasPassagens', ['passagens'=>$passagens]);

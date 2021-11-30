@@ -58,20 +58,39 @@ class AdministradorController extends Controller
     /**
      * Busca todos os Usuários do sistema
      */
-    public function buscarFuncionarios ()
+    public function buscarFuncionarios (Request $request)
     {              
-        
-        $funcionarios = DB::select("SELECT * FROM funcionario");
-        //return os usuários cadastrados no sistema;
+        if($request["buscaG"] == null){
+            $funcionarios = DB::select("SELECT * FROM funcionario");
+        }
+        else{
+            $atributo = $request["buscaOp"];
+            $valor_atributo = $request["buscaG"];
+            if($request["tipoUser"] == "todos"){  
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%'");
+            }elseif($request["tipoUser"] == "funcionario"){
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 0");
+            }else{
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 1");
+            }
+        }
+        //return os funcionarios cadastrados no sistema;
         return view('administrador.gerenciaFuncionarios', ['funcionarios'=>$funcionarios]);
     }
 
     /**
      * Busca todos os Clientes do sistema
      */
-    public function buscarClientes ()
+    public function buscarClientes (Request $request)
     {              
-        $clientes = DB::select("SELECT * FROM cliente");
+        if($request["buscaGu"] == null){
+            $clientes = DB::select("SELECT * FROM cliente");
+        }
+        else{
+            $atributo = $request["buscaOp"];
+            $valor_atributo = $request["buscaGu"];
+            $clientes = DB::select("SELECT * FROM cliente WHERE $atributo LIKE '$valor_atributo%'");
+        }
         //return os usuários cadastrados no sistema;
         return view('administrador.gerenciaClientes', ['clientes'=>$clientes]);
     }
@@ -147,11 +166,17 @@ class AdministradorController extends Controller
     }
 
 
+    /**
+     * Retorna todas as estaticas da tela inicial do administrador
+     *
+     * @param Request $request
+     * @return dados 
+     */
     public function estatisticasAdministrador(Request $request)
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
         
-        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);// total de passagens vendidas
+        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);//total de passagens vendidas
         $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
         $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
         

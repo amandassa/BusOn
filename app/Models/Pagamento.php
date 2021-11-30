@@ -20,4 +20,9 @@ class Pagamento extends Model
         else
             return null;
     }
+
+    public static function criarBoleto($codigo_barras, $nome, $cpf, $codigo_pagamento){
+       $confirmacao = DB::insert('INSERT INTO pagamento_boleto (codigo_barras, nome, cpf, codigo_pagamento) VALUES (?,?,?,?)', [$codigo_barras, $nome, $cpf, $codigo_pagamento]);
+       return $confirmacao;
+    }
 }

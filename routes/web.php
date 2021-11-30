@@ -14,6 +14,7 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/selecao', 'ClienteController@indexSelecao')->name('selecao');    
     Route::get('/pagamento', 'ClienteController@indexPagamento')->name('pagamento');    
     Route::post('/confirmacao', 'ClienteController@efetuarPagamento')->name('confirmacao');
+    Route::get('/confirmacao', 'PassagemController@buscarPedido')->name('confirmacao_pedido');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
     Route::get('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'index'])->name('perfilCliente');
     Route::post('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'editar'])->name('perfilCliente.editar');
@@ -33,9 +34,9 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/gerarRelatorio', 'FuncionarioController@gerarRelatorioViagem')->name('gerarRelatorio');
     Route::post('/gerarRelatorio', 'FuncionarioController@buscarRelatorioViagem')->name('buscarRelatorio');    
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
-    Route::post('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
+    Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
-    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('vende');
+    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('finalizar_venda');
 });
 
 //Rotas restritas apenas para ADMNISTRADOR
@@ -67,11 +68,14 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/cadastroFuncionario', function(){return view('administrador.cadastroFuncionario');})->name('cadastroFuncionario');
     Route::get('/editarPerfilFuncionario', function(){return view('administrador.editarPerfilFuncionario');})->name('editarPerfilFuncionario');
     Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
-    Route::get('/gerenciaUsuarios', 'AdministradorController@buscarUsuarios')->name('gerenciaUsuario');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::post('/consultar_linhas', 'LinhaController@consulta')->name('consulta');
+    
     Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
+    Route::post('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('buscar_fun');
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
+    Route::post('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('buscar_cliente');
+
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
     Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
     Route::post('/criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
