@@ -162,11 +162,10 @@ class Administrador extends Funcionario
         $valor = intval($valor);
         $horas = $request['duração1'];
         $minutos = $request['duração2'];
-        $segundos = $request['duração3'];
+        $segundos = 0;
         
         if($horas < 10) $horas = "0"."".$horas;
         if($minutos < 10) $minutos = "0"."".$minutos;
-        if($segundos < 10) $segundos = "0"."".$segundos;
 
         $duração = sprintf("%s:%s:%s", $horas, $minutos, $segundos);
         
