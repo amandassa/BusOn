@@ -46,6 +46,12 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
+
+    Route::get('/editarLinha', function(){
+        return view('administrador.editarLinha');
+    })->name('editarLinha');
+
+    
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');

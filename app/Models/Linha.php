@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Linha as Li;
+use Illuminate\Http\Request;
 
 
 /*
@@ -115,5 +116,12 @@ class Linha extends Model {
         }
 
         return ['total'=> $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
+    }
+
+
+    public static function editarLinha(Request $request){
+
+       
+
     }
 }
