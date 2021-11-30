@@ -32,7 +32,7 @@ class ClienteController extends Controller
         
         if($request['cidadePartida'] != null and $request['cidadeDestino'] != null){
             dd($request['cidadePartida']);
-            //$linha = Linha::buscar_passagens($request['cidadePartida'], $request['cidadeDestino'], $request['dataPartida']); 
+            //$linha = Linha::buscar_linhaPassagens($request['cidadePartida'], $request['cidadeDestino'], $request['dataPartida']); 
            
         }
         return view('cliente.inicio')->with('linha', $linha);
