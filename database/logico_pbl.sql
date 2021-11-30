@@ -144,3 +144,12 @@ CREATE TABLE pagamento_pix (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE TABLE logs (
+    codigo varchar(10) NOT NULL,
+    cpf_usuario varchar(11) NOT NULL,
+    tipo_usuario char(1) NOT NULL,
+    descricao varhar(40) NOT NULL,
+    data_hora datetime NOT NULL,
+    CONSTRAINT pk_codigo_log PRIMARY KEY (codigo)
+);
