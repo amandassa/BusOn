@@ -176,7 +176,7 @@ class AdministradorController extends Controller
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
         
-        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);// total de passagens vendidas
+        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);//total de passagens vendidas
         $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
         $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
         
