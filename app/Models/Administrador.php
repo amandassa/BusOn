@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Requests\StoreAddTrechoRequest;
 use App\Models\Administrador as Adm;
+use App\Models\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -175,7 +176,7 @@ class Administrador extends Funcionario
         $nome_trecho = $origem."-".$destino;        
 
         DB::insert("INSERT INTO trecho (cidade_partida, cidade_chegada, duracao , preco) VALUES (?, ?, ?, ?)", [$origem, $destino, $duração, $valor]);
-        Logs::trechoAdicionado($cpf, $nome, $date, $nome_trecho);
+        Log::trechoAdicionado($cpf, $nome, $date, $nome_trecho);
 
     }
 
