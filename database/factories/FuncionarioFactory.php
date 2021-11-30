@@ -7,9 +7,12 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 
 $factory->define(Funcionario::class, function (Faker $faker) {
+    $email = $faker->email();
+    $email = explode("@", $email);
+    $nome = $faker->firstName();
     return [
-        'nome' => $faker->firstName(),
-        'email' => $faker->email(),
+        'nome' => $nome,
+        'email' => strtolower($nome).'@'.$email[1],
         'cpf' => strval(rand(10000000000, 99999999999)),
         'password' => Hash::make("12345678"),
         'matricula' => strval(rand(10000, 99999)),
