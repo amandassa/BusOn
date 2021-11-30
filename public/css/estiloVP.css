@@ -75,7 +75,5 @@
 table.dataTable tbody tr.selected {
     background-color: #f7ca50 !important;
     color: #000000;
-    font-weight: bolder;
-    font-size: large;
-    font-family: 'darker grotesque';
 }
+

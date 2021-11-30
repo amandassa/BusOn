@@ -134,7 +134,7 @@
             {
                 valorTroco = valorPago - precoComDesconto;
                 troco = document.getElementById('troco');
-                troco.innerHTML = "R$ " + valorTroco;
+                troco.innerHTML = "R$ " + valorTroco.toFixed(2);
             }
 
             else if(alterouValorPago)
@@ -156,12 +156,12 @@
     </script>
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
-    <div class="container-lg principal">
+    <div class="container-xl principal">
 
         @if (sizeof($errors) > 0)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <ul>
-                    @foreach($errors as $error)
+                    @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -179,7 +179,7 @@
             <div class="col-md-7">
                 <h5 class="titulos">Consulta de Linhas</h5>
                 <div class="card cardCL">
-                    <form method="POST" action="{{route('consultaVP')}}" class="form">
+                    <form method="GET" action="{{route('consultaVP')}}" class="form">
                         @csrf 
                         <div class="row">
                             <div class="col">
@@ -313,27 +313,27 @@
                 <div class="card cardTotal">
                     <div class="row">
                         <div class="col colTotalEsquerda"> Subtotal:</div>
-                        <div class="col colTotalDireita" id="subtotal" name="subtotal"> R$ 0,00</div>
+                        <div class="col colTotalDireita" id="subtotal" name="subtotal"> R$ 0.00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Descontos:</div>
-                        <div class="col colTotalDireita" id="descontos" name="descontos">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="descontos" name="descontos">R$ 0.00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Troco:</div>
-                        <div class="col colTotalDireita" id="troco" name="troco">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="troco" name="troco">R$ 0.00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Total a pagar:</div>
-                        <div class="col colTotalDireita" id="total" name="total">R$ 0,00</div>
+                        <div class="col colTotalDireita" id="total" name="total">R$ 0.00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colBtnAmarelo">
-                            <form method="POST" action="{{ route('vende') }}">
+                            <form method="POST" action="{{ route('finalizar_venda') }}">
                                 @csrf
                                 <input id="cidade_partida" name="cidade_partida" type="hidden"></input>
                                 <input id="cidade_destino" name="cidade_destino" type="hidden"></input>

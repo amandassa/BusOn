@@ -14,6 +14,7 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/selecao', 'ClienteController@indexSelecao')->name('selecao');    
     Route::get('/pagamento', 'ClienteController@indexPagamento')->name('pagamento');    
     Route::post('/confirmacao', 'ClienteController@efetuarPagamento')->name('confirmacao');
+    Route::get('/confirmacao', 'PassagemController@buscarPedido')->name('confirmacao_pedido');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
     Route::get('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'index'])->name('perfilCliente');
     Route::post('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'editar'])->name('perfilCliente.editar');
@@ -33,9 +34,9 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/gerarRelatorio', 'FuncionarioController@gerarRelatorioViagem')->name('gerarRelatorio');
     Route::post('/gerarRelatorio', 'FuncionarioController@buscarRelatorioViagem')->name('buscarRelatorio');    
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
-    Route::post('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
+    Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
-    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('vende');
+    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('finalizar_venda');
 });
 
 //Rotas restritas apenas para ADMNISTRADOR

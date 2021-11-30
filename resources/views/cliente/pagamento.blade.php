@@ -121,7 +121,7 @@
                                 <form  class="form" action="{{ route('confirmacao') }}" method="post">
                                 @csrf                  
                                 <input type='hidden' class="form-group" name='linha_i' value='<?php echo json_encode($linha); ?>'/>              
-                                <input type='hidden' class="form-group" name='opcao' value='1'/>              
+                                <input type='hidden' class="form-group" name='opcao' id='opcao' value='1'/>              
                                     <div class="form-group" id="cartao">
                                         <div class="container" style="padding-left:0px;">                             
                                             <div class="row">
