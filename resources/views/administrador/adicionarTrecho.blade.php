@@ -43,12 +43,10 @@
                     <input type="number" min=0 step="0.01" class="line_info_sub" name="preço">
                 </div>
                 <div class="line_info">
-                    <p class="line_info_title">Duração de viagem (Horas:Minutos:Segundos):</p>
+                    <p class="line_info_title">Duração de viagem (Horas:Minutos):</p>
                     <input type="number" min=0 step="1" class="trecho_time_sub" name="duração1">
                     <label>:</label>
                     <input type="number" min=0 max=59 step="1" class="trecho_time_sub" name="duração2">
-                    <label>:</label>
-                    <input type="number" min=0 max=59 step="1" class="trecho_time_sub" name="duração3">
                 </div>
             </div>
 

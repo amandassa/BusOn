@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
+use App\Models\Linha as Li;
 use App\Models\Trecho;
 use App\Models\TrechosLinha;
 use App\Http\Requests\BuscaTrechoRequest;
@@ -53,6 +54,8 @@ class LinhaController extends Controller
         if($url[1] == 'consultar_linhas') 
         {
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
+        } elseif($url[1] == 'editarLinha') {
+            return view('administrador.editarLinha');
         }
         else
             return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
@@ -221,6 +224,12 @@ class LinhaController extends Controller
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
     }
+
+    public function editar(Request $request){
+        $linha = Li::editarLinha($request);
+    }
+
+   
     
         
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Linha as Li;
+use Illuminate\Http\Request;
 
 
 /*
@@ -125,4 +126,12 @@ class Linha extends Model {
         $linha = DB::select("SELECT * FROM linha WHERE codigo = (SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = (SELECT codigo FROM trecho WHERE cidade_partida = $cidade_partida and cidade_chegada = $cidade_chegada));");
         return['linha' => $linha];
     }
+
+    public static function editarLinha(Request $request){
+
+       dd($request);
+
+    }
+    
+    
 }

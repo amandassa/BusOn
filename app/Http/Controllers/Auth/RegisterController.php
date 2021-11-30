@@ -85,6 +85,23 @@ class RegisterController extends Controller
         return $cliente;    
     }
     
+    protected function register(Request $request){
+        $data['cpf'] = $request->cpf;
+        $data['nome'] = $request->nome;
+        $data['email'] = $request->email;
+        $data['senha'] = $request->senha;
+        $cpf = str_replace(".", "", $data['cpf']);
+        $cpf = str_replace("-", "", $cpf);
+        $nome = $data['nome'];
+        $email = $data['email'];
+        $senha = Hash::make($data['senha']);        
+        DB::statement('insert into cliente(nome, cpf, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
+        $cliente = new Cliente;
+        $cliente->fill($data);        
+        return redirect()->route('login')
+            ->with('status', 'Cadastro realizado com Sucesso!');  
+    }
+
     protected function criarFuncionario(Request $request)
     {
         dd($request);

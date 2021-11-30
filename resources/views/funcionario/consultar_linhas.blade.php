@@ -6,10 +6,16 @@
 
     @section('usaMigalha', TRUE)
     @section('nomeMigalha1', 'Dashboard')
-    @section('rotaMigalha1') {{route('inicial_func')}} @endsection
-    @section('nomeMigalha2', 'Consultar Pasagens')
-    @section('rotaMigalha3') {{ route('confirmacao') }} @endsection
+    @if(auth('funcionario')->user()->is_admin == 1)
+        @section('rotaMigalha1') {{route('inicial_adm')}} @endsection
+    @endif
+    @if(auth('funcionario')->user()->is_admin == 0)
+     @section('rotaMigalha1') {{route('inicial_func')}} @endsection
+    @endif
+    @section('nomeMigalha2', 'Consultar Linha')
+    @section('rotaMigalha2') {{ route('consultar_linhas') }} @endsection
     @section('nomeMigalha3', 'Editar')    
+    @section('rotaMigalha3') {{ route('editarLinha') }} @endsection
     @section('linkM2', 'ativado')
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
     @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')
@@ -131,6 +137,7 @@
                           <th scope="col">Cidade de Destino</th>
                           <th scope="col">Preço</th>
                           <th scope="col">Tipo</th>
+                          <th scope="col"> Ação</th>
                         </tr>
                         </thead>
                       <tbody>                        
@@ -145,6 +152,9 @@
                                 @else
                                     <td> Comum </td>
                                 @endif
+                                <td>
+                                    <a class="btn botaoAzul delete" role="button" href="{{route('editarLinha.index', $linha)}}">Editar</a>
+                                </td>
                             </tr>
                             @endforeach                        
                       </tbody>
