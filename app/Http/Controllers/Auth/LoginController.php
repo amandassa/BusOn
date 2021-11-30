@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Log as Logs;
 
 class LoginController extends Controller
 {
@@ -62,7 +63,8 @@ class LoginController extends Controller
         ]);
         
         if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
-                return redirect()->intended('/inicio');
+            Log::acessoCliente($request->email, date('y/m/d'));
+            return redirect()->intended('/inicio');
         }
 
         return back()->withInput($request->only('email', 'remember'));
@@ -78,11 +80,12 @@ class LoginController extends Controller
         if (Auth::guard('funcionario')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
             if(Auth::guard('funcionario')->user()->is_admin == 1) 
             {
+                
                 return redirect()->intended('/inicialAdm');
             }      
             
             if(Auth::guard('funcionario')->user()->is_admin == 0) 
-            {                
+            {
                 return redirect()->intended('/inicialFuncionario');
             }
                 
