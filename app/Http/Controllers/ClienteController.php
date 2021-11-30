@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Cliente as Cli;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente;
+use App\Models\Linha;
 use App\Models\Passagem;
 use App\Models\Pagamento;
 use App\Models\Pagamento_boleto;
@@ -21,6 +22,20 @@ class ClienteController extends Controller
     public function indexSelecao(){        
         $linha = DB::select("SELECT * FROM linha WHERE codigo = 14")[0];        
         return view('cliente.selecao', ['linha' => $linha]);
+    }
+
+    /**
+     * Busca uma passagem pela cidade de origem e destino
+     */
+    public function buscarPassagem(Request $request){
+        $linha = [];
+        
+        if($request['cidadePartida'] != null and $request['cidadeDestino'] != null){
+            dd($request['cidadePartida']);
+            //$linha = Linha::buscar_passagens($request['cidadePartida'], $request['cidadeDestino'], $request['dataPartida']); 
+           
+        }
+        return view('cliente.inicio')->with('linha', $linha);
     }
 
     public function indexPagamento(Request $request){ 

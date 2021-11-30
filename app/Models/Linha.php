@@ -116,4 +116,13 @@ class Linha extends Model {
 
         return ['total'=> $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
     }
+
+    /**
+     * Busca o nome as linhas que possuem assentos disponiveis 
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida de uma linha
+     */
+    public static function buscar_passagens($cidade_partida, $cidade_chegada, $data){
+        $linha = DB::select("SELECT * FROM linha WHERE codigo = (SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = (SELECT codigo FROM trecho WHERE cidade_partida = $cidade_partida and cidade_chegada = $cidade_chegada));");
+        return['linha' => $linha];
+    }
 }
