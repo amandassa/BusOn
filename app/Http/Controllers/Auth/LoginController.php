@@ -63,7 +63,7 @@ class LoginController extends Controller
         ]);
         
         if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->senha], $request->get('remember'))) {
-            Log::acessoCliente($request->email, date('y/m/d'));
+            Log::acessoCliente($request->email, date('Y-m-d H:i:s'));
             return redirect()->intended('/inicio');
         }
 

@@ -22,24 +22,6 @@ class FuncionarioController extends Controller {
         return view("funcionario.perfil", ['funcionario'=>$funcionario]);
     }
 
-    protected function somarTempo($times) {
-        $all_seconds = 0;
-        foreach ($times as $time) {          
-                list($hour, $minute, $second) = explode(':', $time);
-                $all_seconds += $hour * 3600;
-                $all_seconds += $minute * 60;
-                $all_seconds += $second;
-        
-        }
-    
-        $total_minutes = floor($all_seconds/60);
-        $seconds = $all_seconds % 60;
-        $hours = floor($total_minutes / 60); 
-        $minutes = $total_minutes % 60;
-    
-        // returns the time already formatted
-        return sprintf('%02d:%02d:%02d', $hours, $minutes,$seconds);        
-    }
 
     public function gerarRelatorioViagem(){
         //$codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);");        
@@ -157,7 +139,7 @@ class FuncionarioController extends Controller {
         if ($funcionario == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
         } elseif ($funcionario ==2 ) {
             return redirect()
                         ->route('perfilFuncionario.index')
@@ -165,7 +147,7 @@ class FuncionarioController extends Controller {
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem');
+                        ->with('error', 'As senhas não coincidem.');
         }
         
     }
@@ -217,8 +199,7 @@ class FuncionarioController extends Controller {
         }else{
             return redirect()->back()->with('message', 'Venda Feita.');
         }
-
-        //Funcionario::venderPassagem($request);
+        
     }
 
 }

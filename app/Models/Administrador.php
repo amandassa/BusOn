@@ -172,7 +172,7 @@ class Administrador extends Funcionario
         
         $cpf = Auth::guard('funcionario')->user()->cpf;
         $nome = Auth::guard('funcionario')->user()->nome;
-        $date = date("y/m/d");
+        $date = date('Y-m-d H:i:s');
         $nome_trecho = $origem."-".$destino;        
 
         DB::insert("INSERT INTO trecho (cidade_partida, cidade_chegada, duracao , preco) VALUES (?, ?, ?, ?)", [$origem, $destino, $duração, $valor]);

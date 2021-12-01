@@ -134,6 +134,36 @@ class Linha extends Model {
        dd($request);
 
     }
+
+    protected function somarTempo($times) {
+        $all_seconds = 0;
+        foreach ($times as $time) {          
+                list($hour, $minute, $second) = explode(':', $time);
+                $all_seconds += $hour * 3600;
+                $all_seconds += $minute * 60;
+                $all_seconds += $second;
+        
+        }
+    
+        $total_minutes = floor($all_seconds/60);
+        $seconds = $all_seconds % 60;
+        $hours = floor($total_minutes / 60); 
+        $minutes = $total_minutes % 60;
+    
+        // returns the time already formatted
+        return sprintf('%02d:%02d:%02d', $hours, $minutes,$seconds);        
+    }
+
+    /**
+     * Realiza a soma de horario, considerando dias e retorna o dia e horario resultantes
+     */
+    public static function somarHorasData(String $data, $horas){
+        $data_base = date($data); //corrigir horario base
+        $hora =  explode(':', somarTempo($horas));
+        $saida = echo date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
+        $data_saida = explode(' ', $saida)[0];
+        $hora_saida = explode(' ', $saida)[1];
+    }
     
     
 }

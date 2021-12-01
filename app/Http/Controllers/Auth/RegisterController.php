@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\Cliente;
 use App\Models\Funcionario;
 use Carbon;
+use Session;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -98,8 +99,8 @@ class RegisterController extends Controller
         DB::statement('insert into cliente(nome, cpf, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
         $cliente = new Cliente;
         $cliente->fill($data);        
-        return redirect()->route('login')
-            ->with('status', 'Cadastro realizado com Sucesso!');  
+        Session::flash('message', 'Cadastro realizado com sucesso!'); 
+        return redirect()->route('login');            
     }
 
     protected function criarFuncionario(Request $request)
