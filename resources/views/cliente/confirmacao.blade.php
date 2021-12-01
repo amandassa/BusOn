@@ -7,6 +7,20 @@
 
     <script> 
        $("#cpf").mask('999.999.999-99');
+
+      
+       $(document).ready(function() {
+         var codigoQR = $('#pedidoQR').val();
+         var GoogleCharts = 'https://chart.googleapis.com/chart?chs=225x225&cht=qr&chl=';
+         var imgQR = GoogleCharts + codigoQR;
+         $('#imgQR').attr('src', imgQR);
+       });
+
+       function copiar(copiar)
+       {
+          window.prompt("Copie o código para efetuar o pagamento!: Ctrl+C, Enter", copiar);
+       }
+
     
     
     
@@ -28,6 +42,7 @@
         <div class="row"> <!-- Linha 1 -->
           <div class="col-sm-6"> <!-- Coluna 1 -->
             <h5>Informaçãos do Pedido</h5> 
+
               @if($metodo == 1) <!-- Método de Pagamento por Cartão -->
                   <div class="card">
                     <div class="card-body">
@@ -58,6 +73,7 @@
                   </div>
                 </div>
               </div>  
+
             @elseif($metodo == 2) <!-- Método de Pagamento por Boleto -->
               <div class="card">
                 <div class="card-body">
@@ -83,7 +99,38 @@
                     O boleto demora até 3 dias para ser processado
                   </div>     
                   <div class="btnMP">
-                    <button type="button" class="botao botaoAzul" id="btnMinhasPassagens">Pagar boleto</button>
+                    <button type="button" id="btnMinhasPassagens" class="botao botaoAzul" onclick="copiar({{json_encode($codigo_barras)}})">Pagar Boleto</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          @elseif($metodo == 3) <!-- Método de Pagamento por Pix -->
+              <div class="card">
+                <div class="card-body">
+                  <div class="row"> <!-- Linha 1 -->
+                    <p class="col-sm infoPedidoTexto">Pedido BusOn</p> <!-- Coluna 1 -->
+                    <p class="col-sm infoPedidoDados">{{$passagem_info['pedido']}}</p> <!-- Coluna 2 -->
+                  </div>       
+                  <hr/>   
+                  <div class="row"> <!-- Linha 2 -->
+                    <p class="col-sm infoPedidoTexto">Status do Pedido</p> <!-- Coluna 1 -->
+                    <p class="col-sm infoPedidoDados" id="statusPagamento">Aguardando Pagamento</p>  <!-- Coluna 2 -->
+                  </div>             
+              </div>
+            </div>
+            <div class="card" style="text-align: center">
+                <div class="card-body">
+                  <p class="textoConfirmacao">Código gerado com sucesso!</p> <br>
+                  <p>
+                    Detalhes de sua passagem será enviada para o email: <b>{{$passagem_info['email']}}</b> assim que o pagamento for processado
+                  </p>
+                  <div class="codigoQR">
+                    <img src="" alt="" id="imgQR">
+                  </div>
+                  <input type="hidden" id="pedidoQR" value="{{$codigo_pix}}">
+                  <div class="btnMP">
+                    <button type="button" id="btnMinhasPassagens" class="botao botaoAzul" onclick="copiar({{json_encode($codigo_pix)}})">Copiar Código</button>
                   </div>
               </div>
             </div>

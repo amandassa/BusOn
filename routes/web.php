@@ -12,8 +12,8 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
     Route::get('/minhasPassagens', 'ClienteController@consultaMinhasPassagens')->name('minhasPassagens');
     Route::get('/selecao', 'ClienteController@indexSelecao')->name('selecao');    
-    Route::get('/pagamento', 'ClienteController@indexPagamento')->name('pagamento');    
-    Route::post('/confirmacao', 'ClienteController@efetuarPagamento')->name('confirmacao');
+    Route::get('/pagamento', 'PagamentoController@index')->name('pagamento');    
+    Route::post('/confirmacao', 'PagamentoController@create')->name('confirmacao');
     Route::get('/confirmacao', 'PassagemController@buscarPedido')->name('confirmacao_pedido');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
     Route::get('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'index'])->name('perfilCliente');
