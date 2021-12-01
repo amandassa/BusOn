@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Linha;
+
 use Illuminate\Http\Request;
 
 
@@ -202,7 +202,7 @@ class Linha extends Model {
     }
     
     public static function consultaEditar(Request $request){
-        
+
         $codigo = $request['codigo'];
         $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
         $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            

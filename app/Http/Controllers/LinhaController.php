@@ -250,23 +250,21 @@ class LinhaController extends Controller
     }
 
     public function editar(Request $request){
-        $linhas = Linha::editarLinha($request);
-       
-        if ($linhas['id'] == 1) {
+        $linha = Linha::editarLinha($request);
+        if ($linha['id'] == 1) {
             return redirect()
                         ->back()
                         ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
-        } elseif ($linhas['id'] == 2 ) {
+        } elseif ($linha['id'] == 2 ) {
             return redirect()
-                        ->route('editarLinha' ['linhas'=>$linhas])
+                        ->route('editarLinha', ['linhas'=>$linha])
                         ->with('success', 'Linha atualizada com sucesso!');
         } else {
             return redirect()
                         ->back()
                         ->with('error', 'As senhas não coincidems');
         }
-        $linha = Li::editarLinha($request);
-        Log::editarLinha($cod_linha, date('Y-m-d H:i:s'));
+      
     }
 
    
