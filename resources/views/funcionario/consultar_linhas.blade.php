@@ -153,7 +153,7 @@
                                     <td> Comum </td>
                                 @endif
                                 <td>
-                                    <a class="btn botaoAzul delete" role="button" href="{{route('editarLinha.index', $linha)}}">Editar</a>
+                                    <a class="btn botaoAzul delete" role="button" href="{{route('editarLinha', $linha)}}">Editar</a>
                                 </td>
                             </tr>
                             @endforeach                        
