@@ -26,10 +26,10 @@ class VerificadorTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testIsNumerical1 () {
-        $verificador = new Verificador();
-        $return = $verificador->isNumerical("098123454");
-        $this->assertEquals(true, $return);
-    }
+    /*public function testIsNumerical1 () {
+        //$verificador = new Verificador();
+        //$return = $verificador->isNumerical("098123454");
+        //$this->assertEquals(true, $return);
+    }*/
 
 }

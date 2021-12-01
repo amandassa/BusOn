@@ -79,7 +79,16 @@
         
     <div class="container">
         <div class="row">
-            <div class="col-sm">                
+            <div class="col-sm">  
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+                </ul>
+            </div>
+            @endif              
                 <section class="content">
                 <h3>Forma de Pagamento</h3>
                     <div class="container-fluid">
@@ -181,7 +190,7 @@
                                 <p class="textoAmarelo" style="text-align:left; font-size:18px;">Feira de Santana >>> Jaguaquara</p>
                                 <p class="textoPreto" style="text-align:left; font-size:10px;">25/08/2021 às 18:00hrs</label>
                                 <ol>
-                                    <li>Assento linha comum R$58,00</li>
+                                    <li>Assento linha {{ ($linha['direta']?"direta":"comum") }} R$58,00</li>
                                     <li>Seguro de viagem (Obrigatório) R$5,60</li>    
                                 </ol>                                
                                 <hr/>    
