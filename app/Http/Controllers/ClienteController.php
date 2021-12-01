@@ -11,7 +11,6 @@ use App\Models\Pagamento_cartao;
 use App\Models\Pagamento_boleto;
 use App\Models\Pagamento_pix;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
