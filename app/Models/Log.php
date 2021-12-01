@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Log extends Model
 {
@@ -82,7 +83,7 @@ class Log extends Model
         $nome = Auth::guard('cliente')->user()->nome;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Funcionario ? editou a linha ?', ?);", [$cpf, $nome, $cod_linha, $data_hora]);
+        VALUES (?, 'A', 'Administrador ? editou a linha ?', ?);", [$cpf, $nome, $cod_linha, $data_hora]);
     }
 
     /**
@@ -96,7 +97,7 @@ class Log extends Model
         $nome = Auth::guard('cliente')->user()->nome;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'F', 'Funcionario ? editou o trecho ?', ?);", [$cpf, $nome, $cod_trecho, $data_hora]);
+        VALUES (?, 'A', 'Administrador ? editou o trecho ?', ?);", [$cpf, $nome, $cod_trecho, $data_hora]);
     }
 
 }

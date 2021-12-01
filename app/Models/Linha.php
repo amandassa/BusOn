@@ -141,26 +141,22 @@ class Linha extends Model {
         $vagas = $request['vagas'];
         $dias = $request['dias'];
         $dia= implode(';', $dias);
-        $horario = $request['horario'];
+       
+        
 
+   
 
         if(empty($partida) or empty($destino) or empty($tipo) or empty($preco) or empty($hPartida) or empty($vagas)  or empty($dia)){
             return $li=[
                 'id' => 1
             ];
         }else{
-             return   $li =[
-                'codigo'=>$codigo, 
-                'partida'=>$partida, 
-                'destino'=>$destino,
-                'tipo'=>$tipo,
-                'preco'=> number_format($preco, 2),
-                'hPartida' => $hPartida,
-                'vagas' => $vagas,
-                'dias' =>$dia,
-                'horario' => $hPartida,
+
+
+            DB::update('UPDATE linha set  direta = ?, total_vagas = ?, dias_semana =?, hora_partida=? where codigo =?', [$tipo, $vagas, $dia, $hPartida, $consulta->codigo]);
+            return $li=[
                 'id' => 2
-            ];    
+            ];
              
         }
            
@@ -226,7 +222,9 @@ class Linha extends Model {
         $diasSemanais = $diasSemanais[0]->dias_semana;
         $horario = strtotime('1970-01-01 '.$duracaoViagem.'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC') ;
         $hChegada = gmdate('H:i:s', $horario);
-              
+        $hPartida = strtotime('1970-01-01 '.$hPartida.'UTC');
+        $hPartida= gmdate('H:i', $hPartida);
+        
         
         $linhas = [
         'codigo'=>$codigo, 
