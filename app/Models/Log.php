@@ -7,6 +7,30 @@ use Illuminate\Support\Facades\DB;
 
 class Log extends Model
 {
+    public static function pesquisarTodosLogs(){
+        $logs = DB::select("SELECT * FROM logs");
+
+        return $logs;
+    }
+
+    public static function pesquisarPorCPF($cpf){
+        $logs = DB::select("SELECT * FROM logs WHERE cpf=$cpf");
+
+        return $logs;
+    }
+
+    public static function pesquisarPorData($data_hora_inicio, $data_hora_fim){
+        $logs = DB::select("SELECT * FROM logs WHERE data_hora BETWEEN $data_hora_inicio AND $data_hora_fim");
+
+        return $logs;
+    }
+
+    public static function pesquisarPorData($data_hora_inicio, $data_hora_fim){
+        $logs = DB::select("SELECT * FROM logs WHERE data_hora BETWEEN $data_hora_inicio AND $data_hora_fim");
+
+        return $logs;
+    }
+
     public static function acessoCliente($email, $data_hora){
         $cliente_info = DB::select("SELECT cpf, nome FROM cliente WHERE email = ?;", [$email])[0];
         $cpf = $cliente_info->cpf;
