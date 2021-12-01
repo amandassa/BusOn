@@ -11,11 +11,12 @@
             <div class="card-body">
                 <form>
                     <div class="form-group"> 
-                        <label for="idFuncionario"><b>Código identificador do funcionário</b></label>
+                        <label for="idUsuario"><b>Pesquisar por usuário</b></label>
                         <input type="text" class="form-control" id="idFuncionario" placeholder="xxxxxxxxx">
                     </div>
 
                     <div class="row">
+                        <b>Pesquisar por datas:</b></label>
                         <div class="form-group col">
                             <label for="dataInicio"><b>De</b></label>
                             <input type="date" class="form-control" id="dataInicio">
@@ -27,23 +28,6 @@
                         </div>
                     </div>
 
-                    <p><b>Ação realizada</b></p>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Registrar" value="opcao1">
-                        <label class="form-check-label" for="Registrar">Registrar</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Deletar" value="opcao2">
-                        <label class="form-check-label" for="Deletar">Deletar</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Adicionar" value="opcao3">
-                        <label class="form-check-label" for="Adicionar">Adicionar</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Editar" value="opcao4">
-                        <label class="form-check-label" for="Editar">Editar</label>
-                    </div> 
                 </form>  
             </div>
             <button type="submit" class="botao botaoAzul">Pesquisar</button>
