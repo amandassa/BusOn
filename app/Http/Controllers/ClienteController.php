@@ -8,8 +8,9 @@ use App\Models\Cliente;
 use App\Models\Linha;
 use App\Models\Passagem;
 use App\Models\Pagamento;
-use App\Models\Pagamento_boleto;
 use App\Models\Pagamento_cartao;
+use App\Models\Pagamento_boleto;
+use App\Models\Pagamento_pix;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -47,7 +48,8 @@ class ClienteController extends Controller
         return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
     }
 
-    public function efetuarPagamento(Request $request){                 
+    public function efetuarPagamento(Request $request){       
+        $metodo = $request['opcao'];
         $linha = json_decode($request['linha_i']);                
         $max_vagas = intval($linha->total_vagas);
         $num_assento = Passagem::getNumAssento(intval($linha->codigo), $max_vagas);
@@ -57,7 +59,9 @@ class ClienteController extends Controller
         Pagamento::criar(0, $request['opcao'], $codigo_passagem);
         $codigo_pagamento = Pagamento::getCodigo('codigo_passagem', $codigo_passagem);
         
-        switch($request['opcao']){
+        $codigo_barras = 0;
+        $pix_pagador = 0;
+        switch($metodo){
             // Cartão de Crédito
             case 1:
                 $num_cartao =  str_replace(' ', '', $request['numero_cartao']);
@@ -77,11 +81,15 @@ class ClienteController extends Controller
                 }
                 Pagamento_boleto::criar($codigo_barras, $nome, $cpf, $codigo_pagamento);
                 break;
-            
+            //Pix
+            case 3: 
+                $pix_pagador = $request['pix_pagador'];
+                Pagamento_pix::criar($pix_pagador, $codigo_pagamento);
+                break;
                 
         }
 
-        return PassagemController::buscarPedido($codigo_passagem, $request['opcao']);
+        return PassagemController::buscarPedido($codigo_passagem, $metodo, $codigo_pagamento, $codigo_barras, $pix_pagador);
     }
 
     function login(Request $request)
