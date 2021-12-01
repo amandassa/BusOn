@@ -160,7 +160,7 @@ class Linha extends Model {
     public static function somarHorasData(String $data, $horas){
         $data_base = date($data); //corrigir horario base
         $hora =  explode(':', somarTempo($horas));
-        $saida = echo date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
+        $saida = date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
         $data_saida = explode(' ', $saida)[0];
         $hora_saida = explode(' ', $saida)[1];
     }
