@@ -106,7 +106,7 @@ class AdministradorController extends Controller
         if ($adm == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
         } elseif ($adm ==2 ) {
             return redirect()
                         ->route('perfilAdministrador.index')
@@ -114,7 +114,7 @@ class AdministradorController extends Controller
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidems');
+                        ->with('error', 'As senhas não coincidem.');
         }
         
     }
@@ -130,7 +130,7 @@ class AdministradorController extends Controller
         if ($func['id'] == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
         } elseif ($func['id'] ==2 ) {
             return redirect()
                         ->route('perfilAdministrador.perfilFunc', ['email' =>$func['email']])
@@ -138,7 +138,7 @@ class AdministradorController extends Controller
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem');
+                        ->with('error', 'As senhas não coincidem.');
         }
         
     }

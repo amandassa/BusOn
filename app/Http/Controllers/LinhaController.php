@@ -227,6 +227,7 @@ class LinhaController extends Controller
 
     public function editar(Request $request){
         $linha = Li::editarLinha($request);
+        Log::editarLinha($cod_linha, date('Y-m-d H:i:s'));
     }
 
    
