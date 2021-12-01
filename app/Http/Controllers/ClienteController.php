@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use App\Models\Cliente as Cli;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Linha;
 use App\Models\Passagem;
 use App\Models\Pagamento;
-use App\Models\Pagamento_boleto;
 use App\Models\Pagamento_cartao;
+use App\Models\Pagamento_boleto;
+use App\Models\Pagamento_pix;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -19,54 +19,22 @@ class ClienteController extends Controller
  
 
     public function indexSelecao(){        
-        $linha = DB::select("SELECT * FROM linha WHERE codigo = 14")[0];        
+        $linha = DB::select("SELECT * FROM linha WHERE codigo = 1")[0];         
         return view('cliente.selecao', ['linha' => $linha]);
     }
 
-    public function indexPagamento(Request $request){ 
-        $linha['codigo'] = $request['codigo'];
-        $linha['direta'] = $request['direta'];
-        $linha['total_vagas'] = $request['total_vagas'];
-        $linha['dias_semana'] = $request['dias_semana'];
-        $linha['hora_partida'] = $request['hora_partida'];                    
-        return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
-    }
-
-    public function efetuarPagamento(Request $request){                 
-        $linha = json_decode($request['linha_i']);                
-        $max_vagas = intval($linha->total_vagas);
-        $num_assento = Passagem::getNumAssento(intval($linha->codigo), $max_vagas);
+    /**
+     * Busca uma passagem pela cidade de origem e destino
+     */
+    public function buscarPassagem(Request $request){
+        $linha = [];
         
-        Passagem::criar($num_assento, intval($linha->codigo), "Cidade Partida", "Cidade Chegada", Carbon::now(), Auth::guard('cliente')->user()->cpf);
-        $codigo_passagem = Passagem::getCodigoUltimo('cpf_cliente', Auth::guard('cliente')->user()->cpf);
-        Pagamento::criar(0, $request['opcao'], $codigo_passagem);
-        $codigo_pagamento = Pagamento::getCodigo('codigo_passagem', $codigo_passagem);
-        
-        switch($request['opcao']){
-            // Cartão de Crédito
-            case 1:
-                $num_cartao =  str_replace(' ', '', $request['numero_cartao']);
-                $parcelas = intval($request['parcela']);
-                $validade = $request['validade_cartao'];
-                $ccv = $request['ccv_cartao'];
-                $nome_titular = $request['nome_titular'];                                
-                Pagamento_cartao::criar($num_cartao, $parcelas, $nome_titular, $validade, $ccv, $codigo_pagamento);
-                break;
-            //Boleto
-            case 2:
-                $nome = Auth::guard('cliente')->user()->nome;
-                $cpf = Auth::guard('cliente')->user()->cpf;
-                $codigo_barras = rand(1000000000, 9999999999);
-                while(!Pagamento_boleto::codigoBarrasDisponivel($codigo_barras)) {
-                    $codigo_barras = rand(1000000000, 9999999999);
-                }
-                Pagamento_boleto::criar($codigo_barras, $nome, $cpf, $codigo_pagamento);
-                break;
-            
-                
+        if($request['cidadePartida'] != null and $request['cidadeDestino'] != null){
+            dd($request['cidadePartida']);
+            //$linha = Linha::buscar_linhaPassagens($request['cidadePartida'], $request['cidadeDestino'], $request['dataPartida']); 
+           
         }
-
-        return PassagemController::buscarPedido($codigo_passagem, $request['opcao']);
+        return view('cliente.inicio')->with('linha', $linha);
     }
 
     function login(Request $request)
@@ -103,11 +71,12 @@ class ClienteController extends Controller
     }
 
     public function index(){
-        $cliente = Cli::index();
+        $cliente = Cliente::index();
         return view("cliente.perfil", ['cliente'=>$cliente]);
     }
+
     public function editar(Request $request){
-        $cnt = Cli::editar($request);
+        $cnt = Cliente::editar($request);
         if ($cnt == 1) {
             return redirect()
                         ->back()

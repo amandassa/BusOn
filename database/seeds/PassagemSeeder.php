@@ -12,12 +12,15 @@ class PassagemSeeder extends Seeder
      */
     public function run()
     {
-        DB::beginTransaction();
-        $passagens = factory(Passagem::class, 10)->make()->toArray();            
-            foreach($passagens as $passagem) {                
-                DB::statement('insert into passagem(num_assento, codigo_linha, cpf_cliente, data) values (?, ?, ?, ?)',
-                 [$passagem['num_assento'], $passagem['codigo_linha'], $passagem['cpf_cliente'], $passagem['data']]);
-            }
-        DB::commit();
+        $passagens = [];
+        for($i = 0; $i < 10; $i++){ // Gera uma dada quantidade de passagem com número do assento sem repeticao
+            DB::beginTransaction();        
+            $passagem = factory(Passagem::class, 1)->make()->toArray()[0];               
+            DB::insert('insert into passagem(num_assento, codigo_linha, cidade_partida, cidade_chegada, cpf_cliente, data) values (?, ?, ?, ?, ?, ?)', [ $passagem['num_assento'], $passagem['codigo_linha'], $passagem['cidade_partida'], $passagem['cidade_chegada'], $passagem['cpf_cliente'], $passagem['data']]);                        
+            DB::commit();
+            array_push($passagens, $passagem);
+        }
+        dd($passagens);
+
     }
 }

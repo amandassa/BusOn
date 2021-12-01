@@ -3,11 +3,12 @@
 @section('content')
     <div class="container" style="flex-grow: 3;">    
     
-    <div class="row justify-content-center">
-    @isset($status)
-        <div class="alert alert-success" style="margin:10px;"> {{ $status }} </div>
-    @endisset
-        <div class="col-sm-6"> <h5>Login {{ isset($url) ? "- " . ucwords($url) : ""}}</h5>
+    <div class="row justify-content-center">                
+        <div class="col-sm-6"> 
+        @if(Session::has('message'))
+            <div class="alert alert-success" style="margin:10px;"> {{ Session::get('message') }} </div>
+        @endif    
+        <h5>Login {{ isset($url) ? "- " . ucwords($url) : ""}}</h5>
             <div class="card" style="d-flex p-2">                
                 <div class="card-body justify-content-center" style="align-contents:center;">
                 @isset($url)
@@ -16,7 +17,7 @@
                 @else
                     <form method="POST" action="{{ route('clienteLogin') }}"
                     enctype="multipart/form-data" class="form">                    
-                @endisset
+                @endisset                                
                         @csrf <div class="form-group row justify-content-center align-items-center">
                             <label for="email" class="col-md-8 col-form-label
                             text-md-left">{{ __('Email:') }}</label><br>

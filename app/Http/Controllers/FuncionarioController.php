@@ -22,32 +22,12 @@ class FuncionarioController extends Controller {
         return view("funcionario.perfil", ['funcionario'=>$funcionario]);
     }
 
-    protected function somarTempo($times) {
-        $all_seconds = 0;
-        foreach ($times as $time) {          
-                list($hour, $minute, $second) = explode(':', $time);
-                $all_seconds += $hour * 3600;
-                $all_seconds += $minute * 60;
-                $all_seconds += $second;
-        
-        }
-    
-        $total_minutes = floor($all_seconds/60);
-        $seconds = $all_seconds % 60;
-        $hours = floor($total_minutes / 60); 
-        $minutes = $total_minutes % 60;
-    
-        // returns the time already formatted
-        return sprintf('%02d:%02d:%02d', $hours, $minutes,$seconds);        
-    }
 
     public function gerarRelatorioViagem(){
         //$codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);");        
-        $codigo_linha = 14;
-        $data = "2021-11-27";
-        $data = strtotime($data);
-        $dataconv = date('Y-m-d', $data);    
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
+        $codigo_linha = 1;        
+        $dataconv = date('2021-12-03');
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and CAST(data AS date) = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];
@@ -88,7 +68,12 @@ class FuncionarioController extends Controller {
                 }
             }
 
-            $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
+            $passagem_cliente['data_partida'] = date('d/m/Y', strtotime($dataconv));
+            $dataHora = Linha::somarHorasData($dataconv, $tempos);            
+            $passagem_cliente['data_chegada'] = $dataHora[0];
+            $passagem_cliente['horario_chegada'] = date('H:i:s', strtotime($dataHora[1]));            
+            $passagem_cliente['horario_partida'] = date('H:i:s', strtotime($horario_partida));                        
+            $data = $dataHora[1];
             array_push($passagens_clientes, $passagem_cliente);                      
         }                                
         $passagens_paginadas =  ($passagens_clientes);        
@@ -102,7 +87,7 @@ class FuncionarioController extends Controller {
         $data = $request['data'];
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and CAST(data AS date) = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];
@@ -157,7 +142,7 @@ class FuncionarioController extends Controller {
         if ($funcionario == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
         } elseif ($funcionario ==2 ) {
             return redirect()
                         ->route('perfilFuncionario.index')
@@ -165,7 +150,7 @@ class FuncionarioController extends Controller {
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem');
+                        ->with('error', 'As senhas não coincidem.');
         }
         
     }
@@ -217,8 +202,7 @@ class FuncionarioController extends Controller {
         }else{
             return redirect()->back()->with('message', 'Venda Feita.');
         }
-
-        //Funcionario::venderPassagem($request);
+        
     }
 
 }

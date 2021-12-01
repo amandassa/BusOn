@@ -265,6 +265,8 @@ class LinhaController extends Controller
                         ->back()
                         ->with('error', 'As senhas não coincidems');
         }
+        $linha = Li::editarLinha($request);
+        Log::editarLinha($cod_linha, date('Y-m-d H:i:s'));
     }
 
    
