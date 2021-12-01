@@ -25,11 +25,9 @@ class FuncionarioController extends Controller {
 
     public function gerarRelatorioViagem(){
         //$codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);");        
-        $codigo_linha = 14;
-        $data = "2021-11-27";
-        $data = strtotime($data);
-        $dataconv = date('Y-m-d', $data);    
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);        
+        $codigo_linha = 1;        
+        $dataconv = date('2021-12-03');
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and CAST(data AS date) = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];
@@ -70,7 +68,12 @@ class FuncionarioController extends Controller {
                 }
             }
 
-            $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
+            $passagem_cliente['data_partida'] = date('d/m/Y', strtotime($dataconv));
+            $dataHora = Linha::somarHorasData($dataconv, $tempos);            
+            $passagem_cliente['data_chegada'] = $dataHora[0];
+            $passagem_cliente['horario_chegada'] = date('H:i:s', strtotime($dataHora[1]));            
+            $passagem_cliente['horario_partida'] = date('H:i:s', strtotime($horario_partida));                        
+            $data = $dataHora[1];
             array_push($passagens_clientes, $passagem_cliente);                      
         }                                
         $passagens_paginadas =  ($passagens_clientes);        
@@ -84,7 +87,7 @@ class FuncionarioController extends Controller {
         $data = $request['data'];
         $data = strtotime($data);
         $dataconv = date('Y-m-d', $data);
-        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and data = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
+        $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and CAST(data AS date) = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];

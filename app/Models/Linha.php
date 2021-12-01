@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Linha as Li;
+use App\Models\Linha;
 use Illuminate\Http\Request;
 
 
@@ -59,7 +59,7 @@ class Linha extends Model {
             return ['total_mais_vendida'=> 0, 'linha_mais_vendida_partida'=> '', 'linha_mais_vendida_chegada'=> ''];
         }
 
-        $linha_mais_vendida = Li::buscar_linha($linha[0]->codigo_linha);
+        $linha_mais_vendida = Linha::buscar_linha($linha[0]->codigo_linha);
         
         return ['total_mais_vendida'=> $linha_mais_vendida['total'],'linha_mais_vendida_partida'=> $linha_mais_vendida['cidade_partida'], 'linha_mais_vendida_chegada'=> $linha_mais_vendida['cidade_chegada']];
 
@@ -74,7 +74,7 @@ class Linha extends Model {
         //busca as linhas que nao possuem vendas no banco de dados
         $linhas_sem_vendas = DB::select("SELECT * FROM linha as l WHERE NOT EXISTS (SELECT p.codigo_linha FROM passagem as p WHERE l.codigo = p.codigo_linha)");
         if(!empty($linhas_sem_vendas)){
-            $linha_menos_vendida = Li::buscar_linha($linhas_sem_vendas[0]->codigo);   
+            $linha_menos_vendida = Linha::buscar_linha($linhas_sem_vendas[0]->codigo);   
             return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
         }
         
@@ -82,7 +82,7 @@ class Linha extends Model {
         $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT min(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
         if(!empty($linha)){
             //se todas as linhas ja possuem alguma venda, entao a linha menos vendida esta correta
-            $linha_menos_vendida = Li::buscar_linha($linha[0]->codigo_linha);
+            $linha_menos_vendida = Linha::buscar_linha($linha[0]->codigo_linha);
 
             return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
         
@@ -135,7 +135,7 @@ class Linha extends Model {
 
     }
 
-    protected function somarTempo($times) {
+    protected static function somarTempo($times) {
         $all_seconds = 0;
         foreach ($times as $time) {          
                 list($hour, $minute, $second) = explode(':', $time);
@@ -158,11 +158,12 @@ class Linha extends Model {
      * Realiza a soma de horario, considerando dias e retorna o dia e horario resultantes
      */
     public static function somarHorasData(String $data, $horas){
-        $data_base = date($data); //corrigir horario base
-        $hora =  explode(':', somarTempo($horas));
-        $saida = echo date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
+        $data_base = date($data); //corrigir horario base        
+        $hora =  explode(':', Linha::somarTempo($horas));
+        $saida = date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
         $data_saida = explode(' ', $saida)[0];
         $hora_saida = explode(' ', $saida)[1];
+        return [$data_saida, $hora_saida];
     }
     
     
