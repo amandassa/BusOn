@@ -49,7 +49,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
 
     Route::get('/editarLinha', 'LinhaController@indexEditar')->name('editarLinha');
-    Route::post('/editarLinha/editar', 'LinhaController@editar')->name('editarLinha.editar');
+    Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');
 
     
     

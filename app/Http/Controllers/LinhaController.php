@@ -257,7 +257,7 @@ class LinhaController extends Controller
                         ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
         } elseif ($linha['id'] == 2 ) {
             return redirect()
-                        ->route('editarLinha', ['linhas'=>$linha])
+                        ->route('editarLinha', $request)
                         ->with('success', 'Linha atualizada com sucesso!');
         } else {
             return redirect()

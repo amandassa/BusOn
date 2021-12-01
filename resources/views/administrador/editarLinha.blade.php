@@ -51,7 +51,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="codigoLinha">Codigo: </label>
-                        <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="{{$linhas['codigo']}}" > 
+                        <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="{{$linhas['codigo']}}"  > 
                     </div>
                     <div class="form-group">
                         <label for="cidadePartida">Cidade Origem: </label>
@@ -76,11 +76,11 @@
                     </div>
                     <div class="form-group">
                         <label for="precoLinha">Preço da Linha: </label>
-                        <input type="text" class="form-control" id="precoLinha" name = "preco"  value=" {{$linhas['preco']}}" > 
+                        <input type="text" class="form-control" id="precoLinha" name = "preco"  value=" {{$linhas['preco']}}" disabled > 
                     </div>
                     <div class="form-group">
                         <label for="horarioPartida">Horario de Partida: </label>
-                        <input type="text" class="form-control" id="horarioPartida" name = "hPartida" value=" {{$linhas['hPartida']}}" > 
+                        <input type="time" class="form-control" id="horarioPartida" name = "hPartida" value="{{$linhas['hPartida']}}" > 
                     </div>
                     <div class="form-group">
                         <label for="horarioChegada">Horario de Chegada: </label>
@@ -94,25 +94,16 @@
                         <label for="horarioChegada"> Dias da semana: </label><br>
                         
                         <label class="form-check-label">Dom</label>
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="dom" value="0" 
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="dom" value="1" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
-                            @if ($dias == 0)
+                            @if ($dias == 1)
                                 checked
                             @endif 
                         @endforeach>
                         
                         
                         <label class="form-check-label">Seg</label>   
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="seg" value="1" 
-                        @foreach(explode(';',$linhas['dias']) as $dias)
-                            @if ($dias == 1)
-                                checked
-                            @endif 
-                        @endforeach>
-
-                        
-                        <label class="form-check-label">Ter</label>
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="ter" value="2" 
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="seg" value="2" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 2)
                                 checked
@@ -120,8 +111,8 @@
                         @endforeach>
 
                         
-                        <label class="form-check-label">Qua</label>   
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qua" value="3" 
+                        <label class="form-check-label">Ter</label>
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="ter" value="3" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 3)
                                 checked
@@ -129,8 +120,8 @@
                         @endforeach>
 
                         
-                        <label class="form-check-label">Qui</label>   
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qui"    value="4" 
+                        <label class="form-check-label">Qua</label>   
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qua" value="4" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 4)
                                 checked
@@ -138,19 +129,28 @@
                         @endforeach>
 
                         
-                        <label class="form-check-label">Sex</label>
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sex" value="5" 
+                        <label class="form-check-label">Qui</label>   
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qui"    value="5" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 5)
                                 checked
                             @endif 
                         @endforeach>
 
-                       
-                        <label class="form-check-label">Sab</label> 
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sab" value="6"
+                        
+                        <label class="form-check-label">Sex</label>
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sex" value="6" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 6)
+                                checked
+                            @endif 
+                        @endforeach>
+
+                       
+                        <label class="form-check-label">Sab</label> 
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sab" value="7"
+                        @foreach(explode(';',$linhas['dias']) as $dias)
+                            @if ($dias == 7)
                                 checked
                             @endif 
                         @endforeach>  
@@ -170,6 +170,7 @@
 
     </div>
 </div>
+
 
 
 
