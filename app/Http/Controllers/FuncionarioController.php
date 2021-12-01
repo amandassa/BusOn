@@ -157,7 +157,7 @@ class FuncionarioController extends Controller {
         if ($funcionario == 1) {
             return redirect()
                         ->back()
-                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
         } elseif ($funcionario ==2 ) {
             return redirect()
                         ->route('perfilFuncionario.index')
@@ -165,7 +165,7 @@ class FuncionarioController extends Controller {
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem');
+                        ->with('error', 'As senhas não coincidem.');
         }
         
     }
@@ -217,8 +217,7 @@ class FuncionarioController extends Controller {
         }else{
             return redirect()->back()->with('message', 'Venda Feita.');
         }
-
-        //Funcionario::venderPassagem($request);
+        
     }
 
 }
