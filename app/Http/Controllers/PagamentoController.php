@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pagamento;
+use App\Models\Passagem;
+use App\Models\Pagamento_pix;
+use App\Http\Controllers\PassagemController;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PagamentoController extends Controller
 {
@@ -20,7 +25,7 @@ class PagamentoController extends Controller
         $linha['dias_semana'] = $request['dias_semana'];
         $linha['hora_partida'] = $request['hora_partida'];                
         return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
-    }
+    }    
 
     /**
      * Cria um novo Pagamento e todos os registros a ele necessarios
@@ -31,14 +36,20 @@ class PagamentoController extends Controller
     {
         // Verifica se os dados foram preenchidos corretamente
         if($request['opcao'] == 1){            
-                $request = $request->validate([
+                $dados_validados = $request->validate([
                     'numero_cartao' => 'required|unique:pagamentocartao|max:19',
                     'parcela' => 'required|max:2',
-                    'validade_cartao' => 'required|max:5',
-                    'ccv_cartao' => 'required|max:3',
+                    'validade_cartao' => 'required|min:5|max:5',
+                    'ccv_cartao' => 'required|min:3|max:3',
                     'nome_titular' => 'required:max:160',
                 ]);         
         }        
+
+        if($request['opcao'] == 3){
+            $dados_valdados = $request->validate([
+                'pix_pagador' => 'required'
+            ]);
+        }
 
         $linha = json_decode($request['linha_i']); // Captura e ajusta linha selecionada 
         $max_vagas = intval($linha->total_vagas); 
@@ -58,7 +69,8 @@ class PagamentoController extends Controller
             return view('cliente.pagamento', ['erro', 'Não foi possível comprar a passagem, tente novamente!']);
         
         $codigo_pagamento = Pagamento::getCodigo('codigo_passagem', $codigo_passagem);
-        
+        $codigo_barras = 0;
+        $pix_pagador = 0;
         // Registra os dados da forma de pagamento
         switch($request['opcao']){
             // Cartão de Crédito
@@ -88,7 +100,7 @@ class PagamentoController extends Controller
                 
         }
 
-        return PassagemController::buscarPedido($codigo_passagem, $metodo, $codigo_pagamento, $codigo_barras, $pix_pagador);
+        return PassagemController::buscarPedido($codigo_passagem, $request['opcao'], $codigo_pagamento, $codigo_barras, $pix_pagador);
     }
 
     /**
