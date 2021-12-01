@@ -80,11 +80,15 @@ class PagamentoController extends Controller
                 }
                 Pagamento_boleto::criar($codigo_barras, $nome, $cpf, $codigo_pagamento);
                 break;
-            
+            //Pix
+            case 3: 
+                $pix_pagador = $request['pix_pagador'];
+                Pagamento_pix::criar($pix_pagador, $codigo_pagamento);
+                break;
                 
         }
 
-        return PassagemController::buscarPedido($codigo_passagem, $request['opcao']);
+        return PassagemController::buscarPedido($codigo_passagem, $metodo, $codigo_pagamento, $codigo_barras, $pix_pagador);
     }
 
     /**

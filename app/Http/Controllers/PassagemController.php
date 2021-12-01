@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Passagem;
 use App\Models\Linha;
 use App\Models\Pagamento;
+use App\Models\Pagamento_pix;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -13,7 +14,7 @@ use Illuminate\Http\Request;
 class PassagemController extends Controller
 {
 
-    public static function buscarPedido($cod_passagem, $metodo)
+    public static function buscarPedido($cod_passagem, $metodo, $codigo_pagamento, $codigo_barras, $pix_pagador)
     {
         $resultado = Passagem::buscar('codigo', $cod_passagem)[0];
         $cidade_partida = $resultado->cidade_partida;
@@ -40,12 +41,11 @@ class PassagemController extends Controller
             'tipo' => $tipo,
             'pedido' => $pedido
         );
-
-        if($metodo==1)
-            return view('cliente.confirmacao', ['passagem_info' => $passagem_info, 'metodo' => $metodo]);
-        else
-            return view('cliente.confirmacao', ['passagem_info' => $passagem_info, 'metodo' => $metodo]);
-            
+        $codigo_pix = 0;
+        if($metodo==3)
+            $codigo_pix = Pagamento_pix::buscarCodigo($pix_pagador, $codigo_pagamento);
+        
+        return view('cliente.confirmacao', ['passagem_info' => $passagem_info, 'metodo' => $metodo, 'codigo_barras' => $codigo_barras, 'codigo_pix' => $codigo_pix]);
     }
 
 

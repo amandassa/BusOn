@@ -114,21 +114,21 @@
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
                                           Pagamentos com boleto são identificados em até 3 dias. </p>
                                 </div>
-
+                                <!--Pix-->
+                                <form  class="form" action="{{ route('confirmacao') }}" method="post">
+                                @csrf                  
                                 <div id="pix" style="font-size: medium; text-align:justify">
                                     <p>Após clicar em Comprar Passagem o código QR Code e código de pagamento do Pix será gerado para a efetuação do pagamento.</p>
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
-                                           Depois de gerar o código você terá 30 minutos para fazer o pagamento e garantir a sua passagem. </p>
-                                    <p> <i class="fas fa-check-circle" style="color: green"></i>
-                                          O pedido só será confirmado após o pagamento. </p>
-                                    <p> <i class="fas fa-check-circle" style="color: green"></i>
                                           Copie ou faça a leitura do código QR Code através do site ou app do seu banco. </p>
-
+                                    <div class="form-group">
+                                        <label>Chave Pix:</label>
+                                        <input type="text" class="form-control" name="pix_pagador" id="pix_pagador" placeholder="Exemplo: cliente@gmail.com" style="max-width: 20rem"/>
+                                        <small class="form-text text-muted">Nunca compartilharemos sua chave com outras pessoas.</small>
+                                    </div>
                                 </div>
                                                                 
                                  <!--Cartão-->                                  
-                                <form  class="form" action="{{ route('confirmacao') }}" method="post">
-                                @csrf                  
                                 <input type='hidden' class="form-group" name='linha_i' value='<?php echo json_encode($linha); ?>'/>              
                                 <input type='hidden' class="form-group" name='opcao' id='opcao' value='1'/>              
                                     <div class="form-group" id="cartao">
