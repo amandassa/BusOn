@@ -21,7 +21,7 @@ class Linha extends Model {
     ];
     
     public static function getLinhas(){
-        $linhas = DB::select("SELECT * FROM linhas;");
+        $linhas = DB::select("SELECT * FROM linha");
         return $linhas;
     }
 

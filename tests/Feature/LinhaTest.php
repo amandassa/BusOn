@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
+use App\Models\Linha;
 use Tests\TestCase;
 
 class LinhaTest extends TestCase
@@ -18,7 +20,7 @@ class LinhaTest extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
         $this->get(route('consultar_linhas'))->assertStatus(302);
-        $this->get('/venderPassagens')->assertStatus(302);
+        $this->get('/venderPassagens')->assertStatus(302);        
     }
-
+    
 }
