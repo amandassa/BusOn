@@ -320,7 +320,7 @@
                 <div class="card cardTotal">
                     <div class="row">
                         <div class="col colTotalEsquerda"> Subtotal:</div>
-                        <div class="col colTotalDireita" id="subtotal" name="subtotal"> R$ 0.00</div>
+                        <div class="col colTotalDireita" id="subtotal" name="subtotal">{{ ($linha!=null) ? $linha['preco'] : 'R$ 0.00' }}</div>
                     </div>
                     <hr>
                     <div class="row">

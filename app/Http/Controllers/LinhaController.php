@@ -173,7 +173,7 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function consulta (Request $request)
-    {        
+    {                        
         $linhas = [];
         $errors = [];
         $status = "";

@@ -153,7 +153,7 @@
                                     <td> Comum </td>
                                 @endif
                                 <td>
-                                    <a class="btn botaoAmarelo" style="min-width:0px;" role="button" href="{{route('consultaVP', $linha)}}"><i class="fas fa-shopping-cart"></i></a>    
+                                    <a class="btn botaoAmarelo" style="min-width:0px;" role="button" href="{{route('venderPassagens', $linha)}}"><i class="fas fa-shopping-cart"></i></a>    
                                     <a class="btn botaoAzul" style="min-width:0px;" role="button" href="{{route('editarLinha', $linha)}}"><i class="fas fa-edit"></i></a>                                                                        
                                     <a class="btn btn-danger" style="min-width:0px;" role="button" href="{{route('editarLinha', $linha)}}"><i class="fas fa-trash"></i></a>                                    
                                 </td>
