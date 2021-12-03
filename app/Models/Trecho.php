@@ -60,6 +60,15 @@ class Trecho extends Model {
             return null;
     }
 
+    public static function getDuracao($coluna, $parametro){
+        $query = "SELECT duracao FROM trecho WHERE ".$coluna." LIKE :parametro";
+        $duracao = DB::select($query, ['parametro' => $parametro]);
+        if($duracao)
+            return $duracao;
+        else
+            return null;
+    }
+
     // método de alteração do atributo codigo
     public function setCodigo(string $novo_codigo) {
         $this->codigo = $novo_codigo;

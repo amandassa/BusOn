@@ -48,8 +48,8 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
 
-    Route::get('/editarLinha', function(){return view('administrador.editarLinha');})->name('editarLinha');
-    Route::get('/editar', 'LinhaController@index')->name('editarLinha.index');
+    Route::get('/editarLinha', 'LinhaController@indexEditar')->name('editarLinha');
+    Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');
 
     
     

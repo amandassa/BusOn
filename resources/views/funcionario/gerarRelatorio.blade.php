@@ -70,9 +70,11 @@
             <th scope="col">cpf</th>
             <th scope="col">Passagem</th>
             <th scope="col">Cidade de Partida</th>          
-            <th scope="col">Horário</th>          
+            <th scope="col">Data Partida</th>          
+            <th scope="col">Hora Partida</th>          
             <th scope="col">Cidade de Chegada</th>          
-            <th scope="col">Horário</th>                      
+            <th scope="col">Data Chegada</th>                      
+            <th scope="col">Hora Chegada</th>     
           </tr>
           </thead>
         <tbody>                                            
@@ -83,8 +85,10 @@
                   <td> {{ $passagem['cpf'] }} </td>                  
                   <td> {{ $passagem['codigo'] }} </td>                  
                   <td> {{ $passagem['cidade_partida'] }} </td>                  
+                  <td> {{ $passagem['data_partida'] }}</td>
                   <td> {{ $passagem['horario_partida'] }} </td>                 
                   <td> {{ $passagem['cidade_chegada'] }} </td>                  
+                  <td> {{ $passagem['data_chegada'] }}</td>
                   <td> {{ $passagem['horario_chegada'] }} </td>                   
               </tr>
               @endforeach               

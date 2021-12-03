@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Linha as Li;
+
 use Illuminate\Http\Request;
 
 
@@ -21,7 +21,7 @@ class Linha extends Model {
     ];
     
     public static function getLinhas(){
-        $linhas = DB::select("SELECT * FROM linhas;");
+        $linhas = DB::select("SELECT * FROM linha");
         return $linhas;
     }
 
@@ -47,6 +47,19 @@ class Linha extends Model {
         return $hora_partida;
     }
 
+    /** 
+     * Calcula o preco de uma linha inteira
+     * @return preco - double
+     */
+    public static function calcularPreco($codigo){
+        $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);        
+        if($preco){            
+            return $preco[0]->soma;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Busca a linha mais vendida
      * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida da linha menos vendida
@@ -59,7 +72,7 @@ class Linha extends Model {
             return ['total_mais_vendida'=> 0, 'linha_mais_vendida_partida'=> '', 'linha_mais_vendida_chegada'=> ''];
         }
 
-        $linha_mais_vendida = Li::buscar_linha($linha[0]->codigo_linha);
+        $linha_mais_vendida = Linha::buscar_linha($linha[0]->codigo_linha);
         
         return ['total_mais_vendida'=> $linha_mais_vendida['total'],'linha_mais_vendida_partida'=> $linha_mais_vendida['cidade_partida'], 'linha_mais_vendida_chegada'=> $linha_mais_vendida['cidade_chegada']];
 
@@ -74,7 +87,7 @@ class Linha extends Model {
         //busca as linhas que nao possuem vendas no banco de dados
         $linhas_sem_vendas = DB::select("SELECT * FROM linha as l WHERE NOT EXISTS (SELECT p.codigo_linha FROM passagem as p WHERE l.codigo = p.codigo_linha)");
         if(!empty($linhas_sem_vendas)){
-            $linha_menos_vendida = Li::buscar_linha($linhas_sem_vendas[0]->codigo);   
+            $linha_menos_vendida = Linha::buscar_linha($linhas_sem_vendas[0]->codigo);   
             return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
         }
         
@@ -82,7 +95,7 @@ class Linha extends Model {
         $linha = DB::select("SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha HAVING count(*) = (SELECT min(l) FROM (SELECT codigo_linha, count(*) AS l FROM passagem GROUP BY codigo_linha) passagem)");
         if(!empty($linha)){
             //se todas as linhas ja possuem alguma venda, entao a linha menos vendida esta correta
-            $linha_menos_vendida = Li::buscar_linha($linha[0]->codigo_linha);
+            $linha_menos_vendida = Linha::buscar_linha($linha[0]->codigo_linha);
 
             return ['total_menos_vendida'=> $linha_menos_vendida['total'],'linha_menos_vendida_partida'=> $linha_menos_vendida['cidade_partida'], 'linha_menos_vendida_chegada'=> $linha_menos_vendida['cidade_chegada']];
         
@@ -131,11 +144,42 @@ class Linha extends Model {
 
     public static function editarLinha(Request $request){
 
-       dd($request);
+        $codigo = $request['codigo'];
+        $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
+        $partida = $request['partida'];
+        $destino = $request['destino'];
+        $tipo = $request['tipo'];
+        $preco = $request['preco'];
+        $hPartida = $request['hPartida'];
+        $vagas = $request['vagas'];
+        $dias = $request['dias'];
+        $dia= implode(';', $dias);
+       
+        
+
+   
+
+        if(empty($partida) or empty($destino) or empty($tipo) or empty($preco) or empty($hPartida) or empty($vagas)  or empty($dia)){
+            return $li=[
+                'id' => 1
+            ];
+        }else{
+
+
+            DB::update('UPDATE linha set  direta = ?, total_vagas = ?, dias_semana =?, hora_partida=? where codigo =?', [$tipo, $vagas, $dia, $hPartida, $consulta->codigo]);
+            return $li=[
+                'id' => 2
+            ];
+             
+        }
+           
+            
+
+        
 
     }
 
-    protected function somarTempo($times) {
+    protected static function somarTempo($times) {
         $all_seconds = 0;
         foreach ($times as $time) {          
                 list($hour, $minute, $second) = explode(':', $time);
@@ -158,11 +202,56 @@ class Linha extends Model {
      * Realiza a soma de horario, considerando dias e retorna o dia e horario resultantes
      */
     public static function somarHorasData(String $data, $horas){
-        $data_base = date($data); //corrigir horario base
-        $hora =  explode(':', somarTempo($horas));
-        $saida = echo date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
+        $data_base = date($data); //corrigir horario base        
+        $hora =  explode(':', Linha::somarTempo($horas));
+        $saida = date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
         $data_saida = explode(' ', $saida)[0];
         $hora_saida = explode(' ', $saida)[1];
+        return [$data_saida, $hora_saida];
+    }
+    
+    public static function consultaEditar(Request $request){
+
+        $codigo = $request['codigo'];
+        $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
+        $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            
+        $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
+        $tipo = $consulta->direta;    
+        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]); 
+        $cidade_partida = $cidade_partida[0]->cidade_partida;      
+           
+        $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho;
+        $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_final]);
+        $cidade_destino = $cidade_destino[0]->cidade_chegada; 
+        $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);
+        $preco = $preco[0]->soma;
+        $hPartida = DB::select("SELECT hora_partida from linha where codigo =?", [$codigo] );
+        $hPartida =$hPartida[0]->hora_partida;
+        $duracaoViagem = DB::select("SELECT duracao from trecho where codigo =?", [$trecho_inicial]);
+        $duracaoViagem = $duracaoViagem[0]->duracao;
+        $vagas = DB::select("SELECT total_vagas from linha where codigo =?", [$codigo] );
+        $vagas = $vagas[0]->total_vagas;
+        $diasSemanais = DB::select("SELECT dias_semana from linha where codigo =?", [$codigo] );
+        $diasSemanais = $diasSemanais[0]->dias_semana;
+        $horario = strtotime('1970-01-01 '.$duracaoViagem.'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC') ;
+        $hChegada = gmdate('H:i:s', $horario);
+        $hPartida = strtotime('1970-01-01 '.$hPartida.'UTC');
+        $hPartida= gmdate('H:i', $hPartida);
+        
+        
+        $linhas = [
+        'codigo'=>$codigo, 
+        'partida'=>$cidade_partida, 
+        'destino'=>$cidade_destino,
+        'tipo'=>$tipo,
+        'preco'=> number_format($preco, 2),
+        'hPartida' => $hPartida,
+        'vagas' => $vagas,
+        'dias' =>$diasSemanais,
+        'horario' => $hChegada
+        
+        ];
+        return $linhas;
     }
     
     

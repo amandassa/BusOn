@@ -19,7 +19,7 @@ class ClienteController extends Controller
  
 
     public function indexSelecao(){        
-        $linha = DB::select("SELECT * FROM linha WHERE codigo = 1")[0];         
+        $linha = DB::select("SELECT * FROM linha WHERE codigo = 2")[0];         
         return view('cliente.selecao', ['linha' => $linha]);
     }
 
