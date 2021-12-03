@@ -23,29 +23,37 @@
             <div class="col-md" id="centralizado">
                 <div class="card" id="cards">
                     <div class="card-body" id="cb">
-                        @if($linha == null)
+                        @if($linhas == null)
                             <p class="text-center">Não encontramos a rota selecionada!</p>
                         @else
-                            @foreach ($linha as $l)
-                                <div class="esquerda">
-                                    <img class="ticket" src="/imagens/ticket.png" alt="">
-                                    <p class="vagas">{{$l->total_vagas}} vagas</p>
-                                </div>
-                                <div class="passagens">
-                                    <p class="partida"> Partida: 6:50Hrs: Feira de Santana-BA</p>
-                                    <p class="destino"> Destino: 8:20Hrs: Cruz das Almas-BA</p>
-                                </div>                        
-                                
-                                <button > <img src="/imagens/aviao.png" alt="">
-                                    Selecionar 
-                                </button>
-                                
-                                <div class="central">
-                                    <p class="textoCentralCima">Linha Comum</p>
-                                    <hr>
-                                    <p class="textoCentralCima">Valor R$18,00</p>  
-                                </div>
-                            @endforeach
+                            <table class="table table-hover tabela" style="text-align: center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Origem</th>
+                                        <th scope="col">Destino</th>
+                                        <th scope="col">Preço</th>
+                                        <th scope="col">Tipo</th>
+                                        <th data-orderable="false" scope="col"></th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                @foreach ($linhas as $linha)
+                                    <tr>
+                                        <th scope="row">{{ $linha['codigo']}}</th>
+                                        <td> {{ $linha['partida']}} </td>
+                                        <td> {{ $linha['destino']}} </td>
+                                        <td> R$ {{$linha['preco']}} </td>
+                                        @if ($linha['tipo'] == 1 )
+                                            <td> Direta </td>
+                                        @else
+                                            <td> Comum </td>
+                                        @endif
+                                        <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
+                                    </tr>
+                                @endforeach          
+                             </tbody>
+                            </table>
                         @endif                       
                     </div>
                   </div>

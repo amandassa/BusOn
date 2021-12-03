@@ -11,7 +11,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
     Route::get('/minhasPassagens', 'ClienteController@consultaMinhasPassagens')->name('minhasPassagens');
-    Route::post('/selecao', 'ClienteController@buscarPassagem')->name('selecao');     
+    Route::post('/selecao', 'LinhaController@consulta')->name('selecao');     
     Route::get('/pagamento', 'PagamentoController@index')->name('pagamento');    
     Route::post('/confirmacao', 'PagamentoController@create')->name('confirmacao');
     Route::get('/confirmacao', 'PassagemController@buscarPedido')->name('confirmacao_pedido');
