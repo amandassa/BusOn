@@ -235,5 +235,14 @@ class Administrador extends Funcionario
 
     }
 
+    /**
+     * Busca o nome da linha pelo codigo
+     * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida de uma linha
+     */
+    public static function total_acessos ($data)
+    { 
+        return  DB::select("SELECT count(*) as total FROM logs WHERE tipo_usuario = 'C' and date(data_hora) = '$data'")[0];
+    }
+
 }
 ?>

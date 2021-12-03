@@ -27,14 +27,8 @@ class ClienteController extends Controller
      * Busca uma passagem pela cidade de origem e destino
      */
     public function buscarPassagem(Request $request){
-        $linha = [];
-        
-        if($request['cidadePartida'] != null and $request['cidadeDestino'] != null){
-            dd($request['cidadePartida']);
-            //$linha = Linha::buscar_linhaPassagens($request['cidadePartida'], $request['cidadeDestino'], $request['dataPartida']); 
-           
-        }
-        return view('cliente.inicio')->with('linha', $linha);
+        $linha = Linha::buscar_linhaPassagens($request['cidadePartida'], $request['cidadeDestino'], $request['dataPartida']);
+        return view('cliente.selecao')->with('linha', $linha);
     }
 
     function login(Request $request)
