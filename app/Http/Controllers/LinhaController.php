@@ -258,6 +258,9 @@ class LinhaController extends Controller
         {
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
         }
+        elseif($url[1] == 'selecao'){
+            return view('cliente.selecao', ['linhas'=> $linhas]);
+        }
         else 
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
