@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LinhaController as Lc;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
 use App\Models\Linha as Li;
@@ -33,33 +34,49 @@ class LinhaController extends Controller
             $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]);
             if($cidade_partida==null)
                 continue;  
-            $cidade_partida = $cidade_partida[0]->cidade_partida;   
+            $cidade_partida = $cidade_partida[0]->cidade_partida;      
                
             $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho;
             $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_final]);
             $cidade_destino = $cidade_destino[0]->cidade_chegada; 
             $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);
             $preco = $preco[0]->soma;
+            $hPartida = DB::select("SELECT hora_partida from linha where codigo =?", [$codigo] );
+            $hPartida =$hPartida[0]->hora_partida;
+            $duracaoViagem = DB::select("SELECT duracao from trecho where codigo =?", [$trecho_inicial]);
+            $duracaoViagem = $duracaoViagem[0]->duracao;
+            $vagas = DB::select("SELECT total_vagas from linha where codigo =?", [$codigo] );
+            $vagas = $vagas[0]->total_vagas;
+            $diasSemanais = DB::select("SELECT dias_semana from linha where codigo =?", [$codigo] );
+            $diasSemanais = $diasSemanais[0]->dias_semana;
+            $horario = strtotime('1970-01-01 '.$duracaoViagem.'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC') ;
+            $hChegada = gmdate('H:i:s', $horario);
+                  
+            
             $linhaS = [
             'codigo'=>$codigo, 
             'partida'=>$cidade_partida, 
             'destino'=>$cidade_destino,
             'tipo'=>$tipo,
-            'preco'=> number_format($preco, 2)
+            'preco'=> number_format($preco, 2),
+           
+            
             ];
-            array_push($linhas, $linhaS);            
+            array_push($linhas, $linhaS);   
+            
         }
+        
+       
+        
 
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
-        } elseif($url[1] == 'editarLinha') {
-            return view('administrador.editarLinha');
         }
-        else
+        else 
             return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
-        
+
     }
 
     /**
@@ -220,14 +237,34 @@ class LinhaController extends Controller
         {
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         }
-        else
+        else 
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
     }
 
+
+    public function indexEditar(Request $request){
+        
+        $linhas = Linha::consultaEditar($request);
+        return view('administrador.editarLinha', ['linhas'=>$linhas]);
+    }
+
     public function editar(Request $request){
-        $linha = Li::editarLinha($request);
-        Log::editarLinha($cod_linha, date('Y-m-d H:i:s'));
+        $linha = Linha::editarLinha($request);
+        if ($linha['id'] == 1) {
+            return redirect()
+                        ->back()
+                        ->with('error', 'Algum dos campos está vazio!, alteração não realizada');
+        } elseif ($linha['id'] == 2 ) {
+            return redirect()
+                        ->route('editarLinha', $request)
+                        ->with('success', 'Linha atualizada com sucesso!');
+        } else {
+            return redirect()
+                        ->back()
+                        ->with('error', 'As senhas não coincidems');
+        }
+      
     }
 
    

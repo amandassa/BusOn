@@ -2,8 +2,7 @@
 
 @section('title', 'Gerenciar Usuários - ')
 
-@section('content')
-  <link href="/css/estiloGerencia.css" rel="stylesheet"> 
+@section('content')  
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -16,7 +15,7 @@
   <script>
     $(document).ready(function() {
       
-      //Script do datatable - serve para deixar a tabela com varias funcionalidades
+      //Script do datatable - serve para deixar a tabela com varias funcionalidades      
       $('#tabela').DataTable({
         select:{}, 
         info:false, 
@@ -24,9 +23,9 @@
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
         language: 
         {
-            lengthMenu: "Exibir _MENU_",
+            lengthMenu: "Exibir: _MENU_",
             search: "Busca rápida",
-            zeroRecords: "Funcionário não encontrado!",
+            zeroRecords: "Funcionário não encontrado!",            
             oPaginate: 
             {
                 sNext: '<i class="fas fa-angle-double-right"></i>',
@@ -34,6 +33,7 @@
             }
         }   
       }); 
+      document.getElmentById('#tabela').className = "form-control"
     } )
   </script>
 
@@ -56,13 +56,11 @@
   @endif
 
   <div class="container">        
-    <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
-      <a class="btn" id="botaoMigalha" href="#">
-          Lista de funcionários
-      </a>
-      <a class="btn" id="botaoMigalha" href="gerenciaClientes">
-          Lista de clientes
-      </a>
+    <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->      
+      <a class="btn botaoAmarelo" href="#" role="button">Lista de Funcionários</a>
+      <a class="btn botaoAmarelo" href="gerenciaClientes" style="margin-left: 2em; margin-right: 2em;"role="button">Lista de Clientes</a>
+      <a class="btn botaoAmarelo" href="cadastroFuncionario" role="button">Cadastrar Funcionário</a>          
+      <a class="btn botaoAzul" style="margin-left: 2em;" href="/" role="button">Voltar</a>          
     </div>
     
     <div class="card text-center"> <!--card com informações e ações sobre funcionarios cadastrados e fazer cadastros no sistema-->
@@ -71,17 +69,23 @@
 
         <form method="POST" class="form" action="{{route('buscar_fun')}}">
           @csrf   
-          <div style="display: inline-block;">
-              <input type="text" name="buscaG" placeholder="Digite a busca desejada...">
-              <select name="buscaOp">
-                <option value="nome">Nome</option>
-                <option value="cpf">CPF</option>
-                <option value="email">Email</option>
-                <option value="matricula">Matricula</option>
-              </select>
-              <button class="btn botaoAmarelo">Buscar</button>
+          <div class="row justify-content-center">            
+            <div class="col-sm-6">
+                <input type="text" name="buscaG" class="form-control" placeholder="Digite a busca desejada...">
+            </div>  
+              <div class="col-sm-2">
+                  <select class="form-control" name="buscaOp" >
+                      <option value="nome">Nome</option>
+                      <option value="cpf">CPF</option>
+                      <option value="email">Email</option>
+                      <option value="matricula">Matricula</option>
+                  </select>   
+              </div>           
+              <div class="col-sm-2">
+                  <button class="btn botaoAmarelo">Buscar</button>
+              </div>
           </div>
-          <div>     
+          <div style="margin-top:1em;">     
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="tipoUser" value="todos"  id="todos" checked>
               <label class="form-check-label" for="todos"> Todos</label>
@@ -99,15 +103,15 @@
       </div>
 
       <div class="card-body">
-        <table class="table table-bordered table-hover" id="tabela">
+        <table class="table table-bordered table-hover" id="tabela" name="form-control">
           <thead>
             <tr>
-              <th scope="col" class="bg-warning">Matrícula</th>
-              <th scope="col" class="bg-warning">Nome</th>
-              <th scope="col" class="bg-warning">CPF</th>
-              <th scope="col" class="bg-warning">Email</th>
-              <th scope="col" class="bg-warning">Tipo</th>
-              <th data-orderable="false" class="bg-warning">Ações</th>
+              <th scope="col" class="">Matrícula</th>
+              <th scope="col" class="">Nome</th>
+              <th scope="col" class="">CPF</th>
+              <th scope="col" class="">Email</th>
+              <th scope="col" class="">Tipo</th>
+              <th data-orderable="false" class="">Ações</th>
             </tr>
           </thead>
           <tbody> 
@@ -138,12 +142,7 @@
               @endif
           </tbody>
         </table>
-      </div>
-      
-      <div class="card-footer text-muted">
-        <a class="btn botaoAmarelo" href="cadastroFuncionario" role="button">Cadastrar Funcionário</a>
-      </div>
-    </div>
+      </div>            
 
     </div>
   </div>
