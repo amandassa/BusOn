@@ -308,7 +308,11 @@
                             @endforeach          
                         </tbody>
                       </table>
-                      <div>{{ $pagination }}</div>
+                      <div class="d-flex">
+                        <div class="mx-auto">                            
+                            {{ $linhas->links() }}
+                        </div>
+                        </div>
                 </div>
             </div>
             <div class="col-md-5">

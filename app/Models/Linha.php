@@ -47,6 +47,19 @@ class Linha extends Model {
         return $hora_partida;
     }
 
+    /** 
+     * Calcula o preco de uma linha inteira
+     * @return preco - double
+     */
+    public static function calcularPreco($codigo){
+        $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);        
+        if($preco){            
+            return $preco[0]->soma;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Busca a linha mais vendida
      * @return cidadePartida__cidadeChegada_e_total - Lista com o total de passagens vendidas, cidade de chegada e cidade de partida da linha menos vendida

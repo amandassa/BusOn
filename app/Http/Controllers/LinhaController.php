@@ -16,6 +16,7 @@ use App\Traits\PaginationTrait;
 
 class LinhaController extends Controller
 {
+    use PaginationTrait; 
     /**
      * Display a listing of the resource.
      *
@@ -25,55 +26,78 @@ class LinhaController extends Controller
     {        
         $consulta= DB::select("SELECT * FROM linha");
         $linhas = [];                
-        foreach($consulta as $linha){            
-            $codigo = $linha->codigo;
-            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            
-            if ($codigo_trecho == null) continue;
+        foreach($consulta as $linha){
+            $codigo = $linha->codigo;                        
+            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);
+
+            if ($codigo_trecho == null) continue; // Verifica se a linha possui trechos associados
             $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
             $tipo = $linha->direta;    
+
             $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]);
-            if($cidade_partida==null)
-                continue;  
+                        
+            if($cidade_partida == null) continue;  // Verifica se o trecho possui uma cidade de partida
             $cidade_partida = $cidade_partida[0]->cidade_partida;      
                
-            $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho;
+            $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho; // seleciona o último trecho da linha
+
             $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_final]);
+            
+            if($cidade_destino == null) continue; // Verifica se o trecho possui uma cidade de destino
             $cidade_destino = $cidade_destino[0]->cidade_chegada; 
-            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);
-            $preco = $preco[0]->soma;
-            $hPartida = DB::select("SELECT hora_partida from linha where codigo =?", [$codigo] );
-            $hPartida =$hPartida[0]->hora_partida;
-            $duracaoViagem = DB::select("SELECT duracao from trecho where codigo =?", [$trecho_inicial]);
-            $duracaoViagem = $duracaoViagem[0]->duracao;
+
+            $preco =  Linha::calcularPreco($codigo);// realiza a soma do preco da linha
+            
+            if($preco == 0) continue;
+            
+            $horario_partida = Linha::getHoraPartida('codigo', $codigo); // Captura o horário de partida da çinha
+            $horario_partida =$horario_partida[0]->hora_partida;
+            
+            $horas = []; // Armazena as duracoes dos trechos desde a hora de saida para obter a hora de chegada
+            array_push($horas, $horario_partida); // adiciona a hora de saida aos horarios
+            
+            foreach($codigo_trecho as $trecho){ // percorre os trechos da linha adicionando a duracao de cada trecho
+                $duracao = Trecho::getDuracao('codigo', $trecho->codigo_trecho);
+                array_push($horas, $duracao[0]->duracao);
+            }     
+
+            $dia = explode(';', Linha::getData('codigo', $codigo)[0]->dias_semana)[0]; // captura um dia que a linha percorre (o primeiro da semana)
+            $hoje = date('Y-m-d'); // data de hoje             
+            
+            for($i = 0; $i < 7; $i++){ // encontra a proxima data (no formato ANO/MES/DIA)
+                $data = date('Y-m-d', strtotime($hoje.' + '.$i.' days')); // Percorre os proximos sete dias
+                if(date('w', strtotime($data)) == $dia) // verifica se o dia atual corresponde ao dia em que a linha funciona
+                    break; // termina o loop caso a data seja encontrada
+            }            
+
+                        
             $vagas = DB::select("SELECT total_vagas from linha where codigo =?", [$codigo] );
             $vagas = $vagas[0]->total_vagas;
-            $diasSemanais = DB::select("SELECT dias_semana from linha where codigo =?", [$codigo] );
-            $diasSemanais = $diasSemanais[0]->dias_semana;
-            $horario = strtotime('1970-01-01 '.$duracaoViagem.'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC') ;
-            $hChegada = gmdate('H:i:s', $horario);
-                  
+            $horario_chegada = Linha::somarHorasData($data, $horas)[1]; 
+            $dias_Semana = DB::select("SELECT dias_semana from linha where codigo =?", [$codigo] );
+            $dias_Semana = $dias_Semana[0]->dias_semana;
+            $horario = strtotime('1970-01-01 '.$horario_chegada.'UTC') +  strtotime('1970-01-01 '.$horario_partida.'UTC') ;
             
-            $linhaS = [
+            $linhaAtual = [
             'codigo'=>$codigo, 
             'partida'=>$cidade_partida, 
             'destino'=>$cidade_destino,
             'tipo'=>$tipo,
-            'preco'=> number_format($preco, 2),
-           
-            
+            'preco'=> number_format($preco, 2),                       
             ];
-            array_push($linhas, $linhaS);   
-            
+            array_push($linhas, $linhaAtual);            
         }
                    
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
-        {
+        {            
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
         }
-        else 
-            return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
-
+        else {
+            $linhas_paginadas =  $this->paginate($linhas);
+            $linhas_paginadas->withPath('venderPassagens');
+            return view('funcionario.vender_passagens', ['linhas'=>$linhas_paginadas, 'status'=>'Consulta realizada com sucesso!!']);
+        }
     }
 
     /**
@@ -149,8 +173,7 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function consulta (Request $request)
-    {
-        dd($request);
+    {        
         $linhas = [];
         $errors = [];
         $status = "";
@@ -233,10 +256,10 @@ class LinhaController extends Controller
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {
-            return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
+            return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
         }
         else 
-            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
+            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         
     }
 
