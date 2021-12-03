@@ -62,8 +62,8 @@
                         </button>
                     </div>
                 </form>
-                <p class="textoNumeroAzul"><b>1557</b></p>
-                <p><b>Clientes acessaram o sistema no dia 25/10/2021</b></p>
+                <p class="textoNumeroAzul"><b>{{$dados['passagens_vendidas_total']}}</b></p>
+                <p><b>Clientes acessaram o sistema no dia <br> {{$dados['data']}}</b></p>
             </div>
         </div>
     </div>
