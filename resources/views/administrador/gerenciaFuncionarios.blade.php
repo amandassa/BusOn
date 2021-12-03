@@ -16,7 +16,7 @@
     $(document).ready(function() {
       
       //Script do datatable - serve para deixar a tabela com varias funcionalidades      
-      $('#tabela').DataTable({
+      $('#tabea').DataTable({
         select:{}, 
         info:false, 
         pageLength : 5,

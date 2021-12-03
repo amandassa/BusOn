@@ -22,7 +22,7 @@
         $(document).ready(function() {
       
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
-        $('.tabela').DataTable({
+        $('.tabea').DataTable({
         select:{selector:'#btnSel'}, 
         info:false, 
         pageLength : 5,
@@ -39,8 +39,8 @@
             }
         }   
         });
-
-        
+    
+        document.getElementById('subtotal').value = "<?php echo '' ?>";
     } )
 
 
@@ -274,6 +274,8 @@
         </div>
         <div class="row">
             <div class="col-md-7">
+                <br>
+                <h5 class="titulos">Resultado da pesquisa</h5>
                 <div class="card cardPassagens">
                     <table class="table table-hover tabela" style="text-align: center">
                         <thead>
@@ -306,6 +308,7 @@
                             @endforeach          
                         </tbody>
                       </table>
+                      <div>{{ $pagination }}</div>
                 </div>
             </div>
             <div class="col-md-5">

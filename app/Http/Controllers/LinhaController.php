@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\LinhaController as Lc;
+use App\Http\Controllers\LinhaController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
-use App\Models\Linha as Li;
 use App\Models\Trecho;
 use App\Models\TrechosLinha;
 use App\Http\Requests\BuscaTrechoRequest;
 use App\Http\Requests\AddTrechoInLinhaRequest;
+use App\Traits\PaginationTrait;
 
 class LinhaController extends Controller
 {
@@ -65,10 +65,7 @@ class LinhaController extends Controller
             array_push($linhas, $linhaS);   
             
         }
-        
-       
-        
-
+                   
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {
@@ -153,6 +150,7 @@ class LinhaController extends Controller
      */
     public function consulta (Request $request)
     {
+        dd($request);
         $linhas = [];
         $errors = [];
         $status = "";
@@ -238,7 +236,7 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
         }
         else 
-            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
+            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
         
     }
 
