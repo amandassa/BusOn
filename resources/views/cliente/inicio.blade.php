@@ -7,6 +7,7 @@
     <div class="card"> 
         <div class="barraCentral barra"> <!--BARRA CENTRAL-->
         <form method="POST" action="{{route('selecao')}}" class="form">
+        @csrf
         <div class="divisaoPrimaria">                
                 <div class="divisaoBase">
                     <div class="divisaoEntrada">                          
