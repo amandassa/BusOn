@@ -87,16 +87,20 @@ class LinhaController extends Controller
             ];
             array_push($linhas, $linhaAtual);            
         }
-                   
+        
+        if(count($linhas) > 0){
+            $status = 'Consulta realizada com sucesso!!';
+        } 
+
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {            
-            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
+            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status]);
         }
         else {
             $linhas_paginadas =  $this->paginate($linhas);
             $linhas_paginadas->withPath('venderPassagens');
-            return view('funcionario.vender_passagens', ['linhas'=>$linhas_paginadas, 'status'=>'Consulta realizada com sucesso!!']);
+            return view('funcionario.vender_passagens', ['linhas'=>$linhas_paginadas, 'status'=>$status]);
         }
     }
 

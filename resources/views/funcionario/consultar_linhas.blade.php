@@ -112,13 +112,14 @@
                     </div>            
                 </form>    
             </div>
-                            
-             @if ($status)
-        <div class="alert alert-success" style="margin:10px;"> {{ $status}} </div>
-     @endif
+             @isset($status)              
+                @if ($status)
+                    <div class="alert alert-success" style="margin:10px;"> {{ $status}} </div>
+                @endif
+            @endisset
      @if (count($errors) > 0)
         <div class="alert alert-danger" style="margin:10px;">
-            <ul>
+            <ul>                
                 @foreach ($errors as $error)
                 <li>{{ $error }}</li>
                 @endforeach
