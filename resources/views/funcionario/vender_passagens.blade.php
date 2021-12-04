@@ -22,9 +22,11 @@
         $(document).ready(function() {
       
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
-        $('.tabea').DataTable({
-        select:{selector:'#btnSel'}, 
+        $('.tabela').DataTable({
+        select:{selector:'#btnSel'},
+         
         info:false, 
+        searching:false, 
         pageLength : 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
         language: 
@@ -40,7 +42,6 @@
         }   
         });
     
-        document.getElementById('subtotal').value = "<?php echo '' ?>";
     } )
 
 
@@ -88,6 +89,12 @@
             nu_cod = linha['codigo'];
             cod_linha = document.getElementById("cod_linha");
             cod_linha.value = nu_cod.toString();
+
+            partida = linha['partida'];
+            destino = linha['destino'];
+
+
+            document.getElementById("passagemSelecionada").innerHTML = partida + ' >>> ' + destino + ' (' + nu_cod + ')';
 
             partida = linha['partida'];
             destino = linha['destino'];
@@ -176,7 +183,7 @@
         @endif    
 
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <h5 class="titulos">Consulta de Linhas</h5>
                 <div class="card cardCL">
                     <form method="GET" action="{{route('consultaVP')}}" class="form">
@@ -223,7 +230,7 @@
 
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <h5 class="titulos">Dados do passageiro e pagamento</h5>
                 <div class="card cardDPP">
                     <div class="row">
@@ -273,7 +280,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <br>
                 <h5 class="titulos">Resultado da pesquisa</h5>
                 <div class="card cardPassagens">
@@ -308,16 +315,17 @@
                             @endforeach          
                         </tbody>
                       </table>
-                      <div class="d-flex">
-                        <div class="mx-auto">                            
-                            {{ $linhas->links() }}
-                        </div>
-                        </div>
+                      
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <br><h5 class="titulos">Total</h5>
                 <div class="card cardTotal">
+                    <div class="row">
+                        <div class="col colTotalEsquerda">Passagem selecionada: </div>
+                        <div class="col colTotalDireita" id="passagemSelecionada" name="passagemSelecionada"></div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda"> Subtotal:</div>
                         <div class="col colTotalDireita" id="subtotal" name="subtotal"> R$ 0.00</div>

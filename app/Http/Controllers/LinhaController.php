@@ -94,9 +94,7 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
         }
         else {
-            $linhas_paginadas =  $this->paginate($linhas);
-            $linhas_paginadas->withPath('venderPassagens');
-            return view('funcionario.vender_passagens', ['linhas'=>$linhas_paginadas, 'status'=>'Consulta realizada com sucesso!!']);
+            return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
         }
     }
 
