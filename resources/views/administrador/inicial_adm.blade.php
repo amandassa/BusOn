@@ -56,14 +56,14 @@
                 <form method="POST" class="form" action="{{route('estatisticas')}}">
                 @csrf
                     <div class="caixaPesquisa">
-                        <input type="date" class="caixaTexto" id="buscarAcessos" name="buscarAcessos">
+                        <input type="date" class="caixaTexto" id="buscarAcessos" max="<?php echo date("Y-m-d")?>" name="buscarAcessos">
                         <button style=" background-color: #ffffff00; border: 0px;">
                             <span class="material-icons" id="iconPesquisa">search</span>
                         </button>
                     </div>
                 </form>
-                <p class="textoNumeroAzul"><b>1557</b></p>
-                <p><b>Clientes acessaram o sistema no dia 25/10/2021</b></p>
+                <p class="textoNumeroAzul"><b>{{$dados['passagens_vendidas_total']}}</b></p>
+                <p><b>Clientes acessaram o sistema no dia <br> {{$dados['data']}}</b></p>
             </div>
         </div>
     </div>

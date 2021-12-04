@@ -162,3 +162,17 @@ footer {
     color: black;
     background-color:yellow;
 }
+
+.dataTables_paginate{
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.dataTables_length{
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+}

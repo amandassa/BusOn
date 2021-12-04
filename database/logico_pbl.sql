@@ -146,7 +146,7 @@ CREATE TABLE pagamento_pix (
 );
 
 CREATE TABLE logs (
-    codigo varchar(10) NOT NULL,
+    codigo int AUTO_INCREMENT NOT NULL,
     cpf_usuario varchar(11) NOT NULL,
     tipo_usuario char(1) NOT NULL,
     descricao varchar(100) NOT NULL,    

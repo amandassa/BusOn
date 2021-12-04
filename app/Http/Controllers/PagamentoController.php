@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pagamento;
 use App\Models\Passagem;
+use App\Models\Pagamento_cartao;
+use App\Models\Pagamento_boleto;
 use App\Models\Pagamento_pix;
 use App\Http\Controllers\PassagemController;
 use Illuminate\Http\Request;
@@ -37,7 +39,7 @@ class PagamentoController extends Controller
         // Verifica se os dados foram preenchidos corretamente
         if($request['opcao'] == 1){            
                 $dados_validados = $request->validate([
-                    'numero_cartao' => 'required|unique:pagamentocartao|max:19',
+                    'numero_cartao' => 'required|unique:pagamento_cartao|max:19',
                     'parcela' => 'required|max:2',
                     'validade_cartao' => 'required|min:5|max:5',
                     'ccv_cartao' => 'required|min:3|max:3',

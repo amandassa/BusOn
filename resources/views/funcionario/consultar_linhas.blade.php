@@ -112,13 +112,14 @@
                     </div>            
                 </form>    
             </div>
-                            
-             @if ($status)
-        <div class="alert alert-success" style="margin:10px;"> {{ $status}} </div>
-     @endif
+             @isset($status)              
+                @if ($status)
+                    <div class="alert alert-success" style="margin:10px;"> {{ $status}} </div>
+                @endif
+            @endisset
      @if (count($errors) > 0)
         <div class="alert alert-danger" style="margin:10px;">
-            <ul>
+            <ul>                
                 @foreach ($errors as $error)
                 <li>{{ $error }}</li>
                 @endforeach
@@ -153,7 +154,9 @@
                                     <td> Comum </td>
                                 @endif
                                 <td>
-                                    <a class="btn botaoAzul delete" role="button" href="{{route('editarLinha', $linha)}}">Editar</a>
+                                    <a class="btn botaoAmarelo" style="min-width:0px;" role="button" href="{{route('venderPassagens', $linha)}}"><i class="fas fa-shopping-cart"></i></a>    
+                                    <a class="btn botaoAzul" style="min-width:0px;" role="button" href="{{route('editarLinha', $linha)}}"><i class="fas fa-edit"></i></a>                                                                        
+                                    <a class="btn btn-danger" style="min-width:0px;" role="button" href="{{route('editarLinha', $linha)}}"><i class="fas fa-trash"></i></a>                                    
                                 </td>
                             </tr>
                             @endforeach                        

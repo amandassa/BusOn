@@ -179,7 +179,7 @@ class AdministradorController extends Controller
         $passagens_vendidas = Adm::passagens_vendidas($mat_adm);//total de passagens vendidas
         $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
         $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
-        
+
         //busca os dados de uma linha dado um determinado código
         if($request['buscarLinha'] == null){
             $cod_busca = 1;
@@ -199,6 +199,16 @@ class AdministradorController extends Controller
 
         //retorna o total de passagens vendidas 
         $passagens_vendidas_total = Adm::passagensVendidasTotal();
+
+
+        //total de acessos de clientes no sistema
+        if($request['buscarAcessos'] == null){
+            $data = '2021-12-01';
+        }else{
+            
+            $data = $request['buscarAcessos'];
+        }
+        $total_acessos_cliente = Adm::total_acessos ($data);
 
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
@@ -222,11 +232,48 @@ class AdministradorController extends Controller
             'total_vendas_linha' => $vendidas_linha['total'],
             'cidade_partida_vendas_linha' => $vendidas_linha['cidade_partida'],
             'cidade_chegada_vendas_linha'=> $vendidas_linha['cidade_chegada'],
-
+            
+            'total_acessos' => $total_acessos_cliente->total,
+            'data' => $data
 
         ];
         
         return view('administrador.inicial_adm')->with('dados', $dados);
+    }
+
+    /**
+     * Retorna todas as estaticas da tela inicial do administrador
+     *
+     * @param Request $request
+     * @return logs 
+     */
+    public function LogsAdministrador(Request $request)
+    {
+
+        if($request["idFuncionario"] == null and $request["dataInicio"] == null  and $request["dataFim"] == null){
+            $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A'");
+        }else{
+            $tipoBusca = $request['buscaOp'];
+            $valor = $request['idFuncionario'];
+            $dataInicio = $request["dataInicio"];
+            $dataFim = $request["dataFim"];
+            if($request["idFuncionario"] != null and ($request["dataInicio"] == null  and $request["dataFim"] == null)){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE f.$tipoBusca LIKE '$valor%'");
+            }elseif($request["idFuncionario"] == null and ($request["dataInicio"] != null  and $request["dataFim"] != null)){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE l.data_hora BETWEEN '$dataInicio' and '$dataFim'");
+            }elseif($request["idFuncionario"] == null and $request["dataInicio"] != null  and $request["dataFim"] == null){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE l.data_hora = '$dataInicio'");
+            }elseif($request["idFuncionario"] == null and $request["dataInicio"] == null  and $request["dataFim"] != null){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE l.data_hora = '$dataFim'");
+            }elseif($request["idFuncionario"] != null and $request["dataInicio"] != null  and $request["dataFim"] != null){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE f.$tipoBusca LIKE '$valor%' and l.data_hora BETWEEN '$dataInicio' and '$dataFim'");
+            }
+           
+        }
+
+       
+
+        return view('administrador.verificarLogs')->with('logs', $logs);
     }
 
 }

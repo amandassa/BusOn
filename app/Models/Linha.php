@@ -21,7 +21,7 @@ class Linha extends Model {
     ];
     
     public static function getLinhas(){
-        $linhas = DB::select("SELECT * FROM linhas;");
+        $linhas = DB::select("SELECT * FROM linha");
         return $linhas;
     }
 
@@ -45,6 +45,19 @@ class Linha extends Model {
         $query = "SELECT hora_partida FROM linha WHERE ".$coluna." LIKE :cod";
         $hora_partida = DB::select($query, ['cod' => $parametro]);
         return $hora_partida;
+    }
+
+    /** 
+     * Calcula o preco de uma linha inteira
+     * @return preco - double
+     */
+    public static function calcularPreco($codigo){
+        $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);        
+        if($preco){            
+            return $preco[0]->soma;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -124,9 +137,8 @@ class Linha extends Model {
      */
     public static function buscar_linhaPassagens($cidade_partida, $cidade_chegada, $data){
         $linha = DB::select("SELECT * FROM linha WHERE codigo = (SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = (SELECT codigo FROM trecho WHERE cidade_partida = '$cidade_partida' and cidade_chegada = '$cidade_chegada'));");
-        //dd($linha);
-        //return ['total'=> $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
-        return['linha' => $linha];
+        
+        return  $linha;
     }
 
     public static function editarLinha(Request $request){
