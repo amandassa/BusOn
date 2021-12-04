@@ -288,7 +288,7 @@ class LinhaController extends Controller
 
                 $data_chegada = $dataHora_chegada[0];
                 $horario_chegada = $dataHora_chegada[1];
-                
+
                 $linha += [
                     'data_partida' => $data_partida,
                     'data_chegada' => $data_chegada,
@@ -296,8 +296,6 @@ class LinhaController extends Controller
                     'horario_chegada' => $horario_chegada,
                 
                 ];
-                  
-                dd($linha);
 
             } 
             return view('cliente.selecao', ['linhas'=> $linhas]);
