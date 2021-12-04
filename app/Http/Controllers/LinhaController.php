@@ -263,8 +263,9 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
         }
         elseif($url[1] == 'selecao'){
+            $linhas2 = [];
             foreach($linhas as $linha){
-                $data_partida = $request['data_partida'];
+                $data_partida = date('d/m/Y', strtotime($request['data_partida']));
                 $horario_partida = Linha::getHoraPartida('codigo', $linha['codigo'])[0]->hora_partida;
                
                
@@ -293,12 +294,12 @@ class LinhaController extends Controller
                     'data_partida' => $data_partida,
                     'data_chegada' => $data_chegada,
                     'horario_partida' => $horario_partida,
-                    'horario_chegada' => $horario_chegada,
-                
+                    'horario_chegada' => $horario_chegada
                 ];
+                array_push($linhas2, $linha);
 
-            } 
-            return view('cliente.selecao', ['linhas'=> $linhas]);
+            }
+            return view('cliente.selecao', ['linhas'=> $linhas2]);
         }
         else 
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);

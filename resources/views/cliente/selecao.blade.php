@@ -19,57 +19,49 @@
 
     <div class="container" id="cont">
         <h5>Seleção de Passagem!</h5>
-        <div class="row justify-content-center" id="coluna">
-            <div class="col-md" id="centralizado">
-                <div class="card" id="cards">
-                    <div class="card-body" id="cb">
-                        @if($linhas == null)
-                            <p class="text-center">Não encontramos a rota selecionada!</p>
-                        @else
-                            <table class="table table-hover tabela" style="text-align: center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Código</th>
-                                        <th scope="col">Origem</th>
-                                        <th scope="col">Destino</th>
-                                        <th scope="col">Preço</th>
-                                        <th scope="col">Tipo</th>
-                                        <th data-orderable="false" scope="col"></th>
-                                    </tr>
-                                </thead>
-                            <tbody>
-                                @foreach ($linhas as $linha)
-                                    <tr>
-                                        <th scope="row">{{ $linha['codigo']}}</th>
-                                        <td> {{ $linha['partida']}} </td>
-                                        <td> {{ $linha['destino']}} </td>
-                                        <td> R$ {{$linha['preco']}} </td>
-                                        @if ($linha['tipo'] == 1 )
-                                            <td> Direta </td>
-                                        @else
-                                            <td> Comum </td>
-                                        @endif
-                                        <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
-                                    </tr>
-                                @endforeach          
-                             </tbody>
-                            </table>
-                        @endif                       
-                    </div>
-                  </div>
-                </div>
-                
-                <!--div class="btn" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                      <button type="button" class="btn btn-secondary"><<</button>
-                      <button type="button" class="btn btn-secondary">1</button>
-                      <button type="button" class="btn btn-secondary">2</button>
-                      <button type="button" class="btn btn-secondary">3</button>
-                      <button type="button" class="btn btn-secondary">4</button>
-                      <button type="button" class="btn btn-secondary">>></button>
-                </div-->
+        
+        <div class="card">
+            <div class="card-body">
+                @if($linhas == null)
+                    <p class="text-center">Não encontramos a rota selecionada!</p>
+                @else
+                    <table class="table table-hover tabela" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Origem</th>
+                                <th scope="col">Destino</th>
+                                <th scope="col">Data de partida <br> Horario de partida</th>
+                                <th scope="col">Data de chegada <br> Horario de chegada</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Tipo</th>
+                                <th data-orderable="false" scope="col"></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        @foreach ($linhas as $linha)
+                            <tr>
+                                <td> {{ $linha['partida']}} </td>
+                                <td> {{ $linha['destino']}} </td>
+                                <td> {{$linha['data_partida']}} <br> {{$linha['horario_partida']}}</td>
+                                <td> {{$linha['data_chegada']}} <br> {{$linha['horario_chegada']}} </td>
+                                <td> R$ {{$linha['preco']}} </td>
+                                @if ($linha['tipo'] == 1 )
+                                    <td> Direta </td>
+                                @else
+                                    <td> Comum </td>
+                                @endif
+                                
+                                <td><button type="button" class="btn btn-info" id="btnSel">
+                                <a href="{{route('pagamento',['linha' => $linha])}}"></a>    
+                                Selecionar</button></td>
+                            </tr>
+                        @endforeach          
+                        </tbody>
+                    </table>
+                @endif                       
             </div>
-        </div>             
+            </div>
+        </div>     
     </div>
                 
                  
