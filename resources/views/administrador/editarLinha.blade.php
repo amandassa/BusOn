@@ -50,42 +50,49 @@
                 <form action="{{route('editarLinha.editar')}}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="codigoLinha">Codigo: </label>
-                        <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="{{$linhas['codigo']}}"  > 
+                        <label for="codigoLinha">Código: </label>
+                        <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="{{$linhas['codigo']}}" readonly  > 
                     </div>
                     <div class="form-group">
                         <label for="cidadePartida">Cidade Origem: </label>
-                        <input type="text" class="form-control" id="cidadePartida" name = "partida" value="{{$linhas['partida']}}"> 
+                        <input type="text" class="form-control" id="cidadePartida" name = "partida" value="{{$linhas['partida']}}" disabled> 
                     </div>
                     <div class="form-group">
                         <label for="cidadeDestino">Cidade Destino: </label>
-                        <input type="text" class="form-control" id="cidadeDestino" name = "destino"  value="{{$linhas['destino']}}"> 
+                        <input type="text" class="form-control" id="cidadeDestino" name = "destino"  value="{{$linhas['destino']}}" disabled> 
                     </div>
                     <div class="form-group">
                         <label for="tipoLinha">Tipo Linha: </label>
                         <select name="tipo" id = "tipoLinha" class="form-control"  value="{{$linhas['tipo']}}">
                             @if ($linhas['tipo'] == 1 )
-                                <option value="1">Linha Direta</option>
-                                <option value="0">Linha Comum</option>
+                                <option value="true">Linha Direta</option>
+                                <option value="false">Linha Comum</option>
                             @else
-                                <option value="0">Linha Comum</option>
-                                <option value="1">Linha Direta</option>
+                                <option value="false">Linha Comum</option>
+                                <option value="true">Linha Direta</option>
                             @endif
                            
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="precoLinha">Preço da Linha: </label>
-                        <input type="text" class="form-control" id="precoLinha" name = "preco"  value=" {{$linhas['preco']}}" disabled > 
+                        <input type="text" class="form-control" id="precoLinha" name = "preco"  value=" {{$linhas['preco']}}" disabled>                        
                     </div>
                     <div class="form-group">
-                        <label for="horarioPartida">Horario de Partida: </label>
+                        <label for="horarioPartida">Horário de Partida: </label>
                         <input type="time" class="form-control" id="horarioPartida" name = "hPartida" value="{{$linhas['hPartida']}}" > 
                     </div>
                     <div class="form-group">
-                        <label for="horarioChegada">Horario de Chegada: </label>
-                        <input type="text" class="form-control" id="horarioChegada" name = "hChegada"  value=" {{$linhas['horario']}}" disabled> 
+                        <label for="horarioChegada">Horário de Chegada: </label>
+                        <input type="text" class="form-control" id="horarioChegada" name = "hChegada"                              
+                        @if ($linhas['horario'] > "12:00:00")
+                            value=" {{$linhas['horario']}} PM"
+                        @else
+                            value=" {{$linhas['horario']}} AM" 
+                            
+                        @endif  disabled> 
                     </div>
+    
                     <div class="form-group">
                         <label for="horarioChegada">Quantidade de vagas: </label>
                         <input type="text" class="form-control" id="qntdVagas" name = "vagas" value=" {{$linhas['vagas']}}"> 
@@ -94,16 +101,25 @@
                         <label for="horarioChegada"> Dias da semana: </label><br>
                         
                         <label class="form-check-label">Dom</label>
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="dom" value="1" 
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="dom" value= "0"
                         @foreach(explode(';',$linhas['dias']) as $dias)
-                            @if ($dias == 1)
+                            @if ($dias == 0)
                                 checked
                             @endif 
                         @endforeach>
                         
                         
                         <label class="form-check-label">Seg</label>   
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="seg" value="2" 
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="seg" value="1" 
+                        @foreach(explode(';',$linhas['dias']) as $dias)
+                            @if ($dias == 1)
+                                checked
+                            @endif 
+                        @endforeach>
+
+                        
+                        <label class="form-check-label">Ter</label>
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="ter" value="2" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 2)
                                 checked
@@ -111,8 +127,8 @@
                         @endforeach>
 
                         
-                        <label class="form-check-label">Ter</label>
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="ter" value="3" 
+                        <label class="form-check-label">Qua</label>   
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qua" value="3" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 3)
                                 checked
@@ -120,8 +136,8 @@
                         @endforeach>
 
                         
-                        <label class="form-check-label">Qua</label>   
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qua" value="4" 
+                        <label class="form-check-label">Qui</label>   
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qui"    value="4" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 4)
                                 checked
@@ -129,28 +145,19 @@
                         @endforeach>
 
                         
-                        <label class="form-check-label">Qui</label>   
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="qui"    value="5" 
+                        <label class="form-check-label">Sex</label>
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sex" value="5" 
                         @foreach(explode(';',$linhas['dias']) as $dias)
                             @if ($dias == 5)
                                 checked
                             @endif 
                         @endforeach>
 
-                        
-                        <label class="form-check-label">Sex</label>
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sex" value="6" 
-                        @foreach(explode(';',$linhas['dias']) as $dias)
-                            @if ($dias == 6)
-                                checked
-                            @endif 
-                        @endforeach>
-
                        
                         <label class="form-check-label">Sab</label> 
-                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="dias[]"  id="sab" value="7"
+                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox"  name="dias[]"  id="sab" value="6"
                         @foreach(explode(';',$linhas['dias']) as $dias)
-                            @if ($dias == 7)
+                            @if ($dias == 6)
                                 checked
                             @endif 
                         @endforeach>  
@@ -158,7 +165,7 @@
                     </div>
 
                     <div class="btnBaixo">
-                        <button type="button" class="botao botaoAzul" id="btnResetar">Resetar </button>
+                        <button type="sumbit" class="botao botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar </button>
                         <button type="submit" class="botao botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
                     </div>
                 </form>

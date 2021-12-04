@@ -130,35 +130,44 @@ class Linha extends Model {
     }
 
     public static function editarLinha(Request $request){
-
-        $codigo = $request['codigo'];
-        $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
-        $partida = $request['partida'];
-        $destino = $request['destino'];
-        $tipo = $request['tipo'];
-        $preco = $request['preco'];
-        $hPartida = $request['hPartida'];
-        $vagas = $request['vagas'];
-        $dias = $request['dias'];
-        $dia= implode(';', $dias);
-       
-        
-
-   
-
-        if(empty($partida) or empty($destino) or empty($tipo) or empty($preco) or empty($hPartida) or empty($vagas)  or empty($dia)){
-            return $li=[
-                'id' => 1
+        if($request['codigo'] == null){
+            $linha = [
+                'id' => 4
             ];
-        }else{
+            return $linha;
+        }
+        else {
+            $codigo = $request['codigo'];
+            $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
+            $partida = $request['partida'];
+            $destino = $request['destino'];
+            $tipo = $request['tipo'];
+            $preco = $request['preco'];
+            $hPartida = $request['hPartida'];
+            $vagas = $request['vagas'];
+            $dias = $request['dias'];
+            
+            if(empty($tipo) or empty($hPartida) or empty($vagas) or isset($dias)==false){
+                return $li=[
+                    'id' => 1
+                ];
+            }else{
 
-
-            DB::update('UPDATE linha set  direta = ?, total_vagas = ?, dias_semana =?, hora_partida=? where codigo =?', [$tipo, $vagas, $dia, $hPartida, $consulta->codigo]);
+                $dia= implode(';', $dias);
+                if($tipo == "true"){
+                    $tipo = 1;
+                }else{
+                    $tipo = 0;
+                }
+                DB::update('UPDATE linha set  direta = ?, total_vagas = ?, dias_semana =?, hora_partida=? where codigo =?', [$tipo, $vagas, $dia, $hPartida, $consulta->codigo]);
             return $li=[
                 'id' => 2
             ];
              
         }
+        }
+
+        
            
             
 
@@ -198,48 +207,75 @@ class Linha extends Model {
     }
     
     public static function consultaEditar(Request $request){
+        if($request['codigo'] == null){
+            $linhas = [
+                'codigo'=>" ", 
+                'partida'=>" ", 
+                'destino'=>" ",
+                'tipo'=>" ",
+                'preco'=> " ",
+                'hPartida' => " ",
+                'vagas' => " ",
+                'dias' =>" ",
+                'horario' => " "
+                ];
 
-        $codigo = $request['codigo'];
-        $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
-        $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            
-        $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
-        $tipo = $consulta->direta;    
-        $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]); 
-        $cidade_partida = $cidade_partida[0]->cidade_partida;      
-           
-        $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho;
-        $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_final]);
-        $cidade_destino = $cidade_destino[0]->cidade_chegada; 
-        $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);
-        $preco = $preco[0]->soma;
-        $hPartida = DB::select("SELECT hora_partida from linha where codigo =?", [$codigo] );
-        $hPartida =$hPartida[0]->hora_partida;
-        $duracaoViagem = DB::select("SELECT duracao from trecho where codigo =?", [$trecho_inicial]);
-        $duracaoViagem = $duracaoViagem[0]->duracao;
-        $vagas = DB::select("SELECT total_vagas from linha where codigo =?", [$codigo] );
-        $vagas = $vagas[0]->total_vagas;
-        $diasSemanais = DB::select("SELECT dias_semana from linha where codigo =?", [$codigo] );
-        $diasSemanais = $diasSemanais[0]->dias_semana;
-        $horario = strtotime('1970-01-01 '.$duracaoViagem.'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC') ;
-        $hChegada = gmdate('H:i:s', $horario);
-        $hPartida = strtotime('1970-01-01 '.$hPartida.'UTC');
-        $hPartida= gmdate('H:i', $hPartida);
+                return $linhas;
+        } else {
+
+            $horas=[];
+            $codigo = $request['codigo'];
+            $consulta= DB::select("SELECT * FROM linha where codigo=?", [$codigo])[0];
+            $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);            
+            $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
+            $tipo = $consulta->direta;    
+            $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]); 
+            $cidade_partida = $cidade_partida[0]->cidade_partida;      
+            
+            $trecho_final = $codigo_trecho[sizeof($codigo_trecho)-1]->codigo_trecho;
+            $cidade_destino = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = ?", [$trecho_final]);
+            $cidade_destino = $cidade_destino[0]->cidade_chegada; 
+            $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo]);
+            $preco = $preco[0]->soma;
+            $hPartida = DB::select("SELECT hora_partida from linha where codigo =?", [$codigo] );
+            $hPartida =$hPartida[0]->hora_partida;
+            foreach($codigo_trecho as $codH){
+                $trechInicial = $codH->codigo_trecho; 
+                $duracaoViagem = DB::select("SELECT duracao from trecho where codigo =?", [$trechInicial]);
+                $duracaoViagem = $duracaoViagem[0]->duracao;
+                array_push($horas, $duracaoViagem);  
+            }
+            $dt = "10/07/2001";
+            $duracaoFinal[] =  Linha::somarHorasData($dt, $horas)[1];
+            $horario = strtotime('1970-01-01 '.$duracaoFinal[0].'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC');
+            $hChegada = gmdate('H:i:s', $horario);
+            $vagas = DB::select("SELECT total_vagas from linha where codigo =?", [$codigo] );
+            $vagas = $vagas[0]->total_vagas;
+            $diasSemanais = DB::select("SELECT dias_semana from linha where codigo =?", [$codigo] );
+            $diasSemanais = $diasSemanais[0]->dias_semana;
+            $horario = strtotime('1970-01-01 '.$duracaoViagem.'UTC') +  strtotime('1970-01-01 '.$hPartida.'UTC') ;
+            $hChegada = gmdate('H:i:s', $horario);
+            $hPartida = strtotime('1970-01-01 '.$hPartida.'UTC');
+            $hPartida= gmdate('H:i', $hPartida);
+            
+            
+            $linhas = [
+            'codigo'=>$codigo, 
+            'partida'=>$cidade_partida, 
+            'destino'=>$cidade_destino,
+            'tipo'=>$tipo,
+            'preco'=> number_format($preco, 2),
+            'hPartida' => $hPartida,
+            'vagas' => $vagas,
+            'dias' =>$diasSemanais,
+            'horario' => $hChegada
+            
+            ];
+            return $linhas;
+            }
+
+        }
         
-        
-        $linhas = [
-        'codigo'=>$codigo, 
-        'partida'=>$cidade_partida, 
-        'destino'=>$cidade_destino,
-        'tipo'=>$tipo,
-        'preco'=> number_format($preco, 2),
-        'hPartida' => $hPartida,
-        'vagas' => $vagas,
-        'dias' =>$diasSemanais,
-        'horario' => $hChegada
-        
-        ];
-        return $linhas;
-    }
     
     
 }

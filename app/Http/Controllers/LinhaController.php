@@ -162,7 +162,6 @@ class LinhaController extends Controller
             $cidade_partida = $request['cidade_partida'];
             $cidade_destino = $request['cidade_destino'];
             $trechos_partida = Trecho::getCodigo('cidade_partida', $cidade_partida);
-
             foreach($trechos_partida as $trecho_partida){            
                 $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo);
                 $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo);
@@ -249,7 +248,13 @@ class LinhaController extends Controller
         return view('administrador.editarLinha', ['linhas'=>$linhas]);
     }
 
-    public function editar(Request $request){
+    public function editar(Request $request){;
+        if ($request['cancel'] == 5 ) {
+            return redirect()
+                        ->back()
+                        ->with('success', 'Alterações canceladas');
+        }
+
         $linha = Linha::editarLinha($request);
         if ($linha['id'] == 1) {
             return redirect()
@@ -259,10 +264,15 @@ class LinhaController extends Controller
             return redirect()
                         ->route('editarLinha', $request)
                         ->with('success', 'Linha atualizada com sucesso!');
-        } else {
+        } elseif ($linha['id'] == 4 ) {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidems');
+                        ->with('error', 'Para realizar edições por favor selecione uma linha primeiro');        
+        }
+        else {
+            return redirect()
+                        ->back()
+                        ->with('');
         }
       
     }

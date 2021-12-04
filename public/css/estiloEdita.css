@@ -1,5 +1,5 @@
 .card{
-    margin: 0px;
+    margin: 0px; 
 }
 
 .form-group {
@@ -32,9 +32,11 @@
 }
 
 .btnBaixo{
-    display: flex;
-    justify-content: space-between;
-    margin: 18px;
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    margin: 15px; 
+    margin-right: 20px;  
 }
 
 
@@ -42,4 +44,14 @@
 .botaoAzul#btnResetar:hover{
     background-color: #103A52;
     color: white;
+}
+
+.form-check-label, .form-check-inline{
+
+    margin-bottom: 10px;
+}
+
+.form-check-label, .form-check-inline + .btnBaixo{
+    margin-bottom: 50px;
+   
 }
