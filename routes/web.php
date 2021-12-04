@@ -9,9 +9,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Rotas restritas apenas para CLIENTES
 Route::middleware(['auth:cliente'])->group(function () {
-    Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
+    Route::get('/inicio', 'ClienteController@index')->name('inicio');
     Route::get('/minhasPassagens', 'ClienteController@consultaMinhasPassagens')->name('minhasPassagens');
-    Route::get('/selecao', 'ClienteController@indexSelecao')->name('selecao');    
+    Route::post('/selecao', 'LinhaController@consulta')->name('selecao');     
     Route::get('/pagamento', 'PagamentoController@index')->name('pagamento');    
     Route::post('/confirmacao', 'PagamentoController@create')->name('confirmacao');
     Route::get('/confirmacao', 'PassagemController@buscarPedido')->name('confirmacao_pedido');
@@ -76,7 +76,11 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('buscar_cliente');
 
     Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
-    Route::get('/verificarLogs', function(){return view('funcionario.verificarLogs');})->name('verificarLogs');
+    
+    Route::get('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('verificarLogs');
+    Route::post('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('Logs');
+
+    
     Route::post('/criarFuncionario', 'AdministradorController@criarFuncionario')->name('criarFuncionario');
     Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
     Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');

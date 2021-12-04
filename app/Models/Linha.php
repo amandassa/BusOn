@@ -137,9 +137,8 @@ class Linha extends Model {
      */
     public static function buscar_linhaPassagens($cidade_partida, $cidade_chegada, $data){
         $linha = DB::select("SELECT * FROM linha WHERE codigo = (SELECT codigo_linha FROM trechos_linha WHERE codigo_trecho = (SELECT codigo FROM trecho WHERE cidade_partida = '$cidade_partida' and cidade_chegada = '$cidade_chegada'));");
-        //dd($linha);
-        //return ['total'=> $total_passagens[0]->total, 'cidade_partida' => $cidade_partida[0]->cidade_partida, 'cidade_chegada' => $cidade_chegada[0]->cidade_chegada];
-        return['linha' => $linha];
+        
+        return  $linha;
     }
 
     public static function editarLinha(Request $request){

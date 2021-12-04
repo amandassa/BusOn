@@ -23,66 +23,43 @@
             <div class="col-md" id="centralizado">
                 <div class="card" id="cards">
                     <div class="card-body" id="cb">
-                        <div class="esquerda">
-                            <img class="ticket" src="/imagens/ticket.png" alt="">
-                            <p class="vagas">20 vagas</p>
-                        </div>
-                        <div class="passagens">
-                            <p class="partida"> Partida: 6:50Hrs: Feira de Santana-BA</p>
-                            <p class="destino"> Destino: 8:20Hrs: Cruz das Almas-BA</p>
-                        </div>                        
-                        
-                        <button > <img src="/imagens/aviao.png" alt="">
-                        <a href="{{ route('pagamento', ['codigo' => $linha->codigo, 'direta' => $linha->direta, 'total_vagas' => $linha->total_vagas, 'dias_semana' => $linha->dias_semana, 'hora_partida' => $linha->hora_partida]) }}">
-                        Selecionar </a>
-                    </button>
-                        
-                        <div class="central">
-                            <p class="textoCentralCima">Linha Comum</p>
-                            <hr>
-                            <p class="textoCentralCima">Valor R$18,00</p>  
-                        </div>                        
+                        @if($linhas == null)
+                            <p class="text-center">Não encontramos a rota selecionada!</p>
+                        @else
+                            <table class="table table-hover tabela" style="text-align: center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Origem</th>
+                                        <th scope="col">Destino</th>
+                                        <th scope="col">Preço</th>
+                                        <th scope="col">Tipo</th>
+                                        <th data-orderable="false" scope="col"></th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                @foreach ($linhas as $linha)
+                                    <tr>
+                                        <th scope="row">{{ $linha['codigo']}}</th>
+                                        <td> {{ $linha['partida']}} </td>
+                                        <td> {{ $linha['destino']}} </td>
+                                        <td> R$ {{$linha['preco']}} </td>
+                                        @if ($linha['tipo'] == 1 )
+                                            <td> Direta </td>
+                                        @else
+                                            <td> Comum </td>
+                                        @endif
+                                        <td><button type="button" class="btn btn-info" id="btnSel">Selecionar</button></td>
+                                    </tr>
+                                @endforeach          
+                             </tbody>
+                            </table>
+                        @endif                       
                     </div>
                   </div>
                 </div>
-                <div class="card" id="cards">
-                    <div class="card-body" id="cb">
-                        <div class="esquerda">
-                            <img class="ticket" src="/imagens/ticket.png" alt="">
-                            <p class="vagas">10 vagas</p>
-                        </div>
-                        <div class="passagens">
-                            <p class="partida"> Partida: 8:50Hrs: Feira de Santana-BA</p>
-                            <p class="destino"> Destino: 10:20Hrs: Cruz das Almas-BA</p>
-                        </div>
-                        <button> <img src="/imagens/aviao.png" alt="">Selecionar</button>
-                        <div class="central">
-                            <p class="textoCentralCima">Linha Comum</p>
-                            <hr>
-                            <p class="textoCentralCima" >Valor R$26,20</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" id="cards" >
-                    <div class="card-body" id="cb">
-                        <div class="esquerda">
-                            <img class="ticket" src="/imagens/ticket.png" alt="">
-                            <p class="vagas">2 vagas</p>
-                        </div>
-                        <div class="passagens">
-                            <p class="partida"> Partida: 4:20Hrs: Feira de Santana-BA</p>
-                            <p class="destino"> Destino: 5:00Hrs: Cruz das Almas-BA</p>
-                        </div>
-                        <button> <img src="/imagens/aviao.png" alt="">Selecionar</button>
-                        <div class="central">
-                            <p class="textoCentralCima">Linha direta</p>
-                            <hr>
-                            <p class="textoCentralCima" >Valor R$34,70</p>
-                        </div>    
-                    </div>
-                </div>
-
-                <div class="btn" role="toolbar" aria-label="Toolbar with button groups">
+                
+                <!--div class="btn" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                       <button type="button" class="btn btn-secondary"><<</button>
                       <button type="button" class="btn btn-secondary">1</button>
@@ -90,7 +67,7 @@
                       <button type="button" class="btn btn-secondary">3</button>
                       <button type="button" class="btn btn-secondary">4</button>
                       <button type="button" class="btn btn-secondary">>></button>
-                </div>
+                </div-->
             </div>
         </div>             
     </div>

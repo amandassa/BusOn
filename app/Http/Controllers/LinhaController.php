@@ -87,11 +87,15 @@ class LinhaController extends Controller
             ];
             array_push($linhas, $linhaAtual);            
         }
-                   
+        
+        if(count($linhas) > 0){
+            $status = 'Consulta realizada com sucesso!!';
+        } 
+
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {            
-            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
+            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status]);
         }
         else {
             return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
@@ -171,7 +175,7 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function consulta (Request $request)
-    {        
+    {                        
         $linhas = [];
         $errors = [];
         $status = "";
@@ -255,6 +259,44 @@ class LinhaController extends Controller
         if($url[1] == 'consultar_linhas') 
         {
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
+        }
+        elseif($url[1] == 'selecao'){
+            foreach($linhas as $linha){
+                $data_partida = $request['data_partida'];
+                $horario_partida = Linha::getHoraPartida('codigo', $linha['codigo'])[0]->hora_partida;
+               
+               
+               
+                $trechos = Trecho::getTrechosEmLinha($linha['codigo']);
+                $tempos[] = $horario_partida;                    
+                // Calcula a duração da viagem do cliente
+                foreach($trechos as $trecho){
+                    if(Trecho::getCidade_partida('codigo', $trecho->codigo)[0]->cidade_partida == $linha['partida']){                    
+                        $trava = 1;
+                    }
+
+                    if($trava){
+                        $tempos[] = $trecho->duracao;                    
+                        if(Trecho::getCidade_chegada('codigo', $trecho->codigo)[0]->cidade_chegada == $linha['destino']){
+                            $trava = 0;
+                        }
+                    }
+                }
+                $dataHora_chegada = Linha::somarHorasData($data_partida, $tempos);
+
+                $data_chegada = $dataHora_chegada[0];
+                $horario_chegada = $dataHora_chegada[1];
+
+                $linha += [
+                    'data_partida' => $data_partida,
+                    'data_chegada' => $data_chegada,
+                    'horario_partida' => $horario_partida,
+                    'horario_chegada' => $horario_chegada,
+                
+                ];
+
+            } 
+            return view('cliente.selecao', ['linhas'=> $linhas]);
         }
         else 
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);

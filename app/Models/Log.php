@@ -51,12 +51,11 @@ class Log extends Model
      * @param $data_hora data e hora do acesso ao sistema
      */
     public static function acessoCliente($email, $data_hora){
-        $cliente_info = DB::select("SELECT cpf, nome FROM cliente WHERE email = ?;", [$email])[0];
-        $cpf = $cliente_info->cpf;
-        $nome = $cliente_info->nome;
+        $cpf = Auth::guard('cliente')->user()->cpf;
+        
 
         DB::insert("INSERT INTO logs (cpf_usuario, descricao, data_hora, tipo_usuario) 
-        VALUES (?, ?, ?, 'C');", [$cpf, 'Cliente '.$nome.' entrou no site', $data_hora]);
+        VALUES (?, ?, ?, 'C');", [$cpf, 'Cliente '.$cpf.' entrou no site', $data_hora]);
     }
 
     /**
