@@ -76,7 +76,7 @@
 
                         <div class="form-group col">
                             <label for="dataFim"><b>Até</b></label>
-                            <input type="date" class="form-control" name="dataFim" id="dataFim">
+                            <input type="date" class="form-control" name="dataFim" max="<?php echo date("Y-m-d")?>" id="dataFim">
                         </div>
                     </div>
                     <!--div>

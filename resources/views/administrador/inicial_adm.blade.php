@@ -56,7 +56,7 @@
                 <form method="POST" class="form" action="{{route('estatisticas')}}">
                 @csrf
                     <div class="caixaPesquisa">
-                        <input type="date" class="caixaTexto" id="buscarAcessos" name="buscarAcessos">
+                        <input type="date" class="caixaTexto" id="buscarAcessos" max="<?php echo date("Y-m-d")?>" name="buscarAcessos">
                         <button style=" background-color: #ffffff00; border: 0px;">
                             <span class="material-icons" id="iconPesquisa">search</span>
                         </button>
