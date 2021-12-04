@@ -9,7 +9,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Rotas restritas apenas para CLIENTES
 Route::middleware(['auth:cliente'])->group(function () {
-    Route::get('/inicio', function(){return view('cliente.inicio');})->name('inicio');
+    Route::get('/inicio', 'ClienteController@index')->name('inicio');
     Route::get('/minhasPassagens', 'ClienteController@consultaMinhasPassagens')->name('minhasPassagens');
     Route::post('/selecao', 'LinhaController@consulta')->name('selecao');     
     Route::get('/pagamento', 'PagamentoController@index')->name('pagamento');    

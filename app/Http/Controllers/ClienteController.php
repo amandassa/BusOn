@@ -18,6 +18,21 @@ class ClienteController extends Controller
 {
  
 
+    public function index(){
+        $consultas = DB::select("select cidade_partida from trecho");
+        $consultas_saidas = DB::select("select cidade_chegada from trecho");
+        $trechos_partida = [];
+        $trechos_chegada = [];
+        foreach($consultas as $consulta){
+            array_push($trechos_partida, $consulta->cidade_partida);
+        }        
+        foreach($consultas_saidas as $consulta){
+            array_push($trechos_chegada, $consulta->cidade_chegada);
+        }        
+
+        return view('cliente.inicio', ['trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_chegada)]);
+    }
+
     public function indexSelecao(){        
         $linha = DB::select("SELECT * FROM linha WHERE codigo = 2")[0];         
         return view('cliente.selecao', ['linha' => $linha]);
@@ -64,7 +79,7 @@ class ClienteController extends Controller
 
     }
 
-    public function index(){
+    public function indexB(){
         $cliente = Cliente::index();
         return view("cliente.perfil", ['cliente'=>$cliente]);
     }
