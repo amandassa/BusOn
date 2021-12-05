@@ -44,7 +44,6 @@
 @endif
 <div class="container" id="contPrincipal">
     <h4 class="header">Editar linha:</h4>
-    <div class="card">
         <div class="card">
             <div class="card-body">
                 <form action="{{route('editarLinha.editar')}}" method="post">
@@ -165,17 +164,18 @@
                     </div>
 
                     <div class="btnBaixo">
-                        <button type="sumbit" class="botao botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar </button>
-                        <button type="submit" class="botao botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
+                        <a class="btn botaoAzul" id="editarTrecho" style="min-width:0px;" role="button" href=""> Editar Trechos <i class="fas fa-edit"></i></a>
+                        <div class="direita">
+                            <button type="sumbit" class="btn botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar </button>
+                            <button type="submit" class="btn botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
+                        </div>
+                        
                     </div>
                 </form>
             </div>
            
             
         </div>
-        
-
-    </div>
 </div>
 
 
