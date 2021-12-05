@@ -35,7 +35,8 @@
         {
             lengthMenu: "Exibir _MENU_ linhas",
             search: "Busca",
-            zeroRecords: "Linha não encontrada!",
+            zeroRecords: "Passagem não encontrada!",
+            infoEmpty: "Pesquise a passagem desejada no campo acima!",
             oPaginate: 
             {
                 sNext: '<i class="fas fa-angle-double-right"></i>',
