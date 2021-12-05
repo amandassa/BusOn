@@ -166,7 +166,7 @@
 
                     <div class="btnBaixo">
                         <button type="submit" class="botao botaoAzul" id="btnTrecho" name="trechos" value="6" href="{{route('buscarTrechos')}}">Editar trechos</button>
-                        <button type="reset" class="botao botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar Alterações</button>
+                        <button type="submit" class="botao botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar Alterações</button>
                         <button type="submit" class="botao botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
                     </div>
                 </form>

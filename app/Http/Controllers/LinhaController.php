@@ -311,11 +311,11 @@ class LinhaController extends Controller
     }
 
     public function editar(Request $request){;
-        /*if ($request['cancel'] == 5 ) {
+        if ($request['cancel'] == 5 ) {
             return redirect()
                         ->back()
                         ->with('success', 'Alterações canceladas');
-        }*/
+        }
 
         if ($request['trechos']){
             return redirect()
