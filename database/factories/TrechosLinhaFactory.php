@@ -15,7 +15,7 @@ $factory->define(TrechosLinha::class, function (Faker $faker) {
         //'ordem'=> random_int(1,3)
 
         $codigo = DB::select("SELECT codigo FROM linha WHERE codigo NOT IN (SELECT DISTINCT codigo_linha FROM trechos_linha)");                
-        $linha = DB::select("SELECT * FROM linha where codigo = :codigo", ['codigo' => ($codigo[rand(0, count($codigo))]->codigo)]);
+        $linha = DB::select("SELECT * FROM linha where codigo = :codigo", ['codigo' => ($codigo[0]->codigo)]);
         $tamanho_trechos = DB::select("SELECT count(*) as 'tamanho' FROM trecho")[0]->tamanho;                
         $tamanho_linha = 4;
         $trechos = [];
