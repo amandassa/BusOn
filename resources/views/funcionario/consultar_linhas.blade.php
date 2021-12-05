@@ -65,8 +65,8 @@
                             @csrf 
                             <span>Definir tipo de busca: </span>
                                 <select id="opcaoBusca" onchange="desativacao()" name="opcaoBusca" class="form-control">
-                                    <option>Nome</option>
-                                    <option>Código</option>
+                                    <option value="Nome">Nome</option>
+                                    <option value="Codigo">Código</option>
                                 </select>
                         </div>                                                                            
                         <div class="col-sm-4">

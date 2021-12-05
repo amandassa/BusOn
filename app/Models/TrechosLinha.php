@@ -10,37 +10,41 @@ class TrechosLinha extends Model
     protected $table = 'trechos_linha';
     
     protected $fillable = [
-        'direta',         
-        'total_vagas'
+        'codigo_linha',         
+        'codigo_trecho',
+        'ordem'
     ];
     
+    /**
+     * Retorna um ou mais codigos de trechos conforme um dado valor (parametro) de uma dada coluna
+     */
     public static function getCodigoTrecho($coluna, $parametro){
-        $query = "SELECT codigo_trecho FROM trechos_linha WHERE ".$coluna." = ?";
-        $codigo_trecho = DB::select($query, [$parametro]);        
+        $query = "SELECT codigo_trecho FROM trechos_linha WHERE ".$coluna." = :parametro";
+        $codigo_trecho = DB::select($query, ['parametro' =>  $parametro]);        
         if($codigo_trecho)
             return $codigo_trecho;
         else
             return null;
     }
 
+    /**
+     * Retorna um ou mais codigos de linha conforme um dado valor (parametro) de uma dada coluna
+     */
     public static function getCodigoLinha ($coluna, $parametro) {
-        $query = "SELECT codigo_linha FROM trechos_linha WHERE " . $coluna . " LIKE :ct";
-        $codigo_linha = DB::select($query, ['ct' => $parametro]);
+        $query = "SELECT codigo_linha FROM trechos_linha WHERE ".$coluna." LIKE :parametro";                        
+        $codigo_linha = DB::select($query, ['parametro' => $parametro]);        
         if($codigo_linha)
             return $codigo_linha;
         else
             return null;
     }
 
+    /**
+     * Retorna a ordem de um dado trechos em uma linha conforme um dado valor (parametro) de uma dada coluna
+     */
     public static function getOrdem ($coluna, $parametro) {
-        $query = "SELECT ordem from trechos_linha WHERE " . $coluna . " LIKE :cod ";
-        $ordem = DB::select($query, ['cod' => $parametro]);
-        return $ordem;
-        /*
-        if ($ordem) {
-            return $ordem;
-        } else {
-            return null;
-        }*/
+        $query = "SELECT ordem from trechos_linha WHERE " . $coluna . " LIKE :parametro ";
+        $ordem = DB::select($query, ['parametro' => $parametro]);
+        return $ordem;        
     }
 }

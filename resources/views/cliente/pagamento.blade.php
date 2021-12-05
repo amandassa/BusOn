@@ -13,7 +13,10 @@
         $("#numero_cartao").mask('9999 9999 9999 9999');
         $("#validade_cartao").mask('99/99');    
         
-        
+        $("#criarFuncionario").submit(function() {
+            $("#cpf").unmask();
+            $("#numero_cartao").unmask();
+        });
         document.getElementById("boleto").style.display="none";
         document.getElementById("pix").style.display="none";
     });

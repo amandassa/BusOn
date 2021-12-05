@@ -77,7 +77,7 @@ class PagamentoController extends Controller
         switch($request['opcao']){
             // Cartão de Crédito
             case 1:
-                $num_cartao =  str_replace(' ', '', $request['numero_cartao']); // remove os espaços em branco no cartao de credito
+                $num_cartao =  $request['numero_cartao']; // remove os espaços em branco no cartao de credito
                 $parcelas = intval($request['parcela']);
                 $validade = $request['validade_cartao'];
                 $ccv = $request['ccv_cartao'];

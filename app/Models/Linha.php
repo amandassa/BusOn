@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 
 /*
-Nome: Linha (classe)
-Funcionalidade: Representa a entidade linha e as informações contidas na mesma
-Autor(es): Israel Braitt 
+* Representa a entidade linha e as informações contidas na mesma
 */
 class Linha extends Model {
 
@@ -25,9 +23,14 @@ class Linha extends Model {
         return $linhas;
     }
 
-    public static function getTipo ($coluna, $param) {
-        $query = "SELECT direta FROM linha WHERE ".$coluna." LIKE :cod";
-        $direta = DB::select($query, ['cod' => $param]);
+    /**
+     * Metodo estatico que consulta a coluna tipo da linha cujos registros correspondem com um valor (parametro) especificado em uma dada coluna da linha
+     * @return 1 array que um ou mais tipos correspondentes a requisicao realizada ao banco de dados
+     * @return null caso não existam correspondências no banco de dados a coluna e ao parâmetro especificado
+     *  */    
+    public static function getTipo ($coluna, $parametro) {
+        $query = "SELECT direta FROM linha WHERE ".$coluna." LIKE :parametro";
+        $direta = DB::select($query, ['parametro' => $parametro]);
         if ($direta) {
             return $direta;
         } else {
@@ -35,16 +38,34 @@ class Linha extends Model {
         }
     }
 
+    /**
+     * Metodo estatico que consulta a coluna dias_semana da linha cujos registros correspondem com um valor (parametro) especificado em uma dada coluna da linha
+     * @return 1 array que um ou mais dias_semana correspondentes a requisicao realizada ao banco de dados
+     * @return null caso não existam correspondências no banco de dados a coluna e ao parâmetro especificado
+     *  */        
     public static function getData($coluna, $parametro){
-        $query = "SELECT dias_semana FROM linha WHERE ".$coluna." LIKE :cod";
-        $data = DB::select($query, ['cod' => $parametro]);
-        return $data;
+        $query = "SELECT dias_semana FROM linha WHERE ".$coluna." LIKE :parametro";
+        $data = DB::select($query, ['parametro' => $parametro]);
+        if($data) {
+            return $data;
+        } else {
+            return null;
+        }
     }
 
+    /**
+     * Metodo estatico que consulta a coluna hora_partida da linha cujos registros correspondem com um valor (parametro) especificado em uma dada coluna da linha
+     * @return 1 array que um ou mais hora_partida correspondentes a requisicao realizada ao banco de dados
+     * @return null caso não existam correspondências no banco de dados a coluna e ao parâmetro especificado
+     *  */    
     public static function getHoraPartida($coluna, $parametro){
-        $query = "SELECT hora_partida FROM linha WHERE ".$coluna." LIKE :cod";
-        $hora_partida = DB::select($query, ['cod' => $parametro]);
-        return $hora_partida;
+        $query = "SELECT hora_partida FROM linha WHERE ".$coluna." LIKE :parametro";
+        $hora_partida = DB::select($query, ['parametro' => $parametro]);
+        if($hora_partida)
+            return $hora_partida;
+        else {
+            return null;
+        }
     }
 
     /** 
@@ -212,7 +233,7 @@ class Linha extends Model {
     public static function somarHorasData(String $data, $horas){
         $data_base = date($data); //corrigir horario base        
         $hora =  explode(':', Linha::somarTempo($horas));
-        $saida = date('d/m/Y H:i:s', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
+        $saida = date('d/m/Y H:i', strtotime("{$data_base} + {$hora[0]} hours {$hora[1]} minutes {$hora[2]} seconds"));
         $data_saida = explode(' ', $saida)[0];
         $hora_saida = explode(' ', $saida)[1];
         return [$data_saida, $hora_saida];
