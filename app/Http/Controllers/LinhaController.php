@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\LinhaController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Linha;
 use App\Models\Trecho;
@@ -25,14 +24,24 @@ class LinhaController extends Controller
     public function index()
     {        
         $consulta= DB::select("SELECT * FROM linha");
-        $linhas = [];                
+        $linhas = [];        
+        $url = explode("/", $_SERVER["REQUEST_URI"]);        
         foreach($consulta as $linha){
             $codigo = $linha->codigo;                        
             $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);
 
+            $hoje = date('Y-m-d'); // data de hoje 
+            $dia = explode(';', Linha::getData('codigo', $codigo)[0]->dias_semana)[0];
+
+            if($url[1] == 'venderPassagens') 
+                if($dia != date('w', strtotime($hoje)))  //Verifica se a linha roda na data de hoje
+                    continue; //Se não rodar, ela não será exibida
+            
             if ($codigo_trecho == null) continue; // Verifica se a linha possui trechos associados
             $trecho_inicial = $codigo_trecho[0]->codigo_trecho;            
             $tipo = $linha->direta;    
+
+           
 
             $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = ?", [$trecho_inicial]);
                         
@@ -50,7 +59,7 @@ class LinhaController extends Controller
             
             if($preco == 0) continue;
             
-            $horario_partida = Linha::getHoraPartida('codigo', $codigo); // Captura o horário de partida da çinha
+            $horario_partida = Linha::getHoraPartida('codigo', $codigo); // Captura o horário de partida da linha
             $horario_partida =$horario_partida[0]->hora_partida;
             
             $horas = []; // Armazena as duracoes dos trechos desde a hora de saida para obter a hora de chegada
@@ -83,7 +92,8 @@ class LinhaController extends Controller
             'partida'=>$cidade_partida, 
             'destino'=>$cidade_destino,
             'tipo'=>$tipo,
-            'preco'=> number_format($preco, 2),                       
+            'preco'=> number_format(floatval($preco), 2, ',', '.'), 
+                                  
             ];
             array_push($linhas, $linhaAtual);            
         }
@@ -98,7 +108,8 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status]);
         }
         else {
-            return view('funcionario.vender_passagens', ['linhas'=>$linhas, 'status'=>'Consulta realizada com sucesso!!']);
+            $linhas2 = $this->calcularHorarios($linhas, $hoje);
+            return view('funcionario.vender_passagens', ['linhas'=>$linhas2, 'status'=>'Consulta realizada com sucesso!!']);
         }
     }
 
@@ -209,7 +220,7 @@ class LinhaController extends Controller
                                     'partida'=>$cidade_partida[0]->cidade_partida, 
                                     'destino'=>$destino[0]->cidade_chegada,
                                     'tipo'=>$tipo[0]->direta,
-                                    'preco'=> number_format($preco, 2)
+                                    'preco'=> number_format(floatval($preco), 2, ',', '.')
                                 ];
                                 array_push($linhas, $linha);
                                 $status =  "Linha encontrada com sucesso";
@@ -259,14 +270,22 @@ class LinhaController extends Controller
         {
             return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status, 'linha' => $request['linha']]);
         }
-        elseif($url[1] == 'selecao'){
-            $linhas2 = [];
-            foreach($linhas as $linha){
-                $data_partida = date('d/m/Y', strtotime($request['data_partida']));
+        else
+            $linhas2 = $this->calcularHorarios($linhas, $request['data_partida']);
+            if(($url[1] == 'selecao'))
+                return view('cliente.selecao', ['linhas'=> $linhas2]);
+            else 
+                return view('funcionario.vender_passagens')->with(['linhas' => $linhas2, $request->flash()]);
+        
+    }
+
+    private function calcularHorarios(array $linhas,  $data_partida)
+    {
+        $linhas2 = [];
+        $trava = 0;
+        foreach($linhas as $linha) {
+            $data_partida = date('d/m/Y', strtotime($data_partida));
                 $horario_partida = Linha::getHoraPartida('codigo', $linha['codigo'])[0]->hora_partida;
-               
-               
-               
                 $trechos = Trecho::getTrechosEmLinha($linha['codigo']);
                 $tempos[] = $horario_partida;                    
                 // Calcula a duração da viagem do cliente
@@ -283,10 +302,8 @@ class LinhaController extends Controller
                     }
                 }
                 $dataHora_chegada = Linha::somarHorasData($data_partida, $tempos);
-
                 $data_chegada = $dataHora_chegada[0];
                 $horario_chegada = $dataHora_chegada[1];
-
                 $linha += [
                     'data_partida' => $data_partida,
                     'data_chegada' => $data_chegada,
@@ -294,13 +311,9 @@ class LinhaController extends Controller
                     'horario_chegada' => $horario_chegada
                 ];
                 array_push($linhas2, $linha);
-
-            }
-            return view('cliente.selecao', ['linhas'=> $linhas2]);
         }
-        else 
-            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'errors' => $errors, 'status' => $status]);
-        
+        return $linhas2; 
+
     }
 
 
