@@ -1,9 +1,19 @@
 @extends('app')
 
 @section('title', 'Cadastrar Funcionário - ')
-
-
 @section('content')    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>
+
+    <script>
+    $(document).ready(function(){
+        $("#cpf").mask('999.999.999-99');            
+
+        $("#criarFuncionario").submit(function() {
+            $("#cpf").unmask();
+        });
+    });
+    </script>
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
@@ -28,7 +38,7 @@
                             <div class="alert alert-success">{{session('message')}}</div>
                         @endif 
                     
-                        <form method="POST" action="{{ route('criarFuncionario') }}">
+                        <form method="POST" action="{{ route('criarFuncionario') }}" id="criarFuncionario">
                             @csrf
                             <div class="form-group">
                                 <label for="entradaNome">Nome Completo</label>
@@ -39,8 +49,8 @@
                                 <input type="email" class="form-control" name="email">
                             </div>
                             <div class="form-group camposMenores">
-                                <label for="entradacpf">cpf</label>
-                                <input oninput="mascara(this, 'cpf')" id="entradacpf" type="text" class="form-control" autocomplete="on" name="cpf">
+                                <label for="entradacpf">CPF:</label>
+                                <input oninput="mascara(this, 'cpf')" id="cpf" type="text" class="form-control" autocomplete="on" name="cpf" />
                             </div>
                             <div class="form-group camposMenores">
                                 <label for="entradaSenha">Senha</label>
@@ -61,6 +71,7 @@
                             <div class="btnCC">
                                 <div class="btnCC">
                                     <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Cadastrar</button>
+                                    <button type="button" class="botao" style="background-color: black; color: #F9C536;" id="btnCriarConta" onClick="window.location.href = '/';"> Voltar </button>
                                 </div>
                             </div>
                         </form>

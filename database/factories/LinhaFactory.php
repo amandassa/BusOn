@@ -9,7 +9,7 @@ $factory->define(Linha::class, function (Faker $faker) {
     return [
         'direta' => rand(0, 1),
         'total_vagas' => 60,
-        'dias_semana' => rand(1,7),
+        'dias_semana' => rand(0,6),
         'hora_partida' => $faker->time()
     ];
 });

@@ -24,9 +24,19 @@ class FuncionarioController extends Controller {
 
 
     public function gerarRelatorioViagem(){
-        //$codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);");        
-        $codigo_linha = 1;        
-        $dataconv = date('2021-12-03');
+        $dia = date('w'); // Converte a data inserida ao seu equivalente em dia da semana                        
+        $codigo_linha = DB::select("SELECT codigo FROM linha WHERE dias_semana LIKE concat('%', TRIM(?), '%')", [$dia]);                        
+        if($codigo_linha)
+            $codigo_linha = $codigo_linha[0]->codigo;
+        
+        $atual = date('Y-m-d');
+        for($i = 0; $i < 7; $i++){            
+            if(date('w', strtotime($atual)) == $dia)
+                break;
+            $atual = date('Y-m-d', strtotime('+1 day', strtotime($atual)));
+        }            
+        $dataconv = $atual;        
+        
         $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and CAST(data AS date) = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        
@@ -91,8 +101,7 @@ class FuncionarioController extends Controller {
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        
         $passagens_clientes = [];
-        $passagem_cliente = array();   
-        
+        $passagem_cliente = array();         
         foreach($passagens_viagem as $passagem){            
             $passagem_cliente['nome']  = "Não Cadastrado";                        
             $passagem_cliente['cpf'] = $passagem->cpf_cliente;        
@@ -110,7 +119,7 @@ class FuncionarioController extends Controller {
 
             $horario_partida = (Linha::getHoraPartida('codigo', $passagem->codigo_linha))[0]->hora_partida;            
             $passagem_cliente['horario_partida'] = $horario_partida;
-            $trava = 1;            
+            $trava = 0;            
             $trechos = Trecho::getTrechosEmLinha($codigo_linha);
             if($trechos == null) continue;
             $tempos[] = $horario_partida;                    
@@ -128,9 +137,14 @@ class FuncionarioController extends Controller {
                     }
                 }
             }
-                                
-            $passagem_cliente['horario_chegada'] = $this->somarTempo($tempos);
-            array_push($passagens_clientes, $passagem_cliente);                      
+
+            $passagem_cliente['data_partida'] = date('d/m/Y', strtotime($dataconv));
+            $dataHora = Linha::somarHorasData($dataconv, $tempos);            
+            $passagem_cliente['data_chegada'] = $dataHora[0];
+            $passagem_cliente['horario_chegada'] = date('H:i:s', strtotime($dataHora[1]));            
+            $passagem_cliente['horario_partida'] = date('H:i:s', strtotime($horario_partida));                        
+            $data = $dataHora[1];
+            array_push($passagens_clientes, $passagem_cliente);                                            
         }                                
         $passagens_paginadas =  $passagens_clientes;        
         return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas, 'linha_partida' => $linha_partida, 'linha_chegada' => $linha_chegada]);

@@ -111,7 +111,7 @@ class Funcionario extends Authenticatable {
         $cpf_cliente = str_replace(".", "", $cpf_cliente);
         $cpf_cliente = str_replace("-", "", $cpf_cliente);
 
-        $data =  date('y/m/d');
+        $data =  date('y/m/d'); //Data de hoje
 
         $cod_linha = $request['cod_linha'];
         $valor = $request['preco_atual'];
@@ -122,23 +122,26 @@ class Funcionario extends Authenticatable {
         $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_linha])[0];
         $max_vagas = $vagas->total_vagas;
 
-        $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas);
+        $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas); //Pega um assento disponível para o passageiro
         
-        if($num_assento > 0 &&  $num_assento <= $max_vagas){
+        if($num_assento > 0 &&  $num_assento <= $max_vagas){  //Se ainda há vagas disponíveis para essa linha, a venda é permitida
+
+            
             DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data, num_assento, cidade_partida, cidade_chegada) VALUES (?, ?, ?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data,  $num_assento, $partida, $destino]);
 
             $cod_passagem = DB::select('SELECT codigo FROM passagem WHERE num_assento = :assento AND codigo_linha = :cod_linha AND data = :data', ['assento' => $num_assento, 'cod_linha' => $cod_linha, 'data' => $data]);
             $cod_passagem = $cod_passagem[0]->codigo;
             
 
-            DB::insert('INSERT INTO venda (codigo_passagem, matricula_vendedor, valor) VALUES (?, ?, ?);', [$cod_passagem, $matricula, $valor]);
+            DB::insert('INSERT INTO venda (codigo_passagem, matricula_vendedor, valor, data_compra) VALUES (?, ?, ?, ?);', [$cod_passagem, $matricula, $valor, $data]);
             DB::insert('INSERT INTO pagamento (codigo_passagem, realizado, forma_pagamento) VALUES (?, ?, ?);', [$cod_passagem, 1, 1]);
             $id_pagamento = DB::select('SELECT MAX(codigo) AS id from pagamento')[0];   
             $id_pagamento = $id_pagamento->id;
             DB::insert('INSERT INTO pagamento_dinheiro (dinheiro_recebido, codigo_pagamento) VALUES (?, ?);', [$valor, $id_pagamento]);
 
             return 1;
-        } else return 0;
+        } 
+        else return 0; //Venda não sucedida por falta de vagas na linha
 
     }
 

@@ -54,11 +54,9 @@
     -->
     
     
-    <div class="container">
-        <div class="row">         
-            <h3>Consulta de Linhas</h3>            
-        </div>        
+    <div class="container">       
         <div class="row-xl">
+            <h5>Consulta de Linhas</h5>  
             <div class="card card-default">
                 <div class="card-body">
                 <form method="POST" action="{{ route('consulta') }}" class="form">
@@ -67,8 +65,8 @@
                             @csrf 
                             <span>Definir tipo de busca: </span>
                                 <select id="opcaoBusca" onchange="desativacao()" name="opcaoBusca" class="form-control">
-                                    <option>Nome</option>
-                                    <option>Código</option>
+                                    <option value="Nome">Nome</option>
+                                    <option value="Codigo">Código</option>
                                 </select>
                         </div>                                                                            
                         <div class="col-sm-4">
@@ -114,11 +112,15 @@
             </div>
              @isset($status)              
                 @if ($status)
-                    <div class="alert alert-success" style="margin:10px;"> {{ $status}} </div>
+                    <div class="alert alert-success alert-dismissable" style="margin:10px">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> 
+                        {{ $status}} 
+                    </div>
                 @endif
             @endisset
      @if (count($errors) > 0)
-        <div class="alert alert-danger" style="margin:10px;">
+        <div class="alert alert-danger alert-dismissable" style="margin:10px;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <ul>                
                 @foreach ($errors as $error)
                 <li>{{ $error }}</li>

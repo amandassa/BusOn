@@ -15,11 +15,13 @@
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
-
+    <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>
     
     <script>
         
         $(document).ready(function() {
+
+        $("#cpf").mask('999.999.999-99') //máscara cpf
       
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
         $('.tabela').DataTable({
@@ -33,7 +35,8 @@
         {
             lengthMenu: "Exibir _MENU_ linhas",
             search: "Busca",
-            zeroRecords: "Linha não encontrada!",
+            zeroRecords: "Passagem não encontrada!",
+            infoEmpty: "Pesquise a passagem desejada no campo acima!",
             oPaginate: 
             {
                 sNext: '<i class="fas fa-angle-double-right"></i>',
@@ -44,25 +47,6 @@
     
     } )
 
-
-
-        
-        //Mascara do cpf
-        function mascara(i,t)
-        {
-            var v = i.value;
-            
-            if(isNaN(v[v.length-1])){
-                i.value = v.substring(0, v.length-1);
-                return;
-            }
-            
-            if(t == "cpf"){
-                i.setAttribute("maxlength", "14");
-                if (v.length == 3 || v.length == 7) i.value += ".";
-                if (v.length == 11) i.value += "-";
-            }
-        }
 
         var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
         var alterouValorPago = false; //Verifica se o input valorPago foi alterado, dessa forma 
@@ -82,7 +66,7 @@
 
         function atualizar_cpf(){
             cpf_atual = document.getElementById("cpf_atual");
-            cpf_atual.value = document.getElementById("cpfInput").value;
+            cpf_atual.value = document.getElementById("cpf").value;
         }
 
         function atualizar_info_linha(linha){
@@ -115,17 +99,21 @@
 
         function preco(preco)
         {
+            ultimoPreco = preco;
+            preco = preco.split('.').join('').split(',').join('.');
             var valorPago = document.getElementById('pagoInput').value;
             var valorDesconto = document.getElementById('descontosInput').value;
             var valorTroco = 0;
 
             //Subtotal
             var subtotal = document.getElementById('subtotal');
-            subtotal.innerHTML = 'R$ ' + preco;
+            preco -= 0,00;
+            subtotal.innerHTML = 'R$ ' + preco.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
             //Descontos
             var desconto = document.getElementById('descontos');
-            desconto.innerHTML = 'R$ ' + valorDesconto;
+            valorDesconto-=0,00;
+            desconto.innerHTML = 'R$ ' + valorDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
             //Troco
             var precoComDesconto = preco - valorDesconto;
@@ -133,7 +121,7 @@
             if(valorPago == precoComDesconto) 
             {
                 valorTroco = 0;
-                troco.innerHTML = 'R$ ' + valorTroco;
+                troco.innerHTML = 'R$ ' + valorTroco.toLocaleString('pt-BR', {minimumFractionDigits: 2});
                 alert("Não há troco!");
             }
 
@@ -141,7 +129,7 @@
             {
                 valorTroco = valorPago - precoComDesconto;
                 troco = document.getElementById('troco');
-                troco.innerHTML = "R$ " + valorTroco.toFixed(2);
+                troco.innerHTML = "R$ " + valorTroco.toLocaleString('pt-BR', {minimumFractionDigits: 2});
             }
 
             else if(alterouValorPago)
@@ -152,9 +140,8 @@
             
             //Total
             total = document.getElementById('total');
-            total.innerHTML = 'R$ ' + precoComDesconto;
+            total.innerHTML = 'R$ ' + precoComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
-            ultimoPreco = preco; 
 
         }
 
@@ -165,26 +152,31 @@
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
     <div class="container-xl principal">
 
-        @if (sizeof($errors) > 0)
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+        <!--Mensagens de status da operação -->
+
+        @if (sizeof($errors) > 0) 
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 <ul>
                     @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li><strong>{{ $error }}</strong></li>
                     @endforeach
                 </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> <i class="fas fa-times"></i> </button>
             </div>
         @endif
 
         @if(session('message'))
-            <div class="alert alert-success">{{session('message')}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <strong>{{session('message')}}</strong>
             </div>
         @endif    
+        
 
         <div class="row">
             <div class="col-md-6">
-                <h5 class="titulos">Consulta de Linhas</h5>
+                <h5 class="titulos">Consulta de Linhas</h5> <!--Card da pesquisa de linhas -->
                 <div class="card cardCL">
                     <form method="GET" action="{{route('consultaVP')}}" class="form">
                         @csrf 
@@ -200,7 +192,8 @@
                             
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}">
+                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}"> 
+                                
                                 
                             </div>
                         </div>
@@ -226,10 +219,10 @@
                             </div>
                         </div>
                     </form>
-
-
                 </div>
             </div>
+
+            <!--Card dos dados do passageiro e valores do pagamento -->
             <div class="col-md-6">
                 <h5 class="titulos">Dados do passageiro e pagamento</h5>
                 <div class="card cardDPP">
@@ -239,8 +232,8 @@
                             <input type="text" class="form-control form-control-sm" id="nomeInput">
                         </div>
                         <div class="col">
-                            <label class="textoPreto" for="cpfInput">Documento:</label>
-                            <input oninput="mascara(this, 'cpf')" id="cpfInput" type="text" onchange="atualizar_cpf();" class="form-control form-control-sm" autocomplete="on" name="customer['cpf']">
+                            <label class="textoPreto" for="cpf">Documento:</label>
+                            <input id="cpf" type="text" onchange="atualizar_cpf();" class="form-control form-control-sm" autocomplete="on">
                         </div>
                     </div>
                     <div class="row rowPagamento">
@@ -279,10 +272,12 @@
                 </div>
             </div>
         </div>
+
+        <!--Card da seleção da passagem -->
         <div class="row">
             <div class="col-md-12">
                 <br>
-                <h5 class="titulos">Resultado da pesquisa</h5>
+                <h5 class="titulos">Seleção de passagens</h5>
                 <div class="card cardPassagens">
                     <table class="table table-hover tabela" style="text-align: center">
                         <thead>
@@ -290,8 +285,9 @@
                             <th scope="col">Código</th>
                             <th scope="col">Origem</th>
                             <th scope="col">Destino</th>
+                            <th scope="col">Saída</th>
                             <th scope="col">Preço</th>
-                            <th scope="col">Tipo</th>
+                            <th scope="col">Classe</th>
                             <th data-orderable="false" scope="col"></th>
                           </tr>
                         </thead>
@@ -301,14 +297,15 @@
                              <th scope="row">{{ $linha['codigo']}}</th>
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
+                                <td> {{ $linha['hora_partida'] }}</td> <!--Retira os segundos da hora de saída -->
                                 @php
                                     $preco = $linha['preco'];                                                                        
                                 @endphp
                                 <td> R$ {{$preco}} </td>
                                 @if ($linha['tipo'] == 1 )
-                                    <td> Direta </td>
+                                    <td>Direta</td>
                                 @else
-                                    <td> Comum </td>
+                                    <td>Comum</td>
                                 @endif
                                 <td><button type="button" class="btn btn-info" id="btnSel" onclick="preco('<?php echo $preco;?>');this.blur();atualizar_info_linha({{json_encode($linha)}});">Selecionar</button></td>
                             </tr>
@@ -318,6 +315,7 @@
                       
                 </div>
             </div>
+            <!--Card da informações sobre os valores de pagamento -->
             <div class="col-md-12">
                 <br><h5 class="titulos">Total</h5>
                 <div class="card cardTotal">
@@ -328,22 +326,22 @@
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda"> Subtotal:</div>
-                        <div class="col colTotalDireita" id="subtotal" name="subtotal">{{ ($linha!=null) ? $linha['preco'] : 'R$ 0.00' }}</div>
+                        <div class="col colTotalDireita" id="subtotal" name="subtotal">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Descontos:</div>
-                        <div class="col colTotalDireita" id="descontos" name="descontos">R$ 0.00</div>
+                        <div class="col colTotalDireita" id="descontos" name="descontos">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Troco:</div>
-                        <div class="col colTotalDireita" id="troco" name="troco">R$ 0.00</div>
+                        <div class="col colTotalDireita" id="troco" name="troco">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col colTotalEsquerda">Total a pagar:</div>
-                        <div class="col colTotalDireita" id="total" name="total">R$ 0.00</div>
+                        <div class="col colTotalDireita" id="total" name="total">R$ 0,00</div>
                     </div>
                     <hr>
                     <div class="row">

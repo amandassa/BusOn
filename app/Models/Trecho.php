@@ -50,10 +50,13 @@ class Trecho extends Model {
         }
     }
 
-    // método de acesso ao codigo
+    /**
+     * Metodo retorna um ou mais codigos conforme um valor (parametro)de uma coluna especificada
+     * @return [codigos] ou codigo
+     */
     public static function getCodigo($coluna, $parametro) {
-        $query = "SELECT codigo FROM trecho WHERE ".$coluna." LIKE :cp";
-        $codigo = DB::select($query, ['cp' => $parametro]);
+        $query = "SELECT codigo FROM trecho WHERE ".$coluna." LIKE :parametro";
+        $codigo = DB::select($query, ['parametro' => $parametro]);
         if($codigo)
             return $codigo;
         else
