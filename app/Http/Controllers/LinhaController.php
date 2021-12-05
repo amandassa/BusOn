@@ -330,6 +330,11 @@ class LinhaController extends Controller
                         ->with('success', 'Alterações canceladas');
         }
 
+        if ($request['trechos']){
+            return redirect()
+                ->route('buscarTrechos', $request);
+        }
+
         $linha = Linha::editarLinha($request);
         if ($linha['id'] == 1) {
             return redirect()
