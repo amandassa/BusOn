@@ -21,8 +21,8 @@ nav{
 }
 
 .page-item.active .page-link{
-    color: #f9c536;
-    background-color: black;
+    color: white;
+    background-color: #1B5576;
 }
 
 .page-link{
