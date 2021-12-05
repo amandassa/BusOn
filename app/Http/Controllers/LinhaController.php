@@ -107,9 +107,8 @@ class LinhaController extends Controller
         {            
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status]);
         }
-        else {
-            $linhas2 = $this->calcularHorarios($linhas, $hoje);
-            return view('funcionario.vender_passagens', ['linhas'=>$linhas2, 'status'=>'Consulta realizada com sucesso!!']);
+        else {            
+            return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
         }
     }
 

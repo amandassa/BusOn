@@ -3,6 +3,8 @@
 @section('title', 'Gerar Relatório - ')
 @section('content')
 <link href="/css/estiloPadrao.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>
 
 <style>
   @media print {
@@ -18,6 +20,7 @@
 
 <script>  
   $(document).ready(function(){
+    $(".cpf").mask('000.000.000-00');
 
   $("#div_impressao").printThis();
 
@@ -67,14 +70,12 @@
           <tr>
             <th scope="col">Nº</th>
             <th scope="col">Nome</th>
-            <th scope="col">cpf</th>
+            <th scope="col">CPF</th>
             <th scope="col">Passagem</th>
             <th scope="col">Cidade de Partida</th>          
-            <th scope="col">Data Partida</th>          
-            <th scope="col">Hora Partida</th>          
+            <th scope="col">Data Partida <br> Hora Partida</th>                        
             <th scope="col">Cidade de Chegada</th>          
-            <th scope="col">Data Chegada</th>                      
-            <th scope="col">Hora Chegada</th>     
+            <th scope="col">Data Chegada <br> Hora Chegada</th>                                  
           </tr>
           </thead>
         <tbody>                                            
@@ -82,14 +83,12 @@
               <tr>
                 <th scope="row"> {{ $passagem['num_assento'] }} </th>                  
                   <td> {{ $passagem['nome'] }} </td>
-                  <td> {{ $passagem['cpf'] }} </td>                  
+                  <td id="cpf"> {{ $passagem['cpf'] }} </td>                  
                   <td> {{ $passagem['codigo'] }} </td>                  
                   <td> {{ $passagem['cidade_partida'] }} </td>                  
-                  <td> {{ $passagem['data_partida'] }}</td>
-                  <td> {{ $passagem['horario_partida'] }} </td>                 
+                  <td> {{ $passagem['data_partida'] }} <br> {{ $passagem['horario_partida']}}</td>                  
                   <td> {{ $passagem['cidade_chegada'] }} </td>                  
-                  <td> {{ $passagem['data_chegada'] }}</td>
-                  <td> {{ $passagem['horario_chegada'] }} </td>                   
+                  <td> {{ $passagem['data_chegada'] }} <br> {{  $passagem['horario_chegada']}}</td>                  
               </tr>
               @endforeach               
         </tbody>

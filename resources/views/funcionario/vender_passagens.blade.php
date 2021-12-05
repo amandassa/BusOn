@@ -297,7 +297,7 @@
                              <th scope="row">{{ $linha['codigo']}}</th>
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
-                                <td> {{substr($linha['horario_partida'], 0,-3)}}</td> <!--Retira os segundos da hora de saída -->
+                                <td> {{ $linha['hora_partida'] }}</td> <!--Retira os segundos da hora de saída -->
                                 @php
                                     $preco = $linha['preco'];                                                                        
                                 @endphp
