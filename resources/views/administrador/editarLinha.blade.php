@@ -164,12 +164,9 @@
                     </div>
 
                     <div class="btnBaixo">
-                        <a class="btn botaoAzul" id="editarTrecho" style="min-width:0px;" role="button" href=""> Editar Trechos <i class="fas fa-edit"></i></a>
-                        <div class="direita">
-                            <button type="sumbit" class="btn botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar </button>
-                            <button type="submit" class="btn botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
-                        </div>
-                        
+                        <button type="submit" class="botao botaoAzul" id="btnTrecho" name="trechos" value="6" href="{{route('buscarTrechos')}}">Editar trechos</button>
+                        <button type="submit" class="botao botaoAzul" id="btnResetar" name="cancel" value="5" href="{{route('editarLinha')}}">Cancelar Alterações</button>
+                        <button type="submit" class="botao botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
                     </div>
                 </form>
             </div>
