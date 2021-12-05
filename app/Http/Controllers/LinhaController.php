@@ -356,7 +356,7 @@ class LinhaController extends Controller
 
         if ($request['trechos']){
             return redirect()
-                ->route('buscarTrechos', $request);
+                ->route('editarTrecho', $request);
         }
 
         $linha = Linha::editarLinha($request);
