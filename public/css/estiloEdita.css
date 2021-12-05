@@ -1,5 +1,5 @@
 .card{
-    margin: 0px; 
+    margin: 5px; 
 }
 
 .form-group {
@@ -44,14 +44,14 @@
 }
 
 
-.btnBaixo#editarTrecho {
+.btnBaixo#btnTrecho {
     position: absolute;
     bottom: 0;
     left: 0;
     
 }
 
-.botaoAzul#editarTrecho{
+.botaoAzul#btnTrecho{
     margin-left: -6px;
 
 }

@@ -60,6 +60,8 @@
                                 <th scope="col">Cidade de Destino</th>
                                 <th scope="col">Preço</th>
                                 <th scope="col">Duração de viagem</th>
+                                <th scope="col">Selecionar</th>
+                
                             </tr>
                             </thead>
                         <tbody>                        

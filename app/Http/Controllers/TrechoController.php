@@ -76,4 +76,7 @@ class TrechoController extends Controller
         //dd($new_trecho_arr);
         //return view('administrador.adicionarLinha', ['trechos'=>array_push(), $new_trecho_arr]);
     }
+
+
+   
 }
