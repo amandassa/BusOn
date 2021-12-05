@@ -111,7 +111,7 @@ class Funcionario extends Authenticatable {
         $cpf_cliente = str_replace(".", "", $cpf_cliente);
         $cpf_cliente = str_replace("-", "", $cpf_cliente);
 
-        $data =  date('y/m/d');
+        $data =  date('y/m/d'); //Data de hoje
 
         $cod_linha = $request['cod_linha'];
         $valor = $request['preco_atual'];
@@ -122,9 +122,9 @@ class Funcionario extends Authenticatable {
         $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_linha])[0];
         $max_vagas = $vagas->total_vagas;
 
-        $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas);
+        $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas); //Pega um assento disponível para o passageiro
         
-        if($num_assento > 0 &&  $num_assento <= $max_vagas){
+        if($num_assento > 0 &&  $num_assento <= $max_vagas){  //Se ainda há vagas disponíveis para essa linha, a venda é permitida
 
             
             DB::insert('INSERT INTO passagem (codigo_linha, cpf_cliente, data, num_assento, cidade_partida, cidade_chegada) VALUES (?, ?, ?, ?, ?, ?);', [$cod_linha, $cpf_cliente, $data,  $num_assento, $partida, $destino]);
@@ -140,7 +140,8 @@ class Funcionario extends Authenticatable {
             DB::insert('INSERT INTO pagamento_dinheiro (dinheiro_recebido, codigo_pagamento) VALUES (?, ?);', [$valor, $id_pagamento]);
 
             return 1;
-        } else return 0;
+        } 
+        else return 0; //Venda não sucedida por falta de vagas na linha
 
     }
 
