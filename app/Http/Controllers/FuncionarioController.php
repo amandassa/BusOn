@@ -24,9 +24,10 @@ class FuncionarioController extends Controller {
 
 
     public function gerarRelatorioViagem(){
-        //$codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);");        
-        $codigo_linha = 1;        
-        $dataconv = date('2021-12-03');
+        $codigo_linha = DB::select("SELECT trechos_linha.codigo_linha FROM trechos_linha WHERE trechos_linha.ordem = (SELECT max(ordem) from trechos_linha);")[0]->codigo_linha;        
+        $data_linha = Linha::getData()
+        
+        $dataconv = date('Y-m-d');
         $passagens_viagem =  DB::select("SELECT * FROM passagem where codigo_linha = :codlinha and CAST(data AS date) = :data", ["codlinha" => $codigo_linha, "data" => $dataconv]);
         $clientes = Cliente::getClientes();                
         // Realiza a busca pelos nomes dos clientes com base no cpf        

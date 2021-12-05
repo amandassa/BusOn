@@ -68,9 +68,9 @@
                                         <td> Comum </td>
                                     @endif
                                     
-                                    <td><button type="button" class="btn btn-info" id="btnSel">
-                                    <a href="{{route('pagamento',['linha' => $linha])}}"></a>    
-                                    Selecionar</button></td>
+                                    <td>
+                                    <a type="button" class="btn botao botaoAmarelo" href="{{route('pagamento', ['linha' => $linha])}}">Selecionar</a>    
+                                    </td>
                                 </tr>
                             @endforeach          
                             </tbody>

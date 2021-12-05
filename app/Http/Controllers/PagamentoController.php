@@ -20,13 +20,8 @@ class PagamentoController extends Controller
      * @return view cliente.pagamento
      */
     public function index(Request $request)
-    {
-        $linha['codigo'] = $request['codigo'];
-        $linha['direta'] = $request['direta'];
-        $linha['total_vagas'] = $request['total_vagas'];
-        $linha['dias_semana'] = $request['dias_semana'];
-        $linha['hora_partida'] = $request['hora_partida'];                
-        return view('cliente.pagamento', ['linha' => $linha, 'codigo' => $request['codigo']]);
+    {                        
+        return view('cliente.pagamento', ['linha' => $request->linha]);
     }    
 
     /**
@@ -36,6 +31,7 @@ class PagamentoController extends Controller
      */
     public function create(Request $request)
     {
+        
         // Verifica se os dados foram preenchidos corretamente
         if($request['opcao'] == 1){            
                 $dados_validados = $request->validate([
@@ -53,15 +49,15 @@ class PagamentoController extends Controller
             ]);
         }
 
-        $linha = json_decode($request['linha_i']); // Captura e ajusta linha selecionada 
-        $max_vagas = intval($linha->total_vagas); 
-        $num_assento = Passagem::getNumAssento(intval($linha->codigo), $max_vagas);
+        $linha = $request->linha; // Captura e ajusta linha selecionada         
+        $max_vagas = intval($linha['total_vagas']); 
+        $num_assento = Passagem::getNumAssento(intval($linha['codigo']), $max_vagas);
         
         // Verifica se ainda há passagens disponíveis
         if($num_assento == 0) return view('cliente.selecao', ['erro', 'Todas as passagens para essa linha já foram vendidas, tente outro horário!']);
                 
         // Verifica se a passagem foi registrada no sistema (comprada)
-        if(Passagem::criar($num_assento, intval($linha->codigo), "Cidade Partida", "Cidade Chegada", Carbon::now(), Auth::guard('cliente')->user()->cpf) == null) 
+        if(Passagem::criar($num_assento, intval($linha['codigo']), "Cidade Partida", "Cidade Chegada", Carbon::now(), Auth::guard('cliente')->user()->cpf) == null) 
             return view('cliente.pagamento', ['erro', 'Não foi possível comprar a passagem, tente novamente!']);
         
         $codigo_passagem = Passagem::getCodigoUltimo('cpf_cliente', Auth::guard('cliente')->user()->cpf);
@@ -77,7 +73,7 @@ class PagamentoController extends Controller
         switch($request['opcao']){
             // Cartão de Crédito
             case 1:
-                $num_cartao =  $request['numero_cartao']; // remove os espaços em branco no cartao de credito
+                $num_cartao =  $request['numero_cartao']; 
                 $parcelas = intval($request['parcela']);
                 $validade = $request['validade_cartao'];
                 $ccv = $request['ccv_cartao'];

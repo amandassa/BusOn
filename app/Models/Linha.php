@@ -39,6 +39,20 @@ class Linha extends Model {
     }
 
     /**
+     * Metodo estatico que consulta a coluna tipo da linha cujos registros correspondem com um valor (parametro) especificado em uma dada coluna da linha
+     * @return 1 array que um ou mais tipos correspondentes a requisicao realizada ao banco de dados
+     * @return null caso não existam correspondências no banco de dados a coluna e ao parâmetro especificado
+     *  */    
+    public static function getTotalVagas($coluna, $parametro){
+        $query = "SELECT total_vagas FROM linha WHERE ".$coluna." LIKE :parametro";
+        $total_vagas = DB::select($query, ['parametro' => $parametro]);
+        if ($total_vagas) {
+            return $total_vagas;
+        } else {
+            return null;
+        }
+    }
+    /**
      * Metodo estatico que consulta a coluna dias_semana da linha cujos registros correspondem com um valor (parametro) especificado em uma dada coluna da linha
      * @return 1 array que um ou mais dias_semana correspondentes a requisicao realizada ao banco de dados
      * @return null caso não existam correspondências no banco de dados a coluna e ao parâmetro especificado
@@ -78,6 +92,13 @@ class Linha extends Model {
             return $preco[0]->soma;
         } else {
             return 0;
+        }
+    }
+
+    public static function getProximaDataValida($datas){
+        $array_datas = explode(';', $datas);
+        for($i = 0; $i < 7; $i++){
+            $atual = date('Y-m-d');            
         }
     }
 

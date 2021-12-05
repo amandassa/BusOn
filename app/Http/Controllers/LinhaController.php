@@ -223,10 +223,12 @@ class LinhaController extends Controller
                                 $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
                                 $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
                                 $preco = $preco[0]->soma;                                                            
+                                $total_vagas = Linha::getTotalVagas('codigo', $codigo->codigo_linha);
                                 $linha = [
                                     'codigo'=>$codigo->codigo_linha, 
                                     'partida'=>$cidade_partida[0]->cidade_partida, 
                                     'destino'=>$destino[0]->cidade_chegada,
+                                    'total_vagas'=>$total_vagas[0]->total_vagas,
                                     'tipo'=>$tipo[0]->direta,                                                                        
                                     'preco'=> number_format(floatval($preco), 2, ',', '.')
                                 ];
@@ -261,8 +263,10 @@ class LinhaController extends Controller
                         if(in_array($dia, $data)){
                             $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
                             $preco = $preco[0]->soma;                    
+                            $total_vagas = Linha::getTotalVagas('codigo', $codigo_linha);
                             $linha = [
                                 'codigo'=>$codigo_linha, 
+                                'total_vagas'=>$total_vagas[0]->total_vagas,
                                 'partida'=>$cidade_partida[0]->cidade_partida, 
                                 'destino'=>$cidade_chegada[0]->cidade_chegada,
                                 'tipo'=>$tipo[0]->direta,                                                
@@ -293,8 +297,7 @@ class LinhaController extends Controller
         }
         else{          
             if(($url[1] == 'selecao')){
-                if($erros == null)
-                    return view('cliente.selecao', ['linhas'=> $this->calcularHorarios($request['data_partida'], $linhas), 'erros' => $erros]);
+                return view('cliente.selecao', ['linhas'=> $this->calcularHorarios($request['data_partida'], $linhas), 'erros' => $erros]);
             }else 
                 return view('funcionario.vender_passagens')->with(['linhas' => $linhas2, $request->flash()]);
         }

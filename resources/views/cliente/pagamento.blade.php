@@ -11,9 +11,9 @@
     $(document).ready(function(){
         $("#cpf").mask('999.999.999-99');
         $("#numero_cartao").mask('9999 9999 9999 9999');
-        $("#validade_cartao").mask('99/99');    
+        $("#validade_cartao").mask('99/99');              
         
-        $("#criarFuncionario").submit(function() {
+        $("#pagamento").submit(function() {
             $("#cpf").unmask();
             $("#numero_cartao").unmask();
         });
@@ -91,7 +91,7 @@
                     @endforeach
                 </ul>
             </div>
-            @endif              
+            @endif                          
                 <section class="content">
                 <h3>Forma de Pagamento</h3>
                     <div class="container-fluid">
@@ -109,6 +109,10 @@
                                     Pix</button>
                                 <hr/>     
                                 
+                                <form  class="form" action="{{ route('confirmacao', ['linha' => $linha]) }}" method="post" id="pagamento">
+                                @csrf               
+                                <input type='hidden' class="form-group" name='opcao' id='opcao' value='1'/>              
+
                                 <!--Boleto--> 
                                 <div id="boleto" style="font-size: medium; text-align:justify">
                                     <p>Após clicar em Comprar Passagem você será redirecionado para uma página em que será possível acessar o boleto gerado.</p>
@@ -117,9 +121,8 @@
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
                                           Pagamentos com boleto são identificados em até 3 dias. </p>
                                 </div>
-                                <!--Pix-->
-                                <form  class="form" action="{{ route('confirmacao') }}" method="post">
-                                @csrf                  
+
+                                <!--Pix-->                                   
                                 <div id="pix" style="font-size: medium; text-align:justify">
                                     <p>Após clicar em Comprar Passagem o código QR Code e código de pagamento do Pix será gerado para a efetuação do pagamento.</p>
                                     <p> <i class="fas fa-check-circle" style="color: green"></i>
@@ -131,9 +134,7 @@
                                     </div>
                                 </div>
                                                                 
-                                 <!--Cartão-->                                  
-                                <input type='hidden' class="form-group" name='linha_i' value='<?php echo json_encode($linha); ?>'/>              
-                                <input type='hidden' class="form-group" name='opcao' id='opcao' value='1'/>              
+                                 <!--Cartão-->                                                                                                  
                                     <div class="form-group" id="cartao">
                                         <div class="container" style="padding-left:0px;">                             
                                             <div class="row">
@@ -190,15 +191,15 @@
                     <div class="container-fluid">
                         <div class="card card-default">                        
                             <div class="card-body">                            
-                                <p class="textoAmarelo" style="text-align:left; font-size:18px;">Feira de Santana >>> Jaguaquara</p>
-                                <p class="textoPreto" style="text-align:left; font-size:10px;">25/08/2021 às 18:00hrs</label>
+                                <p class="textoAmarelo" style="text-align:left; font-size:18px;">{{ $linha['partida']}} >>> {{ $linha['destino']}}</p>
+                                <label class="textoPreto" style="text-align:left; font-size:12px;">Saída: {{ $linha['data_partida']}} às {{ $linha['hora_partida'] }}</label><br>
+                                <label class="textoPreto" style="text-align:left; font-size:12px;">Previsão de chegada: {{ $linha['data_chegada']}} às {{ $linha['hora_chegada'] }}</label>
                                 <ol>
-                                    <li>Assento linha {{ ($linha['direta']?"direta":"comum") }} R$58,00</li>
-                                    <li>Seguro de viagem (Obrigatório) R$5,60</li>    
+                                    <li>Assento linha {{ ($linha['tipo']?"direta":"comum") }} R$ {{ $linha['preco']}}</li>                                    
                                 </ol>                                
                                 <hr/>    
                                 <p><b>Subtotal:</b></p>
-                                <h4 class="textoAmarelo" style="text-align:left; font-size:32px; font-weight: bolder;">R$65,00</h4>
+                                <h4 class="textoAmarelo" style="text-align:left; font-size:32px; font-weight: bolder;">R$ {{$linha['preco']}}</h4>
                             </div>
                         </div>
                             <br>                        
