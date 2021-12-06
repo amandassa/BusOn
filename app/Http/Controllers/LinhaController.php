@@ -173,9 +173,11 @@ class LinhaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function apagar(Request $request)
     {
-        //
+        $confirmacao = Linha::apagar($request->codigo);
+        if($confirmacao)
+            return $this->index()->with(['status' => "Linha deletada com sucesso!"]);
     }
 
     /**
@@ -298,7 +300,7 @@ class LinhaController extends Controller
             if(($url[1] == 'selecao')){
                 return view('cliente.selecao', ['linhas'=> $this->calcularHorarios($request['data_partida'], $linhas), 'erros' => $erros]);
             }else 
-                return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash()]);
+                return view('funcionario.vender_passagens')->with(['linhas' => $this->calcularHorarios($request['data_partida'], $linhas), $request->flash()]);
         }
     }
 

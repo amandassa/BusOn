@@ -52,12 +52,12 @@ class PagamentoController extends Controller
         $linha = $request->linha; // Captura e ajusta linha selecionada         
         $max_vagas = intval($linha['total_vagas']); 
         $num_assento = Passagem::getNumAssento(intval($linha['codigo']), $max_vagas);
-        
+
         // Verifica se ainda há passagens disponíveis
         if($num_assento == 0) return view('cliente.selecao', ['erro', 'Todas as passagens para essa linha já foram vendidas, tente outro horário!']);
                 
         // Verifica se a passagem foi registrada no sistema (comprada)
-        if(Passagem::criar($num_assento, intval($linha['codigo']), "Cidade Partida", "Cidade Chegada", Carbon::now(), Auth::guard('cliente')->user()->cpf) == null) 
+        if(Passagem::criar($num_assento, intval($linha['codigo']), $linha['partida'], $linha['destino'], Carbon::now(), Auth::guard('cliente')->user()->cpf) == null) 
             return view('cliente.pagamento', ['erro', 'Não foi possível comprar a passagem, tente novamente!']);
         
         $codigo_passagem = Passagem::getCodigoUltimo('cpf_cliente', Auth::guard('cliente')->user()->cpf);
