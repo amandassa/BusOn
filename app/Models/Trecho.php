@@ -159,7 +159,7 @@ class Trecho extends Model {
         $trechos = [];
 
        foreach ($selec as $trecho_sel){
-           $infos =  DB::select("SELECT * FROM trecho WHERE codigo =?", [$trecho_sel->codigo_trecho])[0];
+           $infos =  DB::select("SELECT * FROM trecho NO WHERE codigo =?", [$trecho_sel->codigo_trecho])[0];
            $trecho = [
                'codigo' => $trecho_sel->codigo_trecho,
                'codigo_trecholinha' => $trecho_sel->codigo,
@@ -190,7 +190,8 @@ class Trecho extends Model {
                'cidade_partida' => $trecho_sel->cidade_partida,
                'cidade_chegada' => $trecho_sel->cidade_chegada,
                'duracao' =>$trecho_sel->duracao,
-               'preco' => $trecho_sel->preco
+               'preco' => $trecho_sel->preco,
+               'ordem' => ""
                 
            ]; array_push($trechos, $trecho);
        } 
@@ -200,6 +201,24 @@ class Trecho extends Model {
 
 
     public static function edicao( Request $request){
-       dd($request);
+        $codigo_trecho = $request['codigo'];
+        $selecionar = DB::select("SELECT * FROM trecho where codigo=?",[$codigo_trecho]); 
+        $partida = $request['partida'];
+        $destino = $request['destino'];
+        $preco = $request['preco'];
+        $duracao = $request['duracao'];
+        $ordem = $request ['ordem'];
+        $codigo_linha =$request['codLinha'];
+
+        if(empty($ordem)){
+            DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
+            where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
+            dd('editado');
+        }else{
+            dd('ainda n');
+        }
+       
+
+
     }
 }

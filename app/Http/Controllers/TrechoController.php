@@ -86,7 +86,10 @@ class TrechoController extends Controller
 
     function editar(Request $request){
         $edit = Trecho::edicao($request);
+        
+        
+        
     }
-
+    
    
 }
