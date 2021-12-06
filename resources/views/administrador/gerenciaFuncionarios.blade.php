@@ -5,6 +5,7 @@
 @section('content')  
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/estiloVP.css">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -16,7 +17,7 @@
     $(document).ready(function() {
       
       //Script do datatable - serve para deixar a tabela com varias funcionalidades      
-      $('#tabea').DataTable({
+      $('#tabela').DataTable({
         select:{}, 
         info:false, 
         pageLength : 5,
@@ -57,15 +58,14 @@
 
   <div class="container">        
     <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->      
-      <a class="btn botaoAmarelo" href="#" role="button">Lista de Funcionários</a>
+      <a class="btn botaoAmarelo botaoCancelar" id="btnCancel" href="#" role="button">Lista de Funcionários</a>
       <a class="btn botaoAmarelo" href="gerenciaClientes" style="margin-left: 2em; margin-right: 2em;"role="button">Lista de Clientes</a>
-      <a class="btn botaoAmarelo" href="cadastroFuncionario" role="button">Cadastrar Funcionário</a>          
       <a class="btn botaoAzul" style="margin-left: 2em;" href="/" role="button">Voltar</a>          
     </div>
     
-    <div class="card text-center"> <!--card com informações e ações sobre funcionarios cadastrados e fazer cadastros no sistema-->
+    <div class="card"> <!--card com informações e ações sobre funcionarios cadastrados e fazer cadastros no sistema-->
 
-      <div class="card-header" id="meio">
+      <div class="card-header text-center" id="meio">
 
         <form method="POST" class="form" action="{{route('buscar_fun')}}">
           @csrf   
@@ -100,10 +100,13 @@
             </div>
           </div>
         </form>
+        <div class="card-footer text-center">
+          <a class="btn botaoAmarelo" href="cadastroFuncionario" role="button">Cadastrar novo funcionário</a>          
+        </div>
       </div>
 
       <div class="card-body">
-        <table class="table table-bordered table-hover" id="tabela" name="form-control">
+        <table class="table table-bordered table-hover text-center" id="tabela" name="form-control">
           <thead>
             <tr>
               <th scope="col" class="">Matrícula</th>
@@ -134,8 +137,8 @@
                       @endif
                     </td>
                     <td>
-                    <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                    <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
+                      <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
+                      <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
                     </td>
                   </tr> 
                   @endforeach
@@ -143,7 +146,6 @@
           </tbody>
         </table>
       </div>            
-
     </div>
   </div>
 
