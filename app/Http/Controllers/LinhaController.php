@@ -118,16 +118,16 @@ class LinhaController extends Controller
         $url = explode("/", $_SERVER["REQUEST_URI"]);        
         if($url[1] == 'consultar_linhas') 
         {            
-            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status, 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
+            return view('funcionario.consultar_linhas', ['linhas'=>$this->calcularHorarios($hoje, $linhas), 'status'=>$status, 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
         }
         else { 
             if($url[1] == 'venderPassagens'){
                 return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
             } else if ($this->trava == 1){                                    
                     $this->trava = 5;
-                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>"Linha apagada com sucesso!", 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
+                    return view('funcionario.consultar_linhas', ['linhas'=>$this->calcularHorarios($hoje, $linhas), 'status'=>"Linha apagada com sucesso!", 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
                 } else {
-                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'erros'=>["Erro ao apagar a linha!"], 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
+                    return view('funcionario.consultar_linhas', ['linhas'=>$this->calcularHorarios($hoje, $linhas), 'erros'=>["Erro ao apagar a linha!"], 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
                 }            
         }
     }
@@ -207,8 +207,7 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function consulta (Request $request)
-    {                 
-        
+    {                                 
         $linhas = []; 
         $erros = [];
         $consultas_trechos_partida = DB::select("select cidade_partida from trecho");
@@ -221,7 +220,22 @@ class LinhaController extends Controller
         foreach($consultas_trechos_chegada as $consulta){
             array_push($trechos_chegada, $consulta->cidade_chegada);
         }
-        $status = "";                    
+        $status = "";         
+
+        
+        if($request['codigo'] != null){            
+            $linha_consulta = [
+                'codigo' =>$request->codigo,
+                'partida' => $request->partida,
+                'destino' => $request->destino,
+                'tipo' => $request->tipo,
+                'hora_partida' => $request->hora_partida,
+                'preco' => $request->preco
+            ];                  
+            array_push($linhas, $linha_consulta);
+            return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'linha_consulta' => $linha_consulta]);        
+        }
+
         $dia = date('w', strtotime($request['data_partida'])); // Converte a data inserida ao seu equivalente em dia da semana                
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){ // Verifica  o tipo de consulta
             $cidade_partida = $request['cidade_partida'];
@@ -320,17 +334,18 @@ class LinhaController extends Controller
                 array_push($erros, "Não há linha com o código informado");
             }
         }                
-        
-        $url = explode("/", $_SERVER["REQUEST_URI"]);
+                
+        $url = explode("/", $_SERVER["REQUEST_URI"]);                
         if($url[1] == 'consultar_linhas') 
         {
-            return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $erros, 'status' => $status, 'linha' => $request['linha'], 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
+            return view('funcionario.consultar_linhas')->with(['linhas' => $this->calcularHorarios($request['data_partida'], $linhas), $request->flash(), 'errors' => $erros, 'status' => $status, 'linha' => $request['linha'], 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
         }
         else{          
             if(($url[1] == 'selecao')){
                 return view('cliente.selecao', ['linhas'=> $this->calcularHorarios($request['data_partida'], $linhas), 'erros' => $erros]);
-            }else 
-                return view('funcionario.vender_passagens')->with(['linhas' => $this->calcularHorarios($request['data_partida'], $linhas), $request->flash()]);
+            }else {                                                
+                    return view('funcionario.vender_passagens')->with(['linhas' => $this->calcularHorarios($request['data_partida'], $linhas), $request->flash()]);                
+            }
         }
     }
 
