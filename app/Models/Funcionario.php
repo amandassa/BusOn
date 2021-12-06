@@ -159,9 +159,9 @@ class Funcionario extends Authenticatable {
         $data_uma_semana_atras = $data->modify('-7 day')->format('Y-m-d');  //Pega a data 7 dias antes
         $data_uma_mes_atras = $data->modify('+7 day')->modify('-1 month')->format('Y-m-d'); //Pega a data 30 dias antes
     
-        $qtd_vendas_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND $data_hoje = (SELECT data FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
-        $qtd_vendas_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_semana_atras AND $data_hoje)"); 
-        $qtd_vendas_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT data FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN $data_uma_mes_atras AND $data_hoje)"); 
+        $qtd_vendas_hoje = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND '$data_hoje' = (SELECT date(data) FROM passagem WHERE venda.codigo_passagem = passagem.codigo)");
+        $qtd_vendas_7dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT date(data) FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN '$data_uma_semana_atras' AND '$data_hoje')"); 
+        $qtd_vendas_30dias = DB:: select("SELECT COUNT(*) as contagem_vendas FROM venda WHERE venda.matricula_vendedor = $mat_funcionario AND ((SELECT date(data) FROM passagem WHERE venda.codigo_passagem =  passagem.codigo) BETWEEN '$data_uma_mes_atras' AND '$data_hoje')"); 
 
         return ['qtd_vendas_hoje' => $qtd_vendas_hoje[0]->contagem_vendas, 
                 'qtd_vendas_7dias' => $qtd_vendas_7dias[0]->contagem_vendas,

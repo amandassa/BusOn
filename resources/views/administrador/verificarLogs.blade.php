@@ -132,7 +132,10 @@
                 @else
                     <tr>
                         @foreach ($logs as $log)
-                            <th scope="row"> {{ $log->data_hora }} </th>
+                                @php 
+                                    $data = date('d/m/Y H:m:s', strtotime(str_replace('/', '-', $log->data_hora)))
+                                @endphp
+                                <th scope="row">{{ $data }}</th>
                                 <td> {{ $log->nome }} </td>
                                 <td> {{ $log->email }} </td>
                                 <td> {{ $log->descricao }} </td>
