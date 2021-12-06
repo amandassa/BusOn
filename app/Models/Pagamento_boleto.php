@@ -16,7 +16,7 @@ class Pagamento_boleto extends Model
     public static function codigoBarrasDisponivel($codigo_barras)
     {
         $query = "SELECT codigo_barras FROM pagamento_boleto";
-        $codigos = DB::select($query, ['codigo_barras' => $codigo_barras]);
+        $codigos = DB::select($query);
         foreach ($codigos as $codigo)
         {
             if($codigo_barras == $codigo->codigo_barras) 

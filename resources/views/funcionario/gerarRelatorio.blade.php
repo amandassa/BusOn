@@ -5,6 +5,10 @@
 <link href="/css/estiloPadrao.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
 
 <style>
   @media print {
@@ -19,8 +23,19 @@
 </style>
 
 <script>  
+
   $(document).ready(function(){
-    $(".cpf").mask('000.000.000-00');
+    $(window).on("load", function(){
+      $("#cpf").mask('999.999.999-99') //máscara cpf
+  });        
+
+  $('#gerarRelatorio').DataTable( {
+    select:{selector:'#btnSel'},
+    searching: false,
+    info:false, 
+    bPaginate:false,
+} );
+
 
   $("#div_impressao").printThis();
 
@@ -63,9 +78,15 @@
 
     @isset($linha_chegada)
     <h4> Relatório de Passageiros da linha: {{$linha_partida}} x {{ $linha_chegada}} </h4>
-    @endisset
-
-      <table class="table">
+    
+    @if(count($passagens) == 0 )
+        <div class="alert alert-warning alert-dismissable">
+          Sem passagens registradas para a linha <b>{{$linha_partida}}</b> x <b> {{ $linha_chegada}} </b> na data <b>{{ date('d/m/Y', strtotime($data_partida))}} </b>!  
+      </div>
+    @endif
+    @endisset    
+    
+      <table class="table" id="gerarRelatorio">
           <thead>
           <tr>
             <th scope="col">Nº</th>
@@ -83,7 +104,7 @@
               <tr>
                 <th scope="row"> {{ $passagem['num_assento'] }} </th>                  
                   <td> {{ $passagem['nome'] }} </td>
-                  <td id="cpf"> {{ $passagem['cpf'] }} </td>                  
+                  <td> {{ $passagem['cpf'] }} </td>                  
                   <td> {{ $passagem['codigo'] }} </td>                  
                   <td> {{ $passagem['cidade_partida'] }} </td>                  
                   <td> {{ $passagem['data_partida'] }} <br> {{ $passagem['horario_partida']}}</td>                  

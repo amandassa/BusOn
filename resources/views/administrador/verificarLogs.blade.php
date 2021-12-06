@@ -22,7 +22,7 @@
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
         language: 
         {
-            lengthMenu: "Exibir _MENU_",
+            lengthMenu: "Exibir _MENU_ linhas",
             search: "Busca rápida",
             zeroRecords: "Nenhum dado foi encontrado!",
             oPaginate: 
@@ -57,24 +57,28 @@
             <div class="card-body">
                 <form method="POST" class="form" action="{{route('Logs')}}">
                     @csrf
-                    <div class="form-group"> 
-                        <label for="idFuncionario"><b>Pesquisar por usuário</b></label>
-                        <input type="text" class="form-control" name="idFuncionario" id="idFuncionario" placeholder="Dados do administrador">
-                        <select name="buscaOp" id="buscaOp">
-                            <option value="nome">Nome</option>
-                            <option value="cpf">CPF</option>
-                            <option value="email">Email</option>
-                            <option value="matricula">Matricula</option>
-                        </select>
+                    <label for="buscaUser"><b>Pesquisar por</b></label>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="idFuncionario" id="buscaUser" placeholder="Dados do administrador">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select class="custom-select" name="buscaOp" id="buscaUser">
+                                <option value="nome">Nome</option>
+                                <option value="cpf">CPF</option>
+                                <option value="email">Email</option>
+                                <option value="matricula">Matricula</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div class="row">
-                        <div class="form-group col">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
                             <label for="dataInicio"><b>De</b></label>
                             <input type="date" class="form-control" name="dataInicio" id="dataInicio">
                         </div>
 
-                        <div class="form-group col">
+                        <div class="form-group col-md-6">
                             <label for="dataFim"><b>Até</b></label>
                             <input type="date" class="form-control" name="dataFim" max="<?php echo date("Y-m-d")?>" id="dataFim">
                         </div>
@@ -109,15 +113,15 @@
         <br>
 
         
-        <div class="card text-center" id="div_impressao">
-            <h3 class="card-header">Atualizações no sistema</h3>
-            <table class="table table-bordered table-hover" id="tabela">
+        <div class="card" id="div_impressao">
+            <h3 class="card-header text-center">Atualizações no sistema</h3>
+            <table class="card-body table table-bordered table-hover text-center" id="tabela">
                 <thead>
                     <tr>
-                        <th class="bg-warning">Data</th>
-                        <th class="bg-warning">Administrador</th>
-                        <th class="bg-warning">Contato</th>
-                        <th data-orderable="false" class="bg-warning">Ação</th>
+                        <th scope="col" class="">Data</th>
+                        <th scope="col" class="">Administrador</th>
+                        <th scope="col" class="">Contato</th>
+                        <th data-orderable="false" scope="col" class="">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,7 +132,10 @@
                 @else
                     <tr>
                         @foreach ($logs as $log)
-                            <th scope="row"> {{ $log->data_hora }} </th>
+                                @php 
+                                    $data = date('d/m/Y H:m:s', strtotime(str_replace('/', '-', $log->data_hora)))
+                                @endphp
+                                <th scope="row">{{ $data }}</th>
                                 <td> {{ $log->nome }} </td>
                                 <td> {{ $log->email }} </td>
                                 <td> {{ $log->descricao }} </td>
@@ -139,10 +146,8 @@
             </table>
         </div>
 
-        <div class="d-flex" style="margin-top:2em;">
-            <div class="mx-auto">
-                <button class="botao botaoAmarelo" type="button" onClick="impressao()" >Imprimir</button>
-            </div>
+        <div class="card-footer text-center">
+            <button class="botao botaoAmarelo" type="button" onClick="impressao()" >Imprimir</button>
         </div>
     </div>
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
 use App\Models\Administrador as Adm;
+use App\Models\Log;
 use Dotenv\Regex\Result;
 use App\Models\Linha;
 use Illuminate\Http\Request;
@@ -203,7 +204,7 @@ class AdministradorController extends Controller
 
         //total de acessos de clientes no sistema
         if($request['buscarAcessos'] == null){
-            $data = '2021-12-01';
+            $data = date('Y-m-d');
         }else{
             
             $data = $request['buscarAcessos'];
@@ -234,7 +235,7 @@ class AdministradorController extends Controller
             'cidade_chegada_vendas_linha'=> $vendidas_linha['cidade_chegada'],
             
             'total_acessos' => $total_acessos_cliente->total,
-            'data' => $data
+            'data' => date('d/m/Y', strtotime(str_replace('/', '-', $data)))
 
         ];
         
@@ -250,26 +251,12 @@ class AdministradorController extends Controller
     public function LogsAdministrador(Request $request)
     {
 
-        if($request["idFuncionario"] == null and $request["dataInicio"] == null  and $request["dataFim"] == null){
-            $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A'");
-        }else{
-            $tipoBusca = $request['buscaOp'];
-            $valor = $request['idFuncionario'];
-            $dataInicio = $request["dataInicio"];
-            $dataFim = $request["dataFim"];
-            if($request["idFuncionario"] != null and ($request["dataInicio"] == null  and $request["dataFim"] == null)){
-                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE f.$tipoBusca LIKE '$valor%'");
-            }elseif($request["idFuncionario"] == null and ($request["dataInicio"] != null  and $request["dataFim"] != null)){
-                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE l.data_hora BETWEEN '$dataInicio' and '$dataFim'");
-            }elseif($request["idFuncionario"] == null and $request["dataInicio"] != null  and $request["dataFim"] == null){
-                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE l.data_hora = '$dataInicio'");
-            }elseif($request["idFuncionario"] == null and $request["dataInicio"] == null  and $request["dataFim"] != null){
-                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE l.data_hora = '$dataFim'");
-            }elseif($request["idFuncionario"] != null and $request["dataInicio"] != null  and $request["dataFim"] != null){
-                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE f.$tipoBusca LIKE '$valor%' and l.data_hora BETWEEN '$dataInicio' and '$dataFim'");
-            }
-           
-        }
+        $tipoBusca = $request['buscaOp'];
+        $id = $request['idFuncionario'];
+        $dataInicio = $request["dataInicio"];
+        $dataFim = $request["dataFim"];
+       
+        $logs = Log::buscarLogs($tipoBusca, $id, $dataInicio, $dataFim);
 
        
 

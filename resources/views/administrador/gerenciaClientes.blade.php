@@ -3,10 +3,9 @@
 @section('title', 'Gerenciar Usuários - ')
 
 @section('content')
-  <link href="/css/estiloGerencia.css" rel="stylesheet"> 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/estiloVP.css">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -19,6 +18,7 @@
       
       //Script do datatable - serve para deixar a tabela com varias funcionalidades
       $('#tabela').DataTable({
+        select:{},
         info:false, 
         pageLength : 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
@@ -33,46 +33,51 @@
                 sPrevious: '<i class="fas fa-angle-double-left"></i>'
             }
         }   
-      }); 
+      });
+      document.getElmentById('#tabela').className = "form-control" 
     } )
   </script>
 
   <div class="container">        
-    <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->
-        <a class="btn" id="botaoMigalha" href="gerenciaUsuarios">
-            Lista de funcionários
-        </a>
-        <a class="btn" id="botaoMigalha" href="#">
-            Lista de clientes
-        </a>
+    <div class="row d-flex justify-content-center"> <!--Botoes de seleção para tela inical do funcionario-->      
+      <a class="btn botaoAmarelo" href="gerenciaUsuarios" role="button">Lista de Funcionários</a>
+      <a class="btn botaoAmarelo botaoCancelar" href="#" style="margin-left: 2em; margin-right: 2em;"role="button">Lista de Clientes</a>   
+      <a class="btn botaoAzul" style="margin-left: 2em;" href="/" role="button">Voltar</a>          
     </div>
 
-    <div class="card text-center">
+    <div class="card">
       
-      <div class="card-header" id="meio">
+      <div class="card-header text-center" id="meio">
         
         <form method="POST" class="form" action="{{route('buscar_cliente')}}">
           @csrf
-          <div class="form-inline text-center" style="display: inline-block; position: relative;">
-              <input type="text" name="buscaGu" placeholder="Digite a busca desejada...">
-              <select name="buscaOp">
+          <div class="row justify-content-center">
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="buscaGu" placeholder="Digite a busca desejada...">
+            </div>
+            <div class="col-sm-2">
+              <select class="form-control" name="buscaOp">
                 <option value="nome">Nome</option>
                 <option value="cpf">CPF</option>
                 <option value="email">Email</option>
               </select>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn botaoAmarelo">Buscar</button>
+            </div>
           </div>
-          <button class="btn botaoAmarelo">Buscar</button>
+         
         </form>
         
       </div>
 
       <div class="card-body">
-          <table class="table table-bordered table-hover" id="tabela">          
+      <table class="table table-bordered table-hover text-center" id="tabela" name="form-control">         
             <thead>
               <tr>
-                <th scope="col" class="bg-warning">CPF</th>
-                <th scope="col" class="bg-warning">Nome</th>
-                <th scope="col" class="bg-warning">Email</th>
+                <th scope="col" class="">CPF</th>
+                <th scope="col" class="">Nome</th>
+                <th scope="col" class="">Email</th>
               </tr>
             </thead>
             <tbody>

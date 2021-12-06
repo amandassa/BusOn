@@ -99,4 +99,32 @@ class Log extends Model
         VALUES (?, 'A', 'Administrador ? editou o trecho ?', ?);", [$cpf, $nome, $cod_trecho, $data_hora]);
     }
 
+    /**
+     * Retorna uma lista de logs do banco de dados
+     *
+     * @param $tipoBusca
+     * @param  $id
+     * @param [date] $dataInicio
+     * @param [date] $dataFim
+     * @return $logs - logs do sistema
+     */
+    public static function buscarLogs($tipoBusca, $id, $dataInicio, $dataFim){
+        if($id == null and $dataInicio == null  and $dataFim == null){
+            $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A'");
+        }else{
+            if($id != null and ($dataInicio == null  and $dataFim == null)){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE f.$tipoBusca LIKE '$id%'");
+            }elseif($id == null and ($dataInicio != null  and $dataFim != null)){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE date(l.data_hora) BETWEEN '$dataInicio' and '$dataFim'");
+            }elseif($id == null and $dataInicio != null  and $dataFim == null){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE date(l.data_hora) = '$dataInicio'");
+            }elseif($id == null and $dataInicio == null  and $dataFim != null){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE date(l.data_hora) = '$dataFim'");
+            }elseif($id != null and $dataInicio != null  and $dataFim != null){
+                $logs = DB::select("SELECT l.data_hora, f.nome, f.email, l.descricao FROM logs as l INNER JOIN funcionario as f on f.cpf = l.cpf_usuario and l.tipo_usuario = 'A' WHERE f.$tipoBusca LIKE '$id%' and date(l.data_hora) BETWEEN '$dataInicio' and '$dataFim'");
+            }
+        
+        }
+        return $logs;
+    }
 }
