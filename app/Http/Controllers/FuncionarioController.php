@@ -25,6 +25,7 @@ class FuncionarioController extends Controller {
 
     public function gerarRelatorioViagem(){
         $dia = date('w'); // Converte a data inserida ao seu equivalente em dia da semana                        
+        $erros = [];
         $codigo_linha = DB::select("SELECT codigo FROM linha WHERE dias_semana LIKE concat('%', TRIM(?), '%')", [$dia]);                        
         if($codigo_linha)
             $codigo_linha = $codigo_linha[0]->codigo;
@@ -86,8 +87,8 @@ class FuncionarioController extends Controller {
             $data = $dataHora[1];
             array_push($passagens_clientes, $passagem_cliente);                      
         }                                
-        $passagens_paginadas =  ($passagens_clientes);        
-        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas]);
+            
+        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_clientes, 'data_partida' => $dataconv, 'erros' => $erros]);
     }    
 
     public function buscarRelatorioViagem(Request $request){
@@ -146,8 +147,8 @@ class FuncionarioController extends Controller {
             $data = $dataHora[1];
             array_push($passagens_clientes, $passagem_cliente);                                            
         }                                
-        $passagens_paginadas =  $passagens_clientes;        
-        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_paginadas, 'linha_partida' => $linha_partida, 'linha_chegada' => $linha_chegada]);
+        
+        return view('funcionario.gerarRelatorio', ['passagens' => $passagens_clientes, 'linha_partida' => $linha_partida, 'data_partida' => $dataconv, 'linha_chegada' => $linha_chegada]);
     }
     
     public function editar(Request $request){

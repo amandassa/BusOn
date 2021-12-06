@@ -17,8 +17,7 @@ Route::middleware(['auth:cliente'])->group(function () {
     Route::get('/confirmacao', 'PassagemController@buscarPedido')->name('confirmacao_pedido');
     Route::get('/confirmacaoB', function(){return view('cliente.confirmacao_pagamento.confirmacaoBoleto');})->name('confirmacaoBoleto');
     Route::get('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'index'])->name('perfilCliente');
-    Route::post('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'editar'])->name('perfilCliente.editar');
-    
+    Route::post('/perfilCliente', [App\Http\Controllers\ClienteController::class, 'editar'])->name('perfilCliente.editar');    
 });
 
 //Rotas restritas apenas para FUNCIONARIOS
@@ -37,10 +36,12 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
     Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('finalizar_venda');
+    
 });
 
 //Rotas restritas apenas para ADMNISTRADOR
 Route::middleware(['auth:funcionario', 'adm'])->group(function () {
+    Route::get('/apagar_linha', 'LinhaController@apagar')->name('linha.apagar');
     Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
     Route::post('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('estatisticas');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
@@ -49,9 +50,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
 
     Route::get('/editarLinha', 'LinhaController@indexEditar')->name('editarLinha');
-    Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');
-
-    
+    Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');    
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');

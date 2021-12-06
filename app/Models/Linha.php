@@ -330,6 +330,15 @@ class Linha extends Model {
 
         }
         
+        /**
+         * Remove uma linha e os trechos_linha correspondentes
+         */
+        public static function apagar($codigo){
+            $sucesso = 0;
+            $sucesso = DB::delete("delete from trechos_linha where codigo_linha = ?", [$codigo]);
+            $sucesso = DB::delete("delete from linha where codigo = ?", [$codigo]);
+            return $sucesso;
+        }
     
     
 }

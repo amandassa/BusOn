@@ -117,7 +117,7 @@ CREATE TABLE pagamento_cartao (
     CONSTRAINT pk_codigo_cartao PRIMARY KEY (codigo),
     CONSTRAINT fk_codigopagamento_cartao FOREIGN KEY (codigo_pagamento)
         REFERENCES pagamento(codigo)
-        ON DELETE RESTRICT
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
