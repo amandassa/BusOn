@@ -150,25 +150,25 @@
                                 <th scope="col">Duração de viagem</th>
                                 <th scope="col">Selecionar</th>
                                 <th scope="col">Editar</th>
-                                <th scope="col">Ordem</th>
+                                
                             </tr>
                             </thead>
                         <tbody>                        
-                                @foreach ($trechos as $trecho)
+                                @foreach ($trechos_total as $tt)
                                 <tr>
-                                <th scope="row">{{ $trecho['codigo'] }}</th>
-                                    <td> {{ $trecho['cidade_partida'] }} </td>
-                                    <td> {{ $trecho['cidade_chegada'] }} </td>
-                                    <td>R$ {{ $trecho['preco'] }} </td>
-                                    <td> {{ $trecho['duracao'] }} </td>
+                                <th scope="row">{{ $tt['codigo'] }}</th>
+                                    <td> {{ $tt['cidade_partida'] }} </td>
+                                    <td> {{ $tt['cidade_chegada'] }} </td>
+                                    <td>R$ {{ $tt['preco'] }} </td>
+                                    <td> {{ $tt['duracao'] }} </td>
                                     <td>
-                                        <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($trecho)}}'), this.checked);">
+                                        <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($tt)}}'), this.checked);">
                                     </td>
                                     <td>
                                         <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
-                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" href = "#edit1">Editar</button>
+                                        data-target="edit1" data-codigo="{{ $tt['codigo']}}" data-cidP = {{ $tt['cidade_partida'] }} data-cidC={{ $tt['cidade_chegada'] }} data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ 1}}" >Editar</button>
                                     </td>
-                                    <td> {{ $trecho['ordem'] }} </td>
+                                    <td> 1 </td>
                                     
                                 </tr>
                                 @endforeach                        

@@ -178,6 +178,27 @@ class Trecho extends Model {
     }
 
 
+    public static function getTodos(){
+        
+        $selecionar = DB::select("SELECT * FROM trecho;"); 
+        $trechos = [];
+
+
+       foreach ($selecionar as $trecho_sel){
+           $trecho = [
+               'codigo' => $trecho_sel->codigo,
+               'cidade_partida' => $trecho_sel->cidade_partida,
+               'cidade_chegada' => $trecho_sel->cidade_chegada,
+               'duracao' =>$trecho_sel->duracao,
+               'preco' => $trecho_sel->preco
+                
+           ]; array_push($trechos, $trecho);
+       } 
+       return $trechos;
+    }
+
+
+
     public static function edicao( Request $request){
        dd($request);
     }
