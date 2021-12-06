@@ -160,6 +160,8 @@
                                 checked
                             @endif 
                         @endforeach>  
+
+                    
                         
                     </div>
 

@@ -151,4 +151,34 @@ class Trecho extends Model {
         $result = DB::select($query);
         return $result;
     }
+
+
+    public static function getInfoTrecho(Request $request){
+        $codigo_linha = $request['codigo'];
+        $selec= DB::select("SELECT * FROM trechos_linha WHERE codigo_linha = ?", [$codigo_linha]);
+        $trechos = [];
+
+       foreach ($selec as $trecho_sel){
+           $infos =  DB::select("SELECT * FROM trecho WHERE codigo =?", [$trecho_sel->codigo_trecho])[0];
+           $trecho = [
+               'codigo' => $trecho_sel->codigo_trecho,
+               'codigo_trecholinha' => $trecho_sel->codigo,
+               'codigo_linha' => $trecho_sel->codigo_linha,
+               'ordem' => $trecho_sel->ordem,
+               'cidade_partida' => $infos->cidade_partida,
+               'cidade_chegada' => $infos->cidade_chegada,
+               'duracao' =>$infos->duracao,
+               'preco' => $infos->preco
+                
+                
+                
+           ]; array_push($trechos, $trecho);
+       }
+       return $trechos;
+    }
+
+
+    public static function edicao( Request $request){
+       dd($request);
+    }
 }

@@ -52,6 +52,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');
 
     Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
+    Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');

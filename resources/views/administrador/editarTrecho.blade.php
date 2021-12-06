@@ -31,13 +31,33 @@
         document.getElementById(el).style.display = 'none';
     }
 
+
+    $(document).on('click','.botaoAzul',function(){
+        var userID=$(this).attr('data-codigo');
+        $('#codigoLinha').val(userID); 
+        var userCidp=$(this).attr('data-cidP');
+        $('#cidadePartida').val(userCidp); 
+        var userCidC=$(this).attr('data-cidC');
+        $('#cidadeDestino').val(userCidC); 
+        var userTre=$(this).attr('data-tre');
+        $('#precoLinha').val(userTre);
+        var userDurac=$(this).attr('data-dur');
+        $('#duracaoViagem').val(userDurac); 
+        var userOrd=$(this).attr('data-ord');
+        $('#ordemT').val(userOrd);
+      
+    });
+  
+
     
 </script>
 
 
 <div class="container" id="contPrincipal">
         <div class="row">         
-            <h3>Trechos da Linha: </h3>            
+            <h3 >Trechos da linha de @foreach($trechos as $tre)                 
+            @endforeach Codigo: {{$tre['codigo_linha']}}</h3>            
+         
         </div>        
         <div class="row-xl">
                 
@@ -73,15 +93,16 @@
                         <tbody>                        
                                 @foreach ($trechos as $trecho)
                                 <tr>
-                                <th scope="row">{{ $trecho->codigo }}</th>
-                                    <td> {{ $trecho->cidade_partida }} </td>
-                                    <td> {{ $trecho->cidade_chegada }} </td>
-                                    <td>R$ {{ $trecho->preco }} </td>
-                                    <td> {{ $trecho->duracao }} </td>
+                                <th scope="row">{{ $trecho['codigo'] }}</th>
+                                    <td> {{ $trecho['cidade_partida'] }} </td>
+                                    <td> {{ $trecho['cidade_chegada'] }} </td>
+                                    <td>R$ {{ $trecho['preco'] }} </td>
+                                    <td> {{ $trecho['duracao'] }} </td>
                                     <td>
-                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')">Editar</button>
+                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
+                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}">Editar</button>
                                     </td>
-                                    <td>1 </td>
+                                    <td> {{ $trecho['ordem'] }} </td>
                                 </tr>
                                 @endforeach                        
                         </tbody>
@@ -129,22 +150,26 @@
                                 <th scope="col">Duração de viagem</th>
                                 <th scope="col">Selecionar</th>
                                 <th scope="col">Editar</th>
+                                <th scope="col">Ordem</th>
                             </tr>
                             </thead>
                         <tbody>                        
                                 @foreach ($trechos as $trecho)
                                 <tr>
-                                <th scope="row">{{ $trecho->codigo }}</th>
-                                    <td> {{ $trecho->cidade_partida }} </td>
-                                    <td> {{ $trecho->cidade_chegada }} </td>
-                                    <td>R$ {{ $trecho->preco }} </td>
-                                    <td> {{ $trecho->duracao }} </td>
+                                <th scope="row">{{ $trecho['codigo'] }}</th>
+                                    <td> {{ $trecho['cidade_partida'] }} </td>
+                                    <td> {{ $trecho['cidade_chegada'] }} </td>
+                                    <td>R$ {{ $trecho['preco'] }} </td>
+                                    <td> {{ $trecho['duracao'] }} </td>
                                     <td>
                                         <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($trecho)}}'), this.checked);">
                                     </td>
                                     <td>
-                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')">Editar</button>
+                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
+                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" href = "#edit1">Editar</button>
                                     </td>
+                                    <td> {{ $trecho['ordem'] }} </td>
+                                    
                                 </tr>
                                 @endforeach                        
                         </tbody>
@@ -154,10 +179,11 @@
                             <div class="btnBaixo">
                                 <div class="direita">
                                     <input type="hidden" id="checked" name="checked">
-                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" >Selecionar</button>
+                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo">Selecionar</button>
                                 </div>
                             </div>
                         </form> 
+                    
                     </div>
                 </div>
         </div>
@@ -167,7 +193,7 @@
         </div>        
         <div class="card" style="display: none;" id="edit1">
             <div class="card-body">
-                <form action="{{route('editarLinha.editar')}}" method="post">
+                <form action="{{route('editarTrecho.editar')}}" method="post">
                     @csrf
                     <div class="form-group">
                         <label for="codigoLinha">Código: </label>
@@ -186,12 +212,12 @@
                         <input type="text" class="form-control" id="precoLinha" name = "preco"  value="" >                        
                     </div>
                     <div class="form-group">
-                        <label for="duracaoViage,">Duração Viagem: </label>
-                        <input type="time" class="form-control" id="duracaoViagem" name = "horario" value="" > 
+                        <label for="duracaoViagem">Duração Viagem: </label>
+                        <input type="time" class="form-control" id="duracaoViagem" name = "horario" value="" disabled> 
                     </div>
                     <div class="form-group">
-                        <label for="Ordem">Ordem Trecho: </label>
-                        <input type="text" class="form-control" id="ordemT" name = "ordem" value="" > 
+                        <label for="ordemT">Ordem Trecho: </label>
+                        <input type="text" class="form-control" id="ordemT" name = "ordem" value="" style="width:88px;"  > 
                     </div>
 
                     <div class="btnBaixo">

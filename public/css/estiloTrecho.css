@@ -16,10 +16,23 @@
 
 }
 
+.table#tb2{
+    position: relative;
+}
+
 .table#tb1 + .btnBaixo{
+
     margin-top: 50px;
    
 }
+
+
+
+.table#tb2 + .form .btnBaixo{
+    margin-top: 50px;
+}
+
+
 
 
 th {
@@ -70,7 +83,7 @@ tr.p {
 }
 
 
-.btnBaixo{
+.btnBaixo, .bBaixo{
     margin: 10px;
 }
 
@@ -83,8 +96,5 @@ tr.p {
    
 }
 
-.table#tb2 + .btnBaixo{
-    margin-top: 50px;
-}
 
 

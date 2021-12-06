@@ -78,12 +78,14 @@ class TrechoController extends Controller
     }
 
 
-    function index(){
-        $trechos_search = Trecho::getAll();
-        //dd($trechos_search);
+    function index(Request $request){
+        $trechos_search = Trecho::getInfoTrecho($request);
         return view('administrador.editarTrecho', ['trechos' => $trechos_search]);
     }
 
+    function editar(Request $request){
+        $edit = Trecho::edicao($request);
+    }
 
    
 }
