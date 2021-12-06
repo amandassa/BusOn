@@ -76,4 +76,17 @@ class TrechoController extends Controller
         //dd($new_trecho_arr);
         //return view('administrador.adicionarLinha', ['trechos'=>array_push(), $new_trecho_arr]);
     }
+
+
+    function index(Request $request){
+        $trechos_search = Trecho::getInfoTrecho($request);
+        $trechoAll = Trecho::getTodos();
+        return view('administrador.editarTrecho', ['trechos' => $trechos_search, 'trechos_total' => $trechoAll]);
+    }
+
+    function editar(Request $request){
+        $edit = Trecho::edicao($request);
+    }
+
+   
 }

@@ -200,6 +200,7 @@ class Linha extends Model {
             $hPartida = $request['hPartida'];
             $vagas = $request['vagas'];
             $dias = $request['dias'];
+            $ordem = $request['ordem'];
             
             if(empty($tipo) or empty($hPartida) or empty($vagas) or isset($dias)==false){
                 return $li=[
@@ -271,7 +272,8 @@ class Linha extends Model {
                 'hPartida' => " ",
                 'vagas' => " ",
                 'dias' =>" ",
-                'horario' => " "
+                'horario' => " ",
+                'ordem' => " "
                 ];
 
                 return $linhas;
@@ -311,7 +313,8 @@ class Linha extends Model {
             $hChegada = gmdate('H:i:s', $horario);
             $hPartida = strtotime('1970-01-01 '.$hPartida.'UTC');
             $hPartida= gmdate('H:i', $hPartida);
-            
+            $trecho_partida = Trecho::getCodigo('cidade_partida', $cidade_partida);
+            $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida[0]->codigo);
             
             $linhas = [
             'codigo'=>$codigo, 
@@ -322,7 +325,8 @@ class Linha extends Model {
             'hPartida' => $hPartida,
             'vagas' => $vagas,
             'dias' =>$diasSemanais,
-            'horario' => $hChegada
+            'horario' => $hChegada,
+            'ordem' => $ordem[0]
             
             ];
             return $linhas;

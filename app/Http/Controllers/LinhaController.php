@@ -344,7 +344,6 @@ class LinhaController extends Controller
 
 
     public function indexEditar(Request $request){
-        
         $linhas = Linha::consultaEditar($request);
         return view('administrador.editarLinha', ['linhas'=>$linhas]);
     }
@@ -355,13 +354,16 @@ class LinhaController extends Controller
                         ->back()
                         ->with('success', 'Alterações canceladas');
         }
-
+        
+        
         if ($request['trechos']){
             return redirect()
-                ->route('buscarTrechos', $request);
-        }
+                ->route('editarTrecho', $request);
+               
+        }        
 
         $linha = Linha::editarLinha($request);
+
         if ($linha['id'] == 1) {
             return redirect()
                         ->back()
@@ -382,8 +384,6 @@ class LinhaController extends Controller
         }
       
     }
-
    
-    
         
 }

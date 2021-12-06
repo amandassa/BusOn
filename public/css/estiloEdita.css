@@ -1,5 +1,5 @@
 .card{
-    margin: 0px; 
+    margin: 5px; 
 }
 
 .form-group {
@@ -23,8 +23,8 @@
 #btnResetar{
     
     background-color: white;
-    color: #103A52;
-    border: 1px solid #103A52;
+    color: #1B5576;
+    border: 1px solid #1B5576;
 
 }
 .card-body{
@@ -32,17 +32,35 @@
 }
 
 .btnBaixo{
+    margin: 10px;
+}
+
+.direita{
     position: absolute;
     bottom: 0;
-    right: 0px;
-    margin: 15px; 
+    right: 0;
+    margin: 10px;
     margin-right: 20px;  
 }
 
 
+.btnBaixo#btnTrecho {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    
+}
+
+.botaoAzul#btnTrecho{
+    margin-left: -6px;
+
+}
+
+
+
 
 .botaoAzul#btnResetar:hover{
-    background-color: #103A52;
+    background-color: #1B5576;
     color: white;
 }
 
@@ -52,6 +70,9 @@
 }
 
 .form-check-label, .form-check-inline + .btnBaixo{
-    margin-bottom: 50px;
+    margin-bottom: 10px;
    
 }
+
+
+
