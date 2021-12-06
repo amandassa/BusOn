@@ -31,6 +31,9 @@
         document.getElementById(el).style.display = 'none';
     }
 
+    function removerTrecho(){
+        
+    }
 
     $(document).on('click','.botaoAzul',function(){
         var userID=$(this).attr('data-codigo');
@@ -88,6 +91,7 @@
                                 <th scope="col">Duração de viagem</th>
                                 <th scope="col">Editar</th>
                                 <th scope="col">Ordem</th>
+                                <th scope="col">Selecionar</th>
                             </tr>
                             </thead>
                         <tbody>                        
@@ -103,6 +107,9 @@
                                         data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}">Editar</button>
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
+                                    <td>
+                                        <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($trecho)}}'), this.checked);">
+                                    </td>
                                 </tr>
                                 @endforeach                        
                         </tbody>
@@ -110,6 +117,7 @@
 
                         <div class="btnBaixo">
                             <div class="direita">
+                                <button type="submit" class="botao botaoAzul" id="btnRemover">Remover Trecho Selecionado</button>
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                             
