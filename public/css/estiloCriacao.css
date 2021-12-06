@@ -152,6 +152,8 @@ button {
     text-align:center;
 }
 
+
+
 th {
     color: white;
     background-color: #424242;
@@ -175,4 +177,10 @@ tr {
 tr.p {
     display: inline-block;
 }
+
+body {
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+}
+
 

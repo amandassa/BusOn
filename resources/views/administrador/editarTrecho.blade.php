@@ -5,9 +5,17 @@
 @section('content')
 
 <link href="/css/estiloTrecho.css" rel="stylesheet"> 
+@if (session('success'))
+    <div class="alert alert-success alert-block">
+        {{session ('success')}}
+    </div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{session ('error')}}
+    </div>
+@endif
 <script type="text/javascript">
-
-
     function selectUpdate(trecho, add){
         old_cod = document.getElementById("checked");
         cod_add = trecho['codigo'].toString();
@@ -31,6 +39,19 @@
         document.getElementById(el).style.display = 'none';
     }
 
+   
+    $(document).on('click','.botaoAzul#btnEditar',function(){})
+    
+    function removerTrecho(id){
+        var container = document.getElementById(id);
+        var checklista = container.getElementsByTagName("INPUT");
+        for (i=0, i < checklista.length, i++){
+            var item = checklista[i];
+            if (item.checked) {
+                
+            }
+        }
+    }
 
     $(document).on('click','.botaoAzul',function(){
         var userID=$(this).attr('data-codigo');
@@ -45,6 +66,12 @@
         $('#duracaoViagem').val(userDurac); 
         var userOrd=$(this).attr('data-ord');
         $('#ordemT').val(userOrd);
+
+
+        var val=$(this).attr('value');
+        if(val == 2){
+            $('#ordemT').attr("disabled", "disabled");
+        }
       
     });
   
@@ -56,7 +83,7 @@
 <div class="container" id="contPrincipal">
         <div class="row">         
             <h3 >Trechos da linha de @foreach($trechos as $tre)                 
-            @endforeach Codigo: {{$tre['codigo_linha']}}</h3>            
+            @endforeach Codigo: {{$tre['codigo_linha']}} </h3>            
          
         </div>        
         <div class="row-xl">
@@ -88,6 +115,7 @@
                                 <th scope="col">Duração de viagem</th>
                                 <th scope="col">Editar</th>
                                 <th scope="col">Ordem</th>
+                                <th scope="col">Selecionar</th>
                             </tr>
                             </thead>
                         <tbody>                        
@@ -99,10 +127,13 @@
                                     <td>R$ {{ $trecho['preco'] }} </td>
                                     <td> {{ $trecho['duracao'] }} </td>
                                     <td>
-                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
-                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}">Editar</button>
+                                        <button type="submit" class="botao botaoAzul editar" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
+                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" value="1">Editar</button>
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
+                                    <td>
+                                        <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($trecho)}}'), this.checked);">
+                                    </td>
                                 </tr>
                                 @endforeach                        
                         </tbody>
@@ -110,6 +141,7 @@
 
                         <div class="btnBaixo">
                             <div class="direita">
+                                <button type="submit" class="botao botaoAzul" id="btnRemover" onclick="removerTrecho('tb1')">Remover Trecho Selecionado</button>
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                             
@@ -166,9 +198,9 @@
                                     </td>
                                     <td>
                                         <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
-                                        data-target="edit1" data-codigo="{{ $tt['codigo']}}" data-cidP = {{ $tt['cidade_partida'] }} data-cidC={{ $tt['cidade_chegada'] }} data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ 1}}" >Editar</button>
+                                        data-target="edit1" data-codigo="{{ $tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
                                     </td>
-                                    <td> 1 </td>
+                                    <td> {{ $tt['ordem'] }} </td>
                                     
                                 </tr>
                                 @endforeach                        
@@ -193,7 +225,7 @@
         </div>        
         <div class="card" style="display: none;" id="edit1">
             <div class="card-body">
-                <form action="{{route('editarTrecho.editar')}}" method="post">
+                <form action="{{route('editarTrecho.editar')}}" id="formulario"  method="post">
                     @csrf
                     <div class="form-group">
                         <label for="codigoLinha">Código: </label>
@@ -205,27 +237,34 @@
                     </div>
                     <div class="form-group">
                         <label for="cidadeDestino">Cidade Destino: </label>
-                        <input type="text" class="form-control" id="cidadeDestino" name = "destino"  value="" > 
+                        <input type="text" class="form-control" id="cidadeDestino"  name = "destino"  value="" > 
                     </div>
                     <div class="form-group">
                         <label for="precoLinha">Preço do Trecho: </label>
                         <input type="text" class="form-control" id="precoLinha" name = "preco"  value="" >                        
                     </div>
                     <div class="form-group">
-                        <label for="duracaoViagem">Duração Viagem: </label>
-                        <input type="time" class="form-control" id="duracaoViagem" name = "horario" value="" disabled> 
+                        <label for="duracao">Duração Viagem: </label>
+                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao"  step="3" value=""> 
                     </div>
                     <div class="form-group">
                         <label for="ordemT">Ordem Trecho: </label>
-                        <input type="text" class="form-control" id="ordemT" name = "ordem" value="" style="width:88px;"  > 
+                        <input type="text" class="form-control" id="ordemT" name = "ordem" value="" style="width:88px;"> 
+                    </div>
+                    <div class="form-group">
+                        <label for="codigoLinha"></label>
+                        @foreach($trechos as $trec)                 
+                        @endforeach 
+                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}} ">
                     </div>
 
+                    
+                
                     <div class="btnBaixo">
                         <div class="direita">
-                            <button type="submit" class="botao botaoAzul" id="btnResetar" name="cancel" value="" href="">Cancelar Alterações</button>
+                            <button type="submit" class="botao botaoAzul" id="btnResetar"  href="">Cancelar Alterações</button>
                             <button type="submit" class="botao botaoAmarelo" id="btnSalvar">Salvar Alterações</button>
                         </div>
-                        
                     </div>
             
                 </form>
