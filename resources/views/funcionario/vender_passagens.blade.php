@@ -58,6 +58,7 @@
         {
             if(alterou)
                 alterouValorPago = true;
+            atualizar_valor();
             preco(ultimoPreco);
             alterouValorPago = false;
         }
@@ -74,6 +75,7 @@
             cod_linha = document.getElementById("cod_linha");
             cod_linha.value = nu_cod.toString();
 
+            
             partida = linha['partida'];
             destino = linha['destino'];
 
@@ -142,6 +144,7 @@
             total = document.getElementById('total');
             total.innerHTML = 'R$ ' + precoComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
+            document.getElementById('preco_linha').value = precoComDesconto;
 
         }
 
@@ -153,25 +156,35 @@
     <div class="container-xl principal">
 
 
-        <!--Mensagens de status da operação -->
+    <!--Mensagens de status da operação -->
 
-        @if (sizeof($errors) > 0) 
-            <div class="alert alert-danger alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li><strong>{{ $error }}</strong></li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    @if ($errors->any()) 
+        <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li><strong>{{ $error }}</strong></li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        @if(session('message'))
-            <div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <strong>{{session('message')}}</strong>
-            </div>
-        @endif    
+
+    @if (session('error')) 
+    <div class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <strong>{{session('error')}}</strong>
+    </div>
+    @endif
+
+
+
+    @if(session('message'))
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>{{session('message')}}</strong>
+        </div>
+    @endif    
         
 
         <div class="row">
@@ -254,7 +267,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" min="0" onchange="alteracaoInput(true); atualizar_valor()" oninput="this.value = Math.abs(this.value)">
+                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" min="0" onchange="alteracaoInput(true)" oninput="this.value = Math.abs(this.value)">
                               </div>
                         </div>
                         <div class="col">
@@ -353,6 +366,7 @@
                                 <input id="cod_linha" name="cod_linha" type="hidden"></input>
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
+                                <input id="preco_linha" name="preco_linha" type="hidden"></input>
 
                                 <button name="finalize" type="submit" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button>
                             </form>
