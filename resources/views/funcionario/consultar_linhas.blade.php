@@ -20,8 +20,27 @@
     @section('estiloMigalha2', 'migalhaRetanguloAtiva')
     @section('estiloMigalhaT2', 'migalhaTrianguloAtiva')
         
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script type="text/javascript" >
-        $(document).ready(function() {            
+        $(document).ready(function() {          
+        var trechos_partida = <?php echo $trechos_partida; ?>;
+        var trechos_chegada = <?php echo $trechos_chegada; ?>;
+        document.getElementById('cidade_partida').placeholder = trechos_partida[0];
+        document.getElementById('cidade_destino').placeholder = trechos_chegada[0];        
+
+    
+        $('#cidade_partida').autocomplete({
+        source: trechos_partida,                
+        treshold: 2,
+        });
+
+        $('#cidade_destino').autocomplete({
+        source: trechos_chegada,                
+        treshold: 2,
+        });
+
             if ($('#opcaoBusca').value == "Codigo") {
                 $('#cidade_partida').attr('disabled', true);
                 $('#data_partida').attr('disabled',true);  
@@ -64,7 +83,7 @@
             margin-left:1em;
         }
     </style>
-            
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('/css/estiloAutocomplete.css')}}">
     
     
     <div class="container">       
@@ -99,7 +118,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <span>Data de Partida: </span>
-                                    <input class="form-control" type="date" id="data_partida" value="{{ old('data_partida') }}" name="data_partida" min="<?php echo date("Y-m-d")?>" value="<?php echo date("Y-m-d")?>" />
+                                    <input class="form-control" type="date" id="data_partida" name="data_partida" min="<?php echo date("Y-m-d")?>" value="<?php (old('data_partida') == true) ? old('data_partida') : print(date("Y-m-d")) ?>" >                                     
                                 </div>
                         </div>
                         

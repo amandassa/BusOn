@@ -24,10 +24,21 @@ class LinhaController extends Controller
     protected $trava = 5; // trava ou destrava as mensagens de confirmacao de apagar linhas
 
     public function index()
-    {                
-        $consulta= DB::select("SELECT * FROM linha");
+    {                        
+        $consultas_trechos_partida = DB::select("select cidade_partida from trecho");
+        $consultas_trechos_chegada = DB::select("select cidade_chegada from trecho");
+        $trechos_partida = [];
+        $trechos_chegada = [];
+        foreach($consultas_trechos_partida as $consulta){
+            array_push($trechos_partida, $consulta->cidade_partida);
+        }        
+        foreach($consultas_trechos_chegada as $consulta){
+            array_push($trechos_chegada, $consulta->cidade_chegada);
+        }        
+
         $linhas = [];        
         $url = explode("/", $_SERVER["REQUEST_URI"]);                
+        $consulta= DB::select("SELECT * FROM linha");
         foreach($consulta as $linha){
             $codigo = $linha->codigo;                        
             $codigo_trecho = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo);
@@ -107,16 +118,16 @@ class LinhaController extends Controller
         $url = explode("/", $_SERVER["REQUEST_URI"]);        
         if($url[1] == 'consultar_linhas') 
         {            
-            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status]);
+            return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status, 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
         }
         else { 
             if($url[1] == 'venderPassagens'){
                 return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
             } else if ($this->trava == 1){                                    
                     $this->trava = 5;
-                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>"Linha apagada com sucesso!"]);
+                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>"Linha apagada com sucesso!", 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
                 } else {
-                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'erros'=>["Erro ao apagar a linha!"]]);
+                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'erros'=>["Erro ao apagar a linha!"], 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
                 }            
         }
     }
@@ -200,6 +211,16 @@ class LinhaController extends Controller
         
         $linhas = []; 
         $erros = [];
+        $consultas_trechos_partida = DB::select("select cidade_partida from trecho");
+        $consultas_trechos_chegada = DB::select("select cidade_chegada from trecho");
+        $trechos_partida = [];
+        $trechos_chegada = [];
+        foreach($consultas_trechos_partida as $consulta){
+            array_push($trechos_partida, $consulta->cidade_partida);
+        }        
+        foreach($consultas_trechos_chegada as $consulta){
+            array_push($trechos_chegada, $consulta->cidade_chegada);
+        }
         $status = "";                    
         $dia = date('w', strtotime($request['data_partida'])); // Converte a data inserida ao seu equivalente em dia da semana                
         if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){ // Verifica  o tipo de consulta
@@ -303,7 +324,7 @@ class LinhaController extends Controller
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         if($url[1] == 'consultar_linhas') 
         {
-            return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $erros, 'status' => $status, 'linha' => $request['linha']]);
+            return view('funcionario.consultar_linhas')->with(['linhas' => $linhas, $request->flash(), 'errors' => $erros, 'status' => $status, 'linha' => $request['linha'], 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
         }
         else{          
             if(($url[1] == 'selecao')){
