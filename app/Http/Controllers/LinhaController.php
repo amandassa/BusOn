@@ -21,6 +21,8 @@ class LinhaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $trava = 5; // trava ou destrava as mensagens de confirmacao de apagar linhas
+
     public function index()
     {                
         $consulta= DB::select("SELECT * FROM linha");
@@ -107,8 +109,15 @@ class LinhaController extends Controller
         {            
             return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>$status]);
         }
-        else {            
-            return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
+        else { 
+            if($url[1] == 'venderPassagens'){
+                return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
+            } else if ($this->trava == 1){                                    
+                    $this->trava = 5;
+                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'status'=>"Linha apagada com sucesso!"]);
+                } else {
+                    return view('funcionario.consultar_linhas', ['linhas'=>$linhas, 'erros'=>["Erro ao apagar a linha!"]]);
+                }            
         }
     }
 
@@ -174,10 +183,10 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function apagar(Request $request)
-    {
-        $confirmacao = Linha::apagar($request->codigo);
-        if($confirmacao)
-            return $this->index()->with(['status' => "Linha deletada com sucesso!"]);
+    {        
+        $confirmacao = Linha::apagar($request->codigo);        
+        $this->trava = $confirmacao;        
+        return $this->index();
     }
 
     /**
