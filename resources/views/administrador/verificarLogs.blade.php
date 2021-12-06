@@ -115,7 +115,7 @@
         
         <div class="card" id="div_impressao">
             <h3 class="card-header text-center">Atualizações no sistema</h3>
-            <table class="table table-bordered table-hover text-center" id="tabela">
+            <table class="card-body table table-bordered table-hover text-center" id="tabela">
                 <thead>
                     <tr>
                         <th scope="col" class="">Data</th>
@@ -146,10 +146,8 @@
             </table>
         </div>
 
-        <div class="d-flex" style="margin-top:2em;">
-            <div class="mx-auto">
-                <button class="botao botaoAmarelo" type="button" onClick="impressao()" >Imprimir</button>
-            </div>
+        <div class="card-footer text-center">
+            <button class="botao botaoAmarelo" type="button" onClick="impressao()" >Imprimir</button>
         </div>
     </div>
 @endsection
