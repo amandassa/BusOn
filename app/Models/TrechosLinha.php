@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Cast\Array_;
 
 class TrechosLinha extends Model
 {
@@ -48,6 +49,26 @@ class TrechosLinha extends Model
         return $ordem;        
     }
 
+
+    public static function alteraOrdem($codigo_linha, $ordemNova, $codT){
+        $ordens = TrechosLinha::ordena('codigo_linha', $codigo_linha); 
+        $final = end($ordens); 
+        $final = $final->ordem;
+        
+        if($ordemNova == 1){
+            foreach($ordens as $ord){  
+                if($ord->ordem == 1){
+                    DB::update("UPDATE trechos_linha set ordem = ordem+1 where codigo_linha =? and codigo_trecho=?",[$codigo_linha, $ord->codigo_trecho]);
+                }
+            }
+        }
+        DB::update("UPDATE trechos_linha set ordem= ordem+1 where ordem >=? and codigo_linha =?",[$ordemNova, $codigo_linha]);
+        DB::update("UPDATE trechos_linha set ordem=? where codigo_trecho =?",[$ordemNova,$codT]);
+        
+      
+        }
+    
+    
 
     public static function ordena ($coluna, $parametro) {
         $query = "SELECT ordem, codigo_trecho from trechos_linha WHERE " . $coluna . " LIKE :parametro ";

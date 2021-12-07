@@ -80,7 +80,7 @@ class TrechoController extends Controller
 
     function index(Request $request){
         $trechos_search = Trecho::getInfoTrecho($request);
-        $trechoAll = Trecho::getTodos();
+        $trechoAll = Trecho::getTodos($request);
         return view('administrador.editarTrecho', ['trechos' => $trechos_search, 'trechos_total' => $trechoAll]);
     }
 
@@ -100,11 +100,11 @@ class TrechoController extends Controller
         } elseif ($add ==2 ) {
             return redirect()
                         ->route('editarTrecho', $request)
-                        ->with('success', 'Perfil atualizado com sucesso!');
+                        ->with('success', 'Trechos adicionado a Linha!');
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem.');
+                        ->with('error', 'Erro ao cadastrar, tente novamente');
         }
      
         

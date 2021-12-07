@@ -39,27 +39,16 @@
     else{
         document.getElementById(el).style.display = 'none';
     }
-        
+    }
 
    
-    $(document).on('click','.botaoAzul#btnEditar',function(){})
-    
-    function removerTrecho(id){
-        var container = document.getElementById(id);
-        var checklista = container.getElementsByTagName("INPUT");
-        for (i=0, i < checklista.length, i++){
-            var item = checklista[i];
-            if (item.checked) {
-                
-            }
-        }
-    }
+   
 
     
 
     $(document).on('click','.botaoAzul',function(){
         var userID=$(this).attr('data-codigo');
-        $('#codigoLinha').val(userID); 
+        $('#codigoTrecho').val(userID); 
         var userCidp=$(this).attr('data-cidP');
         $('#cidadePartida').val(userCidp); 
         var userCidC=$(this).attr('data-cidC');
@@ -86,7 +75,8 @@
 
 <div class="container" id="contPrincipal">
         <div class="row">         
-            <h3 >Trechos da linha de @foreach($trechos as $tre)                 
+            <h3 >Trechos da linha de 
+                @foreach($trechos as $tre)                 
             @endforeach Codigo: {{$tre['codigo_linha']}} </h3>            
          
         </div>        
@@ -214,15 +204,15 @@
                         <form action="{{route('editarTrecho.adicionar')}}"  id="adicao"  method="post">
                             @csrf
                             <div class="btnBaixo">
-                                <div class="direita">
-                                    <div class="form-group">
-                                        <label for="codigoLinha"></label>
-                                        @foreach($trechos as $trec)                 
-                                        @endforeach 
-                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}} ">
-                                    </div>                
+                                <div class="form-group">
+                                    <label for="codigoLinha"></label>
+                                    @foreach($trechos as $trec)                 
+                                    @endforeach 
+                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$trec['codigo_linha']}}">
+                                </div> 
+                                <div class="direita">       
                                     <input type="hidden" id="checked" name="checked">
-                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" href ="{{route('editarTrecho.adicionar')}}" >Selecionar</button>
+                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" href ="{{route('editarTrecho.adicionar')}}" >Adicionar Trecho a linha</button>
                                 </div>
                             </div>
                         </form> 
@@ -239,8 +229,8 @@
                 <form action="{{route('editarTrecho.editar')}}"  id="formulario"  method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="codigoLinha">Código: </label>
-                        <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="" readonly  > 
+                        <label for="codigoTrecho">Código: </label>
+                        <input type="text" class="form-control" id="codigoTrecho" name = "codigo" value="" readonly  > 
                     </div>
                     <div class="form-group">
                         <label for="cidadePartida">Cidade Origem: </label>
