@@ -6,7 +6,7 @@ use App\Http\Requests\StoreAddTrechoRequest;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
-use App\Models\Administrador as Adm;
+use App\Models\Administrador;
 use App\Models\Log;
 use Dotenv\Regex\Result;
 use App\Models\Linha;
@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Funcionario;
+use App\Console\Kernel;
 
 class AdministradorController extends Controller
 {
 
     public function criarFuncionario(StoreCadastroFuncionarioRequest $request)
     {
-        Adm::criarFuncionario($request);
+        Administrador::criarFuncionario($request);
         return redirect()->back()->with('message', 'Funcionário Cadastrado com Sucesso!');
         /*
         $cpf = str_replace(".", "", $request->cpf);
@@ -106,12 +107,12 @@ class AdministradorController extends Controller
     }
 
     public function index(){
-        $administrador = Adm::index();
+        $administrador = Administrador::index();
         return view("administrador.perfil", ['administrador'=>$administrador]);
     }
     
     public function editar(Request $request){
-        $adm = Adm::editar($request);
+        $adm = Administrador::editar($request);
 
         if ($adm == 1) {
             return redirect()
@@ -130,12 +131,12 @@ class AdministradorController extends Controller
     }
 
     public function perfilFunc($email){
-        $funcionario = Adm::perfilFunc($email);
+        $funcionario = Administrador::perfilFunc($email);
         return view("administrador.editarPerfilFuncionario", ['funcionario'=>$funcionario]);
     }
     
     public function editarFunc(Request $request){
-        $func = Adm::editarFunc($request);
+        $func = Administrador::editarFunc($request);
 
         if ($func['id'] == 1) {
             return redirect()
@@ -154,7 +155,7 @@ class AdministradorController extends Controller
     }
 
     public function cadastrarTrecho(StoreAddTrechoRequest $request){
-        Adm::addTrecho($request);
+        Administrador::addTrecho($request);
         return redirect()->back()->with('message', 'Trecho Cadastrado!');
     }
     
@@ -162,7 +163,7 @@ class AdministradorController extends Controller
         $usuario = DB::select("select * from funcionario where email = ?", [$request['email']])[0];
         $adm = $usuario->is_admin;
         $nome = $usuario->nome;
-        Adm::excluir($request);      
+        Administrador::excluir($request);      
         if ($adm == 1){
              return redirect()
                         ->route('gerenciaFuncionarios')
@@ -186,7 +187,7 @@ class AdministradorController extends Controller
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
         
-        $passagens_vendidas = Adm::passagens_vendidas($mat_adm);//total de passagens vendidas
+        $passagens_vendidas = Administrador::passagens_vendidas($mat_adm);//total de passagens vendidas
         $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
         $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
 
@@ -205,10 +206,10 @@ class AdministradorController extends Controller
             
             $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
         }
-        $vendidas_linha = Adm::buscar_vendas_linha($cod_busca_vendas_linha);
+        $vendidas_linha = Administrador::buscar_vendas_linha($cod_busca_vendas_linha);
 
         //retorna o total de passagens vendidas 
-        $passagens_vendidas_total = Adm::passagensVendidasTotal();
+        $passagens_vendidas_total = Administrador::passagensVendidasTotal();
 
 
         //total de acessos de clientes no sistema
@@ -218,7 +219,7 @@ class AdministradorController extends Controller
             
             $data = $request['buscarAcessos'];
         }
-        $total_acessos_cliente = Adm::total_acessos ($data);
+        $total_acessos_cliente = Administrador::total_acessos ($data);
 
         $dados = [
             'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
@@ -270,6 +271,15 @@ class AdministradorController extends Controller
        
 
         return view('administrador.verificarLogs')->with('logs', $logs);
+    }
+
+    public static function baixarBackup(){
+        Administrador::baixarBackup();
+    }
+
+    public static function definirHorarioBackup(Request $request){        
+        Kernel::setPeriodicidadeHorario($request->periodicidade, $request->horario);
+        return redirect()->route('inicial_adm');
     }
 
 }

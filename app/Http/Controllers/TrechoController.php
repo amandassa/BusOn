@@ -17,13 +17,15 @@ class TrechoController extends Controller
 
     function startLinha(){
         $linha_vazia = array(
+            'codigo' => "",
             'origem' => "",
             'destino' => "",
             'hora_origem' => "",
             'hora_destino' => "",
             'preço' => ""
         );
-        return view('administrador.adicionarLinha')->with('trechos', array($linha_vazia));
+        return view('administrador.adicionarLinha', ['trechos' => array($linha_vazia), 
+        'origem' => "———", 'destino' => "———", 'preço_total' => "R$ 0,00", 'trechos_cod' => ""]);
     }
 
     function startSearchScreen(){
@@ -109,6 +111,7 @@ class TrechoController extends Controller
      
         
     }
+
     
    
 }

@@ -75,4 +75,23 @@ class TrechosLinha extends Model
         $ordem = DB::select($query, ['parametro' => $parametro]);
         return $ordem;        
     }
+
+    /**
+     * Remover trecho de uma linha
+     */
+    public static function removerTrecho($codigo_trecho, $codigo_linha){
+        $ordem = DB::select("SELECT ordem FROM trechos_linha WHERE codigo_trecho = ? AND codigo_linha = ?",
+         [$codigo_trecho, $codigo_linha]);
+        $delete = DB::delete("DELETE from trechos_linha WHERE codigo_trecho = ? AND codigo_linha = ?", 
+        [$codigo_trecho, $codigo_linha]);
+        $trechos = DB::select("SELECT codigo_trecho, ordem FROM trechos_linha WHERE codigo_linha = ?", [$codigo_linha]);
+        foreach($trechos as $trecho){
+            if($trecho->ordem > $ordem){
+                DB::update("UPDATE trechos_linha SET ordem = :ord WHERE codigo_trecho = :ct AND codigo_linha = :cl", 
+                ['ord'=>($ordem), 'ct'=>$codigo_trecho, 'cl'=>$codigo_linha]);
+                $ordem = $ordem-1;  // caso haja mais de um trecho após o removido
+            }
+        }
+
+    }
 }

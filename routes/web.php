@@ -63,8 +63,13 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');
 
     Route::get('/adicionarLinha', 'TrechoController@startLinha')->name('adicionaLinha');
-    Route::post('/adicionarLinha//select', 'LinhaController@BuildLinha')->name('trechoSelect');
+    
+    Route::post('/adicionarLinha/select', 'LinhaController@BuildLinha')->name('trechoSelect');
+
+    Route::get('/adicionarLinha/select', 'TrechoController@startLinha')->name('trechoSelect');
+
     Route::post('/adicionarLinha', function(){return redirect()->route('adicionaTrecho');})->name('gotoAdicionarTrecho');
+    Route::get('/adicionarLinha/create/{trechos_cod}', 'LinhaController@registerLinha')->name('criaLinha');
 
     Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
     Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
@@ -91,7 +96,8 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
     Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
     Route::delete('/gerenciaUsuarios', [App\Http\Controllers\AdministradorController::class, 'excluir'])->name('gerenciaUsuarios.excluir');
-
+    Route::get('/baixarBackup', 'AdministradorController@baixarBackup')->name('baixarBackup');
+    Route::post('/inicialAdm/backup', 'AdministradorController@definirHorarioBackup')->name('backup');
 });
 
 

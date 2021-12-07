@@ -45,6 +45,7 @@
    
 
     
+    $(document).on('click','.botaoAzul#btnEditar',function(){})    
 
     $(document).on('click','.botaoAzul',function(){
         var userID=$(this).attr('data-codigo');
@@ -135,8 +136,7 @@
 
                         <div class="btnBaixo">
                             <div class="direita">
-                                <button type="submit" class="botao botaoAzul"  id="btnRemover">Remover Trecho Selecionado</button>
-                                <button type="submit" class="botao botaoAzul" id="btnRemover" onclick="removerTrecho('tb1')">Remover Trecho Selecionado</button>
+                                <button type="submit" class="botao botaoAzul"  id="btnRemover" onclick="selectUpdate('tb1')">Remover Trecho Selecionado</button>
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                             
@@ -193,7 +193,7 @@
                                     </td>
                                     <td>
                                         <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')" 
-                                        data-target="edit1" data-codigo="{{ $tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
+                                        data-target="edit1" data-codigo="{{$tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
                                     </td>
                                     <td> {{ $tt['ordem'] }} </td>
                                     

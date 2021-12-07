@@ -2,6 +2,17 @@
 
 @section('conteudoPadrao')
 
+<script type="text/javascript" >
+    $(document).ready(function() {          
+        $(document).on('click','.delete',function(){                                  
+            $('#confirmacaoExclusao').modal('show'); 
+        });
+    });
+</script>
+
+@if(session('message'))
+    <div class="alert alert-success">{{session('message')}}</div>
+@endif
 
 @section('campoBotoes')
         <a class="btn botaoAmarelo botaoSelecaoInicial" href="gerenciaUsuarios" role="button">
@@ -18,6 +29,11 @@
                 <span class="material-icons" id="iconBotoesPrincipais">add</span>
                 Cadastrar <br> Linha
             </a>
+
+        <a class="btn botaoAmarelo botaoSelecaoInicial" data-toggle="modal" data-target="#confirmacaoExclusao" role="button">
+            <span class="material-icons" id="iconBotoesPrincipais">cloud_upload</span>
+            Backup 
+        </a>
 @endsection
 
 
@@ -68,5 +84,44 @@
         </div>
     </div>
 @endsection
+
+<div class="modal fade" id="confirmacaoExclusao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F9C536">
+          <h5 class="modal-title" id="exampleModalLabel">Backup - Banco de Dados</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{route('backup')}}" id="deleteForm" method="post">
+          @csrf          
+          <div class="modal-body">
+              <h5>Exportar base de dados</h5>                                      
+            <a class="botao botaoAmarelo" href="{{route('baixarBackup')}}" style="color: #F9C536; background-color: black;"><i class="fas fa-cloud-download-alt"></i> Backup.sql</a>
+            <span style="font-size: 10px;">Download do schema do banco de dados (no formato sql)</span>
+            <br>
+            
+            <hr>
+            <h5>Backup automático</h5>            
+            <label>Defina a periodicidade do backup: </label>            
+            <select name="periodicidade" class="form-control">
+                <option value="diario">Diariamente</option>
+                <option value="semanal">Semanalmente</option>
+                <option value="mensal">Mensalmente</option>
+            </select>
+            <span style="font-size: 10px;">O backup semanal é realizado sempre ao domingo e o mensal no dia 28 de cada mês!</span>
+            <br><label>Defina o horário de realização do backup: </label>            
+            <input name="horario" type="time" class="form-control"/>
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn botaoAmarelo" data-dismiss="modal">Cancelar</button>
+            <button type="sumbmit" class="btn botaoAzul">Salvar</button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
 
 @endsection
