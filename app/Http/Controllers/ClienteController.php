@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Linha;
+use App\Models\Log;
 use App\Models\Passagem;
 use App\Models\Pagamento;
 use App\Models\Pagamento_cartao;
@@ -56,6 +57,7 @@ class ClienteController extends Controller
             $cliente->email = $requisicao->email;
             $cliente->senha = $requisicao->senha;
            //return $cliente;
+           Log::acessoCliente(date('Y-m-d H:i:s'));
         }
 
         // print_r($data);
