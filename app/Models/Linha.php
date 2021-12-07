@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\AddLinhaRequest;
 use Illuminate\Http\Request;
 
 
@@ -346,5 +347,97 @@ class Linha extends Model {
         return $sucesso;
     }
     
+    public static function fetchTrechos($codigos){
+        $query = sprintf("SELECT * FROM trecho WHERE codigo IN (%s)", $codigos);
+        $trechos = DB::select($query);
+        return $trechos;
+    }
+
+    public static function create(AddLinhaRequest $request, $trechos){
+        //dd($request);
+        $tipo = 0;
+        if($request['Tipo'] == "Comum"){
+            $tipo = 0;
+        } else{
+            $tipo = 1;
+        }
+        $total_vagas = $request['total_vagas'];
+
+        $dias_semana = "";
+        $least_1 = false;
+
+        if($request['segunda'] == "on"){
+            $dias_semana .= "1";
+            $least_1 = true;
+        }
+        if($request['terça'] == "on"){
+            if($least_1){
+                $dias_semana .= ";";
+            }
+            $least_1 = true;
+            $dias_semana .= "2";
+        }
+        if($request['quarta'] == "on"){
+            if($least_1){
+                $dias_semana .= ";";
+            }
+            $least_1 = true;
+            $dias_semana .= "3";
+        }
+        if($request['quinta'] == "on"){
+            if($least_1){
+                $dias_semana .= ";";
+            }
+            $least_1 = true;
+            $dias_semana .= "4";
+        }
+        if($request['sexta'] == "on"){
+            if($least_1){
+                $dias_semana .= ";";
+            }
+            $least_1 = true;
+            $dias_semana .= "5";
+        }
+        if($request['sábado'] == "on"){
+            if($least_1){
+                $dias_semana .= ";";
+            }
+            $least_1 = true;
+            $dias_semana .= "6";
+        }
+        if($request['domingo'] == "on"){
+            if($least_1){
+                $dias_semana .= ";";
+            }
+            $least_1 = true;
+            $dias_semana .= "7";
+        }
+
+
+        //dd($dias_semana);
+
+        $hora_partida = new DateTime($request['hora_partida']);
+        $hora_partida = $hora_partida->format("H:i:s");
+
+        $linha_query = sprintf("INSERT INTO linha (direta, total_vagas, dias_semana, hora_partida) VALUES (%d, %d, '%s', '%s');", $tipo, $total_vagas, $dias_semana, $hora_partida);
+        //dd($linha_query);
+        DB::insert($linha_query);
+
+        $linha_cod = DB::select('SELECT MAX(codigo) AS id from linha')[0];
+        $linha_cod =  $linha_cod->id;
+        
+        $trechoList = explode(",", $trechos);
+        
+        for($i = sizeof($trechoList)-1; $i >= 0; $i--){
+            $current = sizeof($trechoList);
+            $current -=1;
+            $current -=$i;
+
+            $trechosLinhaQuery = sprintf("INSERT INTO trechos_linha (codigo_linha, codigo_trecho, ordem) VALUES (%d, %d, %d);", $linha_cod, $trechoList[$current], $i+1);
+            DB::insert($trechosLinhaQuery);
+        }
+        //dd($linha_cod);
+        //dd($hora_partida);
+    }
     
 }

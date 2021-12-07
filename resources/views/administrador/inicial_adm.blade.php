@@ -10,6 +10,10 @@
     });
 </script>
 
+@if(session('message'))
+    <div class="alert alert-success">{{session('message')}}</div>
+@endif
+
 @section('campoBotoes')
         <a class="btn botaoAmarelo botaoSelecaoInicial" href="gerenciaUsuarios" role="button">
             <span class="material-icons" id="iconBotoesPrincipais">people_alt</span>
