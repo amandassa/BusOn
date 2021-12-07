@@ -252,7 +252,7 @@
                     </div>
                     <div class="form-group">
                         <label for="duracao">Duração Viagem: </label>
-                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao"  step="3" value=""> 
+                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao"  value=""> 
                     </div>
                     <div class="form-group">
                         <label for="ordemT">Ordem Trecho: </label>

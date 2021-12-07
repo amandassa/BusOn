@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Http\Requests\StoreAddTrechoRequest;
-use App\Models\Administrador;
 use App\Models\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
