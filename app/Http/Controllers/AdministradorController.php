@@ -60,16 +60,25 @@ class AdministradorController extends Controller
      * Busca todos os Usuários do sistema
      */
     public function buscarFuncionarios (Request $request)
-    {              
-        if($request["buscaG"] == null){
-            $funcionarios = DB::select("SELECT * FROM funcionario");
+    {           
+        $atributo = $request["buscaOp"];
+        $valor_atributo = $request["buscaG"];
+        $tipoUsuario = $request["tipoUser"];
+
+        if($valor_atributo == null){
+            if($tipoUsuario == "todos"){
+                $funcionarios = DB::select("SELECT * FROM funcionario");
+            }
+            elseif($tipoUsuario == "func"){
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE is_admin = 0");
+            }else{
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE is_admin = 1");
+            }
         }
         else{
-            $atributo = $request["buscaOp"];
-            $valor_atributo = $request["buscaG"];
-            if($request["tipoUser"] == "todos"){  
+            if($tipoUsuario == "todos"){  
                 $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%'");
-            }elseif($request["tipoUser"] == "funcionario"){
+            }elseif($tipoUsuario == "func"){
                 $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 0");
             }else{
                 $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 1");

@@ -37,13 +37,13 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
     Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
-    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('finalizar_venda');
+    Route::post('/venderPassagens', 'FuncionarioController@vender')->name('finalizar_venda');
     
 });
 
 //Rotas restritas apenas para ADMNISTRADOR
 Route::middleware(['auth:funcionario', 'adm'])->group(function () {
-    Route::get('/apagar_linha', 'LinhaController@apagar')->name('linha.apagar');
+    Route::delete('/apagar_linha', 'LinhaController@apagar')->name('linha.apagar');
     Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
     Route::post('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('estatisticas');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');

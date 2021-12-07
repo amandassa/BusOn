@@ -62,12 +62,7 @@
                                 @enderror
                             </div>
                         </div>
-                    <div class="form-group row justify-content-center align-items-center" style="margin-left:0.5em; margin-bottom:0;">
-                        <div class="col-md-8 input-group">
-                        <input class="form-check-input" type="checkbox"
-                                name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember"> {{ __('Lembrar') }}</label>
-                        </div>
+                    <div class="form-group row justify-content-center align-items-center" style="margin-left:0.5em; margin-bottom:0;">                        
                         </div>
 
                     <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">

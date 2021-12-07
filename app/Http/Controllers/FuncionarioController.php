@@ -213,7 +213,7 @@ class FuncionarioController extends Controller {
     public function vender(AddVendaRequest $request){
         $result = Funcionario::venderPassagem($request);
         if($result == 0){
-            return redirect()->back()->with('error', 'Sem vagas.');
+            return redirect()->back()->with('error', "Sem vagas para a linha $request[cod_linha].");
         }else{
             return redirect()->back()->with('message', 'Venda Feita.');
         }

@@ -40,6 +40,19 @@
         document.getElementById(el).style.display = 'none';
     }
         
+
+   
+    $(document).on('click','.botaoAzul#btnEditar',function(){})
+    
+    function removerTrecho(id){
+        var container = document.getElementById(id);
+        var checklista = container.getElementsByTagName("INPUT");
+        for (i=0, i < checklista.length, i++){
+            var item = checklista[i];
+            if (item.checked) {
+                
+            }
+        }
     }
 
     
@@ -133,6 +146,7 @@
                         <div class="btnBaixo">
                             <div class="direita">
                                 <button type="submit" class="botao botaoAzul"  id="btnRemover">Remover Trecho Selecionado</button>
+                                <button type="submit" class="botao botaoAzul" id="btnRemover" onclick="removerTrecho('tb1')">Remover Trecho Selecionado</button>
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                             

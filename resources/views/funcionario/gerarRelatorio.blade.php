@@ -34,6 +34,11 @@
     searching: false,
     info:false, 
     bPaginate:false,
+    language: 
+        {
+            zeroRecords: "Não há passagens para viagens hoje!!",
+            infoEmpty: "Pesquise a passagem desejada no campo acima!",
+        }
 } );
 
 
@@ -118,7 +123,8 @@
 </div>  
     <div class="d-flex" style="margin-top:2em;">
       <div class="mx-auto">
-        <button class="botao botaoAmarelo" type="button" onClick="impressao()" >Imprimir</button>
+        <button class="botao botaoAmarelo" type="button" style="min-width: 100px;" onClick="impressao()" >Imprimir</button>
+        <button type="button" class="botao" style="background-color: black; color: #F9C536; min-width: 100px;" id="btnCriarConta" onClick="window.location.href = '/';"> Voltar </button>
       </div>
     </div>
   

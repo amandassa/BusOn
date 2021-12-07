@@ -10,19 +10,18 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
-    <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>
-    
+    <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>   
+
     <script>
         
         $(document).ready(function() {
 
-        $("#cpf").mask('999.999.999-99') //máscara cpf
-      
+        $("#cpf").mask('999.999.999-99') //máscara cpf        
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
         $('.tabela').DataTable({
         select:{selector:'#btnSel'},
@@ -51,19 +50,18 @@
         var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
         var alterouValorPago = false; //Verifica se o input valorPago foi alterado, dessa forma 
         //a mensagem de valor insuficiente só é apresentada caso esse variável for true;
-
+    
     
         //É chamada sempre que o input de valor pago ou descontos é alterado
         function alteracaoInput(alterou)
         {
             if(alterou)
                 alterouValorPago = true;
+            atualizar_valor();
             preco(ultimoPreco);
             alterouValorPago = false;
         }
-
         
-
         function atualizar_cpf(){
             cpf_atual = document.getElementById("cpf_atual");
             cpf_atual.value = document.getElementById("cpf").value;
@@ -77,7 +75,6 @@
             partida = linha['partida'];
             destino = linha['destino'];
 
-
             document.getElementById("passagemSelecionada").innerHTML = partida + ' >>> ' + destino + ' (' + nu_cod + ')';
 
             partida = linha['partida'];
@@ -85,7 +82,17 @@
             valor_partida = document.getElementById('cidade_partida');
             valor_destino = document.getElementById('cidade_destino');
             valor_partida.value = partida.toString();
-            valor_destino.value = destino.toString();            
+            valor_destino.value = destino.toString();        
+            
+            data_partida = linha['data_partida'];
+            hora_partida = linha['hora_partida'];
+            data_chegada = linha['data_chegada'];
+            hora_chegada = linha['hora_chegada'];
+            
+            document.getElementById('data_partida').value = data_partida;
+            document.getElementById('hora_partida').value = hora_partida;
+            document.getElementById('data_chegada').value = data_chegada;
+            document.getElementById('hora_chegada').value = hora_chegada;
         }
 
         function atualizar_valor(){
@@ -142,36 +149,56 @@
             total = document.getElementById('total');
             total.innerHTML = 'R$ ' + precoComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
+            document.getElementById('preco_linha').value = precoComDesconto;
 
-        }
-
-
-        
+        }        
     </script>
+
+    @isset($linha_consulta)
+        <script>
+            $(document).ready(function(){                 
+                var linha_encode = <?php echo json_encode($linha_consulta); ?>;
+                var linha_escolhida = JSON.parse(JSON.stringify(linha_encode));                
+                preco(linha_escolhida['preco']);
+                atualizar_info_linha(<?php echo json_encode($linha_consulta); ?>);    
+                document.getElementById('ln').style = "background-color: #f7ca50;"
+            });
+        </script>
+    @endisset
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
     <div class="container-xl principal">
 
 
-        <!--Mensagens de status da operação -->
+    <!--Mensagens de status da operação -->
 
-        @if (sizeof($errors) > 0) 
-            <div class="alert alert-danger alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li><strong>{{ $error }}</strong></li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    @if ($errors->any()) 
+        <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li><strong>{{ $error }}</strong></li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        @if(session('message'))
-            <div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <strong>{{session('message')}}</strong>
-            </div>
-        @endif    
+
+    @if (session('error')) 
+    <div class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <strong>{{session('error')}}</strong>
+    </div>
+    @endif
+
+
+
+    @if(session('message'))
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>{{session('message')}}</strong>
+        </div>
+    @endif    
         
 
         <div class="row">
@@ -254,7 +281,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
                                 </div>
-                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" min="0" onchange="alteracaoInput(true); atualizar_valor()" oninput="this.value = Math.abs(this.value)">
+                                <input name="valor_pago" type="number" class="form-control" aria-label="Total pago" aria-describedby="inputGroup-sizing-sm" id="pagoInput" value="0.00" placeholder="0,00" min="0" onchange="alteracaoInput(true)" oninput="this.value = Math.abs(this.value)">
                               </div>
                         </div>
                         <div class="col">
@@ -293,7 +320,7 @@
                         </thead>
                         <tbody>
                             @foreach ($linhas as $linha)
-                            <tr>
+                            <tr id="ln">
                              <th scope="row">{{ $linha['codigo']}}</th>
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>
@@ -353,6 +380,11 @@
                                 <input id="cod_linha" name="cod_linha" type="hidden"></input>
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
+                                <input id="preco_linha" name="preco_linha" type="hidden"></input>
+                                <input id="data_partida" name="data_partida" type="hidden" value="{{$linha['data_partida']}}"></input>
+                                <input id="hora_partida" name="hora_partida" type="hidden" value="{{$linha['hora_partida']}}"></input>
+                                <input id="hora_chegada" name="hora_chegada" type="hidden" value="{{$linha['hora_chegada']}}"></input>
+                                <input id="data_chegada" name="data_chegada" type="hidden" value="{{$linha['data_chegada']}}"></input>
 
                                 <button name="finalize" type="submit" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button>
                             </form>
