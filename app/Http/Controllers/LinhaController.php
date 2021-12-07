@@ -317,7 +317,7 @@ class LinhaController extends Controller
                                 'tipo'=>$tipo[0]->direta,                                                
                                 'preco'=> number_format(floatval($preco), 2, ',', '.')
                             ];
-                            array_push($linhas, $linha);
+                            array_push($linhas, $linha);                            
                             $status =  "Linha encontrada com sucesso";
                             $encontrado = 1;
                         } else {
