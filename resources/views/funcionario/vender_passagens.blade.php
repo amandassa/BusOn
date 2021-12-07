@@ -51,7 +51,7 @@
         var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
         var alterouValorPago = false; //Verifica se o input valorPago foi alterado, dessa forma 
         //a mensagem de valor insuficiente só é apresentada caso esse variável for true;
-
+    
     
         //É chamada sempre que o input de valor pago ou descontos é alterado
         function alteracaoInput(alterou)
@@ -62,9 +62,7 @@
             preco(ultimoPreco);
             alterouValorPago = false;
         }
-
         
-
         function atualizar_cpf(){
             cpf_atual = document.getElementById("cpf_atual");
             cpf_atual.value = document.getElementById("cpf").value;
@@ -75,10 +73,8 @@
             cod_linha = document.getElementById("cod_linha");
             cod_linha.value = nu_cod.toString();
 
-            
             partida = linha['partida'];
             destino = linha['destino'];
-
 
             document.getElementById("passagemSelecionada").innerHTML = partida + ' >>> ' + destino + ' (' + nu_cod + ')';
 
@@ -87,7 +83,17 @@
             valor_partida = document.getElementById('cidade_partida');
             valor_destino = document.getElementById('cidade_destino');
             valor_partida.value = partida.toString();
-            valor_destino.value = destino.toString();            
+            valor_destino.value = destino.toString();        
+            
+            data_partida = linha['data_partida'];
+            hora_partida = linha['hora_partida'];
+            data_chegada = linha['data_chegada'];
+            hora_chegada = linha['hora_chegada'];
+            
+            document.getElementById('data_partida').value = data_partida;
+            document.getElementById('hora_partida').value = hora_partida;
+            document.getElementById('data_chegada').value = data_chegada;
+            document.getElementById('hora_chegada').value = hora_chegada;
         }
 
         function atualizar_valor(){
@@ -367,6 +373,10 @@
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
                                 <input id="preco_linha" name="preco_linha" type="hidden"></input>
+                                <input id="data_partida" name="data_partida" type="hidden" value="{{$linha['data_partida']}}"></input>
+                                <input id="hora_partida" name="hora_partida" type="hidden" value="{{$linha['hora_partida']}}"></input>
+                                <input id="hora_chegada" name="hora_chegada" type="hidden" value="{{$linha['hora_chegada']}}"></input>
+                                <input id="data_chegada" name="data_chegada" type="hidden" value="{{$linha['data_chegada']}}"></input>
 
                                 <button name="finalize" type="submit" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button>
                             </form>

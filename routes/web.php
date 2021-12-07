@@ -35,7 +35,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
     Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
-    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('finalizar_venda');
+    Route::post('/venderPassagens', 'FuncionarioController@vender')->name('finalizar_venda');
     
 });
 
