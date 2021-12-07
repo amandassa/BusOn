@@ -23,12 +23,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
+
     <script type="text/javascript" >
         $(document).ready(function() {          
         var trechos_partida = <?php echo $trechos_partida; ?>;
         var trechos_chegada = <?php echo $trechos_chegada; ?>;
         document.getElementById('cidade_partida').placeholder = trechos_partida[0];
         document.getElementById('cidade_destino').placeholder = trechos_chegada[0];        
+        
+        $('#tabelaLinhas').DataTable( {            
+            searching: false,
+            info:false,                         
+            pageLength : 5,
+            "lengthChange": false,
+            language: 
+                {
+                    zeroRecords: "Não há linhas registradas para a consulta realizada!",
+                    oPaginate: 
+                    {
+                        sNext: '<i class="fas fa-angle-double-right"></i>',
+                        sPrevious: '<i class="fas fa-angle-double-left"></i>'
+                    }                    
+                }
+        } );
 
     
         $('#cidade_partida').autocomplete({
@@ -42,13 +65,11 @@
         });
 
             if ($('#opcaoBusca').value == "Codigo") {
-                $('#cidade_partida').attr('disabled', true);
-                $('#data_partida').attr('disabled',true);  
+                $('#cidade_partida').attr('disabled', true);                
                 $('#cidade_destino').attr('disabled',true);                              
                 $('#codigo_linha').attr('disabled', false);
             } else {
-                $('#cidade_partida').attr('disabled', false);
-                $('#data_partida').attr('disabled', false);  
+                $('#cidade_partida').attr('disabled', false);                
                 $('#cidade_destino').attr('disabled', false);
                 $('#codigo_linha').attr('disabled',true);
             }
@@ -64,13 +85,11 @@
         function alterarOpcao(elemento){                    
             var opcao = elemento.value;            
             if (opcao == "Codigo") {
-                $('#cidade_partida').attr('disabled', true);
-                $('#data_partida').attr('disabled',true);  
+                $('#cidade_partida').attr('disabled', true);                
                 $('#cidade_destino').attr('disabled',true);                              
                 $('#codigo_linha').attr('disabled', false);
             } else {
-                $('#cidade_partida').attr('disabled', false);
-                $('#data_partida').attr('disabled', false);  
+                $('#cidade_partida').attr('disabled', false);                 
                 $('#cidade_destino').attr('disabled', false);
                 $('#codigo_linha').attr('disabled',true);
             }
@@ -96,7 +115,7 @@
                         <div class="col-sm-4">                            
                             @csrf 
                             <span>Definir tipo de busca: </span>
-                                <select id="opcaoBusca" name="opcaoBusca" onchange="javascript:alterarOpcao(this);" class="form-control">
+                                <select id="opcaoBusca" name="opcaoBusca" value = "{{ old('opcaoBusca') }}" onchange="javascript:alterarOpcao(this);" class="form-control">
                                     <option value="Nome">Nome</option>
                                     <option value="Codigo">Código</option>
                                 </select>
@@ -164,7 +183,7 @@
             <!-- Tabela de resultados de consulta -->
             <div class="card card-default">            
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="tabelaLinhas">
                         <thead>
                         <tr>
                           <th scope="col">Código</th>
