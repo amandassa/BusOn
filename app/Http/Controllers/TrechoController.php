@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Trecho;
+use App\Models\TrechosLinha;
 use App\Http\Requests\AddTrechoInLinhaRequest;
 use Illuminate\Support\Facades\Auth;
 use \DateInterval;
@@ -110,6 +111,16 @@ class TrechoController extends Controller
         }
      
         
+    }
+
+
+    public function exclusao(Request $request){
+        $codLinha = $request['linha'];
+        $codTrecho = $request['codigo'];
+        $adm = TrechosLinha::removerTrecho($codTrecho, $codLinha);
+        return redirect()
+        ->back()
+        ->with('success', 'Trecho excluido ');
     }
 
     

@@ -113,7 +113,9 @@
                                 <th scope="col">Selecionar</th>
                             </tr>
                             </thead>
-                        <tbody>                        
+                        <tbody>  
+                                @csrf
+                                @method('delete')                      
                                 @foreach ($trechos as $trecho)
                                 <tr>
                                 <th scope="row">{{ $trecho['codigo'] }}</th>
@@ -127,7 +129,7 @@
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
                                     <td>
-                                        <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($trecho)}}'), this.checked);">
+                                        <input type="checkbox" name="check[]" value="{{$trecho['codigo']}}">
                                     </td>
                                 </tr>
                                 @endforeach                        
@@ -135,8 +137,12 @@
                         </table>
 
                         <div class="btnBaixo">
+
                             <div class="direita">
-                                <button type="submit" class="botao botaoAzul"  id="btnRemover" onclick="selectUpdate('tb1')">Remover Trecho Selecionado</button>
+                                    @foreach($trechos as $trecT)                 
+                                    @endforeach 
+                                    <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$trecho['codigo']}}" data-codL ="{{$trecT['codigo_linha']}}">Remover trecho selecionado </a>
+                                                            
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                             
@@ -208,7 +214,7 @@
                                     <label for="codigoLinha"></label>
                                     @foreach($trechos as $trec)                 
                                     @endforeach 
-                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$trec['codigo_linha']}}">
+                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}}">
                                 </div> 
                                 <div class="direita">       
                                     <input type="hidden" id="checked" name="checked">
@@ -272,6 +278,49 @@
             </div>
             
         </div>
+
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header" style="background-color: #F9C536">
+                  <h5 class="modal-title" id="exampleModalLabel">Exclusão </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{{route('editarTrecho.excluir')}}" id="deleteForm" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <div class="modal-body">
+                    <p> Deseja excluir o trecho: </p>
+                    <input type="text" name="codigo" id="codTrecho" value=""  readonly style= "border: none;">
+                    <input type="hidden" name="linha" id="codLinha" value="">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn botaoAmarelo" data-dismiss="modal">Cancelar</button>
+                    <button type="sumbmit" class="btn botaoAzul">Confirmar</button>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        
+          
+        
+          <script>
+            $(document).on('click','.delete',function(){
+                var codTrecho=$(this).attr('data-id');
+                $('#codTrecho').val(codTrecho); 
+              
+                var codLinha=$(this).attr('data-codL');
+                $('#codLinha').val(codLinha); 
+                $('#exampleModal').modal('show'); 
+            });
+            </script>
+          
 
 
 </div>

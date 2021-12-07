@@ -58,6 +58,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
     Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
     Route::post('/editarTrecho/adicionado', 'TrechoController@adicionar')->name('editarTrecho.adicionar');
+    Route::delete('/editarTrecho/excluindo', 'TrechoController@exclusao')->name('editarTrecho.excluir');
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');
