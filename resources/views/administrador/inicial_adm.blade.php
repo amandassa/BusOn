@@ -10,17 +10,18 @@
     });
 </script>
 
-@section('campoBotoes')
+@section('campoBotoes')        
         <a class="btn botaoAmarelo botaoSelecaoInicial" href="gerenciaUsuarios" role="button">
             <span class="material-icons" id="iconBotoesPrincipais">people_alt</span>
             Gerenciar Usuários
         </a>
-
+        
         <a class="btn botaoAmarelo botaoSelecaoInicial" href="verificarLogs" role="button">
             <span class="material-icons" id="iconBotoesPrincipais">description</span>
             Verificar <br> Logs
         </a>
 
+        <div class="row justify-content-start">
         <a class="btn botaoAmarelo botaoSelecaoInicial" href="adicionarLinha" role="button">
                 <span class="material-icons" id="iconBotoesPrincipais">add</span>
                 Cadastrar <br> Linha
@@ -30,6 +31,7 @@
             <span class="material-icons" id="iconBotoesPrincipais">cloud_upload</span>
             Backup 
         </a>
+        </div>
 @endsection
 
 
@@ -90,17 +92,21 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{route('backup')}}" id="deleteForm" method="post">
-          @csrf          
+        
           <div class="modal-body">
               <h5>Exportar base de dados</h5>                                      
-            <a class="botao botaoAmarelo" href="{{route('baixarBackup')}}" style="color: #F9C536; background-color: black;"><i class="fas fa-cloud-download-alt"></i> Backup.sql</a>
-            <span style="font-size: 10px;">Download do schema do banco de dados (no formato sql)</span>
+              <form action="{{route('baixarBackup')}}"  method="get">
+                  @csrf
+                <button class="botao botaoAmarelo" style="color: #F9C536; background-color: black;"><i class="fas fa-cloud-download-alt"></i> Backup SQL</button>
+                <span style="font-size: 10px;">Download do schema do banco de dados (no formato sql)</span>
+                </form>
             <br>
             
             <hr>
             <h5>Backup automático</h5>            
             <label>Defina a periodicidade do backup: </label>            
+            <form action="{{route('backup')}}" id="deleteForm" method="post">
+          @csrf          
             <select name="periodicidade" class="form-control">
                 <option value="diario">Diariamente</option>
                 <option value="semanal">Semanalmente</option>
