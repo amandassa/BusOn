@@ -88,7 +88,8 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
     Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
     Route::delete('/gerenciaUsuarios', [App\Http\Controllers\AdministradorController::class, 'excluir'])->name('gerenciaUsuarios.excluir');
-
+    Route::get('/baixarBackup', 'AdministradorController@baixarBackup')->name('baixarBackup');
+    Route::post('/inicialAdm/backup', 'AdministradorController@definirHorarioBackup')->name('backup');
 });
 
 
