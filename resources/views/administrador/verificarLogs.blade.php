@@ -133,7 +133,7 @@
                     <tr>
                         @foreach ($logs as $log)
                                 @php 
-                                    $data = date('d/m/Y H:m:s', strtotime(str_replace('/', '-', $log->data_hora)))
+                                    $data = date('d/m/Y H:i:s', strtotime(str_replace('/', '-', $log->data_hora)))
                                 @endphp
                                 <th scope="row">{{ $data }}</th>
                                 <td> {{ $log->nome }} </td>

@@ -213,6 +213,7 @@ class Trecho extends Model {
         if(empty($ordem)){
             DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
+            Log::editarTrecho($codigo_trecho, date('Y-m-d H:i:s'));
             dd('editado');
         }else{
             dd('ainda n');

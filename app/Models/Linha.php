@@ -215,6 +215,8 @@ class Linha extends Model {
                     $tipo = 0;
                 }
                 DB::update('UPDATE linha set  direta = ?, total_vagas = ?, dias_semana =?, hora_partida=? where codigo =?', [$tipo, $vagas, $dia, $hPartida, $consulta->codigo]);
+
+                Log::editarLinha($codigo, date('Y-m-d H:i:s'));
             return $li=[
                 'id' => 2
             ];

@@ -97,7 +97,7 @@ class ClienteController extends Controller
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidems');
+                        ->with('error', 'As senhas não coincidem');
         }
     }
 
