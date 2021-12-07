@@ -58,13 +58,19 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
     Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
     Route::post('/editarTrecho/adicionado', 'TrechoController@adicionar')->name('editarTrecho.adicionar');
+    Route::delete('/editarTrecho/excluindo', 'TrechoController@exclusao')->name('editarTrecho.excluir');
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');
 
     Route::get('/adicionarLinha', 'TrechoController@startLinha')->name('adicionaLinha');
-    Route::post('/adicionarLinha//select', 'LinhaController@BuildLinha')->name('trechoSelect');
+    
+    Route::post('/adicionarLinha/select', 'LinhaController@BuildLinha')->name('trechoSelect');
+
+    Route::get('/adicionarLinha/select', 'TrechoController@startLinha')->name('trechoSelect');
+
     Route::post('/adicionarLinha', function(){return redirect()->route('adicionaTrecho');})->name('gotoAdicionarTrecho');
+    Route::get('/adicionarLinha/create/{trechos_cod}', 'LinhaController@registerLinha')->name('criaLinha');
 
     Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
     Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');

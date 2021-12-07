@@ -11,6 +11,7 @@ use App\Models\Trecho;
 use App\Models\TrechosLinha;
 use App\Http\Requests\BuscaTrechoRequest;
 use App\Http\Requests\AddTrechoInLinhaRequest;
+use App\Http\Requests\AddLinhaRequest;
 use App\Traits\PaginationTrait;
 
 class LinhaController extends Controller
@@ -433,6 +434,44 @@ class LinhaController extends Controller
         }
       
     }
-   
+
+    public function registerLinha(AddLinhaRequest $request, $trechos){
+        Linha::create($request, $trechos);
+        return redirect()->route('inicial_adm')->with('message', 'Linha cadastrada com sucesso!');
+    }
+
+    public function BuildLinha(Request $request){
+        $trechoList = $request['checked'];
+        $trechoList = substr($trechoList, 0, -1);
+        
+        $trechos = Linha::fetchTrechos($trechoList);
+
+        $trecho_n1 = $trechos[0];
+        $origem = $trecho_n1->cidade_partida;
+        
+        $trecho_last = $trechos[sizeof($trechos) -1 ];
+        $destino = $trecho_last->cidade_chegada;
+
+        $blade_array = array();
+
+        $preço_cnt = 0;
+
+        //dd($trechos);
+
+        foreach($trechos as $trecho){
+            $preço_cnt += $trecho->preco;
+            $blade_array[$trecho->codigo] = array(
+                'codigo' => $trecho->codigo,
+                'origem' => $trecho->cidade_partida,
+                'destino' => $trecho->cidade_chegada,
+                'duração' => $trecho->duracao,
+                'preço' => $trecho->preco
+            );
+        }
+
+        return view('administrador.adicionarLinha', ['trechos' => $blade_array, 
+        'origem' => $origem, 'destino' => $destino, 'preço_total' => $preço_cnt, 'trechos_cod' => $trechoList]);
+
+    }
         
 }

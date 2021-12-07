@@ -178,10 +178,11 @@ class Trecho extends Model {
     }
 
 
-    public static function getTodos(){
-        
+    public static function getTodos(Request $request){
+        $cod = DB::select("SELECT codigo_trecho from trechos_linha where codigo_linha = ?", [$request['codigo']]);
         $selecionar = DB::select("SELECT * FROM trecho;"); 
         $trechos = [];
+        
         
 
        foreach ($selecionar as $trecho_sel){
@@ -195,6 +196,16 @@ class Trecho extends Model {
                 
            ]; array_push($trechos, $trecho);
        } 
+
+       foreach($cod as $codigoT){
+           foreach($trechos as $tr=>$value){
+               if($codigoT->codigo_trecho == $value['codigo']){
+                  unset($trechos[$tr]);
+               }
+               
+           }
+       }
+
        return $trechos;
     }
 
@@ -212,30 +223,22 @@ class Trecho extends Model {
         $ordem_trecho = $request ['ordem'];
         $codigo_linha =$request['codLinha'];
 
+
         if(empty($ordem_trecho)){
             DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
             Log::editarTrecho($codigo_trecho);
-            dd('editado');
         }else{
             #DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             #where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
             #DB::update('UPDATE trechos_linha set ordem =? where codigo_trecho = ?', [$ordem_trecho, $codigo_trecho]);
-            $ordens = TrechosLinha::ordena('codigo_linha', $codigo_linha);
-            foreach ($ordens as $ord){
-                if($ord->codigo_trecho == $codigo_trecho){
-                    echo"s";
-                } else{
-                    echo"n";
-                }
+            
+            TrechosLinha::alteraOrdem($codigo_linha, $ordem_trecho, $codigo_trecho);
 
             }
 
 
-
-           
-        }
-       
+    
 
 
     }
