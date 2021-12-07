@@ -12,8 +12,8 @@
     $(document).ready(function() {                
         var trechos_partida = <?php echo $trechos_partida; ?>;
         var trechos_chegada = <?php echo $trechos_chegada; ?>;
-        document.getElementById('cidade_partida').placeholder = trechos_partida[0];
-        document.getElementById('cidade_destino').placeholder = trechos_chegada[0];        
+        document.getElementById('cidade_partida').placeholder = 'Ex: '+trechos_partida[0];
+        document.getElementById('cidade_destino').placeholder = 'Ex: '+trechos_chegada[0];        
 
     
         $('#cidade_partida').autocomplete({
@@ -25,6 +25,7 @@
         source: trechos_chegada,                
         treshold: 2,
         });
+        $('div.checkbox-group.required :checkbox:checked').length > 0
     });
 </script>
 
@@ -45,12 +46,12 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1" style="background-color:#F9C536;"><i class="fas fa-location-arrow" style="color:black;"></i></span>
                                         </div>
-                                            <input class="form-control" type="text" placeholder="" name="cidade_partida" id="cidade_partida">
+                                            <input class="form-control" type="text" placeholder="" name="cidade_partida" id="cidade_partida" required>
                                     </div>                                    
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="data_partida">Data de partida:</label>
-                                    <input class="form-control" type="date" name="data_partida" min="<?php echo date("Y-m-d")?>" value="<?php echo date("Y-m-d")?>" id="dataPartida"> 
+                                    <input class="form-control" type="date" name="data_partida" min="<?php echo date("Y-m-d")?>" value="<?php echo date("Y-m-d")?>" id="dataPartida" required> 
                                 </div>
                             </div>
                             <div class ="row justify-content-center"> 
@@ -60,16 +61,18 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1" style="background-color:black;"><i class="fas fa-location-arrow" style="color:#F9C536;"></i></span>
                                         </div>
-                                        <input class="form-control" type="text" placeholder="" name="cidade_destino" id="cidade_destino">                                        
+                                        <input class="form-control" type="text" placeholder="" name="cidade_destino" id="cidade_destino" required>                                        
                                     </div>                                    
                                     
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 ">
                                     <label for="tipo_linha">Tipo de Linha:</label><br>
-                                    <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" value="0" checked>
-                                    <label class="form-check-label">Linha Comum</label><br>
-                                    <input class="form-check form-check-inline" type="checkbox" name="tipoLinha_op2" value="1" checked>
-                                    <label class="form-check-label">Linha Direta</label>
+                                    <div class="checkbox-group" required>
+                                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" id="tipoLinha_op1" value="0" checked>
+                                        <label class="form-check-label" for="tipoLinha_op1">Linha Comum</label>
+                                        <input class="form-check form-check-inline" type="checkbox" name="tipoLinha_op2" id="tipoLinha_op2" value="1" checked>
+                                        <label class="form-check-label" for="tipoLinha_op2">Linha Direta</label>
+                                    </div>
                                 </div>
                             </div>
                             </div>
