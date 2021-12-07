@@ -19,8 +19,9 @@ class Passagem extends Model {
         return $confirmacao;
     }
 
-    public static function getNumAssento($codigo_linha, $max_vagas){
-        $assentos = DB::select('SELECT num_assento FROM passagem WHERE codigo_linha = :cod_linha', ['cod_linha' => $codigo_linha]);
+    public static function getNumAssento($codigo_linha, $data_viagem){
+        $max_vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$codigo_linha])[0]->total_vagas; //Retorna o número máximo de vagas de uma linha
+        $assentos = DB::select('SELECT num_assento FROM passagem WHERE codigo_linha = :cod_linha and date(data) = date(:data_viagem)', ['cod_linha' => $codigo_linha, 'data_viagem' => $data_viagem]); //Pega os assentos ocupados de acordo com a data da viagem e a linha informada.
         $lista_assentos = array();
         $assento = 0;
 
@@ -28,6 +29,7 @@ class Passagem extends Model {
         for($i = 0; $i < sizeof($assentos); $i++){
             $lista_assentos[$i] = $assentos[$i]->num_assento;
         }
+        //dd($lista_assentos);
 
         // Verifica se há vagas
         if(sizeof($assentos) < $max_vagas){

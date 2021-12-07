@@ -41,7 +41,7 @@
                 <form method="POST" class="form" action="{{route('estatisticas')}}">
                     @csrf
                     <div class="caixaPesquisa">
-                        <input type="number" class="caixaTexto" name="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
+                        <input type="number" min="1" class="caixaTexto" name="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
                         <button style=" background-color: #ffffff00; border: 0px;">
                             <span class="material-icons" id="iconPesquisa">search</span>
                         </button>
@@ -66,7 +66,7 @@
         <div class="quadro"> <!--Total de clientes que acessaram o sistema em determinado dia-->
             <div class="card-body">
                 <form method="POST" class="form" action="{{route('estatisticas')}}">
-                @csrf
+                    @csrf
                     <div class="caixaPesquisa">
                         <input type="date" class="caixaTexto" id="buscarAcessos" max="<?php echo date("Y-m-d")?>" name="buscarAcessos">
                         <button style=" background-color: #ffffff00; border: 0px;">
@@ -74,7 +74,7 @@
                         </button>
                     </div>
                 </form>
-                <p class="textoNumeroAzul"><b>{{$dados['passagens_vendidas_total']}}</b></p>
+                <p class="textoNumeroAzul"><b>{{$dados['total_acessos']}}</b></p>
                 <p><b>Clientes acessaram o sistema no dia <br> {{$dados['data']}}</b></p>
             </div>
         </div>

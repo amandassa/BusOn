@@ -2,6 +2,8 @@
 
 //use Illuminate\Support\Facades\Auth;
 
+
+
 Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
@@ -35,7 +37,7 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
     Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
-    Route::post('/venderPassagens', [App\Http\Controllers\FuncionarioController::class, 'vender'])->name('finalizar_venda');
+    Route::post('/venderPassagens', 'FuncionarioController@vender')->name('finalizar_venda');
     
 });
 
@@ -55,6 +57,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
 
     Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
     Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
+    Route::post('/editarTrecho/adicionado', 'TrechoController@adicionar')->name('editarTrecho.adicionar');
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');

@@ -215,6 +215,8 @@ class Linha extends Model {
                     $tipo = 0;
                 }
                 DB::update('UPDATE linha set  direta = ?, total_vagas = ?, dias_semana =?, hora_partida=? where codigo =?', [$tipo, $vagas, $dia, $hPartida, $consulta->codigo]);
+
+                Log::editarLinha($codigo);
             return $li=[
                 'id' => 2
             ];
@@ -334,15 +336,15 @@ class Linha extends Model {
 
         }
         
-        /**
-         * Remove uma linha e os trechos_linha correspondentes
-         */
-        public static function apagar($codigo){
-            $sucesso = 0;
-            $sucesso = DB::delete("delete from trechos_linha where codigo_linha = ?", [$codigo]);
-            $sucesso = DB::delete("delete from linha where codigo = ?", [$codigo]);
-            return $sucesso;
-        }
+    /**
+     * Remove uma linha e os trechos_linha correspondentes
+     */
+    public static function apagar($codigo){
+        $sucesso = 0;
+        $sucesso = DB::delete("delete from trechos_linha where codigo_linha = ?", [$codigo]);
+        $sucesso = DB::delete("delete from linha where codigo = ?", [$codigo]);
+        return $sucesso;
+    }
     
     
 }
