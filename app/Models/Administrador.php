@@ -42,7 +42,7 @@ class Administrador extends Funcionario
             DB::insert('insert into funcionario (nome, email, cpf, password, is_admin) values (?, ?, ?, ?, ?)',
             [$nome, $email, $cpf, Hash::make($senha), $is_admin]);
             
-            Log::cadastroFuncionario($cpf, date('Y-m-d H:i:s'));
+            Log::cadastroFuncionario($cpf);
         }
     }
 
@@ -145,7 +145,7 @@ class Administrador extends Funcionario
                     'id' => '2',
                     'email' => $email
                 ];
-                Log::edicaoFuncionarioAdm($cpf, date('Y-m-d H:i:s'));
+                Log::edicaoFuncionarioAdm($cpf);
                 return $usu;
                 
             }else {
@@ -189,7 +189,7 @@ class Administrador extends Funcionario
 
         DB::delete('DELETE FROM funcionario WHERE email = ?', [$email]);
 
-        Log::exclusaofuncionario($cpf_funcionario, date('Y-m-d H:i:s'));
+        Log::exclusaofuncionario($cpf_funcionario);
     }
 
     

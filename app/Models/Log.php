@@ -50,11 +50,11 @@ class Log extends Model
      * @param $email email do cliente
      * @param $data_hora data e hora do acesso ao sistema
      */
-    public static function acessoCliente($data_hora){
+    public static function acessoCliente(){
         $cpf = Auth::guard('cliente')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, descricao, data_hora, tipo_usuario) 
-        VALUES (?, ?, ?, 'C');", [$cpf, 'Cliente '.$cpf.' entrou no site', $data_hora]);
+        VALUES (?, ?, ?, 'C');", [$cpf, 'Cliente '.$cpf.' entrou no site', date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -63,11 +63,11 @@ class Log extends Model
      * @param $data_hora data e hora da adição do trecho
      * @param $nome_trecho nome do trecho
      */
-    public static function trechoAdicionado($data_hora, $cod_trecho){
+    public static function trechoAdicionado($cod_trecho){
         $cpf = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, descricao, data_hora, tipo_usuario) 
-        VALUES (?, ?, ?, 'A');", [$cpf, 'Adicionou o trecho '.$cod_trecho, $data_hora]);
+        VALUES (?, ?, ?, 'A');", [$cpf, 'Adicionou o trecho '.$cod_trecho, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -76,11 +76,11 @@ class Log extends Model
      * @param $data_hora data e hora da adição do trecho
      * @param $nome_trecho nome do trecho
      */
-    public static function linhaAdicionada($data_hora, $cod_linha){
+    public static function linhaAdicionada($cod_linha){
         $cpf = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, descricao, data_hora, tipo_usuario) 
-        VALUES (?, ?, ?, 'A');", [$cpf, 'Adicionou a linha '.$cod_linha, $data_hora]);
+        VALUES (?, ?, ?, 'A');", [$cpf, 'Adicionou a linha '.$cod_linha, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -89,11 +89,11 @@ class Log extends Model
      * @param $cod_linha código da linha editada
      * @param $data_hora data e hora da edição
      */
-    public static function editarLinha($cod_linha, $data_hora){
+    public static function editarLinha($cod_linha){
         $cpf = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Editou a linha ?', ?);", [$cpf, $cod_linha, $data_hora]);
+        VALUES (?, 'A', 'Editou a linha ?', ?);", [$cpf, $cod_linha, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -102,11 +102,11 @@ class Log extends Model
      * @param $cod_trecho código do trecho editado
      * @param $data_hora data e hora da edição
      */
-    public static function editarTrecho($cod_trecho, $data_hora){
+    public static function editarTrecho($cod_trecho){
         $cpf = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Editou o trecho ?', ?);", [$cpf, $cod_trecho, $data_hora]);
+        VALUES (?, 'A', 'Editou o trecho ?', ?);", [$cpf, $cod_trecho, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -116,11 +116,11 @@ class Log extends Model
      * @param $cpf_funcionario cpf do funcionario editado
      * @param $data_hora data e hora da edição
      */
-    public static function edicaoFuncionarioAdm($cpf_funcionario, $data_hora){
+    public static function edicaoFuncionarioAdm($cpf_funcionario){
         $cpf_adm = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Editou o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, $data_hora]);
+        VALUES (?, 'A', 'Editou o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -128,11 +128,11 @@ class Log extends Model
      * @param $cpf_funcionario cpf do funcionario cadastrado
      * @param $data_hora data e hora do cadastro
      */
-    public static function cadastroFuncionario($cpf_funcionario, $data_hora){
+    public static function cadastroFuncionario($cpf_funcionario){
         $cpf_adm = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Cadastrou o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, $data_hora]);
+        VALUES (?, 'A', 'Cadastrou o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -140,11 +140,11 @@ class Log extends Model
      * @param $cpf_funcionario cpf do funcionario excluído
      * @param $data_hora data e hora da exclusão
      */
-    public static function exclusaofuncionario($cpf_funcionario, $data_hora){
+    public static function exclusaofuncionario($cpf_funcionario){
         $cpf_adm = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Excluiu o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, $data_hora]);
+        VALUES (?, 'A', 'Excluiu o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, date('Y-m-d H:i:s')]);
     }
 
     /**

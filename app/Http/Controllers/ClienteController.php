@@ -57,7 +57,7 @@ class ClienteController extends Controller
             $cliente->email = $requisicao->email;
             $cliente->senha = $requisicao->senha;
            //return $cliente;
-           Log::acessoCliente(date('Y-m-d H:i:s'));
+           Log::acessoCliente();
         }
 
         // print_r($data);
