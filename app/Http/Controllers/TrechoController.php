@@ -86,8 +86,27 @@ class TrechoController extends Controller
 
     function editar(Request $request){
         $edit = Trecho::edicao($request);
-        
-        
+   
+    }
+
+    public function adicionar(Request $request){
+
+        $add = Trecho::addTrechoinLinha($request);
+
+        if ($add == 1) {
+            return redirect()
+                        ->back()
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
+        } elseif ($add ==2 ) {
+            return redirect()
+                        ->route('editarTrecho', $request)
+                        ->with('success', 'Perfil atualizado com sucesso!');
+        } else {
+            return redirect()
+                        ->back()
+                        ->with('error', 'As senhas não coincidem.');
+        }
+     
         
     }
     

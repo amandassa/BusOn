@@ -182,7 +182,7 @@ class Trecho extends Model {
         
         $selecionar = DB::select("SELECT * FROM trecho;"); 
         $trechos = [];
-
+        
 
        foreach ($selecionar as $trecho_sel){
            $trecho = [
@@ -199,6 +199,8 @@ class Trecho extends Model {
     }
 
 
+   
+
 
     public static function edicao( Request $request){
         $codigo_trecho = $request['codigo'];
@@ -207,18 +209,54 @@ class Trecho extends Model {
         $destino = $request['destino'];
         $preco = $request['preco'];
         $duracao = $request['duracao'];
-        $ordem = $request ['ordem'];
+        $ordem_trecho = $request ['ordem'];
         $codigo_linha =$request['codLinha'];
 
-        if(empty($ordem)){
+        if(empty($ordem_trecho)){
             DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
             dd('editado');
         }else{
-            dd('ainda n');
+            #DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
+            #where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
+            #DB::update('UPDATE trechos_linha set ordem =? where codigo_trecho = ?', [$ordem_trecho, $codigo_trecho]);
+            $ordens = TrechosLinha::ordena('codigo_linha', $codigo_linha);
+            foreach ($ordens as $ord){
+                if($ord->codigo_trecho == $codigo_trecho){
+                    echo"s";
+                } else{
+                    echo"n";
+                }
+
+            }
+
+
+
+           
         }
        
 
 
+    }
+
+    public static function addTrechoinLinha(Request $request){
+       $codigo_trecho = $request['checked'];
+       $codigo_linha = $request['codLinha'];
+       $codT=explode(',', $codigo_trecho);
+  
+       if(empty($codT) or empty($codigo_linha)){
+           return 1;
+       }else{
+            foreach ($codT as $codigoT){
+
+             if(empty($codigoT) or empty($codigo_linha)){
+                echo "$codigoT";
+             }else{
+                DB::update("INSERT INTO trechos_linha set codigo_linha=?, codigo_trecho=?, ordem=?",[$codigo_linha, $codigoT, 0]);
+             }
+            
+        }
+            return 2;
+       }
     }
 }
