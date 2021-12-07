@@ -10,19 +10,18 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script> 
-    <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>
-    
+    <script type="text/javascript" src="{{ asset('js/jquery.mask.js') }}"></script>   
+
     <script>
         
         $(document).ready(function() {
 
-        $("#cpf").mask('999.999.999-99') //máscara cpf
-      
+        $("#cpf").mask('999.999.999-99') //máscara cpf        
         //Script do datatable - serve para deixar a tabela com varias funcionalidades
         $('.tabela').DataTable({
         select:{selector:'#btnSel'},
@@ -152,11 +151,20 @@
 
             document.getElementById('preco_linha').value = precoComDesconto;
 
-        }
-
-
-        
+        }        
     </script>
+
+    @isset($linha_consulta)
+        <script>
+            $(document).ready(function(){                 
+                var linha_encode = <?php echo json_encode($linha_consulta); ?>;
+                var linha_escolhida = JSON.parse(JSON.stringify(linha_encode));                
+                preco(linha_escolhida['preco']);
+                atualizar_info_linha(<?php echo json_encode($linha_consulta); ?>);    
+                document.getElementById('ln').style = "background-color: #f7ca50;"
+            });
+        </script>
+    @endisset
 
     <h1 class="tituloVP">Venda de Passagens</h1> <br>
     <div class="container-xl principal">
@@ -312,7 +320,7 @@
                         </thead>
                         <tbody>
                             @foreach ($linhas as $linha)
-                            <tr>
+                            <tr id="ln">
                              <th scope="row">{{ $linha['codigo']}}</th>
                                 <td> {{ $linha['partida']}} </td>
                                 <td> {{ $linha['destino']}} </td>

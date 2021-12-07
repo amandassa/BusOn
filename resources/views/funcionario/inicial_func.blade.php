@@ -43,10 +43,10 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <form method="POST" class="form" action="{{route('estatisticas')}}">
+                    <form method="POST" class="form" name="formEstatisticas" action="{{route('estatisticas')}}">
                         @csrf
                         <div class="caixaPesquisa">
-                            <input type="number" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
+                            <input type="number" min="1" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">
                             <button style=" background-color: #ffffff00; border: 0px;">
                                 <span class="material-icons" id="iconPesquisa">search</span>
                             </button>
