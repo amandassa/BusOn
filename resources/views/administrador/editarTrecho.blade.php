@@ -33,11 +33,13 @@
 
     function Mudarestado(el) {
     var display = document.getElementById(el).style.display;
-    if (display == "none")
+    if (display == "none"){
         document.getElementById(el).style.display = 'block';
-    else
+    }      
+    else{
         document.getElementById(el).style.display = 'none';
     }
+        
 
    
     $(document).on('click','.botaoAzul#btnEditar',function(){})
@@ -52,6 +54,8 @@
             }
         }
     }
+
+    
 
     $(document).on('click','.botaoAzul',function(){
         var userID=$(this).attr('data-codigo');
@@ -128,7 +132,7 @@
                                     <td> {{ $trecho['duracao'] }} </td>
                                     <td>
                                         <button type="submit" class="botao botaoAzul editar" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
-                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" value="1">Editar</button>
+                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" value="1"> Editar </button>
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
                                     <td>
@@ -141,6 +145,7 @@
 
                         <div class="btnBaixo">
                             <div class="direita">
+                                <button type="submit" class="botao botaoAzul"  id="btnRemover">Remover Trecho Selecionado</button>
                                 <button type="submit" class="botao botaoAzul" id="btnRemover" onclick="removerTrecho('tb1')">Remover Trecho Selecionado</button>
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
@@ -197,7 +202,7 @@
                                         <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($tt)}}'), this.checked);">
                                     </td>
                                     <td>
-                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
+                                        <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')" 
                                         data-target="edit1" data-codigo="{{ $tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
                                     </td>
                                     <td> {{ $tt['ordem'] }} </td>
@@ -206,12 +211,18 @@
                                 @endforeach                        
                         </tbody>
                         </table>
-                        <form method="POST" class="form" action="">
+                        <form action="{{route('editarTrecho.adicionar')}}"  id="adicao"  method="post">
                             @csrf
                             <div class="btnBaixo">
                                 <div class="direita">
+                                    <div class="form-group">
+                                        <label for="codigoLinha"></label>
+                                        @foreach($trechos as $trec)                 
+                                        @endforeach 
+                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}} ">
+                                    </div>                
                                     <input type="hidden" id="checked" name="checked">
-                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo">Selecionar</button>
+                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" href ="{{route('editarTrecho.adicionar')}}" >Selecionar</button>
                                 </div>
                             </div>
                         </form> 
@@ -225,7 +236,7 @@
         </div>        
         <div class="card" style="display: none;" id="edit1">
             <div class="card-body">
-                <form action="{{route('editarTrecho.editar')}}" id="formulario"  method="post">
+                <form action="{{route('editarTrecho.editar')}}"  id="formulario"  method="post">
                     @csrf
                     <div class="form-group">
                         <label for="codigoLinha">Código: </label>

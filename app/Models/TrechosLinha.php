@@ -47,4 +47,11 @@ class TrechosLinha extends Model
         $ordem = DB::select($query, ['parametro' => $parametro]);
         return $ordem;        
     }
+
+
+    public static function ordena ($coluna, $parametro) {
+        $query = "SELECT ordem, codigo_trecho from trechos_linha WHERE " . $coluna . " LIKE :parametro ";
+        $ordem = DB::select($query, ['parametro' => $parametro]);
+        return $ordem;        
+    }
 }
