@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use App\Models\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddLinhaRequest;
@@ -436,6 +437,7 @@ class Linha extends Model {
             $trechosLinhaQuery = sprintf("INSERT INTO trechos_linha (codigo_linha, codigo_trecho, ordem) VALUES (%d, %d, %d);", $linha_cod, $trechoList[$current], $i+1);
             DB::insert($trechosLinhaQuery);
         }
+        Log::linhaAdicionada($linha_cod);
         //dd($linha_cod);
         //dd($hora_partida);
     }
