@@ -110,8 +110,10 @@ class Funcionario extends Authenticatable {
 
         $cpf_cliente = str_replace(".", "", $cpf_cliente);
         $cpf_cliente = str_replace("-", "", $cpf_cliente);
-
-        $data =  date('y/m/d'); //Data de hoje
+        
+        $data = str_replace("/", "-", $request['data_partida']);
+        $data = date('Y-m-d', strtotime($data));
+        $data_venda = date('Y-m-d'); //Data de hoje
 
         $cod_linha = $request['cod_linha'];
         $valor = $request['preco_atual'];
@@ -122,7 +124,7 @@ class Funcionario extends Authenticatable {
         $vagas = DB::select('SELECT * FROM linha WHERE codigo = ?', [$cod_linha])[0];
         $max_vagas = $vagas->total_vagas;
 
-        $num_assento = Passagem::getNumAssento($cod_linha, $max_vagas); //Pega um assento disponível para o passageiro
+        $num_assento = Passagem::getNumAssento($cod_linha, $data); //Pega um assento disponível para o passageiro na data da viagem
         
         if($num_assento > 0 &&  $num_assento <= $max_vagas){  //Se ainda há vagas disponíveis para essa linha, a venda é permitida
 
@@ -133,7 +135,7 @@ class Funcionario extends Authenticatable {
             $cod_passagem = $cod_passagem[0]->codigo;
             
 
-            DB::insert('INSERT INTO venda (codigo_passagem, matricula_vendedor, valor, data_compra) VALUES (?, ?, ?, ?);', [$cod_passagem, $matricula, $valor, $data]);
+            DB::insert('INSERT INTO venda (codigo_passagem, matricula_vendedor, valor, data_compra) VALUES (?, ?, ?, ?);', [$cod_passagem, $matricula, $valor, $data_venda]);
             DB::insert('INSERT INTO pagamento (codigo_passagem, realizado, forma_pagamento) VALUES (?, ?, ?);', [$cod_passagem, 1, 1]);
             $id_pagamento = DB::select('SELECT MAX(codigo) AS id from pagamento')[0];   
             $id_pagamento = $id_pagamento->id;
