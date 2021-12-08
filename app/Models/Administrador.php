@@ -250,7 +250,7 @@ class Administrador extends Funcionario
         return  DB::select("SELECT count(*) as total FROM logs WHERE tipo_usuario = 'C' and date(data_hora) = '$data'")[0];
     }
 
-    public static function baixarBackup(){                
+    public static function baixarBackup(){         
         $mysqlHostName      = env('DB_HOST');
         $mysqlUserName      = env('DB_USERNAME');
         $mysqlPassword      = env('DB_PASSWORD');
@@ -291,27 +291,23 @@ class Administrador extends Funcionario
           $output .= "" . implode(", ", $table_column_array) . ") VALUES (";
           $output .= "'" . implode("','", $table_value_array) . "');\n";
          }
-        }
+        }        
         $file_name = 'buson_backup_' . date("Ymd_H:i") . '.sql';
-        $file_handle = fopen($file_name, 'w+');
+        $file_handle = fopen($file_name, 'w+');        
         fwrite($file_handle, $output);
-        fclose($file_handle);
+        fclose($file_handle);        
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename=' . basename($file_name));
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
-        header('Cache-Control: must-revalidate');
+        header('Cache-Control: must-revalidate');        
            header('Pragma: public');
            header('Content-Length: ' . filesize($file_name));
            ob_clean();
-           flush();
+           flush();           
            readfile($file_name);
            unlink($file_name);
-        
-        $url = explode("/", $_SERVER["REQUEST_URI"]);
-        if($url[1] == "inicialAdm")
-            return route('inicial_adm');
     }
 
 }
