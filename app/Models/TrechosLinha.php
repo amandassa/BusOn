@@ -85,7 +85,7 @@ class TrechosLinha extends Model
         DB::update("UPDATE trechos_linha set ordem= ordem+1 where ordem >=? and codigo_linha =?",[$ordemNova, $codigo_linha]);
         DB::update("UPDATE trechos_linha set ordem=? where codigo_trecho =?",[$ordemNova,$codT]);
       
-        }
+    }
     
     
 

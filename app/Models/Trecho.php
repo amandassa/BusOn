@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TrechosLinha;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddTrechoInLinhaRequest;
@@ -234,14 +235,10 @@ class Trecho extends Model {
         }else{
             DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
+            TrechosLinha::alteraOrdem($codigo_linha, $ordem_trecho, $codigo_trecho);
             return 2;
 
         }
-
-
-    
-
-
     }
 
     public static function addTrechoinLinha(Request $request){
