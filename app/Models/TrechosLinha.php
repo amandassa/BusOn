@@ -19,7 +19,7 @@ class TrechosLinha extends Model
     /**
      * Retorna um ou mais codigos de trechos conforme um dado valor (parametro) de uma dada coluna
      */
-    public static function getCodigoTrecho($coluna, $parametro){
+    public static function getCodigoTrecho($coluna, $parametro){        
         $query = "SELECT codigo_trecho FROM trechos_linha WHERE ".$coluna." = :parametro";
         $codigo_trecho = DB::select($query, ['parametro' =>  $parametro]);        
         if($codigo_trecho)
@@ -31,10 +31,10 @@ class TrechosLinha extends Model
     /**
      * Retorna um ou mais codigos de linha conforme um dado valor (parametro) de uma dada coluna
      */
-    public static function getCodigoLinha ($coluna, $parametro) {
+    public static function getCodigoLinha ($coluna, $parametro) {        
         $query = "SELECT codigo_linha FROM trechos_linha WHERE ".$coluna." LIKE :parametro";                        
-        $codigo_linha = DB::select($query, ['parametro' => $parametro]);        
-        if($codigo_linha)
+        $codigo_linha = DB::select($query, ['parametro' => $parametro]);                
+        if($codigo_linha != null)
             return $codigo_linha;
         else
             return null;

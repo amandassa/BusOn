@@ -123,7 +123,7 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas', ['linhas'=>$this->calcularHorarios($hoje, $linhas), 'status'=>$status, 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
         }
         else { 
-            if($url[1] == 'venderPassagens'){
+            if($url[1] == 'venderPassagens'){                
                 return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
             } else if ($this->trava == 1){                                    
                     $this->trava = 5;
@@ -212,9 +212,9 @@ class LinhaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function consulta (Request $request)
-    {                         
+    {                            
         $linhas = []; 
-        $erros = [];
+        $erros = [];        
         $consultas_trechos_partida = DB::select("select cidade_partida from trecho");
         $consultas_trechos_chegada = DB::select("select cidade_chegada from trecho");
         $trechos_partida = [];
@@ -241,31 +241,34 @@ class LinhaController extends Controller
             return view('funcionario.vender_passagens')->with(['linhas' => $linhas, $request->flash(), 'linha_consulta' => $linha_consulta]);        
         }
 
-        $dia = date('w', strtotime($request['data_partida'])); // Converte a data inserida ao seu equivalente em dia da semana                
-        if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){ // Verifica  o tipo de consulta
+        $dia = date('w', strtotime($request['data_partida'])); // Converte a data inserida ao seu equivalente em dia da semana                        
+        if($request['opcaoBusca'] == 'Nome' || $request['opcaoBusca'] == null){ // Verifica  o tipo de consulta            
             $cidade_partida = $request['cidade_partida'];
             $cidade_destino = $request['cidade_destino'];                        
             if($cidade_partida == null && $cidade_destino == null)
                 return $this->index();                
-            $trechos_partida = Trecho::getCodigo('cidade_partida', $cidade_partida); // Captura todos os codigos de trecho cujo nome da cidade de partida seja equivalente a cidade de partida informada pelo usuário            
+            $trechos_partida = Trecho::getCodigo('cidade_partida', $cidade_partida); // Captura todos os codigos de trecho cujo nome da cidade de partida seja equivalente a cidade de partida informada pelo usuário                        
             if($trechos_partida == null) array_push($erros, "Cidade de Partida não encontrada");
-            foreach($trechos_partida as $trecho_partida){                
-                $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo); // Captura o codigo da linha do trecho
+            foreach($trechos_partida as $trecho_partida){                                   
+                $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo); // Captura o codigo da linha do trecho                                                                
                 if($linha_trechopartida == null){ // Se nao existir linha para o trecho da cidade selecionada 
-                    array_push($erros, "Não há linhas para a cidade selecionada");
+                    array_push($erros, "Não há linhas para a cidade selecionada");                    
                     break;
                 }
-                $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo); // Busca o nome no banco de dados da cidade de partida                                
-                foreach($linha_trechopartida as $codigo){ // Percorre todas as linhas que possui o trecho com a cidade inicial informada
+                $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo); // Busca o nome no banco de dados da cidade de partida                                                                                                                
+                foreach($linha_trechopartida as $codigo){ // Percorre todas as linhas que possui o trecho com a cidade inicial informada                                        
+                    if($cidade_partida == $request['cidade_partida']){                         
                     $tipo = Linha::getTipo('codigo', $codigo->codigo_linha);
                     $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);                                                            
                     for($i = 0; $i < $quantidade[0]->ordem; $i = $i + 1){ // Percorre todos os trechos da linha até encontrar a linha de partida                                                
                         $trecho_destino = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo->codigo_linha);                                                                    
-                        $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);                                                
-                        if($destino[0]->cidade_chegada == $cidade_destino){
+                        dd($trecho_destino);
+                        $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);                                                                                                
+
+                        if($destino[0]->cidade_chegada == $cidade_destino){                            
                             if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
                                 $data = Linha::getData('codigo', $codigo->codigo_linha);                        
-                                $data = explode(";", $data[0]->dias_semana);                                
+                                $data = explode(";", $data[0]->dias_semana);                                                                
                                 if(in_array($dia, $data) == false){  
                                     array_push($erros, 'Linha não encontrada para a data especificada');                                    
                                     break;
@@ -281,7 +284,7 @@ class LinhaController extends Controller
                                     'total_vagas'=>$total_vagas[0]->total_vagas,
                                     'tipo'=>$tipo[0]->direta,                                                                        
                                     'preco'=> number_format(floatval($preco), 2, ',', '.')
-                                ];
+                                ];                                
                                 array_push($linhas, $linha);                                                                
                                 $status =  "Linha encontrada com sucesso";                                
                                 break;
@@ -297,7 +300,7 @@ class LinhaController extends Controller
                         }
                     }                                                    
                 }
-                
+            }
             }
         } else {
             $codigo_linha = $request['codigo_linha'];
@@ -306,10 +309,10 @@ class LinhaController extends Controller
                 $ordem = DB::select("select max(ordem) as ordem from trechos_linha where codigo_linha = :cod_linha", ['cod_linha' => $codigo_linha]);
                 $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = :cod_linha and ordem = :ordem)", ['cod_linha' => $codigo_linha, 'ordem' => $ordem[0]->ordem]);                
                 $tipo = Linha::getTipo('codigo', $codigo_linha);
-                if($cidade_chegada != null){
+                if($cidade_chegada != null){                    
                     if (strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2'])){
                         $data = Linha::getData('codigo', $codigo_linha);                        
-                        $data = explode(";", $data[0]->dias_semana);
+                        $data = explode(";", $data[0]->dias_semana);                        
                         if(in_array($dia, $data)){
                             $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ?)", [$codigo_linha]);
                             $preco = $preco[0]->soma;                    
@@ -322,6 +325,7 @@ class LinhaController extends Controller
                                 'tipo'=>$tipo[0]->direta,                                                
                                 'preco'=> number_format(floatval($preco), 2, ',', '.')
                             ];
+                            
                             array_push($linhas, $linha);                            
                             $status =  "Linha encontrada com sucesso";
                             $encontrado = 1;
@@ -339,7 +343,7 @@ class LinhaController extends Controller
                 array_push($erros, "Não há linha com o código informado");
             }
         }                
-                
+                        
         $url = explode("/", $_SERVER["REQUEST_URI"]);              
         if($url[1] == 'consultar_linhas') 
         {            
@@ -348,7 +352,7 @@ class LinhaController extends Controller
         else{          
             if(($url[1] == 'selecao' or $url[1] == 'inicio')){
                 return view('cliente.selecao', ['linhas'=> $this->calcularHorarios($request['data_partida'], $linhas), 'erros' => $erros]);
-            }else {                                                
+            }else {                  
                     return view('funcionario.vender_passagens')->with(['linhas' => $this->calcularHorarios($request['data_partida'], $linhas), $request->flash()]);                
             }
         }
