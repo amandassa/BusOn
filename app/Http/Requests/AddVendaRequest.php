@@ -29,7 +29,9 @@ class AddVendaRequest extends FormRequest
         return [
             'cod_linha' => ['required', 'min:1'],
             'cpf_atual' => ['required'],
-            'preco_atual' => "required|numeric|min:$preco_linha"
+            'preco_atual' => "required|numeric|min:$preco_linha",
+            'cidade_partida' => 'required',
+            'cidade_destino' =>'required'
         ];
     }
 
@@ -40,7 +42,9 @@ class AddVendaRequest extends FormRequest
             'cod_linha.required' => 'Escolha uma passagem para vender.',
             'cpf_atual.required' => 'Preencha as informações do comprador.',
             'preco_atual.required' => 'Passagem não foi paga devidamente.',
-            'preco_atual.min' => "Passagem não foi paga devidamente. O valor de pelo menos R$ :min deve ser pago."
+            'preco_atual.min' => "Passagem não foi paga devidamente. O valor de pelo menos R$ :min deve ser pago.",
+            'cidade_partida.required' => 'Insira uma cidade de partida.',
+            'cidade_destino.required' => 'Insira uma cidade de destino.',
 
         ];
     }
