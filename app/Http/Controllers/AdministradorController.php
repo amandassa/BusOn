@@ -189,14 +189,15 @@ class AdministradorController extends Controller
     public function estatisticasAdministrador(Request $request)
     {
         $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
-        
+        $cod= DB::select("SELECT codigo FROM linha AS l WHERE EXISTS (SELECT t.codigo_linha FROM trechos_linha as t WHERE t.codigo_linha = l.codigo)")[0]->codigo;
+
         $passagens_vendidas = Administrador::passagens_vendidas($mat_adm);//total de passagens vendidas
         $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
         $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
 
         //busca os dados de uma linha dado um determinado código
         if($request['buscarLinha'] == null){
-            $cod_busca = 1;
+            $cod_busca = $cod;
         }else{
             $cod_busca = $request['buscarLinha'];
         }
@@ -204,7 +205,7 @@ class AdministradorController extends Controller
         
         //busca dados de vendas de uma determinada linha
         if($request['buscarLinhaHoje'] == null){
-            $cod_busca_vendas_linha = 1;
+            $cod_busca_vendas_linha = $cod;
         }else{
             
             $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
