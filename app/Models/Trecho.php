@@ -224,19 +224,19 @@ class Trecho extends Model {
         $ordem_trecho = $request ['ordem'];
         $codigo_linha =$request['codLinha'];
 
-
-        if(empty($ordem_trecho)){
+        if(empty($partida) or empty($destino) or empty($preco) or empty($duracao)){
+            return 1;
+        }else if(empty($ordem_trecho)){
             DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
             Log::editarTrecho($codigo_trecho);
+            return 2;
         }else{
-            #DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
-            #where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
-            #DB::update('UPDATE trechos_linha set ordem =? where codigo_trecho = ?', [$ordem_trecho, $codigo_trecho]);
-            
-            #TrechosLinha::alteraOrdem($codigo_linha, $ordem_trecho, $codigo_trecho);
+            DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
+            where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
+            return 2;
 
-            }
+        }
 
 
     

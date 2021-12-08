@@ -89,6 +89,19 @@ class TrechoController extends Controller
 
     function editar(Request $request){
         $edit = Trecho::edicao($request);
+        if ($edit == 1) {
+            return redirect()
+                        ->back()
+                        ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
+        } elseif ($edit ==2 ) {
+            return redirect()
+                        ->back()
+                        ->with('success', 'Trecho editado com sucesso');
+        } else {
+            return redirect()
+                        ->back()
+                        ->with('error', 'Erro ao cadastrar, tente novamente');
+        }
    
     }
 
