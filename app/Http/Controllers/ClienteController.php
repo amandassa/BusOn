@@ -34,11 +34,6 @@ class ClienteController extends Controller
         return view('cliente.inicio', ['trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_chegada)]);
     }
 
-    public function indexSelecao(){        
-        $linha = DB::select("SELECT * FROM linha WHERE codigo = 2")[0];         
-        return view('cliente.selecao', ['linha' => $linha]);
-    }
-
     /**
      * Busca uma passagem pela cidade de origem e destino
      */
@@ -107,10 +102,10 @@ class ClienteController extends Controller
      * Consulta as passagens compradas pelo cliente
      */
     public function consultaMinhasPassagens() {
-        $cliente = Cliente::index();
-        $cpf = $cliente['cpf'];
-        $passagens = DB::select('SELECT codigo, cidade_partida, cidade_chegada, num_assento, data FROM passagem WHERE cpf_cliente = ? ORDER BY data DESC;', [$cpf]);
-        return view('cliente.minhasPassagens', ['passagens'=>$passagens]);
+        $cpf = Auth::guard('cliente')->user()->cpf;
+        $passagens = DB::select("SELECT codigo, cidade_partida, cidade_chegada, num_assento, data FROM passagem WHERE cpf_cliente = ? ORDER BY data DESC;", [$cpf]);
+        //dd($passagens);
+        return view('cliente.minhasPassagens', ['passagens' => $passagens]);
     }
 
 }

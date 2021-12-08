@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-group">
                         <label for="entradaSenha">Senha</label>
-                        <input type="password" class="form-control" id="entradaSenha"  name = "senha" value="{{$cliente['entradaEmail']}}"/>
+                        <input type="password" class="form-control" id="entradaSenha"  name = "senha"/>
                     </div>
                     <div class="form-group">
                         <label for="entradaConfirmarSenha">Confirmação de senha</label>
