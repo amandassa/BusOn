@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAddTrechoRequest;
 use App\Http\Requests\StoreCadastroFuncionarioRequest;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreAlteracaoDadosFuncionarioRequest;
+use App\Http\Requests\StoreAlteracaoDadosRequest;
 use App\Models\Administrador;
 use App\Models\Log;
 use Dotenv\Regex\Result;
@@ -111,7 +111,7 @@ class AdministradorController extends Controller
         return view("administrador.perfil", ['administrador'=>$administrador]);
     }
     
-    public function editar(Request $request){
+    public function editar(StoreAlteracaoDadosRequest $request){
         $adm = Administrador::editar($request);
 
         if ($adm == 1) {
@@ -136,8 +136,11 @@ class AdministradorController extends Controller
     }
     
     public function editarFunc(Request $request){
+        $email = $request['email'];
+        $request->validate([
+            ['email' => 'unique:funcionario,email,'.$email.',email'],
+            'email.unique' => 'Email já utilizado na base de dados!']); 
         $func = Administrador::editarFunc($request);
-
         if ($func['id'] == 1) {
             return redirect()
                         ->back()
