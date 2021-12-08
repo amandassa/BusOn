@@ -44,7 +44,26 @@
         }   
         });
     
-    } )
+    } );
+
+
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+            });
+        }, false);
+        })();
 
 
         var ultimoPreco = 0; //Armazena o preço da última passagem selecionada
@@ -205,23 +224,30 @@
             <div class="col-md-6">
                 <h5 class="titulos">Consulta de Linhas</h5> <!--Card da pesquisa de linhas -->
                 <div class="card cardCL">
-                    <form method="GET" action="{{route('consultaVP')}}" class="form">
+                    <form method="GET" action="{{route('consultaVP')}}" class="form needs-validation" novalidate>
                         @csrf 
                         <div class="row">
                             <div class="col">
                                 <label class="textoPreto" for="partidaInput">Partida:</label>
-                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('cidade_partida') }}">
+                                <input type="text" class="form-control form-control-sm" id="partidaInput" name='cidade_partida' value="{{ old('cidade_partida') }}" required>
+                                <div class="invalid-feedback" style="font-size: small">
+                                    Digite a partida!
+                                </div>
                             </div>
                             <div class="col">
                                 <label class="textoPreto" for="chegadaInput">Chegada:</label>
-                                <input type="text" class="form-control form-control-sm" id="chegadaInput" name="cidade_destino" value="{{ old('cidade_destino') }}">
+                                <input type="text" class="form-control form-control-sm" id="chegadaInput" name="cidade_destino" value="{{ old('cidade_destino') }}" required>
+                                <div class="invalid-feedback" style="font-size: small">
+                                    Digite o destino!
+                                  </div>
                             </div>
                             
                             <div class="col">
                                 <label class="textoPreto" for="dataInput">Data de Partida:</label>
-                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}"> 
-                                
-                                
+                                <input type="date" class="form-control form-control-sm" id="dataInput" name="data_partida" min="<?php echo date("Y-m-d"); ?>" value="{{ old('data_partida') }}" required> 
+                                <div class="invalid-feedback" style="font-size: small">
+                                    Escolha uma data!
+                                  </div>
                             </div>
                         </div>
                         <div class="row rowBotoes">
@@ -381,10 +407,10 @@
                                 <input id="cpf_atual" name="cpf_atual" type="hidden"></input>
                                 <input id="preco_atual" name="preco_atual" type="hidden"></input>
                                 <input id="preco_linha" name="preco_linha" type="hidden"></input>
-                                <input id="data_partida" name="data_partida" type="hidden" value="{{$linha['data_partida']}}"></input>
-                                <input id="hora_partida" name="hora_partida" type="hidden" value="{{$linha['hora_partida']}}"></input>
-                                <input id="hora_chegada" name="hora_chegada" type="hidden" value="{{$linha['hora_chegada']}}"></input>
-                                <input id="data_chegada" name="data_chegada" type="hidden" value="{{$linha['data_chegada']}}"></input>
+                                <input id="data_partida" name="data_partida" type="hidden"></input>
+                                <input id="hora_partida" name="hora_partida" type="hidden"></input>
+                                <input id="hora_chegada" name="hora_chegada" type="hidden"></input>
+                                <input id="data_chegada" name="data_chegada" type="hidden"></input>
 
                                 <button name="finalize" type="submit" class="botao botaoAmarelo" id="btnFinal"><span><i class="fas fa-check-circle"></i></span>  Finalizar</button>
                             </form>
