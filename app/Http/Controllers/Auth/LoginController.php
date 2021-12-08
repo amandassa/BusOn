@@ -67,7 +67,7 @@ class LoginController extends Controller
             return redirect()->intended('/inicio');
         }
 
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->with('error', 'Não foi possível fazer o login. Revise as credenciais informadas.');
     }
 
     public function funcionarioLogin(Request $request)
