@@ -19,7 +19,7 @@ class TrechosLinha extends Model
     /**
      * Retorna um ou mais codigos de trechos conforme um dado valor (parametro) de uma dada coluna
      */
-    public static function getCodigoTrecho($coluna, $parametro){
+    public static function getCodigoTrecho($coluna, $parametro){        
         $query = "SELECT codigo_trecho FROM trechos_linha WHERE ".$coluna." = :parametro";
         $codigo_trecho = DB::select($query, ['parametro' =>  $parametro]);        
         if($codigo_trecho)
@@ -31,10 +31,10 @@ class TrechosLinha extends Model
     /**
      * Retorna um ou mais codigos de linha conforme um dado valor (parametro) de uma dada coluna
      */
-    public static function getCodigoLinha ($coluna, $parametro) {
+    public static function getCodigoLinha ($coluna, $parametro) {        
         $query = "SELECT codigo_linha FROM trechos_linha WHERE ".$coluna." LIKE :parametro";                        
-        $codigo_linha = DB::select($query, ['parametro' => $parametro]);        
-        if($codigo_linha)
+        $codigo_linha = DB::select($query, ['parametro' => $parametro]);                
+        if($codigo_linha != null)
             return $codigo_linha;
         else
             return null;
@@ -75,19 +75,17 @@ class TrechosLinha extends Model
      */
     public static function removerTrecho($codigo_trecho, $codigo_linha){
         $ordem = DB::select("SELECT ordem FROM trechos_linha WHERE codigo_trecho = ? AND codigo_linha = ?",
-         [$codigo_trecho, $codigo_linha]);
-         $delete = DB::delete("DELETE from trechos_linha WHERE codigo_trecho = ? AND codigo_linha = ?", 
+        [$codigo_trecho, $codigo_linha]);
+        $delete = DB::delete("DELETE from trechos_linha WHERE codigo_trecho = ? AND codigo_linha = ?", 
         [$codigo_trecho, $codigo_linha]);
         $trechos = DB::select("SELECT codigo_trecho, ordem FROM trechos_linha WHERE codigo_linha = ?", [$codigo_linha]);
 
         foreach($trechos as $trecho){
             if($trecho->ordem > $ordem[0]->ordem){
-                DB::update("UPDATE trechos_linha SET ordem = :ord WHERE codigo_trecho = :ct AND codigo_linha = :cl", 
-                ['ord'=>($ordem[0]->ordem), 'ct'=>$codigo_trecho, 'cl'=>$codigo_linha]);
-                $ordem[0]->ordem = ($ordem[0]->ordem)-1;  // caso haja mais de um trecho após o removido
+                DB::update("UPDATE trechos_linha SET ordem = :ord WHERE ordem = :ordemAtual AND codigo_linha = :cl", 
+                ['ord'=>($ordem[0]->ordem), 'ordemAtual'=>$trecho->ordem, 'cl'=>$codigo_linha]);
+                $ordem[0]->ordem = ($ordem[0]->ordem)+1;  // caso haja mais de um trecho após o removido
            }
         }
-        
-
     }
 }
