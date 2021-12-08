@@ -248,16 +248,19 @@ class Trecho extends Model {
        $codigo_trecho = $request['checked'];
        $codigo_linha = $request['codLinha'];
        $codT=explode(',', $codigo_trecho);
-  
+       $codT =array_diff( $codT, array("",0,null));
        if(empty($codT) or empty($codigo_linha)){
+
            return 1;
        }else{
             foreach ($codT as $codigoT){
-
              if(empty($codigoT) or empty($codigo_linha)){
-                echo "$codigoT";
+                return 1;
              }else{
                 DB::update("INSERT INTO trechos_linha set codigo_linha=?, codigo_trecho=?, ordem=?",[$codigo_linha, $codigoT, 0]);
+                $ordens = TrechosLinha::getOrdem('codigo_linha', $codigo_linha); 
+                $final = count($ordens);
+                TrechosLinha::ordemAdicionar($codigo_linha,$codigoT,$final);
              }
             
         }
