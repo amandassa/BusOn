@@ -8,13 +8,14 @@
         <h5 class="texto">Recuperar Acesso</h5>
         <div class="card">
             <div class="card-body">
-                <form>
+                <form method="POST" action="{{route('recuperarAcessoCliente')}}" id="recuperarAcessoCliente">
+                    @csrf
                     <div class="form-group">
                         <label for="entradaEmail">Email Cadastrado</label>
-                        <input type="email" class="form-control" id="entradaEmail">
+                        <input type="email" class="form-control" name="email" id="email">
                     </div>
                     <div class="btnCC">
-                        <button type="sublit" class="botao botaoAmarelo" id="btnCriarConta">Enviar Senha Provisória</button>
+                        <button class="botao botaoAmarelo" id="btnCriarConta">Enviar Senha Provisória</button>
                     </div>
                     <div class="linkAC">
                         <label>Recordou sua senha?</label>
