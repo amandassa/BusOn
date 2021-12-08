@@ -118,8 +118,7 @@
                             </tr>
                             </thead>
                         <tbody> 
-                            @csrf
-                            @method('delete')
+
                                              
                                 @foreach ($trechos as $trecho)
                                 <tr>
@@ -129,11 +128,13 @@
                                     <td>R$ {{ $trecho['preco'] }} </td>
                                     <td> {{ $trecho['duracao'] }} </td>
                                     <td>
-                                        <button type="submit" class="botao botaoAzul editar" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')"
-                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" value="1"> Editar </button>
+                                        <a type="submit" class="botao botaoAzul editar"id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')" 
+                                        data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" value="1"> Editar </a>
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
                                 <form action="{{route('editarTrecho.excluir')}}" method="post">
+                                    @csrf
+                                    @method('delete')
                                     <td>
                                         <input type="checkbox" name="check[]" id="select" value="{{$trecho['codigo']}}">
                                     </td>
@@ -150,7 +151,7 @@
                             </div>
                             <div class="direita">
                                     <button type="submit" class="botao botaoAzul"  id="btnRemover" >Remover Trecho Selecionado</button>
-                            </form>
+                                </form>
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                        
@@ -258,7 +259,7 @@
                     </div>
                     <div class="form-group">
                         <label for="duracao">Duração Viagem: </label>
-                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao"  value=""> 
+                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao" value=""> 
                     </div>
                     <div class="form-group">
                         <label for="ordemT">Ordem Trecho: </label>

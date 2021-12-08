@@ -20,7 +20,7 @@
             cod_add = cod_add.concat(old_cod.value);
             old_cod.value = cod_add;
         }else{
-            old_cod.value = old_cod.value.replace(cod_add);
+            old_cod.value = old_cod.value.replace(cod_add, "");
             if(old_cod.value == "undefined") old_cod.value = "";
         }
     }
