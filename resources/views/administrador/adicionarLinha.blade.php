@@ -21,9 +21,7 @@
             <div class="alert alert-danger">
                 <ul>
                     @foreach($errors->all() as $error)
-                        @if ($error != ($prevError))
-                            <li>{{ $error }}</li>
-                        @endif
+                        <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -110,7 +108,6 @@
 
             <div class="botoes_add">
                 
-                <button class="botao_trecho" id="cancelbutton" type="button">Cancelar</button>
                 <button class="botao_trecho" id="salvarbutton" type="submit">Salvar Linha</button>
                 
             </div>

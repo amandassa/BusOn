@@ -87,8 +87,6 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
     Route::post('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('buscar_cliente');
 
-    Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
-    
     Route::get('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('verificarLogs');
     Route::post('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('Logs');
 
