@@ -118,7 +118,7 @@ class Trecho extends Model {
         dd($query);
     }
 
-    public static function consulta(BuscaTrechoRequest $request){
+    public static function consulta(Request $request){
         $query = "SELECT * FROM trecho";
         $plus = false;
         if($request['codigo'] != null){

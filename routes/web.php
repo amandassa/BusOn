@@ -121,4 +121,10 @@ Route::get('/recuperarAcessoCliente', function(){
     return view('cliente.recuperarAcesso');
 })->name('recuperarAcessoClienteView');
 
+Route::post('/recuperarAcessoFuncionario', 'MailController@recuperaAcessoFuncionario')->name('recuperarAcessoFuncionario');
+
+Route::get('/recuperarAcessoFuncionario', function(){
+    return view('funcionario.recuperarAcesso');
+})->name('recuperarAcessoFuncionarioView');
+
 ?>

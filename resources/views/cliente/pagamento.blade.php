@@ -84,10 +84,11 @@
         <div class="row">
             <div class="col-sm">  
             @if ($errors->any())
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 <ul>
-                    @foreach ($errors->all() as $error)
-                        <li> {{ $error }} </li>
+                    @foreach($errors->all() as $error)
+                        <li><strong>{{ $error }}</strong></li>
                     @endforeach
                 </ul>
             </div>
