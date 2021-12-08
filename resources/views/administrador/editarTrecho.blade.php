@@ -39,27 +39,17 @@
     else{
         document.getElementById(el).style.display = 'none';
     }
-        
-
-   
-    $(document).on('click','.botaoAzul#btnEditar',function(){})
-    
-    function removerTrecho(id){
-        var container = document.getElementById(id);
-        var checklista = container.getElementsByTagName("INPUT");
-        for (i=0, i < checklista.length, i++){
-            var item = checklista[i];
-            if (item.checked) {
-                
-            }
-        }
     }
 
+   
+   
+
     
+    $(document).on('click','.botaoAzul#btnEditar',function(){})    
 
     $(document).on('click','.botaoAzul',function(){
         var userID=$(this).attr('data-codigo');
-        $('#codigoLinha').val(userID); 
+        $('#codigoTrecho').val(userID); 
         var userCidp=$(this).attr('data-cidP');
         $('#cidadePartida').val(userCidp); 
         var userCidC=$(this).attr('data-cidC');
@@ -86,7 +76,8 @@
 
 <div class="container" id="contPrincipal">
         <div class="row">         
-            <h3 >Trechos da linha de @foreach($trechos as $tre)                 
+            <h3 >Trechos da linha de 
+                @foreach($trechos as $tre)                 
             @endforeach Codigo: {{$tre['codigo_linha']}} </h3>            
          
         </div>        
@@ -122,7 +113,9 @@
                                 <th scope="col">Selecionar</th>
                             </tr>
                             </thead>
-                        <tbody>                        
+                        <tbody>  
+                                @csrf
+                                @method('delete')                      
                                 @foreach ($trechos as $trecho)
                                 <tr>
                                 <th scope="row">{{ $trecho['codigo'] }}</th>
@@ -136,7 +129,7 @@
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
                                     <td>
-                                        <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($trecho)}}'), this.checked);">
+                                        <input type="checkbox" name="check[]" value="{{$trecho['codigo']}}">
                                     </td>
                                 </tr>
                                 @endforeach                        
@@ -144,9 +137,12 @@
                         </table>
 
                         <div class="btnBaixo">
+
                             <div class="direita">
-                                <button type="submit" class="botao botaoAzul"  id="btnRemover">Remover Trecho Selecionado</button>
-                                <button type="submit" class="botao botaoAzul" id="btnRemover" onclick="removerTrecho('tb1')">Remover Trecho Selecionado</button>
+                                    @foreach($trechos as $trecT)                 
+                                    @endforeach 
+                                    <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$trecho['codigo']}}" data-codL ="{{$trecT['codigo_linha']}}">Remover trecho selecionado </a>
+                                                            
                                 <button type="submit" class="botao botaoAmarelo" id="btnAdicionar" onclick="Mudarestado('selecao'), Mudarestado('selecao1')">Adicionar Trecho</button>
                             </div>
                             
@@ -203,7 +199,7 @@
                                     </td>
                                     <td>
                                         <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')" 
-                                        data-target="edit1" data-codigo="{{ $tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
+                                        data-target="edit1" data-codigo="{{$tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
                                     </td>
                                     <td> {{ $tt['ordem'] }} </td>
                                     
@@ -214,15 +210,15 @@
                         <form action="{{route('editarTrecho.adicionar')}}"  id="adicao"  method="post">
                             @csrf
                             <div class="btnBaixo">
-                                <div class="direita">
-                                    <div class="form-group">
-                                        <label for="codigoLinha"></label>
-                                        @foreach($trechos as $trec)                 
-                                        @endforeach 
-                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}} ">
-                                    </div>                
+                                <div class="form-group">
+                                    <label for="codigoLinha"></label>
+                                    @foreach($trechos as $trec)                 
+                                    @endforeach 
+                                    <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}}">
+                                </div> 
+                                <div class="direita">       
                                     <input type="hidden" id="checked" name="checked">
-                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" href ="{{route('editarTrecho.adicionar')}}" >Selecionar</button>
+                                    <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" href ="{{route('editarTrecho.adicionar')}}" >Adicionar Trecho a linha</button>
                                 </div>
                             </div>
                         </form> 
@@ -239,8 +235,8 @@
                 <form action="{{route('editarTrecho.editar')}}"  id="formulario"  method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="codigoLinha">Código: </label>
-                        <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="" readonly  > 
+                        <label for="codigoTrecho">Código: </label>
+                        <input type="text" class="form-control" id="codigoTrecho" name = "codigo" value="" readonly  > 
                     </div>
                     <div class="form-group">
                         <label for="cidadePartida">Cidade Origem: </label>
@@ -256,7 +252,7 @@
                     </div>
                     <div class="form-group">
                         <label for="duracao">Duração Viagem: </label>
-                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao"  step="3" value=""> 
+                        <input type="time" class="form-control" id="duracaoViagem" name = "duracao"  value=""> 
                     </div>
                     <div class="form-group">
                         <label for="ordemT">Ordem Trecho: </label>
@@ -282,6 +278,49 @@
             </div>
             
         </div>
+
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header" style="background-color: #F9C536">
+                  <h5 class="modal-title" id="exampleModalLabel">Exclusão </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{{route('editarTrecho.excluir')}}" id="deleteForm" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <div class="modal-body">
+                    <p> Deseja excluir o trecho: </p>
+                    <input type="text" name="codigo" id="codTrecho" value=""  readonly style= "border: none;">
+                    <input type="hidden" name="linha" id="codLinha" value="">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn botaoAmarelo" data-dismiss="modal">Cancelar</button>
+                    <button type="sumbmit" class="btn botaoAzul">Confirmar</button>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        
+          
+        
+          <script>
+            $(document).on('click','.delete',function(){
+                var codTrecho=$(this).attr('data-id');
+                $('#codTrecho').val(codTrecho); 
+              
+                var codLinha=$(this).attr('data-codL');
+                $('#codLinha').val(codLinha); 
+                $('#exampleModal').modal('show'); 
+            });
+            </script>
+          
 
 
 </div>

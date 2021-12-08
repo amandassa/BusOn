@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Trecho;
+use App\Models\TrechosLinha;
 use App\Http\Requests\AddTrechoInLinhaRequest;
 use Illuminate\Support\Facades\Auth;
 use \DateInterval;
@@ -17,13 +18,15 @@ class TrechoController extends Controller
 
     function startLinha(){
         $linha_vazia = array(
+            'codigo' => "",
             'origem' => "",
             'destino' => "",
             'hora_origem' => "",
             'hora_destino' => "",
             'preço' => ""
         );
-        return view('administrador.adicionarLinha')->with('trechos', array($linha_vazia));
+        return view('administrador.adicionarLinha', ['trechos' => array($linha_vazia), 
+        'origem' => "———", 'destino' => "———", 'preço_total' => "R$ 0,00", 'trechos_cod' => "0"]);
     }
 
     function startSearchScreen(){
@@ -80,7 +83,7 @@ class TrechoController extends Controller
 
     function index(Request $request){
         $trechos_search = Trecho::getInfoTrecho($request);
-        $trechoAll = Trecho::getTodos();
+        $trechoAll = Trecho::getTodos($request);
         return view('administrador.editarTrecho', ['trechos' => $trechos_search, 'trechos_total' => $trechoAll]);
     }
 
@@ -100,15 +103,26 @@ class TrechoController extends Controller
         } elseif ($add ==2 ) {
             return redirect()
                         ->route('editarTrecho', $request)
-                        ->with('success', 'Perfil atualizado com sucesso!');
+                        ->with('success', 'Trechos adicionado a Linha!');
         } else {
             return redirect()
                         ->back()
-                        ->with('error', 'As senhas não coincidem.');
+                        ->with('error', 'Erro ao cadastrar, tente novamente');
         }
      
         
     }
+
+
+    public function exclusao(Request $request){
+        $codLinha = $request['linha'];
+        $codTrecho = $request['codigo'];
+        $adm = TrechosLinha::removerTrecho($codTrecho, $codLinha);
+        return redirect()
+        ->back()
+        ->with('success', 'Trecho excluido ');
+    }
+
     
    
 }

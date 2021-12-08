@@ -58,13 +58,19 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
     Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
     Route::post('/editarTrecho/adicionado', 'TrechoController@adicionar')->name('editarTrecho.adicionar');
+    Route::delete('/editarTrecho/excluindo', 'TrechoController@exclusao')->name('editarTrecho.excluir');
     
     Route::get('/buscarTrechos', 'TrechoController@startSearchScreen')->name('buscarTrechos');
     Route::post('/buscarTrechos', 'LinhaController@getTrechos')->name('consulta_trecho');
 
     Route::get('/adicionarLinha', 'TrechoController@startLinha')->name('adicionaLinha');
-    Route::post('/adicionarLinha//select', 'LinhaController@BuildLinha')->name('trechoSelect');
+    
+    Route::post('/adicionarLinha/select', 'LinhaController@BuildLinha')->name('trechoSelect');
+
+    Route::get('/adicionarLinha/select', 'TrechoController@startLinha')->name('trechoSelect');
+
     Route::post('/adicionarLinha', function(){return redirect()->route('adicionaTrecho');})->name('gotoAdicionarTrecho');
+    Route::get('/adicionarLinha/create/{trechos_cod}', 'LinhaController@registerLinha')->name('criaLinha');
 
     Route::get('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'index'])->name('perfilAdministrador.index');
     Route::post('/perfilAdministrador', [App\Http\Controllers\AdministradorController::class, 'editar'])->name('perfilAdministrador.editar');
@@ -81,8 +87,6 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
     Route::post('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('buscar_cliente');
 
-    Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
-    
     Route::get('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('verificarLogs');
     Route::post('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('Logs');
 
@@ -91,7 +95,8 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/editarPerfilFuncionario/{email}', [App\Http\Controllers\AdministradorController::class, 'perfilFunc'])->name('perfilAdministrador.perfilFunc');
     Route::post('/editarPerfilFuncionario', [App\Http\Controllers\AdministradorController::class, 'editarFunc'])->name('perfilAdministrador.editarFunc');
     Route::delete('/gerenciaUsuarios', [App\Http\Controllers\AdministradorController::class, 'excluir'])->name('gerenciaUsuarios.excluir');
-
+    Route::get('/baixarBackup', 'AdministradorController@baixarBackup')->name('baixarBackup');
+    Route::post('/inicialAdm/backup', 'AdministradorController@definirHorarioBackup')->name('backup');
 });
 
 
