@@ -115,7 +115,7 @@ class TrechoController extends Controller
                         ->with('error', 'Algum dos campos está vazio, alteração não realizada.');
         } elseif ($add ==2 ) {
             return redirect()
-                        ->route('editarTrecho', $request)
+                        ->back()
                         ->with('success', 'Trechos adicionado a Linha!');
         } else {
             return redirect()
