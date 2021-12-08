@@ -9,6 +9,7 @@ use App\Models\Funcionario;
 use App\Models\Cliente;
 use App\Models\Trecho;
 use App\Models\Linha;
+use App\Models\Administrador;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAlteracaoDadosRequest;
@@ -177,6 +178,8 @@ class FuncionarioController extends Controller {
      **/
     public function estatisticas (Request $request)
     {
+        //pega a primeira linha que possui trechos cadastrados
+        $cod= DB::select("SELECT codigo FROM linha AS l WHERE EXISTS (SELECT t.codigo_linha FROM trechos_linha as t WHERE t.codigo_linha = l.codigo)")[0]->codigo;
         $mat_funcionario= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
         $passagens_vendidas = Funcionario::passagens_vendidas($mat_funcionario); //total de passagens vendidas
         $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
@@ -184,7 +187,7 @@ class FuncionarioController extends Controller {
         
         //busca os dados de uma linha dado um determinado código
         if($request['buscarLinha'] == null){
-            $cod_busca = 1;
+            $cod_busca = $cod;
         }else{
             $cod_busca = $request['buscarLinha'];
         }
@@ -205,10 +208,52 @@ class FuncionarioController extends Controller {
 
             'total_vendas' => $linha_por_codigo['total'],
             'cidade_partida' => $linha_por_codigo['cidade_partida'],
-            'cidade_chegada'=> $linha_por_codigo['cidade_chegada']
+            'cidade_chegada'=> $linha_por_codigo['cidade_chegada'],
         ];
 
-        return view('funcionario.inicial_func')->with('dados', $dados);
+        $url = explode("/", $_SERVER["REQUEST_URI"]);     
+        if($url[1] == '/inicialFuncionario') {            
+            return view('funcionario.inicial_func')->with('dados', $dados);
+        }
+        else { 
+            //busca dados de vendas de uma determinada linha
+            if($request['buscarLinhaHoje'] == null){
+                $cod_busca_vendas_linha = $cod;
+            }else{
+                
+                $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
+            }
+            $vendidas_linha = Administrador::buscar_vendas_linha($cod_busca_vendas_linha);
+
+            //retorna o total de passagens vendidas 
+            $passagens_vendidas_total = Administrador::passagensVendidasTotal();
+
+
+            //total de acessos de clientes no sistema
+            if($request['buscarAcessos'] == null){
+                $data = date('Y-m-d');
+            }else{
+                
+                $data = $request['buscarAcessos'];
+            }
+            $total_acessos_cliente = Administrador::total_acessos ($data);
+
+            $dados += [
+                'total_vendas' => $linha_por_codigo['total'],
+                'cidade_partida' => $linha_por_codigo['cidade_partida'],
+                'cidade_chegada'=> $linha_por_codigo['cidade_chegada'],
+
+                'passagens_vendidas_total' => $passagens_vendidas_total['qtd_vendas_total_hoje'],
+
+                'total_vendas_linha' => $vendidas_linha['total'],
+                'cidade_partida_vendas_linha' => $vendidas_linha['cidade_partida'],
+                'cidade_chegada_vendas_linha'=> $vendidas_linha['cidade_chegada'],
+                
+                'total_acessos' => $total_acessos_cliente->total,
+                'data' => date('d/m/Y', strtotime(str_replace('/', '-', $data)))
+            ];
+            return view('administrador.inicial_adm')->with('dados', $dados);
+        }
     }
 
     public function vender(AddVendaRequest $request){

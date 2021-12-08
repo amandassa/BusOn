@@ -221,7 +221,7 @@ class Administrador extends Funcionario
         $cidade_partida = DB::select("SELECT cidade_partida FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = 1)");
         $ordem = DB::select("SELECT max(ordem) as ordem from trechos_linha where codigo_linha =  $codigo_linha");
         $cidade_chegada = DB::select("SELECT cidade_chegada FROM trecho WHERE codigo = (select codigo_trecho from trechos_linha where codigo_linha = $codigo_linha and ordem = :ordem)", ['ordem' => $ordem[0]->ordem]);
-        $total_passagens = DB::select("SELECT count(*) as total FROM passagem WHERE codigo_linha = $codigo_linha and date(data) = '$data_hoje'");
+        $total_passagens = DB::select("SELECT count(*) as total FROM venda INNER JOIN passagem on venda.codigo_passagem = passagem.codigo WHERE passagem.codigo_linha = $codigo_linha and date(venda.data_compra) = '$data_hoje'");
 
         //checa se todas as listas tem algum valor
         if(empty($total_passagens) or empty( $cidade_chegada) or empty($cidade_partida)) {
