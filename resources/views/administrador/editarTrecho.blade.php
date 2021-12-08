@@ -118,8 +118,7 @@
                             </tr>
                             </thead>
                         <tbody> 
-                            @csrf
-                            @method('delete')
+                            
                                              
                                 @foreach ($trechos as $trecho)
                                 <tr>
@@ -134,6 +133,8 @@
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
                                 <form action="{{route('editarTrecho.excluir')}}" method="post">
+                                    @csrf
+                                    @method('delete')
                                     <td>
                                         <input type="checkbox" name="check[]" id="select" value="{{$trecho['codigo']}}">
                                     </td>
