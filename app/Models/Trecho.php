@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddTrechoInLinhaRequest;
+use App\Http\Requests\BuscaTrechoRequest;
 use Illuminate\Http\Request;
 
 class Trecho extends Model {
@@ -117,7 +118,7 @@ class Trecho extends Model {
         dd($query);
     }
 
-    public static function consulta(Request $request){
+    public static function consulta(BuscaTrechoRequest $request){
         $query = "SELECT * FROM trecho";
         $plus = false;
         if($request['codigo'] != null){
