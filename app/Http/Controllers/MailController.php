@@ -18,4 +18,15 @@ class MailController extends Controller
         return view("auth.login");
     }
 
+    public function recuperaAcessoFuncionario(Request $request){
+        $novaSenha = rand(100000, 999999);
+        define('email', $request->email);
+        Funcionario::alterarSenha($request->email, $novaSenha);
+        Mail::raw("Sua nova senha é: {$novaSenha}", function($message)
+        {
+            $message->to(email, 'BusOn')->subject('BusOn - Recuperação de Senha');
+        });
+        return ('/login/funcionario');
+    }
+
 }
