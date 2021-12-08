@@ -179,6 +179,83 @@ class AdministradorController extends Controller
          
     }
 
+
+    /**
+     * Retorna todas as estaticas da tela inicial do administrador
+     *
+     * @param Request $request
+     * @return dados 
+     */
+    public function estatisticasAdministrador(Request $request)
+    {
+        $mat_adm= Auth::guard('funcionario')->user()->matricula; //pega a matricula do funcionario logado 
+        $cod= DB::select("SELECT codigo FROM linha AS l WHERE EXISTS (SELECT t.codigo_linha FROM trechos_linha as t WHERE t.codigo_linha = l.codigo)")[0]->codigo;
+
+        $passagens_vendidas = Administrador::passagens_vendidas($mat_adm);//total de passagens vendidas
+        $linha_menos_vendida = Linha::linha_menos_vendida(); //linha menos vendida
+        $linha_mais_vendida = Linha::linha_mais_vendida(); //linha mais vendida
+
+        //busca os dados de uma linha dado um determinado código
+        if($request['buscarLinha'] == null){
+            $cod_busca = $cod;
+        }else{
+            $cod_busca = $request['buscarLinha'];
+        }
+        $linha_por_codigo =  Linha::buscar_linha($cod_busca);
+        
+        //busca dados de vendas de uma determinada linha
+        if($request['buscarLinhaHoje'] == null){
+            $cod_busca_vendas_linha = $cod;
+        }else{
+            
+            $cod_busca_vendas_linha = $request['buscarLinhaHoje'];
+        }
+        $vendidas_linha = Administrador::buscar_vendas_linha($cod_busca_vendas_linha);
+
+        //retorna o total de passagens vendidas 
+        $passagens_vendidas_total = Administrador::passagensVendidasTotal();
+
+
+        //total de acessos de clientes no sistema
+        if($request['buscarAcessos'] == null){
+            $data = date('Y-m-d');
+        }else{
+            
+            $data = $request['buscarAcessos'];
+        }
+        $total_acessos_cliente = Administrador::total_acessos ($data);
+
+        $dados = [
+            'qtd_vendas_hoje' => $passagens_vendidas['qtd_vendas_hoje'], 
+            'qtd_vendas_7dias' => $passagens_vendidas['qtd_vendas_7dias'], 
+            'qtd_vendas_30dias' => $passagens_vendidas['qtd_vendas_30dias'],
+
+            'total_mais_vendida' => $linha_mais_vendida['total_mais_vendida'],
+            'linha_mais_vendida_partida' => $linha_mais_vendida['linha_mais_vendida_partida'],
+            'linha_mais_vendida_chegada' => $linha_mais_vendida['linha_mais_vendida_chegada'],
+
+            'total_menos_vendida' => $linha_menos_vendida['total_menos_vendida'],
+            'linha_menos_vendida_partida' => $linha_menos_vendida['linha_menos_vendida_partida'],
+            'linha_menos_vendida_chegada' => $linha_menos_vendida['linha_menos_vendida_chegada'],
+
+            'total_vendas' => $linha_por_codigo['total'],
+            'cidade_partida' => $linha_por_codigo['cidade_partida'],
+            'cidade_chegada'=> $linha_por_codigo['cidade_chegada'],
+
+            'passagens_vendidas_total' => $passagens_vendidas_total['qtd_vendas_total_hoje'],
+
+            'total_vendas_linha' => $vendidas_linha['total'],
+            'cidade_partida_vendas_linha' => $vendidas_linha['cidade_partida'],
+            'cidade_chegada_vendas_linha'=> $vendidas_linha['cidade_chegada'],
+            
+            'total_acessos' => $total_acessos_cliente->total,
+            'data' => date('d/m/Y', strtotime(str_replace('/', '-', $data)))
+
+        ];
+        
+        return view('administrador.inicial_adm')->with('dados', $dados);
+    }
+
     /**
      * Retorna todas as estaticas da tela inicial do administrador
      *
