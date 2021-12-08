@@ -24,7 +24,7 @@
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],
         language: 
         {
-            lengthMenu: "Exibir: _MENU_",
+            lengthMenu: "Exibir: _MENU_ linhas",
             search: "Busca rápida",
             zeroRecords: "Funcionário não encontrado!",            
             oPaginate: 
