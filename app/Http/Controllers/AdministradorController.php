@@ -331,6 +331,11 @@ class AdministradorController extends Controller
            flush();           
            readfile($file_name);
            unlink($file_name);
+           $headers = [
+            'Content-Disposition' => sprintf('attachment; filename="%s"', 'backup.sql'),
+        ];
+    
+        return response()->make($output, 200, $headers);
     }
 
     public static function definirHorarioBackup(Request $request){        
