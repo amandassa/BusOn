@@ -1,22 +1,54 @@
 @extends('app')
 
 @section('content')
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+            });
+        }, false);
+        })();
+        </script>
     <div class="container" style="flex-grow: 3;">    
-    
     <div class="row justify-content-center">                
         <div class="col-sm-6"> 
         @if(Session::has('message'))
-            <div class="alert alert-success" style="margin:10px;"> {{ Session::get('message') }} </div>
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <strong>{{session('message')}}</strong>
+            </div>
         @endif    
+
+        @if(Session::has('error'))
+        <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>{{session('error')}}</strong>
+        </div>
+        @endif
+    
+    
+        
         <h5>Login {{ isset($url) ? "- " . ucwords($url) : ""}}</h5>
             <div class="card" style="d-flex p-2">                
                 <div class="card-body justify-content-center" style="align-contents:center;">
                 @isset($url)
                     <form method="POST" action="{{ route('funcionarioLogin') }}"
-                    enctype="multipart/form-data" class="form">                    
+                    enctype="multipart/form-data" class="form needs-validation" novalidate>                    
                 @else
                     <form method="POST" action="{{ route('clienteLogin') }}"
-                    enctype="multipart/form-data" class="form">                    
+                    enctype="multipart/form-data" class="form needs-validation" novalidate>                    
                 @endisset                                
                         @csrf <div class="form-group row justify-content-center align-items-center">
                             <label for="email" class="col-md-8 col-form-label
@@ -27,17 +59,12 @@
                             class="input-group-text"> <i class="fas
                             fa-user"></i> </span>
                               </div>
-
                                 <input id="email" type="email"
-                                class="form-control @error('email') is-invalid
-                                @enderror" name="email" value="{{ old('email')
-                                }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                class="form-control" name="email" value="{{ old('email')
+                                }}" autocomplete="email" required>
+                                <div class="invalid-feedback" style="font-size: small">
+                                    Informe um email válido para realizar o login!
+                                  </div>
                             </div>
                         </div>
 
@@ -51,15 +78,12 @@
                             </span>
                               </div>
                                 <input id="senha" type="password"
-                                class="form-control @error('password')
-                                is-invalid @enderror" name="senha" required
-                                autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                class="form-control" name="senha" required
+                                autocomplete="current-password"  pattern=".{6,}">
+                                <div class="invalid-feedback" style="font-size: small">
+                                    Informe uma senha de no mínimo 6 dígitos!
+                                  </div>
+                                
                             </div>
                         </div>
                     <div class="form-group row justify-content-center align-items-center" style="margin-left:0.5em; margin-bottom:0;">                        

@@ -36,7 +36,8 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::post('/gerarRelatorio', 'FuncionarioController@buscarRelatorioViagem')->name('buscarRelatorio');    
     Route::get('/venderPassagens', 'LinhaController@index')->name('venderPassagens');
     Route::get('/venderPassagens/consulta', 'LinhaController@consulta')->name('consultaVP');
-    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');    
+    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
+    Route::post('/consultar_linhas', 'LinhaController@consulta')->name('consulta');  
     Route::post('/venderPassagens', 'FuncionarioController@vender')->name('finalizar_venda');
     
 });
@@ -79,16 +80,13 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/cadastroFuncionario', function(){return view('administrador.cadastroFuncionario');})->name('cadastroFuncionario');
     Route::get('/editarPerfilFuncionario', function(){return view('administrador.editarPerfilFuncionario');})->name('editarPerfilFuncionario');
     Route::get('/recuperarAcessoAdministrador', function(){return view('administrador.recuperarAcesso');})->name('recuperarAcessoAdministrador');
-    Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
-    Route::post('/consultar_linhas', 'LinhaController@consulta')->name('consulta');
+   
     
     Route::get('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('gerenciaFuncionarios');
     Route::post('/gerenciaUsuarios', 'AdministradorController@buscarFuncionarios')->name('buscar_fun');
     Route::get('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('gerenciaClientes');
     Route::post('/gerenciaClientes', 'AdministradorController@buscarClientes')->name('buscar_cliente');
 
-    Route::get('/adicionarLinha', function(){return view('administrador.adicionarLinha');})->name('adicionaLinha');
-    
     Route::get('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('verificarLogs');
     Route::post('/verificarLogs', 'AdministradorController@LogsAdministrador')->name('Logs');
 

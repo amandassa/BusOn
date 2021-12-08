@@ -57,14 +57,25 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(Array $data)
     {
+        
         return Validator::make($data, [
-            'cpf' => ['required', 'string' ,'min:14'],
+            'cpf' => ['required', 'string' ,'min:11', 'unique:cliente'],
             'nome' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:cliente'],
             'senha' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        ], $this->messages());
+    }
+
+    protected function messages()
+    {
+        return [
+            'cpf.unique' => 'O CPF informado já está sendo utilizado.',
+            'email.unique'  => 'O email informado já está sendo utilizado.',
+            'nome.max' => 'O email informado é muito grande, utilize outro email.'
+        ];
+
     }
 
     /**
@@ -73,10 +84,9 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Array $data)
     {
-        $cpf = str_replace(".", "", $data['cpf']);
-        $cpf = str_replace("-", "", $cpf);
+        $cpf = $data['cpf'];
         $nome = $data['nome'];
         $email = $data['email'];
         $senha = Hash::make($data['senha']);        
@@ -87,25 +97,24 @@ class RegisterController extends Controller
     }
     
     protected function register(Request $request){
-        $data['cpf'] = $request->cpf;
-        $data['nome'] = $request->nome;
-        $data['email'] = $request->email;
-        $data['senha'] = $request->senha;
-        $cpf = str_replace(".", "", $data['cpf']);
-        $cpf = str_replace("-", "", $cpf);
-        $nome = $data['nome'];
-        $email = $data['email'];
-        $senha = Hash::make($data['senha']);        
-        DB::statement('insert into cliente(nome, cpf, email, password) values (?, ?, ?, ?)', [$nome, $cpf, $email, $senha]);
-        $cliente = new Cliente;
-        $cliente->fill($data);        
-        Session::flash('message', 'Cadastro realizado com sucesso!'); 
-        return redirect()->route('login');            
+        $request['cpf'] = str_replace(".", "", $request['cpf']);
+        $request['cpf'] = str_replace("-", "", $request['cpf']);
+        $validation = $this->validator($request->all());
+        if($validation->fails())
+        {
+            return redirect()->back()->withInput($request->only('nome', 'remember'))->with(['errors'=>$validation->errors()]);
+        }
+        else
+        {
+            $this->create($request->all());
+            Session::flash('message', 'Cadastro realizado com sucesso! Faça o login abaixo.'); 
+            return redirect()->route('login');            
+        }
+                
     }
 
     protected function criarFuncionario(Request $request)
     {
-        dd($request);
         $cpf = str_replace(".", "", $data->cpf);
         $cpf = str_replace("-", "", $cpf);
         $nome = $data->nome;

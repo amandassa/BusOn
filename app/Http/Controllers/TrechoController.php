@@ -26,7 +26,7 @@ class TrechoController extends Controller
             'preço' => ""
         );
         return view('administrador.adicionarLinha', ['trechos' => array($linha_vazia), 
-        'origem' => "———", 'destino' => "———", 'preço_total' => "R$ 0,00", 'trechos_cod' => ""]);
+        'origem' => "———", 'destino' => "———", 'preço_total' => "R$ 0,00", 'trechos_cod' => "0"]);
     }
 
     function startSearchScreen(){
