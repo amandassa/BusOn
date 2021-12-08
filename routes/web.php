@@ -50,8 +50,8 @@ Route::middleware(['auth:funcionario'])->group(function () {
 //Rotas restritas apenas para ADMNISTRADOR
 Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::delete('/apagar_linha', 'LinhaController@apagar')->name('linha.apagar');
-    Route::get('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('inicial_adm');
-    Route::post('/inicialAdm', 'AdministradorController@estatisticasAdministrador')->name('estatisticas');
+    Route::get('/inicialAdm', 'FuncionarioController@estatisticas')->name('inicial_adm');
+    Route::post('/inicialAdm', 'FuncionarioController@estatisticas')->name('estatisticas');
     Route::get('/perfilAdministrador', function(){return view('administrador.perfil');})->name('perfilAdministrador');
 
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
