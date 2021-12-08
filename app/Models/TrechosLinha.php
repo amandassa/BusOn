@@ -51,20 +51,35 @@ class TrechosLinha extends Model
 
 
     public static function alteraOrdem($codigo_linha, $ordemNova, $codT){
-        $ordens = TrechosLinha::ordena('codigo_linha', $codigo_linha); 
+        $ordens = TrechosLinha::ordena('codigo_linha', $codigo_linha); //retorna ordem e codigo do trecho
         $final = end($ordens); 
         $final = $final->ordem;
-        
+        /*
+        $var = 0;
+        foreach ($ordens as $ordem){
+            if ($ordemNova = $ordem->ordem){
+                DB::update("UPDATE trechos_linha SET ordem = ? WHERE codigo_linha = ? AND codigo_trecho = ?",
+                [$ordemNova, $codigo_linha, $codT]);
+                DB::update("UPDATE trechos_linha SET ordem = ? WHERE codigo_linha = ? AND codigo_trecho = ?",
+                [$ordemNova++, $codigo_linha, $ordem->codigo_trecho]);
+                $var = 1;
+            }
+            elseif ($var = 1){
+                DB::update("UPDATE trechos_linha SET ordem = ? WHERE codigo_linha = ? AND codigo_trecho = ?",
+                [$ordem->ordem++, $codigo_linha, $ordem->codigo_trecho]);
+            }
+        }*/
+
         if($ordemNova == 1){
             foreach($ordens as $ord){  
                 if($ord->ordem == 1){
-                    DB::update("UPDATE trechos_linha set ordem = ordem+1 where codigo_linha =? and codigo_trecho=?",[$codigo_linha, $ord->codigo_trecho]);
+                    DB::update("UPDATE trechos_linha set ordem = ordem+1 where codigo_linha =? and codigo_trecho=?",
+                    [$codigo_linha, $ord->codigo_trecho]);
                 }
             }
         }
         DB::update("UPDATE trechos_linha set ordem= ordem+1 where ordem >=? and codigo_linha =?",[$ordemNova, $codigo_linha]);
         DB::update("UPDATE trechos_linha set ordem=? where codigo_trecho =?",[$ordemNova,$codT]);
-        
       
         }
     
