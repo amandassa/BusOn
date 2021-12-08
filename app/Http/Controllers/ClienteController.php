@@ -11,6 +11,7 @@ use App\Models\Pagamento;
 use App\Models\Pagamento_cartao;
 use App\Models\Pagamento_boleto;
 use App\Models\Pagamento_pix;
+use App\Http\Requests\StoreAlteracaoDadosRequest;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -81,7 +82,7 @@ class ClienteController extends Controller
         return view("cliente.perfil", ['cliente'=>$cliente]);
     }
 
-    public function editar(Request $request){
+    public function editar(StoreAlteracaoDadosRequest $request){
         $cnt = Cliente::editar($request);
         if ($cnt == 1) {
             return redirect()

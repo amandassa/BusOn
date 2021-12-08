@@ -11,6 +11,7 @@ use App\Models\Trecho;
 use App\Models\Linha;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreAlteracaoDadosRequest;
 use Carbon\Carbon;
 use App\Traits\PaginationTrait;
 
@@ -151,7 +152,7 @@ class FuncionarioController extends Controller {
         return view('funcionario.gerarRelatorio', ['passagens' => $passagens_clientes, 'linha_partida' => $linha_partida, 'data_partida' => $dataconv, 'linha_chegada' => $linha_chegada]);
     }
     
-    public function editar(Request $request){
+    public function editar(StoreAlteracaoDadosRequest $request){
         $funcionario = Funcionario::editar($request);
 
         if ($funcionario == 1) {

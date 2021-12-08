@@ -22,28 +22,37 @@
      }
      
      </script>
-      @if ($errors->any())
-      <div class="alert alert-warning">
-           @foreach ($errors->all() as $error)
-               <p>{{ $error }}</p>
-           @endforeach
-       </div>
-      @endif
-      @if (session('success'))
-          <div class="alert alert-success alert-block">
-              {{session ('success')}}
-          </div>
-      @endif
-      @if (session('error'))
-          <div class="alert alert-danger">
-              {{session ('error')}}
-          </div>
-      @endif
 
     <link href="/css/estiloAcessoUsuario.css" rel="stylesheet">
     <div class="container">
         <h5 class="texto">Editar Perfil</h5>
         <div class="card">
+            @if ($errors->any()) 
+                <div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li><strong>{{ $error }}</strong></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul>
+                        <li><strong>{{session ('success')}}</strong></li>
+                    </ul>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul>
+                        <li><strong>{{session ('error')}}</strong></li>
+                    </ul>
+                </div>
+            @endif
             <div class="card-body">
                 <form method="post" action="{{ route('perfilCliente.editar') }}" >
                     @csrf
