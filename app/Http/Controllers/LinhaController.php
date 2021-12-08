@@ -436,6 +436,10 @@ class LinhaController extends Controller
     }
 
     public function registerLinha(AddLinhaRequest $request, $trechos){
+        $t_list = explode(",", $trechos);
+        if(sizeof($t_list) < 1 || $trechos == "0"){
+            return redirect()->back()->with('error', 'Selecione no mínimo 1 trecho.');
+        }
         Linha::create($request, $trechos);
         return redirect()->route('inicial_adm')->with('message', 'Linha cadastrada com sucesso!');
     }
