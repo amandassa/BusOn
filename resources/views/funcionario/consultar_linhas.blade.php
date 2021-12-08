@@ -209,8 +209,9 @@
                                 <td>
                                     <a class="btn botaoAmarelo" style="min-width:0px;" role="button" href="{{route('consultaVP', $linha)}}"><i class="fas fa-shopping-cart"></i></a>    
                                     <a class="btn botaoAzul" style="min-width:0px;" role="button" href="{{route('editarLinha', $linha)}}"><i class="fas fa-edit"></i></a>                                                                                                            
+                                    @if(auth('funcionario')->user()->is_admin == 1)
                                     <a class="btn btn-danger delete" style="min-width:0px;" data-toggle="modal" data-target="#confirmacaoExclusao" role="button" data-id ="{{ $linha['codigo'] }}" data-nome ="{{ $linha['codigo'] }}"><i class="fas fa-trash"></i></a>
-                                    
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach                        

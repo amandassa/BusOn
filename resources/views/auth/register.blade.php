@@ -101,7 +101,7 @@
                                     __('Criar Conta') }}</button>
                         </div>
                         <div class="linkAC">
-                            <p>Já tem cadastro? <a href={{route('login')}}>Acesse sua conta</a></p> 
+                            <p>Já tem cadastro? <a href="{{route('login')}}">Acesse sua conta</a></p> 
                         </div>
                     </form>
                 </div>
