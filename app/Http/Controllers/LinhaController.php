@@ -444,6 +444,9 @@ class LinhaController extends Controller
         if(sizeof($t_list) < 1 || $trechos == "0"){
             return redirect()->back()->with('error', 'Selecione no mínimo 1 trecho.');
         }
+        if(sizeof($t_list) > 1 && ($request['Tipo'] == "Direta")){
+            return redirect()->back()->with('error', 'Linhas diretas devem ter somente 1 trecho.');
+        }
         Linha::create($request, $trechos);
         return redirect()->route('inicial_adm')->with('message', 'Linha cadastrada com sucesso!');
     }
@@ -482,8 +485,11 @@ class LinhaController extends Controller
 
     }
 
-    public function getTrechos(BuscaTrechoRequest $request){
+    public function getTrechos(Request $request){
         $trechos_busca = Trecho::consulta($request);
+        if(sizeof($trechos_busca) < 1){
+            return redirect()->back()->with('error', 'Não foi encontrado nenhum trecho.');
+        }
         return view('administrador.buscarTrechos', ['trechos' => $trechos_busca]);
     }
         

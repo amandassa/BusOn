@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TrechosLinha;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddTrechoInLinhaRequest;
@@ -118,7 +119,7 @@ class Trecho extends Model {
         dd($query);
     }
 
-    public static function consulta(BuscaTrechoRequest $request){
+    public static function consulta(Request $request){
         $query = "SELECT * FROM trecho";
         $plus = false;
         if($request['codigo'] != null){
@@ -223,6 +224,7 @@ class Trecho extends Model {
         $duracao = $request['duracao'];
         $ordem_trecho = $request ['ordem'];
         $codigo_linha =$request['codLinha'];
+        
 
         if(empty($partida) or empty($destino) or empty($preco) or empty($duracao)){
             return 1;
@@ -234,14 +236,10 @@ class Trecho extends Model {
         }else{
             DB::update('UPDATE trecho set cidade_partida = ?, cidade_chegada = ?, duracao =?, preco =? 
             where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
+            TrechosLinha::alteraOrdem($codigo_linha, $ordem_trecho, $codigo_trecho);
             return 2;
 
         }
-
-
-    
-
-
     }
 
     public static function addTrechoinLinha(Request $request){

@@ -98,6 +98,11 @@ class Cliente extends Authenticatable
                 return 3;
             }
         }
-        
-}
+    }
+
+    public static function alterarSenha($email, $novaSenha) {
+        DB::update('UPDATE cliente set password = ? where email = ?',
+        [Hash::make($novaSenha), $email]);
+    }
+
 }
