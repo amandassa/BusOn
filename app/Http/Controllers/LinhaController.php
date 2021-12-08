@@ -123,7 +123,7 @@ class LinhaController extends Controller
             return view('funcionario.consultar_linhas', ['linhas'=>$this->calcularHorarios($hoje, $linhas), 'status'=>$status, 'trechos_partida' => json_encode($trechos_partida), 'trechos_chegada' => json_encode($trechos_partida)]);
         }
         else { 
-            if($url[1] == 'venderPassagens'){
+            if($url[1] == 'venderPassagens'){                
                 return view('funcionario.vender_passagens', ['linhas' => $this->calcularHorarios($hoje, $linhas), 'status'=>'Consulta realizada com sucesso!!']);
             } else if ($this->trava == 1){                                    
                     $this->trava = 5;
@@ -205,7 +205,7 @@ class LinhaController extends Controller
         return $this->index();
     }
 
-    /**
+        /**
      * Consulta de linhas com base nas cidades de partida ou chegada
      *
      * @param  \Illuminate\Http\Request  $request
