@@ -136,10 +136,10 @@ class AdministradorController extends Controller
     }
     
     public function editarFunc(Request $request){
-        
+        $email = $request['email'];
         $request->validate([
-            'email' => 'unique:funcionario,email,'.auth()->user()->email.',email'
-        ]); 
+            ['email' => 'unique:funcionario,email,'.$email.',email'],
+            'email.unique' => 'Email já utilizado na base de dados!']); 
         $func = Administrador::editarFunc($request);
         if ($func['id'] == 1) {
             return redirect()
