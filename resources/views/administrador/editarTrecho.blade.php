@@ -139,7 +139,8 @@
                                         <input type="checkbox" name="check[]" id="select" value="{{$trecho['codigo']}}">
                                     </td>
                                 </tr>
-                                @endforeach                        
+                                @endforeach      
+                        @if(auth('funcionario')->user()->is_admin == 1)                  
                         </tbody>
                         </table>
                         <div class="btnBaixo">
@@ -156,9 +157,12 @@
                             </div>
                        
                         </div>
+                        @endif
                     </div>
                 </div>
         </div>       
+
+       
 
         <div class="row" style="display: none;" id="selecao">         
             <h3>Seleção de Trechos: </h3>            
@@ -178,7 +182,8 @@
                     </ul>
                 </div>
             @endif
-    
+            
+             
             <!-- Tabela de resultados de consulta -->
             <div class="card" >       
                     <div class="card-body">
@@ -190,8 +195,10 @@
                                 <th scope="col">Cidade de Destino</th>
                                 <th scope="col">Preço</th>
                                 <th scope="col">Duração de viagem</th>
+                                @if(auth('funcionario')->user()->is_admin == 1)               
                                 <th scope="col">Selecionar</th>
                                 <th scope="col">Editar</th>
+                                @endif
                                 
                             </tr>
                             </thead>
@@ -203,15 +210,16 @@
                                     <td> {{ $tt['cidade_chegada'] }} </td>
                                     <td>R$ {{ $tt['preco'] }} </td>
                                     <td> {{ $tt['duracao'] }} </td>
+                                    @if(auth('funcionario')->user()->is_admin == 1)   
                                     <td>
                                         <input type="checkbox" onclick="selectUpdate(JSON.parse('{{ json_encode($tt)}}'), this.checked);">
-                                    </td>
+                                    </td>           
                                     <td>
                                         <button type="submit" class="botao botaoAzul" id="btnEditar" onclick="Mudarestado('edit'), Mudarestado('edit1')" 
                                         data-target="edit1" data-codigo="{{$tt['codigo']}}" data-cidP = "{{ $tt['cidade_partida'] }}" data-cidC="{{ $tt['cidade_chegada'] }}" data-tre="{{ $tt['preco'] }}" data-dur="{{ $tt['duracao'] }}" data-ord="{{ $tt['ordem'] }}" value="2" >Editar</button>
                                     </td>
                                     <td> {{ $tt['ordem'] }} </td>
-                                    
+                                    @endif
                                 </tr>
                                 @endforeach                        
                         </tbody>
@@ -223,16 +231,20 @@
                                     <label for="codigoLinha"></label>
                                     <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}}">
                                 </div> 
+                                @if(auth('funcionario')->user()->is_admin == 1)               
                                 <div class="direita">       
                                     <input type="hidden" id="checked" name="checked">
                                     <button type="submit" id="btnSelecionar" class="botao botaoAmarelo" href ="{{route('editarTrecho.adicionar')}}" >Adicionar Trecho a linha</button>
                                 </div>
+                                @endif
                             </div>
                         </form> 
                     
                     </div>
                 </div>
         </div>
+
+           
 
         <div class="row" style="display: none;" id="edit">         
             <h3>Editar Trecho:</h3>            
@@ -245,14 +257,28 @@
                         <label for="codigoTrecho">Código: </label>
                         <input type="text" class="form-control" id="codigoTrecho" name = "codigo" value="" readonly  > 
                     </div>
+                    @if(auth('funcionario')->user()->is_admin == 0)               
+                    <div class="form-group">
+                        <label for="cidadePartida">Cidade Origem: </label>
+                        <input type="text" class="form-control" id="cidadePartida" name = "partida" value="" readonly> 
+                    </div>
+                    @else
                     <div class="form-group">
                         <label for="cidadePartida">Cidade Origem: </label>
                         <input type="text" class="form-control" id="cidadePartida" name = "partida" value="" > 
                     </div>
+                    @endif
+                    @if(auth('funcionario')->user()->is_admin == 0)               
                     <div class="form-group">
                         <label for="cidadeDestino">Cidade Destino: </label>
-                        <input type="text" class="form-control" id="cidadeDestino"  name = "destino"  value="" > 
+                        <input type="text" class="form-control" id="cidadeDestino"  name = "destino"  value=""  readonly> 
                     </div>
+                    @else
+                    <div class="form-group">
+                        <label for="cidadeDestino">Cidade Destino: </label>
+                        <input type="text" class="form-control" id="cidadeDestino"  name = "destino"  value=""> 
+                    </div> 
+                    @endif
                     <div class="form-group">
                         <label for="precoLinha">Preço do Trecho: </label>
                         <input type="text" class="form-control" id="precoLinha" name = "preco"  value="" >                        
