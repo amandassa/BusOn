@@ -28,7 +28,7 @@
 ### 1. Cliente (2/9):
 **1.0. Recuperação de acesso de cliente:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [X] Back (Responsável: Everton)
 
 **1.1. Tela inicial de cliente:**
 - [X] Front (Responsável: Andreza)
@@ -65,7 +65,7 @@
 ### 2. Funcionarios (1/7):
 **1.0. Recuperação de acesso de funcionário:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [X] Back (Responsável: Everton)
 
 **2.1. Tela inicial de funcionário:**
 <i>Com dados dos relatórios</i>
@@ -96,7 +96,7 @@
 ### 3. Administrador (2/12):
 **3.0. Recuperação de acesso de administrador:**
 - [X] Front (Responsável: Everton)
-- [ ] Back
+- [X] Back (Responsável: Everton)
 
 **3.1. Tela inicial do administrador:**
 - [X] Front (Responsável: Ozenilson)

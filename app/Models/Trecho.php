@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TrechosLinha;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddTrechoInLinhaRequest;
@@ -239,11 +240,6 @@ class Trecho extends Model {
             return 2;
 
         }
-
-
-    
-
-
     }
 
     public static function addTrechoinLinha(Request $request){

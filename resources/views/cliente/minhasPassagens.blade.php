@@ -45,7 +45,7 @@
                                 <td  scope="col" class="">Cidade de Origem</td>
                                 <td  scope="col" class="">Cidade de Destino</td>
                                 <td  scope="col" class="">Nº de Assento</td>
-                                <td  scope="col" class="">Data de Compra</td>
+                                <td  scope="col" class="">Data de Partida</td>
                             </tr>
                         </thead>
                         <tbody>
