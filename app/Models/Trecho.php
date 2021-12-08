@@ -223,6 +223,7 @@ class Trecho extends Model {
         $duracao = $request['duracao'];
         $ordem_trecho = $request ['ordem'];
         $codigo_linha =$request['codLinha'];
+        dd($ordem_trecho);
 
         if(empty($partida) or empty($destino) or empty($preco) or empty($duracao)){
             return 1;

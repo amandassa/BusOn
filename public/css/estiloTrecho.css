@@ -111,3 +111,11 @@ tr.p {
    
 }
 
+
+.botao.botaoAzul.editar#btnEditar:hover{
+    background-color:#1b5576d0;
+    text-decoration: none;
+    color: white;
+}
+
+
