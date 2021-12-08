@@ -118,7 +118,6 @@
                             </tr>
                             </thead>
                         <tbody> 
-                        <form action="{{route('editarTrecho.excluir')}}" method="post">
                             @csrf
                             @method('delete')
                                              
@@ -134,6 +133,7 @@
                                         data-target="edit1" data-codigo="{{ $trecho['codigo'] }}" data-cidP = " {{ $trecho['cidade_partida'] }}" data-cidC="{{ $trecho['cidade_chegada'] }}" data-tre="{{ $trecho['preco'] }}" data-dur="{{ $trecho['duracao'] }}" data-ord="{{ $trecho['ordem'] }}" value="1"> Editar </button>
                                     </td>
                                     <td> {{ $trecho['ordem'] }} </td>
+                                <form action="{{route('editarTrecho.excluir')}}" method="post">
                                     <td>
                                         <input type="checkbox" name="check[]" id="select" value="{{$trecho['codigo']}}">
                                     </td>
@@ -144,7 +144,9 @@
                         <div class="btnBaixo">
                             <div class="form-group">
                                 <label for="codigoLinha"></label>
-                                <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$tre['codigo_linha']}}">
+                                @foreach($trechos as $trec)                 
+                                @endforeach
+                                <input type="hidden" class="form-control" id="codigoLinha" name = "codLinha" value="{{$trec['codigo_linha']}}">
                             </div>
                             <div class="direita">
                                     <button type="submit" class="botao botaoAzul"  id="btnRemover" >Remover Trecho Selecionado</button>

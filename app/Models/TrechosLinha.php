@@ -50,6 +50,10 @@ class TrechosLinha extends Model
     }
 
 
+    public static function ordemAdicionar($codLinha, $codTrecho, $ordemFinal){
+        DB::update("UPDATE trechos_linha set ordem=? where codigo_linha=? and codigo_trecho =?", [$ordemFinal, $codLinha, $codTrecho]);
+    }
+
     public static function alteraOrdem($codigo_linha, $ordemNova, $codT){
         $ordens = TrechosLinha::ordena('codigo_linha', $codigo_linha); //retorna ordem e codigo do trecho
         $final = end($ordens); 
