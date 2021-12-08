@@ -22,7 +22,23 @@ class PagamentoController extends Controller
     public function index(Request $request)
     {                        
         return view('cliente.pagamento', ['linha' => $request->linha]);
-    }    
+    } 
+
+
+    
+    protected function messages()
+    {
+        return [
+            'numero_cartao.required' => 'Informe o número presente no cartão.',
+            'validade_cartao.required' => 'Informe a validade do cartão.',
+            'cvv.required' => 'Informe o número do CVV.',
+            'nome_titular.required' => 'Informe o nome do titular presente no cartão.',
+            'numero_cartao.min' => 'Número do cartão inválido.',
+            'validade_cartao.min' => 'Validade do cartão inválida. Informe a data de validade presente no cartão.',
+            'cvv_cartao.min' => 'Número CVV inválido. Informe o número CCV presente no cartão.'
+        ];
+
+    }
 
     /**
      * Cria um novo Pagamento e todos os registros a ele necessarios
@@ -35,12 +51,12 @@ class PagamentoController extends Controller
         // Verifica se os dados foram preenchidos corretamente
         if($request['opcao'] == 1){            
                 $dados_validados = $request->validate([
-                    'numero_cartao' => 'required|unique:pagamento_cartao|max:19',
+                    'numero_cartao' => 'required|min:16',
                     'parcela' => 'required|max:2',
                     'validade_cartao' => 'required|min:5|max:5',
                     'ccv_cartao' => 'required|min:3|max:3',
                     'nome_titular' => 'required:max:160',
-                ]);         
+                ], $this->messages());         
         }        
 
         if($request['opcao'] == 3){

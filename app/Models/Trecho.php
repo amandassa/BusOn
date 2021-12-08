@@ -119,7 +119,7 @@ class Trecho extends Model {
         dd($query);
     }
 
-    public static function consulta(BuscaTrechoRequest $request){
+    public static function consulta(Request $request){
         $query = "SELECT * FROM trecho";
         $plus = false;
         if($request['codigo'] != null){
@@ -224,6 +224,7 @@ class Trecho extends Model {
         $duracao = $request['duracao'];
         $ordem_trecho = $request ['ordem'];
         $codigo_linha =$request['codLinha'];
+        dd($ordem_trecho);
 
         if(empty($partida) or empty($destino) or empty($preco) or empty($duracao)){
             return 1;

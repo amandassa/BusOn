@@ -19,7 +19,7 @@
                     </div>
                     <div class="linkAC">
                         <label>Recordou sua senha?</label>
-                        <a class="link" href="#">Tente acessar sua conta</a>
+                        <a class="link" href="/">Tente acessar sua conta</a>
                     </div>
                 </form>
             </div>
