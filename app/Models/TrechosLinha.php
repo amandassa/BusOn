@@ -86,7 +86,7 @@ class TrechosLinha extends Model
         [$codigo_trecho, $codigo_linha]);
         $trechos = DB::select("SELECT codigo_trecho, ordem FROM trechos_linha WHERE codigo_linha = ?", [$codigo_linha]);
 
-         /**
+        /**
         *foreach($trechos as $trecho){
         *    if($trecho->ordem > $ordem){
         *        DB::update("UPDATE trechos_linha SET ordem = :ord WHERE codigo_trecho = :ct AND codigo_linha = :cl", 
