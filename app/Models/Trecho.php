@@ -233,7 +233,7 @@ class Trecho extends Model {
             #where codigo =?',[$partida, $destino, $duracao, $preco, $codigo_trecho]);
             #DB::update('UPDATE trechos_linha set ordem =? where codigo_trecho = ?', [$ordem_trecho, $codigo_trecho]);
             
-            TrechosLinha::alteraOrdem($codigo_linha, $ordem_trecho, $codigo_trecho);
+            #TrechosLinha::alteraOrdem($codigo_linha, $ordem_trecho, $codigo_trecho);
 
             }
 
