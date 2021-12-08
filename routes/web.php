@@ -39,6 +39,11 @@ Route::middleware(['auth:funcionario'])->group(function () {
     Route::get('/consultar_linhas', 'LinhaController@index')->name('consultar_linhas');
     Route::post('/consultar_linhas', 'LinhaController@consulta')->name('consulta');
     Route::post('/venderPassagens', 'FuncionarioController@vender')->name('finalizar_venda');
+    
+    Route::get('/editarLinha', 'LinhaController@indexEditar')->name('editarLinha');
+    Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');
+    Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
+    Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
 
 });
 
@@ -52,12 +57,7 @@ Route::middleware(['auth:funcionario', 'adm'])->group(function () {
     Route::get('/adicionarTrecho', function(){return view('administrador.adicionarTrecho');})->name('adicionaTrecho');
     Route::post('/adicionarTrecho', 'AdministradorController@cadastrarTrecho')->name('adicionarTrecho');
 
-    Route::get('/editarLinha', 'LinhaController@indexEditar')->name('editarLinha');
-
-    Route::post('/editarLinha', 'LinhaController@editar')->name('editarLinha.editar');
-
-    Route::get('/editarTrecho', 'TrechoController@index')->name('editarTrecho');
-    Route::post('/editarTrecho/editando', 'TrechoController@editar')->name('editarTrecho.editar');
+   
     Route::post('/editarTrecho/adicionado', 'TrechoController@adicionar')->name('editarTrecho.adicionar');
     Route::delete('/editarTrecho/excluindo', 'TrechoController@exclusao')->name('editarTrecho.excluir');
 
