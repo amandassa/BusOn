@@ -115,12 +115,22 @@ class TrechoController extends Controller
 
 
     public function exclusao(Request $request){
-        $codLinha = $request['linha'];
-        $codTrecho = $request['codigo'];
-        $adm = TrechosLinha::removerTrecho($codTrecho, $codLinha);
-        return redirect()
-        ->back()
-        ->with('success', 'Trecho excluido ');
+        $codLinha = $request['codLinha'];
+        $codTrecho = $request['check'];
+        foreach($codTrecho as $codigo){
+            TrechosLinha::removerTrecho($codigo, $codLinha);
+        }
+        if(count($codTrecho)==1){
+            return redirect()
+            ->back()
+            ->with('success', 'Trecho excluido ');
+
+        }else if(count($codTrecho)>1){
+            return redirect()
+            ->back()
+            ->with('success', 'Trechos excluidos ');
+        }
+        
     }
 
     

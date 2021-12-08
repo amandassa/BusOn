@@ -477,5 +477,10 @@ class LinhaController extends Controller
         'origem' => $origem, 'destino' => $destino, 'preço_total' => $preço_cnt, 'trechos_cod' => $trechoList]);
 
     }
+
+    public function getTrechos(BuscaTrechoRequest $request){
+        $trechos_busca = Trecho::consulta($request);
+        return view('administrador.buscarTrechos', ['trechos' => $trechos_busca]);
+    }
         
 }
