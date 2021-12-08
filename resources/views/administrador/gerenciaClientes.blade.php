@@ -18,7 +18,6 @@
       
       //Script do datatable - serve para deixar a tabela com varias funcionalidades
       $('#tabela').DataTable({
-        select:{},
         info:false, 
         pageLength : 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todas']],

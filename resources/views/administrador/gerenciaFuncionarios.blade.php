@@ -137,8 +137,8 @@
                       @endif
                     </td>
                     <td>
-                      <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post"> Editar Perfil</a>
-                      <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" data-nome ="{{$funcionario->nome}}">Excluir</a>
+                      <a class="btn botaoAzul" href="{{route('perfilAdministrador.perfilFunc', $funcionario->email)}}" role="button" method="post" id='editar'> Editar Perfil</a>
+                      <a class="btn botaoAzul delete" data-toggle="modal" data-target="#exampleModal" role="button" data-id ="{{$funcionario->email}}" id='excluir' data-nome ="{{$funcionario->nome}}">Excluir</a>
                     </td>
                   </tr> 
                   @endforeach
