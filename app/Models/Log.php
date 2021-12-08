@@ -93,7 +93,7 @@ class Log extends Model
         $cpf = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Editou a linha ?', ?);", [$cpf, $cod_linha, date('Y-m-d H:i:s')]);
+        VALUES (?, 'A', ?, ?);", [$cpf, 'Editou a linha '.$cod_linha, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -106,7 +106,7 @@ class Log extends Model
         $cpf = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Editou o trecho ?', ?);", [$cpf, $cod_trecho, date('Y-m-d H:i:s')]);
+        VALUES (?, 'A', ?, ?);", [$cpf, 'Editou o trecho '.$cod_trecho, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -120,7 +120,7 @@ class Log extends Model
         $cpf_adm = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Editou o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, date('Y-m-d H:i:s')]);
+        VALUES (?, 'A', ?, ?);", [$cpf_adm, 'Editou o funcionário '.$cpf_funcionario, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -132,7 +132,7 @@ class Log extends Model
         $cpf_adm = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Cadastrou o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, date('Y-m-d H:i:s')]);
+        VALUES (?, 'A', ?, ?);", [$cpf_adm, 'Cadastrou o funcionario '.$cpf_funcionario, date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -144,7 +144,7 @@ class Log extends Model
         $cpf_adm = Auth::guard('funcionario')->user()->cpf;
 
         DB::insert("INSERT INTO logs (cpf_usuario, tipo_usuario, descricao, data_hora)
-        VALUES (?, 'A', 'Excluiu o funcionário ?', ?);", [$cpf_adm, $cpf_funcionario, date('Y-m-d H:i:s')]);
+        VALUES (?, 'A', ?, ?);", [$cpf_adm, 'Excluiu o funcionário '.$cpf_funcionario, date('Y-m-d H:i:s')]);
     }
 
     /**
