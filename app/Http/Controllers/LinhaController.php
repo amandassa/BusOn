@@ -249,55 +249,57 @@ class LinhaController extends Controller
                 return $this->index();                
             $trechos_partida = Trecho::getCodigo('cidade_partida', $cidade_partida); // Captura todos os codigos de trecho cujo nome da cidade de partida seja equivalente a cidade de partida informada pelo usuário            
             if($trechos_partida == null) array_push($erros, "Cidade de Partida não encontrada");
-            foreach($trechos_partida as $trecho_partida){                
-                $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo); // Captura o codigo da linha do trecho
-                if($linha_trechopartida == null){ // Se nao existir linha para o trecho da cidade selecionada 
-                    array_push($erros, "Não há linhas para a cidade selecionada");
-                    break;
-                }
-                $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo); // Busca o nome no banco de dados da cidade de partida                                
-                foreach($linha_trechopartida as $codigo){ // Percorre todas as linhas que possui o trecho com a cidade inicial informada
-                    $tipo = Linha::getTipo('codigo', $codigo->codigo_linha);
-                    $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);                                                            
-                    for($i = 0; $i < $quantidade[0]->ordem; $i = $i + 1){ // Percorre todos os trechos da linha até encontrar a linha de partida                                                
-                        $trecho_destino = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo->codigo_linha);                                                                    
-                        $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);                                                
-                        if($destino[0]->cidade_chegada == $cidade_destino){
-                            if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
-                                $data = Linha::getData('codigo', $codigo->codigo_linha);                        
-                                $data = explode(";", $data[0]->dias_semana);                                
-                                if(in_array($dia, $data) == false){  
-                                    array_push($erros, 'Linha não encontrada para a data especificada');                                    
+            else{
+                foreach($trechos_partida as $trecho_partida){                
+                    $linha_trechopartida = TrechosLinha::getCodigoLinha('codigo_trecho', $trecho_partida->codigo); // Captura o codigo da linha do trecho
+                    if($linha_trechopartida == null){ // Se nao existir linha para o trecho da cidade selecionada 
+                        array_push($erros, "Não há linhas para a cidade selecionada");
+                        break;
+                    }
+                    $cidade_partida = Trecho::getCidade_partida('codigo', $trecho_partida->codigo); // Busca o nome no banco de dados da cidade de partida                                
+                    foreach($linha_trechopartida as $codigo){ // Percorre todas as linhas que possui o trecho com a cidade inicial informada
+                        $tipo = Linha::getTipo('codigo', $codigo->codigo_linha);
+                        $quantidade = DB::select("SELECT max(ordem) as ordem FROM trechos_linha WHERE codigo_linha = :codigo", ['codigo' => $codigo->codigo_linha]);                                                            
+                        for($i = 0; $i < $quantidade[0]->ordem; $i = $i + 1){ // Percorre todos os trechos da linha até encontrar a linha de partida                                                
+                            $trecho_destino = TrechosLinha::getCodigoTrecho('codigo_linha', $codigo->codigo_linha);                                                                    
+                            $destino = Trecho::getCidade_chegada('codigo', $trecho_destino[$i]->codigo_trecho);                                                
+                            if($destino[0]->cidade_chegada == $cidade_destino){
+                                if((strval($tipo[0]->direta) == strval($request['tipoLinha_op1']) || strval($tipo[0]->direta) == strval($request['tipoLinha_op2']))){
+                                    $data = Linha::getData('codigo', $codigo->codigo_linha);                        
+                                    $data = explode(";", $data[0]->dias_semana);                                
+                                    if(in_array($dia, $data) == false){  
+                                        array_push($erros, 'Linha não encontrada para a data especificada');                                    
+                                        break;
+                                    }
+                                    $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
+                                    $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
+                                    $preco = $preco[0]->soma;                                                            
+                                    $total_vagas = Linha::getTotalVagas('codigo', $codigo->codigo_linha);
+                                    $linha = [
+                                        'codigo'=>$codigo->codigo_linha, 
+                                        'partida'=>$cidade_partida[0]->cidade_partida, 
+                                        'destino'=>$destino[0]->cidade_chegada,
+                                        'total_vagas'=>$total_vagas[0]->total_vagas,
+                                        'tipo'=>$tipo[0]->direta,                                                                        
+                                        'preco'=> number_format(floatval($preco), 2, ',', '.')
+                                    ];
+                                    array_push($linhas, $linha);                                                                
+                                    $status =  "Linha encontrada com sucesso";                                
                                     break;
+                                } else { 
+                                    $tipo_request = (strval($request['tipoLinha_op2'])==1?'Direta':'Comum');
+                                    array_push($erros, 'Não foi encontrada linha na forma '.$tipo_request);
+                                    break;
+                                } 
+                            } else {                            
+                                if($i == ($quantidade[0]->ordem) && $erros == null){                                
+                                    array_push($erros, 'Cidade de destino não encontrada');
                                 }
-                                $ordem = TrechosLinha::getOrdem('codigo_trecho', $trecho_partida->codigo);
-                                $preco = DB::select("SELECT sum(preco) as soma from trecho where codigo IN (select codigo_trecho from trechos_linha where codigo_linha = ? and ordem between ? and ?)", [$codigo->codigo_linha, $ordem[0]->ordem, $i+1]);
-                                $preco = $preco[0]->soma;                                                            
-                                $total_vagas = Linha::getTotalVagas('codigo', $codigo->codigo_linha);
-                                $linha = [
-                                    'codigo'=>$codigo->codigo_linha, 
-                                    'partida'=>$cidade_partida[0]->cidade_partida, 
-                                    'destino'=>$destino[0]->cidade_chegada,
-                                    'total_vagas'=>$total_vagas[0]->total_vagas,
-                                    'tipo'=>$tipo[0]->direta,                                                                        
-                                    'preco'=> number_format(floatval($preco), 2, ',', '.')
-                                ];
-                                array_push($linhas, $linha);                                                                
-                                $status =  "Linha encontrada com sucesso";                                
-                                break;
-                            } else { 
-                                $tipo_request = (strval($request['tipoLinha_op2'])==1?'Direta':'Comum');
-                                array_push($erros, 'Não foi encontrada linha na forma '.$tipo_request);
-                                break;
-                            } 
-                        } else {                            
-                            if($i == ($quantidade[0]->ordem) && $erros == null){                                
-                                array_push($erros, 'Cidade de destino não encontrada');
                             }
-                        }
-                    }                                                    
+                        }                                                    
+                    }
+                    
                 }
-                
             }
         } else {
             $codigo_linha = $request['codigo_linha'];
