@@ -33,7 +33,7 @@ class BuscaTrechoRequest extends FormRequest
     public function messages()
     {
         return [
-            'codigo.exists' => ['Trecho com Codigo inserido não existe.']
+            'codigo.exists' => 'Trecho com Codigo inserido não existe.'
         ];
     }
     
