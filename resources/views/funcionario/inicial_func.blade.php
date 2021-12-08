@@ -3,7 +3,7 @@
 @section('title', 'Tela Inicial - ')
     
 @section('content')
-    <link href="/css/estiloInicio.css" rel="stylesheet">
+    <link href="/css/estiloInicialFunc.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <div class="container">
         @yield('conteudoPadrao')
