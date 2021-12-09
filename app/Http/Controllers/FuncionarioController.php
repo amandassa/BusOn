@@ -211,10 +211,10 @@ class FuncionarioController extends Controller {
             'cidade_chegada'=> $linha_por_codigo['cidade_chegada'],
         ];
 
-        /*$url = explode("/", $_SERVER["REQUEST_URI"]);     
-        if($url[1] == '/inicialFuncionario') {  */          
+        $url = explode("/", $_SERVER["REQUEST_URI"]);     
+        if($url[1] == 'inicialFuncionario') {     
             return view('funcionario.inicial_func')->with('dados', $dados);
-        /*}
+        }
         else { 
             //busca dados de vendas de uma determinada linha
             if($request['buscarLinhaHoje'] == null){
@@ -253,7 +253,7 @@ class FuncionarioController extends Controller {
                 'data' => date('d/m/Y', strtotime(str_replace('/', '-', $data)))
             ];
             return view('administrador.inicial_adm')->with('dados', $dados);
-        }*/
+        }
     }
 
     public function vender(AddVendaRequest $request){
