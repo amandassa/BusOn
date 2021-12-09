@@ -65,24 +65,25 @@ class AdministradorController extends Controller
         $atributo = $request["buscaOp"];
         $valor_atributo = $request["buscaG"];
         $tipoUsuario = $request["tipoUser"];
+        $matricula = auth()->guard('funcionario')->user()->matricula;
 
         if($valor_atributo == null){
-            if($tipoUsuario == "todos"){
-                $funcionarios = DB::select("SELECT * FROM funcionario");
+            if($tipoUsuario == "adm"){
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE is_admin = 1 AND matricula != $matricula");
             }
             elseif($tipoUsuario == "func"){
-                $funcionarios = DB::select("SELECT * FROM funcionario WHERE is_admin = 0");
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE is_admin = 0 AND matricula != $matricula");
             }else{
-                $funcionarios = DB::select("SELECT * FROM funcionario WHERE is_admin = 1");
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE matricula != $matricula");
             }
         }
         else{
             if($tipoUsuario == "todos"){  
-                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%'");
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND matricula != $matricula");
             }elseif($tipoUsuario == "func"){
-                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 0");
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 0 AND matricula != $matricula");
             }else{
-                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 1");
+                $funcionarios = DB::select("SELECT * FROM funcionario WHERE $atributo LIKE '$valor_atributo%' AND is_admin = 1 AND matricula != $matricula");
             }
         }
         //return os funcionarios cadastrados no sistema;

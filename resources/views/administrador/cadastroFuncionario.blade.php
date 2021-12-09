@@ -71,7 +71,7 @@
                             <div class="btnCC">
                                 <div class="btnCC">
                                     <button type="submit" class="botao botaoAmarelo" id="btnCriarConta">Cadastrar</button>
-                                    <button type="button" class="botao" style="background-color: black; color: #F9C536;" id="btnCriarConta" onClick="window.location.href = '/';"> Voltar </button>
+                                    <button type="button" class="botao" style="background-color: black; color: #F9C536;" id="btnCriarConta" onClick="window.location.href = '/gerenciaUsuarios';"> Voltar </button>
                                 </div>
                             </div>
                         </form>
