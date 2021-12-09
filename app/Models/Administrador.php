@@ -182,13 +182,9 @@ class Administrador extends Funcionario
 
     }
 
-    public static function excluir(Request $request){
-        $email = $request['email'];
-        $cpf_funcionario = DB::select("SELECT * FROM funcionario WHERE email = $email")[0]->email;
-
-        DB::delete('DELETE FROM funcionario WHERE email = ?', [$email]);
-
-        Log::exclusaofuncionario($cpf_funcionario);
+    public static function excluir($usuario){
+        DB::delete('DELETE FROM funcionario WHERE matricula = ?', [$usuario->matricula]);
+        Log::exclusaofuncionario($usuario->cpf);
     }
 
     
