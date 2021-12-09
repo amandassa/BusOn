@@ -43,7 +43,15 @@
 
             <div class="quadro"> <!--Pesquisar linha-->
                 <div class="card-body">
-                    <form method="POST" class="form" name="formEstatisticas" action="{{route('estatisticas')}}">
+                    @php
+                        $action = '';
+                        if(auth()->guard('funcionario')->user()->is_admin == 0) {
+                            $action = 'estatisticas_funcionario';
+                        } else {
+                            $action = 'estatisticas_adm';
+                        }
+                    @endphp
+                    <form method="POST" class="form" name="formEstatisticas" action="{{route($action)}}">
                         @csrf
                         <div class="caixaPesquisa">
                             <input type="number" min="1" class="caixaTexto" id="buscarLinha" name="buscarLinha" placeholder="Pesquisar vendas da linha">

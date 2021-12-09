@@ -164,8 +164,8 @@
           @csrf
           @method('DELETE')
           <div class="modal-body">
-            <p> Deseja excluir o usuario(a): </p>
-            <input type="text" name="nome" id="nome" value=""  readonly style= "border: none;">
+            <p> Deseja excluir o usuário(a)?</p>
+            <input type="text" name="nome" id="nome" value="" disabled style= "border: none; background-color: transparent;">
             <input type="hidden" name="email" id="id" value="">
           </div>
           <div class="modal-footer">

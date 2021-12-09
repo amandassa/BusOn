@@ -45,7 +45,7 @@
 
         <div class="quadro"> <!--Passagens vendidas na para uma linha hoje-->
             <div class="card-body">
-                <form method="POST" class="form" action="{{route('estatisticas')}}">
+                <form method="POST" class="form" action="{{route('estatisticas_adm')}}">
                     @csrf
                     <div class="caixaPesquisa">
                         <input type="number" min="1" class="caixaTexto" name="buscarLinhaHoje" placeholder="Pesquisar vendas da linha hoje">
@@ -72,7 +72,7 @@
 
         <div class="quadro"> <!--Total de clientes que acessaram o sistema em determinado dia-->
             <div class="card-body">
-                <form method="POST" class="form" action="{{route('estatisticas')}}">
+                <form method="POST" class="form" action="{{route('estatisticas_adm')}}">
                     @csrf
                     <div class="caixaPesquisa">
                         <input type="date" class="caixaTexto" id="buscarAcessos" max="<?php echo date("Y-m-d")?>" name="buscarAcessos">
