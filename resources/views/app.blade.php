@@ -68,20 +68,20 @@
             <div class="divMigalha">
                 <lu class="migalha migalhaRetangulo @yield('estiloMigalha1')">
                     <lu class="migalha migalhaTriangulo @yield('estiloMigalhaT1')" style="border-color: transparent transparent transparent #F5F5F5;"> </lu>
-                    <a class="link @yield('linkM1')" href="@yield('rotaMigalha1')" > @yield('nomeMigalha1') </a>
+                    <button style="border: none; background-color:transparent" class="link @yield('linkM1')" href="@yield('rotaMigalha1')" disabled> @yield('nomeMigalha1') </button>
                 </lu>
                 <lu class="migalha migalhaRetangulo @yield('estiloMigalha2')">
                     <lu class="migalha migalhaTriangulo @yield('estiloMigalhaT2')"></lu>
-                    <a class="link @yield('linkM2')" href="@yield('rotaMigalha2')"> @yield('nomeMigalha2') </a>
+                    <button style="border: none; background-color:transparent " class="link @yield('linkM2')" href="@yield('rotaMigalha2')" disabled> @yield('nomeMigalha2') </button>
                 </lu>
                 <lu class="migalha migalhaRetangulo @yield('estiloMigalha3')">
                     <lu class="migalha migalhaTriangulo @yield('estiloMigalhaT3')"></lu>
-                    <a class="link @yield('linkM3')" href="@yield('rotaMigalha3')"> @yield('nomeMigalha3') </a>
+                    <button style="border: none; background-color:transparent " class="link @yield('linkM3')" href="@yield('rotaMigalha3')" disabled> @yield('nomeMigalha3') </button>
                 </lu>
                 @hasSection('usaQuarta')
                 <lu class="migalha migalhaRetangulo @yield('migalhaRetanguloConfirmacao')">
                     <lu class="migalha migalhaTriangulo @yield('migalhaTrianguloPagamento')"></lu>
-                    <a class="link @yield('linkM4')" href="@yield('rotaMigalha4')"> @yield('nomeMigalha4') </a>
+                    <button style="border: none;background-color:transparent" class="link @yield('linkM4')" href="@yield('rotaMigalha4')"disabled> @yield('nomeMigalha4') </button>
                 </lu>
                 @endif              
                 <lu class="migalha migalhaTriangulo @yield('estiloMigalhaUltimo')"></lu>            
