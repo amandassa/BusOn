@@ -191,7 +191,7 @@
                           <th scope="col">Cidade de Destino</th>
                           <th scope="col">Preço</th>
                           <th scope="col">Tipo</th>
-                          <th scope="col"> Ação</th>
+                          <th data-orderable= "false" scope="col"> Ação</th>
                         </tr>
                         </thead>
                       <tbody>                        

@@ -166,7 +166,7 @@ class AdministradorController extends Controller
         $usuario = DB::select("select * from funcionario where email = ?", [$request['email']])[0];
         $adm = $usuario->is_admin;
         $nome = $usuario->nome;
-        Administrador::excluir($request);      
+        Administrador::excluir($usuario);      
         if ($adm == 1){
              return redirect()
                         ->route('gerenciaFuncionarios')

@@ -27,7 +27,7 @@
   $(document).ready(function(){
     $(window).on("load", function(){
       $("#cpf").mask('999.999.999-99') //máscara cpf
-  });        
+    });        
 
   $('#gerarRelatorio').DataTable( {
     select:{selector:'#btnSel'},
@@ -91,17 +91,17 @@
     @endif
     @endisset    
     
-      <table class="table" id="gerarRelatorio">
+      <table class="table text-center" id="gerarRelatorio">
           <thead>
           <tr>
             <th scope="col">Nº</th>
             <th scope="col">Nome</th>
             <th scope="col">CPF</th>
             <th scope="col">Passagem</th>
-            <th scope="col">Cidade de Partida</th>          
-            <th scope="col">Data Partida <br> Hora Partida</th>                        
-            <th scope="col">Cidade de Chegada</th>          
-            <th scope="col">Data Chegada <br> Hora Chegada</th>                                  
+            <th scope="col">Partida</th>          
+            <th scope="col">Data/Hora <br> Partida</th>                        
+            <th scope="col">Destino</th>          
+            <th scope="col ">Data/Hora <br> Destino</th>                                  
           </tr>
           </thead>
         <tbody>                                            
@@ -109,7 +109,7 @@
               <tr>
                 <th scope="row"> {{ $passagem['num_assento'] }} </th>                  
                   <td> {{ $passagem['nome'] }} </td>
-                  <td> {{ $passagem['cpf'] }} </td>                  
+                  <td id="cpf"> {{ $passagem['cpf'] }} </td>                  
                   <td> {{ $passagem['codigo'] }} </td>                  
                   <td> {{ $passagem['cidade_partida'] }} </td>                  
                   <td> {{ $passagem['data_partida'] }} <br> {{ $passagem['horario_partida']}}</td>                  

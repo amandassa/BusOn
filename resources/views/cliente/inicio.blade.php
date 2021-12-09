@@ -41,7 +41,7 @@
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="col-sm-5">
-                                    <label for="cidade_partida">Cidade de Partida:</label><br>
+                                    <label for="cidade_partida">Partida:</label><br>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1" style="background-color:#F9C536;"><i class="fas fa-location-arrow" style="color:black;"></i></span>
@@ -56,7 +56,7 @@
                             </div>
                             <div class ="row justify-content-center"> 
                                 <div class="col-5">
-                                    <label for="cidade_chegada">Cidade de Chegada: </label>
+                                    <label for="cidade_chegada">Destino: </label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1" style="background-color:black;"><i class="fas fa-location-arrow" style="color:#F9C536;"></i></span>
@@ -70,6 +70,7 @@
                                     <div class="checkbox-group" required>
                                         <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" id="tipoLinha_op1" value="0" checked>
                                         <label class="form-check-label" for="tipoLinha_op1">Linha Comum</label>
+                                        <br>
                                         <input class="form-check form-check-inline" type="checkbox" name="tipoLinha_op2" id="tipoLinha_op2" value="1" checked>
                                         <label class="form-check-label" for="tipoLinha_op2">Linha Direta</label>
                                     </div>
