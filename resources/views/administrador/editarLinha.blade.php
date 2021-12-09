@@ -53,11 +53,11 @@
                         <input type="text" class="form-control" id="codigoLinha" name = "codigo" value="{{$linhas['codigo']}}" readonly  > 
                     </div>
                     <div class="form-group">
-                        <label for="cidadePartida">Cidade Origem: </label>
+                        <label for="cidadePartida">Partida: </label>
                         <input type="text" class="form-control" id="cidadePartida" name = "partida" value="{{$linhas['partida']}}" disabled> 
                     </div>
                     <div class="form-group">
-                        <label for="cidadeDestino">Cidade Destino: </label>
+                        <label for="cidadeDestino">Destino: </label>
                         <input type="text" class="form-control" id="cidadeDestino" name = "destino"  value="{{$linhas['destino']}}" disabled> 
                     </div>
                     <div class="form-group">

@@ -187,8 +187,8 @@
                         <thead>
                         <tr>
                           <th scope="col">Código</th>
-                          <th scope="col">Cidade de Origem</th>
-                          <th scope="col">Cidade de Destino</th>
+                          <th scope="col">Partida</th>
+                          <th scope="col">Destino</th>
                           <th scope="col">Preço</th>
                           <th scope="col">Tipo</th>
                           <th data-orderable= "false" scope="col"> Ação</th>

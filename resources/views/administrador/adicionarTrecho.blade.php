@@ -31,11 +31,11 @@
             <div id="top_portion">
                 
                 <div class="line_info">
-                    <p class="line_info_title">Cidade de origem:</p>
+                    <p class="line_info_title">Partida:</p>
                     <input type="text" class="line_info_sub" name="origem">
                 </div>
                 <div class="line_info">
-                    <p class="line_info_title">Cidade de destino:</p>
+                    <p class="line_info_title">Destino:</p>
                     <input type="text" class="line_info_sub" name="destino">
                 </div>
                 <div class="line_info">

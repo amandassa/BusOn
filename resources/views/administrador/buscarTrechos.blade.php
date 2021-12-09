@@ -56,8 +56,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">Código</th>
-                                <th scope="col">Cidade de Origem</th>
-                                <th scope="col">Cidade de Destino</th>
+                                <th scope="col">Partida</th>
+                                <th scope="col">Destino</th>
                                 <th scope="col">Preço</th>
                                 <th scope="col">Duração de viagem</th>
                                 <th scope="col">Selecionar</th>
@@ -90,11 +90,11 @@
                             <input type="text" class="line_info_sub" name="codigo">
                         </div>
                         <div class="line_info">
-                            <p class="line_info_title">Cidade de origem:</p>
+                            <p class="line_info_title">Partida:</p>
                             <input type="text" class="line_info_sub" name="origem">
                         </div>
                         <div class="line_info">
-                            <p class="line_info_title">Cidade de destino:</p>
+                            <p class="line_info_title">Destino:</p>
                             <input type="text" class="line_info_sub" name="destino">
                         </div>
                         <div class="line_info">
