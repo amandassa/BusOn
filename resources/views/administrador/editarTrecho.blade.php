@@ -108,8 +108,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">Código</th>
-                                <th scope="col">Cidade de Origem</th>
-                                <th scope="col">Cidade de Destino</th>
+                                <th scope="col">Partida</th>
+                                <th scope="col">Destino</th>
                                 <th scope="col">Preço</th>
                                 <th scope="col">Duração de viagem</th>
                                 <th scope="col">Editar</th>
@@ -191,8 +191,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">Código</th>
-                                <th scope="col">Cidade de Origem</th>
-                                <th scope="col">Cidade de Destino</th>
+                                <th scope="col">Partida</th>
+                                <th scope="col">Destino</th>
                                 <th scope="col">Preço</th>
                                 <th scope="col">Duração de viagem</th>
                                 @if(auth('funcionario')->user()->is_admin == 1)               
@@ -259,23 +259,23 @@
                     </div>
                     @if(auth('funcionario')->user()->is_admin == 0)               
                     <div class="form-group">
-                        <label for="cidadePartida">Cidade Origem: </label>
+                        <label for="cidadePartida">Partida: </label>
                         <input type="text" class="form-control" id="cidadePartida" name = "partida" value="" readonly> 
                     </div>
                     @else
                     <div class="form-group">
-                        <label for="cidadePartida">Cidade Origem: </label>
+                        <label for="cidadePartida">Destino: </label>
                         <input type="text" class="form-control" id="cidadePartida" name = "partida" value="" > 
                     </div>
                     @endif
                     @if(auth('funcionario')->user()->is_admin == 0)               
                     <div class="form-group">
-                        <label for="cidadeDestino">Cidade Destino: </label>
+                        <label for="cidadeDestino">Destino: </label>
                         <input type="text" class="form-control" id="cidadeDestino"  name = "destino"  value=""  readonly> 
                     </div>
                     @else
                     <div class="form-group">
-                        <label for="cidadeDestino">Cidade Destino: </label>
+                        <label for="cidadeDestino">Destino: </label>
                         <input type="text" class="form-control" id="cidadeDestino"  name = "destino"  value=""> 
                     </div> 
                     @endif

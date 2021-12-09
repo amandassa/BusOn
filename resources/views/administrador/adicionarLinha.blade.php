@@ -41,11 +41,11 @@
 
             <div id="top_portion">
                 <div class="line_info">
-                    <p class="line_info_title">Cidade de origem:</p>
+                    <p class="line_info_title">Partida:</p>
                     <p class="line_info_sub">{{ $origem }}</p>
                 </div>
                 <div class="line_info">
-                    <p class="line_info_title">Cidade de destino:</p>
+                    <p class="line_info_title">Destino:</p>
                     <p class="line_info_sub">{{ $destino }}</p>
                 </div>
                 <div class="line_info">
@@ -85,7 +85,7 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Origem</th>
+                            <th>Partida</th>
                             <th>Destino</th>
                             <th>Preço do trecho</th>
                         </tr>

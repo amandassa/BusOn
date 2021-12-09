@@ -45,10 +45,10 @@
                         <table class="table table-hover tabela" style="text-align: center">
                             <thead>
                                 <tr>
-                                    <th scope="col">Origem</th>
+                                    <th scope="col">Partida</th>
                                     <th scope="col">Destino</th>
-                                    <th scope="col">Data de partida <br> Horario de partida</th>
-                                    <th scope="col">Data de chegada <br> Horario de chegada</th>
+                                    <th scope="col">Data|Hora<br>Partida</th>
+                                    <th scope="col">Data|Hora<br>Destino</th>
                                     <th scope="col">Preço</th>
                                     <th scope="col">Tipo</th>
                                     <th data-orderable="false" scope="col"></th>

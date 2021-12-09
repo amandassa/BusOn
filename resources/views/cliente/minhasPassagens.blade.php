@@ -42,8 +42,8 @@
                         <thead>
                             <tr>
                                 <td  scope="col" class="">Código</td>
-                                <td  scope="col" class="">Cidade de Origem</td>
-                                <td  scope="col" class="">Cidade de Destino</td>
+                                <td  scope="col" class="">Partida</td>
+                                <td  scope="col" class="">Destino</td>
                                 <td  scope="col" class="">Nº de Assento</td>
                                 <td  scope="col" class="">Data de Partida</td>
                             </tr>
