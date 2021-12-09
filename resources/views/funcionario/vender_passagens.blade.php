@@ -235,7 +235,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="textoPreto" for="chegadaInput">Chegada:</label>
+                                <label class="textoPreto" for="chegadaInput">Destino:</label>
                                 <input type="text" class="form-control form-control-sm" id="chegadaInput" name="cidade_destino" value="{{ old('cidade_destino') }}" required>
                                 <div class="invalid-feedback" style="font-size: small">
                                     Digite o destino!
@@ -336,11 +336,11 @@
                         <thead>
                           <tr>
                             <th scope="col">Código</th>
-                            <th scope="col">Origem</th>
+                            <th scope="col">Partida</th>
                             <th scope="col">Destino</th>
                             <th scope="col">Saída</th>
                             <th scope="col">Preço</th>
-                            <th scope="col">Classe</th>
+                            <th scope="col">Tipo</th>
                             <th data-orderable="false" scope="col"></th>
                           </tr>
                         </thead>

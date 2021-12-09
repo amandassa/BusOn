@@ -45,7 +45,7 @@ class Funcionario extends Authenticatable {
 
 
     public static function index(){
-        $cpflogado = Auth::guard('funcionario')->user()->cpf;
+        $cpflogado = Auth::guard('funcionario')->user()['cpf'];
 
         $usuario = DB::select("select * from funcionario where cpf = ?", [$cpflogado])[0];
 
@@ -73,7 +73,7 @@ class Funcionario extends Authenticatable {
 
     public static function editar(Request $request){
 
-            $cpflogado = (Auth::guard('funcionario')->user()->cpf);
+            $cpflogado = (Auth::guard('funcionario')->user()['cpf']);
             $usuario = DB::select("select * from funcionario where cpf = ?", [$cpflogado])[0];
 
             $cpf = $usuario->cpf;
