@@ -258,10 +258,7 @@ class AdministradorController extends Controller
            ob_clean();
            flush();           
            readfile($file_name);
-           unlink($file_name);
-           $headers = [
-            'Content-Disposition' => sprintf('attachment; filename="%s"', 'backup.sql'),
-        ];
+           exit;
     
         return response()->make($output, 200, $headers);
     }
