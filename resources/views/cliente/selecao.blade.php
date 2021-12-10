@@ -22,20 +22,6 @@
     </div>
 
     <div class="row justify-content-center">
-        @isset($erros)
-            @if(count($erros) > 0)    
-            <div class="col-6 alert alert-danger alert-dismissable" style="margin:10px;">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <ul>                
-                    @foreach ($erros as $erro)
-                    <li>{{ $erro }}</li>
-                    @endforeach
-                </ul>        
-            </div>        
-            @endif
-        @endisset        
-    </div>
-    <div class="row justify-content-center">
         <div class="col-8">
             <div class="card">            
                 <div class="card-body">                

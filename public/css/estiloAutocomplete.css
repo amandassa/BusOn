@@ -49,4 +49,14 @@
     position: absolute;
     width: 1px;
   }
+
+  #btn_inverter_icon{
+    font-size: 2em;
+    border-radius: 50%;
+    background: black;
+    color: #F9C536;
+    display: flex;
+    justify-content: center;
+    align-items: center
+  }
   
