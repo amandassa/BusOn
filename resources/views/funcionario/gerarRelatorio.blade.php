@@ -26,7 +26,7 @@
 
   $(document).ready(function(){
     $(window).on("load", function(){
-      $("#cpf").mask('999.999.999-99') //máscara cpf
+      $(".cpf").mask('999.999.999-99') //máscara cpf
     });        
 
   $('#gerarRelatorio').DataTable( {
@@ -109,7 +109,7 @@
               <tr>
                 <th scope="row"> {{ $passagem['num_assento'] }} </th>                  
                   <td> {{ $passagem['nome'] }} </td>
-                  <td id="cpf"> {{ $passagem['cpf'] }} </td>                  
+                  <td> <p class="cpf">{{ $passagem['cpf'] }}</p> </td>                  
                   <td> {{ $passagem['codigo'] }} </td>                  
                   <td> {{ $passagem['cidade_partida'] }} </td>                  
                   <td> {{ $passagem['data_partida'] }} <br> {{ $passagem['horario_partida']}}</td>                  
