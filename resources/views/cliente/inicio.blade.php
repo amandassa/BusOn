@@ -60,55 +60,44 @@
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="{{route('selecao')}}" class="form">
-                    @csrf
+                        @csrf
                         <div class="row justify-content-center">
-                            <div class="col-sm-5">
-                                <label for="cidade_partida">Partida:</label><br>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1" style="background-color:#F9C536;"><i class="fas fa-map-marker-alt" style="color:black;"></i></span>
+                                <div class="col-sm-5">
+                                    <label for="cidade_partida">Cidade de Partida:</label><br>                                    
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" style="background-color:#F9C536;"><i class="fas fa-location-arrow" style="color:black;"></i></span>
+                                        </div>
+                                            <input class="form-control" type="text" placeholder="" name="cidade_partida" id="cidade_partida" required>
+                                    </div>                                    
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="data_partida">Data de partida:</label>
+                                    <input class="form-control" type="date" name="data_partida" min="<?php echo date("Y-m-d")?>" value="<?php echo date("Y-m-d")?>" id="dataPartida" required> 
+                                </div>
+                            </div>
+                            <div class ="row justify-content-center"> 
+                                <div class="col-5">
+                                    <label for="cidade_chegada">Cidade de Destino: </label>                                    
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" style="background-color:black;"><i class="fas fa-location-arrow" style="color:#F9C536;"></i></span>
+                                        </div>
+                                        <input class="form-control" type="text" placeholder="" name="cidade_destino" id="cidade_destino" required>                                        
+                                    </div>                                    
+                                    
+                                </div>
+                                <div class="col-4 ">
+                                    <label for="tipo_linha">Tipo de Linha:</label><br>
+                                    <div class="checkbox-group" required>
+                                        <input class="form-check form-check-inline" style="margin-right:1em;" type="checkbox" name="tipoLinha_op1" id="tipoLinha_op1" value="0" checked>
+                                        <label class="form-check-label" for="tipoLinha_op1">Linha Comum</label>
+                                        <br>
+                                        <input class="form-check form-check-inline" type="checkbox" name="tipoLinha_op2" id="tipoLinha_op2" value="1" checked>
+                                        <label class="form-check-label" for="tipoLinha_op2">Linha Direta</label>
                                     </div>
-                                        <input class="form-control" type="text" placeholder="" name="cidade_partida" id="cidade_partida" required>
-                                </div>                                    
+                                </div>
                             </div>
-
-                            <button type="button" onClick="inverter_cidades()" style="border: none; 
-                                                                                    background-color: transparent;">
-                                <span class="material-icons" id="btn_inverter_icon">loop
-                                </span>
-                            </button>
-
-                            <div class="col-sm-5">
-                                <label for="cidade_chegada">Destino: </label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1" style="background-color:#F9C536;"><i class="fas fa-location-arrow" style="color:black;"></i></span>
-                                    </div>
-                                    <input class="form-control" type="text" placeholder="" name="cidade_destino" id="cidade_destino" required>                                        
-                                </div>                                    
-                                
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-sm-3">
-                                <label for="data_partida">Data de partida:</label>
-                                <input class="form-control" type="date" name="data_partida" min="<?php echo date("Y-m-d")?>" value="<?php echo date("Y-m-d")?>" id="dataPartida" required> 
-                            </div>
-                        </div>
-                        
-                        <br>
-
-                        <div class="row-center text-center">
-                            <div class="form-check form-check-inline" required>
-                                <input class="form-check-input" type="checkbox" name="tipoLinha_op1" id="tipoLinha_op1" value="0" checked>
-                                <label class="form-check-label" for="tipoLinha_op1">Linha Comum</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="tipoLinha_op2" id="tipoLinha_op2" value="1" checked>
-                                <label class="form-check-label" for="tipoLinha_op2">Linha Direta</label>
-                            </div>  
-                        </div>
-                        
                         <br>
                         <div class="row justify-content-center">
                             <p class="text-center"><button class="botao botaoAmarelo" name="buscarLinhas" value="buscarLinhas" id="buscarLinhas">Buscar</button></p>                        
