@@ -24,19 +24,32 @@
     <div class="container" style="flex-grow: 3;">    
     <div class="row justify-content-center">                
         <div class="col-sm-6"> 
-        @if(Session::has('message'))
-            <div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <strong>{{session('message')}}</strong>
-            </div>
-        @endif    
-
-        @if(Session::has('error'))
-        <div class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <strong>{{session('error')}}</strong>
-        </div>
-        @endif
+            @if ($errors->any()) 
+                <div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li><strong>{{ $error }}</strong></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul>
+                        <li><strong>{{session ('success')}}</strong></li>
+                    </ul>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul>
+                        <li><strong>{{session ('error')}}</strong></li>
+                    </ul>
+                </div>
+            @endif
     
     
         
