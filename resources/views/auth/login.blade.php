@@ -91,7 +91,16 @@
 
                     <div class="form-group row justify-content-center align-items-center" style="margin-bottom:0;">
                         <div class="col-md-8 input-group">
-                            <a href="{{ route('password.request')}}" style="color:#1C5576;">
+                            @php
+                                $endereco = explode("/", $_SERVER["REQUEST_URI"]);     
+                                if(sizeof($endereco)== 3) {     
+                                   $rota = "recuperarAcessoFuncionarioView";
+                                }
+                                else { 
+                                    $rota = "recuperarAcessoClienteView";
+                                }
+                            @endphp
+                            <a href="{{ route($rota)}}" style="color:#1C5576;">
                                                 {{ __('Esqueceu a sua senha?') }}</a>
                     </div></div>
                         <!-- Controla o aparecimento do campo 'Cadastra-se'-->
