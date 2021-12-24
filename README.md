@@ -1,3 +1,4 @@
+
 <p align="center"><img src="https://github.com/amandassa/BusOn/blob/Sistema/public/imagens/BusOn.png?raw=true" width="400"></p>
 
 
@@ -15,157 +16,28 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/amandassa/BusOn?style=for-the-badge)
 ![](https://img.shields.io/github/directory-file-count/amandassa/BusOn?style=for-the-badge)
 
-# Mínimo Produto Viável (MVP) 05/11:
-- [X] Se conectar com um SGBD;
-- [X] Executar frases SQL com o SGBD;
-- [X] O módulo de controle e cadastro de usuário pelo administrador deve ser funcional;
-- [X] Todas as telas precisam estar codificadas/elaboradas (25/25);
+# BusOn
 
-# Front-end & Back-end
+Uma plataforma completa que permite a compra e venda de passagens e gerenciamento de negócio para companhias rodoviárias.
+## Com o BusOn:
 
-## Listagem das Telas
+ - Clientes compram passagens de forma fácil e simplificada
+ - Passagens compradas anteriormente são facilmente encontradas no ambiente do cliente
+ - Usuários podem recuperar o acesso à plataforma de forma segura
+ - Vendas realizadas pelo guichê também são contabilizadas e gerenciadas
+ - Ambiente administrativo detalhado e fácil de usar
+ - Desempenho de linhas vendidas e funcionários podem ser acessados em relatórios gerados automaticamente
+ - Segurança dos dados de negócio garantida por backups automáticos
 
-### 1. Cliente (2/9):
-**1.0. Recuperação de acesso de cliente:**
-- [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Everton)
+## Equipe Sertão-Code
 
-**1.1. Tela inicial de cliente:**
-- [X] Front (Responsável: Andreza)
-- [ ] Back
+- [@amandassa](https://github.com/amandassa)
+- [@andersonlima7](https://github.com/andersonlima7)
+- [@AndrezaNobrega](https://github.com/AndrezaNobrega)
+- [@antonyaraujo](https://github.com/antonyaraujo)
+- [@evertonbrunosds](https://github.com/evertonbrunosds)
+- [@Helmeppun](https://github.com/Helmeppun)
+- [@israelbraitt](https://github.com/israelbraitt)
+- [@lucasxgb](https://github.com/lucasxgb)
+- [@OzenilsonAlisson](https://github.com/OzenilsonAlisson)
 
-**1.2. Login de usuários no sistema:**
-- [X] Front (Responsáveis: Everton)
-- [X] Back (Responsável: Antony)
-
-**1.3. Cadastro de clientes no sistema:**
-- [X] Front (Responsáveis: Everton)
-- [X] Back (Responsável: Antony) 
-
-**1.4. Visualização da agenda das passagens:**
-- [X] Front (Responsáveis: Lucas/Israel)
-- [ ] Back
-
-**1.5. Seleção do método de pagamento:**
-- [X] Front (Responsável: Antony)
-- [ ] Back
-
-**1.6. Confirmação:**
-- [X] Front (Responsável: Anderson)
-- [ ] Back
-
-**1.7. Consulta de passagens compradas:**
-- [X] Front (Responsável: Ozenilson)
-- [X] Back (Responsável: Everton)
-
-**1.8. Editar Perfil:**
-- [X] Front (Responsável: Everton)
-- [ ] Back (Responsável: Lucas)
-
-### 2. Funcionarios (1/7):
-**1.0. Recuperação de acesso de funcionário:**
-- [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Everton)
-
-**2.1. Tela inicial de funcionário:**
-<i>Com dados dos relatórios</i>
-- [X] Front (Responsável: Ozenilson)
-- [X] Back (Responsável: Ozy)
-
-**2.2. Consulta de Linhas:**
-<i>Ttabela contendo todas as linhas/trechos</i>
-- [X] Front (Responsável: Antony)
-- [X] Back (Responsável: Antony e Amanda) -> ampliar busca
-
-**2.3. Tela de Venda:**
-- [X] Front
-- [X] Back
-
-**2.4. Tela de relatórios (relatórios de passageiros em uma viagem/linha):**
-- [x] Front (Responsável Andreza)
-- [X] Back
-
-**2.5. Tela de alteração de valor/mudança de agenda:**
-- [X] Front
-- [ ] Back
-
-**2.6.Editar Perfil:**
-- [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Lucas)
-
-### 3. Administrador (2/12):
-**3.0. Recuperação de acesso de administrador:**
-- [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Everton)
-
-**3.1. Tela inicial do administrador:**
-- [X] Front (Responsável: Ozenilson)
-- [X] Back (Responsável: Ozy)
-
-**3.2. Tela de cadastro de linha:**
-- [X] Front (Responsável: Guilherme)
-- [ ] Back (Responsável: Guilherme)
-
-**3.3. Tela de consulta das linhas:**
-- [X] Front (Responsável: Antony)
-- [X] Back (Responsável: Antony e Amanda)
-
-**3.4. Tela de edição das linhas:**
-- [ ] Front
-- [ ] Back (Responsável: Lucas e Amanda)
-
-**3.5. Tela de cadastro de funcionários no sistema:**
-- [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Everton)
-
-**3.6. Tela de alteração de dados dos funcionários no sistema:**
-- [X] Front Front (Responsável: Everton)
-- [X] Back (Responsável: Lucas e Ozy)
-
-**3.7. Tela de geração de relatórios (logs):**
-- [X] Front (Responsável: Ozenilson)
-- [ ] Back
-
-**3.8. Tela de listagem dos usuários:**
-- [X] Front (Responsáveis: Lucas e Israel)
-- [ ] Back (Responsável: Ozy)
-
-**3.9. Editar Perfil:**
-- [X] Front (Responsável: Everton)
-- [X] Back (Responsável: Lucas)
-
-**3.10. Edição de trechos:**
-- [ ] Front (Responsável: Guilherme)
-- [ ] Back (Responsável: Guilherme)
-
-**3.11. Cadastro de trechos:**
-- [ ] Front (Responsável: Guilherme)
-- [ ] Back (Responsável: Guilherme)
-
-## Banco de Dados</h2>
-
-### MySQL
-
-- [X] Construção das Tabelas;
-- [X] Povoamento do Banco de Dados: Cliente;
-- [X] Povoamento do Banco de Dados: Funcionário;
-- [X] Povoamento do Banco de Dados: Trecho;
-- [X] Povoamento do Banco de Dados: Outros (listar melhor);
-- [ ] Criação das requisições relacionadas a Cliente;
-- [ ] Criação das requisições relacionadas a Funcionário;
-- [ ] Criação das requisições relacionadas a Administrador;
-
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/amandassa/BusOn/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
