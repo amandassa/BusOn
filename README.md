@@ -39,6 +39,6 @@ Uma plataforma completa que permite a compra e venda de passagens e gerenciament
 - [@Helmeppun](https://github.com/Helmeppun)
 - [@israelbraitt](https://github.com/israelbraitt)
 - [@lucasxgb](https://github.com/lucasxgb)
-- [@OzenilsonAlisson](https://github.com/OzenilsonAlisson)
+- [@OzenilsonAlisson](https://github.com/ozenilsoncruz)
 
 <p align="center"><img src="https://github.com/amandassa/BusOn/blob/Sistema/public/imagens/SertaoCode.png?raw=true" width="400"></p>
